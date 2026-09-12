@@ -13,6 +13,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="./image-slot.js"></script>
 <style>
+  /* Pages flush: kill Design canvas letterbox / white frame */
+  html,body{margin:0!important;padding:0!important;border:0!important;background:#f2e9d8!important;min-height:100%;height:auto!important;overflow-x:clip}
+  #dc-root,#dc-root>.sc-host{margin:0!important;padding:0!important;border:0!important;outline:none!important;box-shadow:none!important;min-height:100%;height:auto!important;background:#f2e9d8!important;max-width:none!important;width:100%!important}
+  #dc-root>.sc-host>*{max-width:none}
   *{box-sizing:border-box}
   .lm{
     --sand:#f2e9d8; --surface:#fbf5ea; --surface-2:#f5edde; --card:#fdf9f1;
@@ -92,7 +96,8 @@
   /* hero video stage */
   .hero-media{position:absolute;inset:0;z-index:0;overflow:hidden}
   .hero-media > image-slot{position:absolute;inset:0;width:100%;height:100%}
-  .hero-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;animation:lm-kenburns 26s ease-in-out infinite alternate}
+  .hero-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;background:#061a1c}
+  .hero-media > image-slot{z-index:0;opacity:0;pointer-events:none} /* poster behind; empty slot must not cover video */
   .hero-vig{position:absolute;inset:0;z-index:2;pointer-events:none;
     background:
       linear-gradient(93deg,rgba(5,22,24,.96) 0%,rgba(5,22,24,.86) 34%,rgba(5,22,24,.5) 60%,rgba(5,22,24,.4) 82%,rgba(5,22,24,.6) 100%),
@@ -159,7 +164,7 @@
   @media (prefers-reduced-motion:reduce){
     .reveal,.para,.marq-track,.drive,.hero-vid,.pin-ring,.map-pin .ring,.hero-sun svg,.scrollcue span.dot::after{animation:none;opacity:1;transform:none}
     .ly-line{animation:none;stroke-dashoffset:0}
-    .hero-vid{display:none}
+    /* keep hero video visible on Pages; only disable motion effects */
     #expPin{height:auto}
     #expPin .pinSticky{position:relative;height:auto;display:block}
     #expPin .pinTrack{width:auto;flex-direction:column;height:auto;animation:none;padding:0}
@@ -230,7 +235,7 @@
   <header id="top" style="position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;background:var(--ink)">
     <div class="hero-media">
       <image-slot id="lm-hero-poster" shape="rect" placeholder="HERO VIDEO POSTER — first frame of the cinematic Starex montage (also the reduced-motion fallback still)"></image-slot>
-      <video class="hero-vid" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+      <video class="hero-vid" autoplay muted loop playsinline webkit-playsinline disableRemotePlayback preload="auto" aria-hidden="true">
         <source src="media/hero-starex-loop.mp4" type="video/mp4">
       </video>
       <div class="hero-vig"></div>
@@ -1070,10 +1075,29 @@ class Component extends DCLogic {
   componentDidMount(){
     this.injectVan();
     this.injectTrust();
+    this.kickHeroVideo();
     document.addEventListener('click', this._outside = (e)=>{
       if(this.state.langOpen && !e.target.closest('.langbtn') && !e.target.closest('.langmenu')) this.setState({langOpen:false});
     });
     document.addEventListener('keydown', this._esc = (e)=>{ if(e.key==='Escape' && this.state.modal) this.setState({modal:null}); });
+  }
+  kickHeroVideo(){
+    const v = document.querySelector('.lm video.hero-vid');
+    if(!v) return;
+    v.muted = true;
+    v.defaultMuted = true;
+    v.playsInline = true;
+    v.setAttribute('playsinline','');
+    v.setAttribute('webkit-playsinline','');
+    const go = ()=>{ try{ const p=v.play(); if(p&&p.catch) p.catch(()=>{}); }catch(e){} };
+    go();
+    v.addEventListener('canplay', go, {once:false});
+    v.addEventListener('loadeddata', go, {once:true});
+    document.addEventListener('visibilitychange', ()=>{ if(!document.hidden) go(); });
+    // one user-gesture fallback if autoplay is blocked
+    const unlock = ()=>{ go(); document.removeEventListener('pointerdown', unlock); document.removeEventListener('touchstart', unlock); };
+    document.addEventListener('pointerdown', unlock, {once:true});
+    document.addEventListener('touchstart', unlock, {once:true, passive:true});
   }
   componentWillUnmount(){ document.removeEventListener('click', this._outside); document.removeEventListener('keydown', this._esc); }
 
