@@ -43,6 +43,12 @@ html.ly-narrow .nav-toggle{display:inline-grid!important}
 html.ly-narrow .ly-nav-inner{display:flex!important;justify-content:space-between!important;grid-template-columns:none!important;padding-left:max(14px, env(safe-area-inset-left, 0px))!important;padding-right:max(14px, env(safe-area-inset-right, 0px))!important}
 html.ly-narrow .ly-nav-actions{margin-left:auto!important}
 html.ly-narrow .ly-nav-actions .btn{padding:10px 14px!important;font-size:13px!important}
+
+/* Let page scroll when finger starts on photos (Design slots defaulted to touch-action:none) */
+image-slot{touch-action:pan-x pan-y!important;-webkit-user-drag:none}
+image-slot::part(image){touch-action:pan-x pan-y!important;-webkit-user-drag:none!important}
+.lm img,.lm video,.lm svg,.lm .expcard,.lm .dest-img,.lm .ph-frame,.lm .svc-feat .media{touch-action:pan-x pan-y!important;-webkit-user-drag:none}
+.dest-rail{touch-action:pan-x pan-y!important}
 </style>
 <script>
 (function(){try{function lyNav(){var n=(window.matchMedia&&window.matchMedia('(max-width:900px)').matches)||window.innerWidth<=900;document.documentElement.classList.toggle('ly-narrow',!!n);var nav=document.querySelector('nav[aria-label="Primary"]');if(nav){document.documentElement.style.setProperty('--ly-nav-h',Math.round(nav.getBoundingClientRect().bottom)+'px');}}lyNav();window.addEventListener('resize',lyNav);window.addEventListener('scroll',lyNav,{passive:true});}catch(e){}})();
@@ -74,7 +80,7 @@ html.ly-narrow .ly-nav-actions .btn{padding:10px 14px!important;font-size:13px!i
     position:relative;overflow-x:clip;-webkit-font-smoothing:antialiased;line-height:1.5;
     -webkit-user-select:none;user-select:none;-webkit-touch-callout:none
   }
-  .lm img, .lm image-slot, .lm video, .lm svg{-webkit-user-drag:none;user-drag:none}
+  .lm img, .lm image-slot, .lm video, .lm svg{-webkit-user-drag:none;user-drag:none;touch-action:pan-x pan-y}
   .lm input,.lm textarea,.lm select,.lm [contenteditable]{-webkit-user-select:text;user-select:text}
   .lm .disp{font-family:'Space Grotesk',sans-serif;font-weight:700;line-height:1.04;letter-spacing:-.02em;text-wrap:balance}
   .lm a{color:var(--teal-deep);text-decoration:none}
@@ -1234,9 +1240,10 @@ class Component extends DCLogic {
     window.addEventListener('resize', this._onResizeNav);
     window.addEventListener('scroll', this._onResizeNav, {passive:true});
     this.initDestCarousel();
-    // prevent image/media drag
+    // prevent image/media drag + keep Design image-slots from eating mobile scroll
     try{
-      document.querySelectorAll('.lm img, .lm video, .lm svg').forEach(el=>{ try{ el.setAttribute('draggable','false'); el.draggable=false; }catch(e){} });
+      document.querySelectorAll('image-slot').forEach(el=>{ try{ el.removeAttribute('data-editable'); el.style.touchAction='pan-x pan-y'; }catch(e){} });
+      document.querySelectorAll('.lm img, .lm video, .lm svg').forEach(el=>{ try{ el.setAttribute('draggable','false'); el.draggable=false; el.style.touchAction='pan-x pan-y'; }catch(e){} });
       document.addEventListener('dragstart', this._noDrag = (e)=>{
         const t = e.target;
         if(!t || !t.closest || !t.closest('.lm')) return;
