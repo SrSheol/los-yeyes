@@ -88,14 +88,16 @@
   .dest-prev:active,.dest-next:active{transform:translateY(1px);box-shadow:var(--inset-sm)}
 
   /* mobile nav */
-  .nav-toggle{display:none;width:44px;height:44px;border-radius:14px;border:0;cursor:pointer;background:var(--surface);box-shadow:var(--raise);align-items:center;justify-content:center;padding:0;color:var(--ink);flex:0 0 auto}
+  .navlinks{display:flex;align-items:center;gap:24px}
+  .nav-toggle{display:none;width:44px;height:44px;border-radius:14px;border:0;cursor:pointer;background:var(--surface);box-shadow:var(--raise);place-items:center;padding:0;color:var(--ink);flex:0 0 auto}
   .nav-toggle span,.nav-toggle span::before,.nav-toggle span::after{display:block;width:20px;height:2px;background:currentColor;border-radius:2px;position:relative;transition:transform .2s ease,opacity .2s}
   .nav-toggle span::before,.nav-toggle span::after{content:"";position:absolute;left:0}
   .nav-toggle span::before{top:-6px}.nav-toggle span::after{top:6px}
   .nav-toggle[aria-expanded="true"] span{background:transparent}
   .nav-toggle[aria-expanded="true"] span::before{top:0;transform:rotate(45deg)}
   .nav-toggle[aria-expanded="true"] span::after{top:0;transform:rotate(-45deg)}
-  .nav-drawer{display:none;position:fixed;inset:0;z-index:110;background:rgba(6,26,28,.45);backdrop-filter:blur(4px)}
+  .nav-drawer{display:none !important;position:fixed;inset:0;z-index:110;background:rgba(6,26,28,.45);backdrop-filter:blur(4px)}
+  .nav-drawer[data-open="true"]{display:block !important}
   .nav-drawer-panel{position:absolute;top:0;left:0;bottom:0;width:min(320px,86vw);background:var(--card);box-shadow:var(--raise-lg);padding:88px 22px 28px;display:flex;flex-direction:column;gap:6px;overflow:auto}
   .nav-drawer a{display:block;padding:14px 16px;border-radius:14px;color:var(--ink);font-weight:700;font-size:17px}
   .nav-drawer a:hover{background:var(--surface);color:var(--teal-deep)}
@@ -209,8 +211,9 @@
     .lm .tl{grid-template-columns:1fr 1fr;gap:30px 0}
     .lm .tl-step::before{display:none}
     .lm .foot-grid{grid-template-columns:1fr 1fr !important}
-    .lm .navlinks{display:none}
-    .lm .nav-toggle{display:inline-grid}
+    .lm .navlinks{display:none !important}
+    .lm .nav-toggle{display:inline-grid !important}
+    .lm nav .btn{padding:10px 14px;font-size:13px}
     .lm .map-pin .tip{display:none}
     .lm .map-pin{width:18px;height:18px}
     .lm .map-pin[data-hub="true"]{width:22px;height:22px}
@@ -234,7 +237,7 @@
           <span style="font-size:9.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);font-weight:700">Transportes · RD</span>
         </span>
       </a>
-      <div style="display:flex;align-items:center;gap:24px" class="navlinks">
+      <div class="navlinks">
         <a href="#services" style="color:var(--ink);font-weight:600;font-size:15px">{{ t.navServices }}</a>
         <a href="#prices" style="color:var(--ink);font-weight:600;font-size:15px">{{ t.navPrices }}</a>
         <a href="#map" style="color:var(--ink);font-weight:600;font-size:15px">{{ t.navZones }}</a>
@@ -258,7 +261,7 @@
         <a class="btn" href="#book" style="padding:12px 22px">{{ t.book }}</a>
       </div>
     </div>
-    <div class="nav-drawer" id="ly-nav-drawer" style="display:{{ navDrawerDisplay }}" onClick="{{ closeNav }}">
+    <div class="nav-drawer" id="ly-nav-drawer" data-open="{{ navOpen }}" onClick="{{ closeNav }}">
       <div class="nav-drawer-panel" role="dialog" aria-label="Menu" onClick="{{ stop }}">
         <a href="#services" onClick="{{ closeNav }}">{{ t.navServices }}</a>
         <a href="#prices" onClick="{{ closeNav }}">{{ t.navPrices }}</a>
@@ -1335,7 +1338,7 @@ class Component extends DCLogic {
       cookieDisplay: this.state.cookie==='pending' ? 'flex' : 'none',
       cookieAccept:()=>{ this.writeCookieConsent('accepted'); this.setState({cookie:'accepted', modal:null}); },
       cookieReject:()=>{ this.writeCookieConsent('rejected'); this.setState({cookie:'rejected', modal:null}); },
-      navOpen: !!this.state.navOpen,
+      navOpen: this.state.navOpen ? 'true' : 'false',
       navDrawerDisplay: this.state.navOpen ? 'block' : 'none',
       toggleNav:(e)=>{ e&&e.stopPropagation&&e.stopPropagation(); this.setState({navOpen:!this.state.navOpen, langOpen:false}); },
       closeNav:(e)=>{ e&&e.stopPropagation&&e.stopPropagation(); this.setState({navOpen:false}); },
