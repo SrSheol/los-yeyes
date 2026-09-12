@@ -127,10 +127,10 @@ image-slot::part(image){touch-action:pan-x pan-y!important;-webkit-user-drag:non
   /* destinations carousel (replaces #expPin scroll-timeline) */
   #expPin{display:none !important}
   .dest-wrap{position:relative;padding:0 0 clamp(40px,6vw,72px)}
-  .dest-rail{display:flex;gap:28px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:18px clamp(16px,4vw,44px) 28px;scroll-behavior:smooth;cursor:grab;scrollbar-width:none;-ms-overflow-style:none}
+  .dest-rail{display:flex;gap:28px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-padding-inline:max(16px, calc(50% - clamp(140px,36vw,210px)));-webkit-overflow-scrolling:touch;padding:18px max(16px, calc(50% - clamp(140px,36vw,210px))) 28px;scroll-behavior:smooth;cursor:grab;scrollbar-width:none;-ms-overflow-style:none}
   .dest-rail::-webkit-scrollbar{display:none}
   .dest-rail.is-dragging{cursor:grabbing;scroll-behavior:auto;user-select:none}
-  .dest-rail .expcard{flex:0 0 clamp(280px,72vw,420px);scroll-snap-align:start;height:clamp(380px,58vh,520px);overflow:hidden;position:relative;display:flex;flex-direction:column;justify-content:flex-end}
+  .dest-rail .expcard{flex:0 0 clamp(280px,72vw,420px);scroll-snap-align:center;scroll-snap-stop:always;height:clamp(380px,58vh,520px);overflow:hidden;position:relative;display:flex;flex-direction:column;justify-content:flex-end}
   .dest-nav{display:flex;gap:12px;justify-content:flex-end;padding:0 clamp(16px,4vw,44px);max-width:1320px;margin:0 auto}
   .dest-prev,.dest-next{width:48px;height:48px;border-radius:50%;border:0;cursor:pointer;background:var(--card);box-shadow:var(--raise);color:var(--teal-deep);font-size:22px;display:grid;place-items:center;font-family:'Space Grotesk';font-weight:700;transition:transform .14s ease}
   .dest-prev:hover,.dest-next:hover{transform:translateY(-2px)}
@@ -1224,9 +1224,20 @@ class Component extends DCLogic {
   destScroll(dir){
     const rail = document.getElementById('ly-dest-rail');
     if(!rail) return;
-    const card = rail.querySelector('.expcard');
-    const step = card ? (card.getBoundingClientRect().width + 28) : Math.max(280, rail.clientWidth*0.8);
-    rail.scrollBy({ left: dir * step, behavior: 'smooth' });
+    const cards = Array.prototype.slice.call(rail.querySelectorAll('.expcard'));
+    if(!cards.length) return;
+    const mid = rail.getBoundingClientRect().left + rail.clientWidth / 2;
+    let idx = 0, best = Infinity;
+    for(let i=0;i<cards.length;i++){
+      const r = cards[i].getBoundingClientRect();
+      const d = Math.abs((r.left + r.width/2) - mid);
+      if(d < best){ best = d; idx = i; }
+    }
+    const next = Math.max(0, Math.min(cards.length - 1, idx + (dir < 0 ? -1 : 1)));
+    const card = cards[next];
+    // center card in the rail viewport
+    const left = card.offsetLeft - (rail.clientWidth - card.offsetWidth) / 2;
+    rail.scrollTo({ left: Math.max(0, left), behavior: 'smooth' });
   }
 
   componentDidMount(){
