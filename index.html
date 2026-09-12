@@ -1138,11 +1138,11 @@ class Component extends DCLogic {
   curList = ['USD','DOP','EUR','CAD','GBP','MXN','BRL'];
 
   routes = [
-    {fromEn:'Punta Cana (PUJ)', toEn:'Bávaro', dur:'20–35 min', usd:35},
-    {fromEn:'Punta Cana (PUJ)', toEn:'Cap Cana', dur:'15–30 min', usd:30},
-    {fromEn:'Punta Cana (PUJ)', toEn:'Uvero Alto', dur:'35–50 min', usd:45},
-    {fromEn:'Punta Cana (PUJ)', toEn:'La Romana (LRM)', dur:'60–75 min', usd:80},
-    {fromEn:'Punta Cana (PUJ)', toEn:'Santo Domingo', dur:'2.5–3 h', usd:170},
+    {fromEn:'Punta Cana (PUJ)', toEn:'Bávaro', dur:'20–35 min', usd:34.99},
+    {fromEn:'Punta Cana (PUJ)', toEn:'Cap Cana', dur:'15–30 min', usd:29.99},
+    {fromEn:'Punta Cana (PUJ)', toEn:'Uvero Alto', dur:'35–50 min', usd:44.99},
+    {fromEn:'Punta Cana (PUJ)', toEn:'La Romana (LRM)', dur:'60–75 min', usd:79.99},
+    {fromEn:'Punta Cana (PUJ)', toEn:'Santo Domingo', dur:'2.5–3 h', usd:169.99},
   ];
 
   pinDefs = [
@@ -1364,8 +1364,13 @@ class Component extends DCLogic {
   fmt(usd){
     const cur = this.state.currency;
     let v = usd * this.rates[cur];
-    v = (cur==='DOP'||cur==='MXN') ? Math.round(v/10)*10 : Math.round(v);
-    return this.curSym[cur] + v.toLocaleString('en-US') + (cur==='USD'?'':' '+cur);
+    if(cur==='DOP'||cur==='MXN'){
+      v = Math.round(v/10)*10;
+      return this.curSym[cur] + v.toLocaleString('en-US') + ' ' + cur;
+    }
+    // keep cents (charm pricing e.g. 34.99)
+    v = Math.round(v * 100) / 100;
+    return this.curSym[cur] + v.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2}) + (cur==='USD'?'':' '+cur);
   }
 
   waNumber = '18090000000';
@@ -1399,7 +1404,7 @@ class Component extends DCLogic {
       curCode: this.state.currency,
       currencies: this.curList.map(c=>({ code:c, on: c===this.state.currency, pick: ()=>this.setState({currency:c}) })),
       pins: this.pinDefs.map(p=>({ name:p.name, x:p.x, y:p.y, hub:p.hub, color:p.color })),
-      prices: this.routes.map(r=>({ from:r.fromEn, to:r.toEn, dur:r.dur, one:this.fmt(r.usd), round:this.fmt(Math.round(r.usd*1.8/5)*5),
+      prices: this.routes.map(r=>({ from:r.fromEn, to:r.toEn, dur:r.dur, one:this.fmt(r.usd), round:this.fmt(Math.round(r.usd*1.8)-0.01),
         book: ()=>{ const es=this.state.lang==='es'; this.openWa((es?'¡Hola! Quiero reservar ':'Hi! I would like to book ')+r.fromEn+' → '+r.toEn+(es?'. ¿Precio y disponibilidad?':'. Price and availability?')); } })),
       mPrivacy: this.state.modal==='privacy'?'flex':'none',
       mCookies: this.state.modal==='cookies'?'flex':'none',
