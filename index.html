@@ -19,14 +19,14 @@ html,body{margin:0!important;padding:0!important;border:0!important;background:#
 .ly-nav-inner>a{flex:0 1 auto;min-width:0}
 .ly-nav-actions{display:flex;align-items:center;gap:8px;flex:0 0 auto;margin-left:auto;z-index:2}
 .ly-nav-actions .btn{flex:0 0 auto}
-/* Full-screen overlay + panel fixed to VIEWPORT (drawer is outside sticky nav) */
-.nav-drawer{display:none!important;position:fixed!important;top:0!important;left:0!important;right:0!important;bottom:0!important;width:100vw!important;height:100dvh!important;z-index:10000!important;background:rgba(6,26,28,.5)!important;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);margin:0!important;padding:0!important;box-sizing:border-box!important}
-.nav-drawer[data-open="true"]{display:block!important}
-.nav-drawer-panel{position:fixed!important;top:0!important;right:0!important;bottom:0!important;left:auto!important;width:min(340px, 88vw)!important;max-width:100%!important;height:100dvh!important;background:#fdf9f1!important;box-shadow:-16px 0 40px rgba(0,0,0,.22)!important;padding:max(24px, env(safe-area-inset-top, 0px)) 22px max(28px, env(safe-area-inset-bottom, 0px))!important;padding-top:calc(72px + env(safe-area-inset-top, 0px))!important;display:flex!important;flex-direction:column!important;gap:8px!important;overflow:auto!important;box-sizing:border-box!important;z-index:10001!important}
-.nav-drawer-panel a{display:block!important;padding:14px 16px!important;border-radius:14px!important;color:#16302f!important;font-weight:700!important;font-size:17px!important;text-decoration:none!important}
-.nav-drawer-panel a.btn{text-align:center!important;margin-top:12px!important;background:#0e8fa0!important;color:#fff!important}
-.nav-drawer-panel a:hover{background:#f5edde!important;color:#0b6c7a!important}
-.nav-drawer-panel a.btn:hover{background:#0b6c7a!important;color:#fff!important}
+/* Hamburger menu — same card pattern as .langmenu */
+.ly-menu-wrap{position:relative;flex:0 0 auto}
+.nav-drawer{display:none!important;position:absolute!important;top:calc(100% + 10px)!important;right:0!important;left:auto!important;bottom:auto!important;width:min(280px, calc(100vw - 32px))!important;height:auto!important;max-height:min(70vh, 480px)!important;overflow:auto!important;background:#fdf9f1!important;box-shadow:16px 16px 38px rgba(110,115,95,.28), -12px -12px 28px rgba(255,255,255,.95)!important;border-radius:18px!important;padding:12px!important;z-index:130!important;margin:0!important;flex-direction:column!important;gap:6px!important;box-sizing:border-box!important}
+.nav-drawer[data-open="true"]{display:flex!important}
+.nav-drawer .nav-opt{display:flex!important;align-items:center!important;gap:10px!important;padding:11px 14px!important;border-radius:12px!important;color:#16302f!important;font-weight:600!important;font-size:15px!important;text-decoration:none!important;background:transparent!important;border:0!important;text-align:left!important;width:100%!important;box-sizing:border-box!important}
+.nav-drawer .nav-opt:hover{background:#f5edde!important;color:#0b6c7a!important}
+.nav-drawer .nav-opt-cta{margin-top:4px!important;background:#0e8fa0!important;color:#fff!important;font-weight:700!important;justify-content:center!important}
+.nav-drawer .nav-opt-cta:hover{background:#0b6c7a!important;color:#fff!important}
 @media (max-width:900px){
   .navlinks{display:none!important}
   .nav-toggle{display:inline-grid!important}
@@ -134,11 +134,8 @@ html.ly-narrow .ly-nav-actions .btn{padding:10px 14px!important;font-size:13px!i
   .nav-toggle[aria-expanded="true"] span{background:transparent}
   .nav-toggle[aria-expanded="true"] span::before{top:0;transform:rotate(45deg)}
   .nav-toggle[aria-expanded="true"] span::after{top:0;transform:rotate(-45deg)}
-  .nav-drawer{display:none !important;position:fixed;inset:0;z-index:110;background:rgba(6,26,28,.45);backdrop-filter:blur(4px)}
-  .nav-drawer[data-open="true"]{display:block !important}
-  .nav-drawer-panel{position:absolute;top:0;left:0;bottom:0;width:min(320px,86vw);background:var(--card);box-shadow:var(--raise-lg);padding:88px 22px 28px;display:flex;flex-direction:column;gap:6px;overflow:auto}
-  .nav-drawer a{display:block;padding:14px 16px;border-radius:14px;color:var(--ink);font-weight:700;font-size:17px}
-  .nav-drawer a:hover{background:var(--surface);color:var(--teal-deep)}
+  /* hamburger dropdown styles live in #ly-flush (match .langmenu) */
+  .ly-menu-wrap{position:relative}
 
   /* decorative line-art */
   @keyframes ly-float{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-10px) rotate(1.5deg)}}
@@ -283,7 +280,18 @@ html.ly-narrow .ly-nav-actions .btn{padding:10px 14px!important;font-size:13px!i
         <a href="#faq" style="color:var(--ink);font-weight:600;font-size:15px">{{ t.navFaq }}</a>
       </div>
       <div class="ly-nav-actions">
-        <button class="nav-toggle" type="button" aria-label="Menu" aria-expanded="{{ navOpen }}" aria-controls="ly-nav-drawer" onClick="{{ toggleNav }}"><span></span></button>
+
+        <div class="ly-menu-wrap">
+          <button class="nav-toggle" type="button" aria-label="Menu" aria-expanded="{{ navOpen }}" aria-controls="ly-nav-drawer" aria-haspopup="true" onClick="{{ toggleNav }}"><span></span></button>
+          <div class="nav-drawer" id="ly-nav-drawer" role="menu" data-open="{{ navOpen }}">
+            <a href="#services" class="nav-opt" role="menuitem" onClick="{{ closeNav }}">{{ t.navServices }}</a>
+            <a href="#prices" class="nav-opt" role="menuitem" onClick="{{ closeNav }}">{{ t.navPrices }}</a>
+            <a href="#map" class="nav-opt" role="menuitem" onClick="{{ closeNav }}">{{ t.navZones }}</a>
+            <a href="#destinations" class="nav-opt" role="menuitem" onClick="{{ closeNav }}">{{ t.navDest }}</a>
+            <a href="#faq" class="nav-opt" role="menuitem" onClick="{{ closeNav }}">{{ t.navFaq }}</a>
+            <a href="#book" class="nav-opt nav-opt-cta" role="menuitem" onClick="{{ closeNav }}">{{ t.book }}</a>
+          </div>
+        </div>
         <div style="position:relative">
           <button class="langbtn chip" onClick="{{ toggleLang }}" aria-haspopup="true" aria-expanded="{{ langOpen }}" style="cursor:pointer;border:0">
             <span style="font-size:13px">🌐</span><span>{{ langCode }}</span><span style="font-size:9px">▾</span>
@@ -301,17 +309,6 @@ html.ly-narrow .ly-nav-actions .btn{padding:10px 14px!important;font-size:13px!i
     </div>
 
   </nav>
-
-  <div class="nav-drawer" id="ly-nav-drawer" data-open="{{ navOpen }}" onClick="{{ closeNav }}">
-      <div class="nav-drawer-panel" role="dialog" aria-label="Menu" onClick="{{ stop }}">
-        <a href="#services" onClick="{{ closeNav }}">{{ t.navServices }}</a>
-        <a href="#prices" onClick="{{ closeNav }}">{{ t.navPrices }}</a>
-        <a href="#map" onClick="{{ closeNav }}">{{ t.navZones }}</a>
-        <a href="#destinations" onClick="{{ closeNav }}">{{ t.navDest }}</a>
-        <a href="#faq" onClick="{{ closeNav }}">{{ t.navFaq }}</a>
-        <a href="#book" class="btn" style="margin-top:14px;text-align:center" onClick="{{ closeNav }}">{{ t.book }}</a>
-      </div>
-    </div>
 
   <main id="main">
 
@@ -1246,7 +1243,7 @@ class Component extends DCLogic {
     }catch(e){}
     document.addEventListener('click', this._outside = (e)=>{
       if(this.state.langOpen && !e.target.closest('.langbtn') && !e.target.closest('.langmenu')) this.setState({langOpen:false});
-      if(this.state.navOpen && !e.target.closest('.nav-toggle') && !e.target.closest('.nav-drawer-panel')) this.setState({navOpen:false});
+      if(this.state.navOpen && !e.target.closest('.ly-menu-wrap')) this.setState({navOpen:false});
     });
     document.addEventListener('keydown', this._esc = (e)=>{
       if(e.key==='Escape'){
@@ -1363,7 +1360,7 @@ class Component extends DCLogic {
       langOpen: this.state.langOpen,
       langCode: (this.langDefs.find(l=>l.key===cur)||{}).code || 'EN',
       langMenuDisplay: this.state.langOpen ? 'grid' : 'none',
-      toggleLang: (e)=>{ e&&e.stopPropagation&&e.stopPropagation(); this.setState({langOpen:!this.state.langOpen}); },
+      toggleLang: (e)=>{ e&&e.stopPropagation&&e.stopPropagation(); this.setState({langOpen:!this.state.langOpen, navOpen:false}); },
       bookWhats: this.bookWhats,
       langs: this.langDefs.map(l=>({ code:l.code, native:l.native, active: l.key===cur, pick: ()=>this.setState({lang:l.key, langOpen:false}) })),
       faqs: this.faqDefs.map((f,i)=>({ qEn:f.qEn, qEs:f.qEs, aEn:f.aEn, aEs:f.aEs, open: !!this.state.faqOpen[i],
@@ -1389,8 +1386,8 @@ class Component extends DCLogic {
       cookieReject:()=>{ this.writeCookieConsent('rejected'); this.setState({cookie:'rejected', modal:null}); },
       navOpen: this.state.navOpen ? 'true' : 'false',
       navDrawerDisplay: this.state.navOpen ? 'block' : 'none',
-      toggleNav:(e)=>{ e&&e.stopPropagation&&e.stopPropagation(); const next=!this.state.navOpen; this.setState({navOpen:next, langOpen:false}); try{ document.body.style.overflow = next ? 'hidden' : ''; }catch(err){} },
-      closeNav:(e)=>{ e&&e.stopPropagation&&e.stopPropagation(); this.setState({navOpen:false}); try{ document.body.style.overflow=''; }catch(err){} },
+      toggleNav:(e)=>{ e&&e.stopPropagation&&e.stopPropagation(); this.setState({navOpen:!this.state.navOpen, langOpen:false}); },
+      closeNav:(e)=>{ e&&e.stopPropagation&&e.stopPropagation(); this.setState({navOpen:false}); },
       destScroll:(dir)=>this.destScroll(dir),
       destScrollPrev:()=>this.destScroll(-1),
       destScrollNext:()=>this.destScroll(1),
