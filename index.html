@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -800,7 +800,7 @@ html.ly-narrow .ly-nav-actions .btn{padding:10px 14px!important;font-size:13px!i
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:&quot;100%&quot;}}">
 class Component extends DCLogic {
-  state = { lang:'en', langOpen:false, navOpen:false, faqOpen:{0:true}, currency:'USD', modal:null, cookie:(()=>{ try{ const r=JSON.parse(localStorage.getItem('ly_cookie_consent')||'null'); if(r&&(r.v==='accepted'||r.v==='rejected')&&r.exp>Date.now()) return r.v; }catch(e){} return 'pending'; })() };
+  state = { lang:'es', langOpen:false, navOpen:false, faqOpen:{0:true}, currency:'USD', modal:null, cookie:(()=>{ try{ const r=JSON.parse(localStorage.getItem('ly_cookie_consent')||'null'); if(r&&(r.v==='accepted'||r.v==='rejected')&&r.exp>Date.now()) return r.v; }catch(e){} return 'pending'; })() };
 
   langDefs = [
     {code:'EN',key:'en',native:'English'}, {code:'ES',key:'es',native:'Español'},
@@ -1366,7 +1366,7 @@ class Component extends DCLogic {
     return {
       lang: cur, t,
       langOpen: this.state.langOpen,
-      langCode: (this.langDefs.find(l=>l.key===cur)||{}).code || 'EN',
+      langCode: (this.langDefs.find(l=>l.key===cur)||{}).code || 'ES',
       langMenuDisplay: this.state.langOpen ? 'grid' : 'none',
       toggleLang: (e)=>{ e&&e.stopPropagation&&e.stopPropagation(); this.setState({langOpen:!this.state.langOpen, navOpen:false}); },
       bookWhats: this.bookWhats,
