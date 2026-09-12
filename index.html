@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style>
+  *{box-sizing:border-box}
+  .lm{
+    --sand:#f2e9d8; --surface:#fbf5ea; --surface-2:#f5edde; --card:#fdf9f1;
+    --ink:#16302f; --muted:#647b76; --line:rgba(22,48,47,.12);
+    --teal:#0e8fa0; --teal-deep:#0b6c7a; --coral:#f2864b; --palm:#2f8f6b; --sun:#f4b740;
+    --raise:7px 7px 18px rgba(120,120,100,.24), -7px -7px 16px rgba(255,255,255,.9);
+    --raise-lg:16px 16px 38px rgba(110,115,95,.28), -12px -12px 28px rgba(255,255,255,.95);
+    --inset:inset 6px 6px 12px rgba(120,120,100,.24), inset -6px -6px 12px rgba(255,255,255,.92);
+    --inset-sm:inset 3px 3px 7px rgba(120,120,100,.22), inset -3px -3px 7px rgba(255,255,255,.9);
+    font-family:'Manrope',system-ui,sans-serif;color:var(--ink);background:var(--sand);
+    position:relative;overflow-x:clip;-webkit-font-smoothing:antialiased;line-height:1.5
+  }
+  .lm .disp{font-family:'Space Grotesk',sans-serif;font-weight:700;line-height:1.04;letter-spacing:-.02em;text-wrap:balance}
+  .lm a{color:var(--teal-deep);text-decoration:none}
+  .lm a:hover{color:var(--teal)}
+  .lm a.btn{color:#fff}
+  .lm a.btn.ghost{color:var(--ink)}
+  .lm a.btn:hover{color:#fff}
+  .lm ::selection{background:var(--teal);color:#fff}
+  .lm p{text-wrap:pretty}
+  .l-en{display:inline}.l-es{display:none}
+  .lm[data-lang="es"] .l-en{display:none}.lm[data-lang="es"] .l-es{display:inline}
+
+  .skip{position:absolute;left:-9999px;top:0;z-index:2000;background:var(--ink);color:#fff;padding:12px 20px;border-radius:0 0 12px 0;font-weight:700}
+  .skip:focus{left:0}
+
+  .neu{background:var(--card);box-shadow:var(--raise);border-radius:22px}
+  .chip{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:100px;background:var(--surface);box-shadow:var(--raise);font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal-deep);transition:transform .16s ease}
+  .chip:hover{transform:translateY(-1px)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-family:'Manrope';font-weight:700;font-size:15px;border:0;cursor:pointer;border-radius:100px;padding:15px 26px;background:var(--teal);color:#fff;box-shadow:0 10px 22px color-mix(in srgb,var(--teal) 38%,transparent), inset 0 1px 0 rgba(255,255,255,.3);transition:transform .16s ease, box-shadow .16s ease}
+  .btn:hover{transform:translateY(-2px)}
+  .btn:active{transform:translateY(1px);box-shadow:inset 3px 3px 8px rgba(0,0,0,.22), inset -2px -2px 6px rgba(255,255,255,.2)}
+  .btn.ghost{background:var(--surface);color:var(--ink);box-shadow:var(--raise)}
+  .btn.wa{background:#25d366;box-shadow:0 10px 22px rgba(37,211,102,.36), inset 0 1px 0 rgba(255,255,255,.3)}
+  .btn.sm{padding:10px 18px;font-size:14px}
+  .btn:focus-visible,.langbtn:focus-visible,.lang-opt:focus-visible,.fld:focus-visible,.faq-q:focus-visible,.cur-btn:focus-visible,.lk:focus-visible,.xbtn:focus-visible,.map-pin:focus-visible{outline:3px solid var(--coral);outline-offset:3px}
+  .lk{background:none;border:0;cursor:pointer;font:inherit;color:inherit;padding:0;text-align:left}
+
+  @keyframes lm-rise{from{opacity:0;transform:translateY(42px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes lm-para{from{transform:translateY(48px)}to{transform:translateY(-48px)}}
+  @keyframes lm-marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  @keyframes lm-move-x{to{transform:translateX(calc(-100% + 100vw))}}
+  @keyframes lm-drive{from{transform:translateX(-8%)}to{transform:translateX(8%)}}
+  @keyframes lm-kenburns{from{transform:scale(1.06)}to{transform:scale(1.14)}}
+  @keyframes ly-pulse{0%{transform:scale(.55);opacity:.7}100%{transform:scale(2.4);opacity:0}}
+  @keyframes ly-spin{to{transform:rotate(360deg)}}
+  @keyframes ly-draw{to{stroke-dashoffset:0}}
+  @keyframes ly-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+  .reveal{animation:lm-rise linear both;animation-timeline:view();animation-range:entry 0% entry 55%}
+  .para{animation:lm-para linear both;animation-timeline:view();animation-range:cover}
+  .marq-track{display:flex;gap:16px;width:max-content;animation:lm-marq 40s linear infinite}
+  .drive{animation:lm-drive linear both;animation-timeline:view();animation-range:cover}
+  .ly-line{fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:900;stroke-dashoffset:900;animation:ly-draw linear both;animation-timeline:view();animation-range:entry 0% cover 40%}
+
+  #expPin{position:relative;height:420vh;view-timeline-name:--exptl;view-timeline-axis:block}
+  #expPin .pinSticky{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center}
+  #expPin .pinTrack{display:flex;gap:28px;height:100vh;align-items:center;padding:0 6vw;width:max-content;will-change:transform;animation:lm-move-x linear forwards;animation-timeline:--exptl;animation-range:contain 0% contain 100%}
+
+  .fld{font-family:'Manrope';font-size:15px;font-weight:600;color:var(--ink);border:0;border-radius:14px;padding:14px 15px;background:var(--surface);box-shadow:var(--inset-sm);width:100%}
+  .fld::placeholder{color:var(--muted);font-weight:500}
+  .fldlbl{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:7px;display:block}
+
+  .langmenu{position:absolute;top:calc(100% + 10px);right:0;width:330px;max-width:calc(100vw - 32px);background:var(--card);box-shadow:var(--raise-lg);border-radius:18px;padding:12px;z-index:120;display:grid;grid-template-columns:1fr 1fr;gap:6px}
+  .lang-opt{display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:12px;border:0;background:transparent;cursor:pointer;font-family:'Manrope';font-weight:600;font-size:14px;color:var(--ink);text-align:left;transition:background .12s}
+  .lang-opt:hover{background:var(--surface)}
+  .lang-opt[data-active="true"]{background:var(--teal);color:#fff}
+  .lang-opt .code{width:30px;height:30px;flex:0 0 30px;border-radius:9px;display:grid;place-items:center;font-weight:800;font-size:11px;background:var(--surface);box-shadow:var(--inset-sm);color:var(--teal-deep)}
+  .lang-opt[data-active="true"] .code{background:rgba(255,255,255,.22);color:#fff;box-shadow:none}
+
+  .faq-item{border-bottom:1px solid var(--line)}
+  .faq-q{width:100%;text-align:left;background:transparent;border:0;cursor:pointer;font-family:'Space Grotesk';font-weight:700;font-size:clamp(18px,2.2vw,23px);color:var(--ink);padding:24px 0;display:flex;justify-content:space-between;align-items:center;gap:20px}
+  .faq-a{overflow:hidden;max-height:0;transition:max-height .35s ease,padding .35s ease;color:var(--muted);font-size:16px;line-height:1.6}
+  .faq-item[data-open="true"] .faq-a{max-height:360px;padding-bottom:24px}
+  .faq-item[data-open="true"] .faq-ic{transform:rotate(45deg)}
+  .faq-ic{transition:transform .3s ease;color:var(--teal);font-size:26px;flex:0 0 auto}
+
+  /* hero video stage */
+  .hero-media{position:absolute;inset:0;z-index:0;overflow:hidden}
+  .hero-media > image-slot{position:absolute;inset:0;width:100%;height:100%}
+  .hero-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;animation:lm-kenburns 26s ease-in-out infinite alternate}
+  .hero-vig{position:absolute;inset:0;z-index:2;pointer-events:none;
+    background:
+      linear-gradient(93deg,rgba(5,22,24,.96) 0%,rgba(5,22,24,.86) 34%,rgba(5,22,24,.5) 60%,rgba(5,22,24,.4) 82%,rgba(5,22,24,.6) 100%),
+      linear-gradient(180deg,rgba(5,22,24,.55) 0%,rgba(5,22,24,.12) 30%,rgba(5,22,24,.18) 60%,rgba(5,22,24,.82) 100%)}
+  .sun-glow{position:absolute;border-radius:50%;filter:blur(60px);pointer-events:none}
+  .hero-sun{position:absolute;top:8%;right:6%;width:min(30vw,300px);z-index:3;opacity:.5;pointer-events:none;color:#ffe6a8}
+  .hero-sun svg{width:100%;height:auto;animation:ly-spin 90s linear infinite}
+  .scrollcue{display:inline-flex;align-items:center;gap:9px;color:rgba(251,245,234,.9);font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase;text-shadow:0 1px 10px rgba(0,0,0,.4)}
+  .scrollcue span.dot{width:26px;height:40px;border:2px solid rgba(251,245,234,.6);border-radius:100px;position:relative;flex:0 0 auto}
+  .scrollcue span.dot::after{content:"";position:absolute;left:50%;top:7px;width:4px;height:8px;border-radius:2px;background:rgba(251,245,234,.9);transform:translateX(-50%);animation:ly-bob 1.6s ease-in-out infinite}
+
+  .ph-frame{position:relative;border-radius:22px;overflow:hidden;box-shadow:var(--raise-lg);background:rgba(255,255,255,.06)}
+  .ph-frame > image-slot{position:absolute;inset:0;width:100%;height:100%}
+  .ph-tag{position:absolute;left:12px;bottom:12px;z-index:3;background:rgba(6,26,28,.55);backdrop-filter:blur(6px);color:#fff;font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:6px 12px;border-radius:100px}
+
+  /* services */
+  .svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px}
+  .svc-card{padding:28px;transition:transform .18s ease}
+  .svc-card:hover{transform:translateY(-4px)}
+  .svc-feat{display:grid;grid-template-columns:1.15fr .85fr;gap:0;overflow:hidden;margin-bottom:20px}
+  .svc-feat .txt{padding:clamp(26px,3.4vw,44px)}
+  .svc-feat .media{position:relative;min-height:280px}
+  .svc-feat .media > image-slot{position:absolute;inset:0;width:100%;height:100%}
+
+  /* prices + currency */
+  .cur-btn{font-family:'Manrope';font-weight:700;font-size:13px;border:0;cursor:pointer;padding:9px 14px;border-radius:100px;background:var(--surface);box-shadow:var(--inset-sm);color:var(--muted);transition:all .14s}
+  .cur-btn:hover{color:var(--ink)}
+  .cur-btn[data-on="true"]{background:var(--teal);color:#fff;box-shadow:0 6px 14px color-mix(in srgb,var(--teal) 34%,transparent)}
+  .rcard{padding:26px;display:flex;flex-direction:column;gap:4px;transition:transform .18s ease}
+  .rcard:hover{transform:translateY(-4px)}
+
+  /* map */
+  .mapwrap{position:relative}
+  .map-stage{position:relative;border-radius:24px;overflow:hidden;box-shadow:var(--raise-lg);background:#bfe3ef}
+  .map-stage > img{display:block;width:100%;height:auto}
+  .map-pin{position:absolute;transform:translate(-50%,-50%);width:22px;height:22px;border-radius:50%;border:3px solid #fff;background:var(--teal);box-shadow:0 3px 10px rgba(0,0,0,.35);cursor:pointer;padding:0;z-index:2}
+  .map-pin[data-hub="true"]{width:28px;height:28px;background:var(--coral);z-index:3}
+  .map-pin .ring{position:absolute;inset:-7px;border-radius:50%;background:currentColor;color:var(--teal);opacity:.4;z-index:-1;animation:ly-pulse 2.6s ease-out infinite}
+  .map-pin[data-hub="true"] .ring{color:var(--coral)}
+  .map-pin .tip{position:absolute;bottom:calc(100% + 9px);left:50%;transform:translateX(-50%);white-space:nowrap;background:var(--ink);color:#fff;font-size:12px;font-weight:700;padding:6px 11px;border-radius:9px;opacity:0;pointer-events:none;transition:opacity .15s;box-shadow:0 6px 16px rgba(0,0,0,.3)}
+  .map-pin .tip::after{content:"";position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:var(--ink)}
+  .map-pin:hover,.map-pin:focus-visible{transform:translate(-50%,-50%) scale(1.18)}
+  .map-pin:hover .tip,.map-pin:focus-visible .tip{opacity:1}
+  .map-legend{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}
+  .leg-chip{display:inline-flex;align-items:center;gap:9px;padding:8px 14px;border-radius:100px;background:var(--card);box-shadow:var(--raise);font-weight:700;font-size:13px}
+  .leg-dot{width:11px;height:11px;border-radius:50%;flex:0 0 auto}
+
+  /* timeline */
+  .tl{display:grid;grid-template-columns:repeat(5,1fr);gap:0;position:relative}
+  .tl-step{position:relative;padding:0 14px;text-align:center}
+  .tl-step::before{content:"";position:absolute;top:26px;left:-50%;width:100%;height:3px;background:var(--line);z-index:0}
+  .tl-step:first-child::before{display:none}
+  .tl-num{position:relative;z-index:1;width:54px;height:54px;border-radius:50%;margin:0 auto 16px;display:grid;place-items:center;background:var(--card);box-shadow:var(--raise);font-family:'Space Grotesk';font-weight:700;font-size:22px;color:var(--teal-deep)}
+
+  /* cookie + modal */
+  .cookie{position:fixed;left:16px;right:16px;bottom:16px;z-index:900;max-width:760px;margin:0 auto;background:var(--card);box-shadow:var(--raise-lg);border-radius:20px;padding:20px 22px;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+  .modal-back{position:fixed;inset:0;z-index:1000;background:rgba(6,26,28,.55);backdrop-filter:blur(6px);align-items:flex-start;justify-content:center;padding:clamp(16px,5vh,60px) 16px;overflow:auto}
+  .modal{background:var(--card);border-radius:24px;max-width:700px;width:100%;box-shadow:var(--raise-lg);padding:clamp(24px,4vw,42px);position:relative}
+  .modal h3{font-family:'Space Grotesk'}
+  .modal h4{font-family:'Space Grotesk';font-size:16px;margin:20px 0 6px;color:var(--ink)}
+  .modal p{color:var(--muted);font-size:15px;line-height:1.6;margin:0 0 10px}
+  .xbtn{position:absolute;top:18px;right:18px;width:40px;height:40px;border-radius:50%;border:0;cursor:pointer;background:var(--surface);box-shadow:var(--raise);font-size:20px;color:var(--ink);display:grid;place-items:center}
+
+  @media (prefers-reduced-motion:reduce){
+    .reveal,.para,.marq-track,.drive,.hero-vid,.pin-ring,.map-pin .ring,.hero-sun svg,.scrollcue span.dot::after{animation:none;opacity:1;transform:none}
+    .ly-line{animation:none;stroke-dashoffset:0}
+    .hero-vid{display:none}
+    #expPin{height:auto}
+    #expPin .pinSticky{position:relative;height:auto;display:block}
+    #expPin .pinTrack{width:auto;flex-direction:column;height:auto;animation:none;padding:0}
+    #expPin .expcard{width:100% !important}
+  }
+  @media (max-width:900px){
+    .langmenu{grid-template-columns:1fr}
+    #expPin .pinTrack{width:max-content}
+    .lm .hero-grid{grid-template-columns:1fr !important}
+    .lm .cta-grid{grid-template-columns:1fr !important}
+    .lm .van-grid{grid-template-columns:1fr !important}
+    .lm .svc-feat{grid-template-columns:1fr}
+    .lm .svc-feat .media{min-height:200px}
+    .lm .tl{grid-template-columns:1fr 1fr;gap:30px 0}
+    .lm .tl-step::before{display:none}
+    .lm .foot-grid{grid-template-columns:1fr 1fr !important}
+    .lm .navlinks{display:none}
+    .lm .map-pin .tip{display:none}
+    .lm .map-pin{width:18px;height:18px}
+    .lm .map-pin[data-hub="true"]{width:22px;height:22px}
+  }
+  @media (max-width:560px){ .lm .tl{grid-template-columns:1fr} .lm .foot-grid{grid-template-columns:1fr !important} }
+</style>
+</helmet>
+
+<div class="lm" data-lang="{{ lang }}">
+
+  <a href="#main" class="skip">{{ t.skip }}</a>
+
+  <!-- ===================== STICKY NAV ===================== -->
+  <nav aria-label="Primary" style="position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--surface) 88%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)">
+    <div style="max-width:1320px;margin:0 auto;padding:12px clamp(16px,4vw,44px);display:flex;align-items:center;justify-content:space-between;gap:18px">
+      <a href="#top" aria-label="Transportes Los Yeyes home" style="display:flex;align-items:center;gap:12px">
+        <span class="ly-mark" aria-hidden="true"></span>
+        <span style="display:flex;flex-direction:column;line-height:1.05">
+          <span class="disp" style="font-size:20px;letter-spacing:-.01em">Los Yeyes</span>
+          <span style="font-size:9.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);font-weight:700">Transportes · RD</span>
+        </span>
+      </a>
+      <div style="display:flex;align-items:center;gap:24px" class="navlinks">
+        <a href="#services" style="color:var(--ink);font-weight:600;font-size:15px">{{ t.navServices }}</a>
+        <a href="#prices" style="color:var(--ink);font-weight:600;font-size:15px">{{ t.navPrices }}</a>
+        <a href="#map" style="color:var(--ink);font-weight:600;font-size:15px">{{ t.navZones }}</a>
+        <a href="#destinations" style="color:var(--ink);font-weight:600;font-size:15px">{{ t.navDest }}</a>
+        <a href="#faq" style="color:var(--ink);font-weight:600;font-size:15px">{{ t.navFaq }}</a>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <div style="position:relative">
+          <button class="langbtn chip" onClick="{{ toggleLang }}" aria-haspopup="true" aria-expanded="{{ langOpen }}" style="cursor:pointer;border:0">
+            <span style="font-size:13px">🌐</span><span>{{ langCode }}</span><span style="font-size:9px">▾</span>
+          </button>
+          <div class="langmenu" role="menu" style="display:{{ langMenuDisplay }}">
+            <sc-for list="{{ langs }}" as="lg" hint-placeholder-count="10">
+              <button class="lang-opt" onClick="{{ lg.pick }}" data-active="{{ lg.active }}" role="menuitem">
+                <span class="code">{{ lg.code }}</span><span>{{ lg.native }}</span>
+              </button>
+            </sc-for>
+          </div>
+        </div>
+        <a class="btn" href="#book" style="padding:12px 22px">{{ t.book }}</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+
+  <!-- ===================== HERO (video, headline only above the fold) ===================== -->
+  <header id="top" style="position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;background:var(--ink)">
+    <div class="hero-media">
+      <image-slot id="lm-hero-poster" shape="rect" placeholder="HERO VIDEO POSTER — first frame of the cinematic Starex montage (also the reduced-motion fallback still)"></image-slot>
+      <video class="hero-vid" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+        <source src="media/hero-starex-loop.mp4" type="video/mp4">
+      </video>
+      <div class="hero-vig"></div>
+    </div>
+    <div class="hero-sun" aria-hidden="true">
+      <svg viewBox="0 0 120 120"><g stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round"><circle cx="60" cy="60" r="20"/><path d="M60 8v16M60 96v16M8 60h16M96 60h16M23 23l11 11M86 86l11 11M97 23L86 34M34 86 23 97"/></g></svg>
+    </div>
+
+    <div style="position:relative;z-index:5;width:100%;max-width:1320px;margin:0 auto;padding:clamp(96px,13vh,150px) clamp(16px,4vw,44px) clamp(48px,7vh,90px)">
+      <div class="reveal" style="max-width:720px">
+        <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin-bottom:22px;color:rgba(251,245,234,.94);font-weight:700;font-size:13px;text-shadow:0 1px 10px rgba(0,0,0,.5)">
+          <span style="color:var(--sun)">★★★★★ <span style="color:inherit">4.9</span></span>
+          <span>· {{ t.h_countries }}</span>
+          <span>· {{ t.h_transfers }}</span>
+        </div>
+        <span class="chip" style="margin-bottom:22px">📍 Punta Cana · Bávaro · Cap Cana · Santo Domingo</span>
+        <h1 class="disp" style="font-size:clamp(42px,6.6vw,84px);margin:0 0 22px;color:#fff;text-shadow:0 2px 26px rgba(0,0,0,.45);max-width:15ch">{{ t.h1 }} <span style="color:#8fe2ec">{{ t.h1hi }}</span></h1>
+        <p style="font-size:clamp(17px,1.9vw,21px);color:rgba(251,245,234,.92);max-width:560px;margin:0 0 32px;font-weight:500;text-shadow:0 1px 14px rgba(0,0,0,.5)">{{ t.h_sub }}</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+          <a class="btn" href="#book" style="font-size:16px;padding:17px 30px">{{ t.h_book }} →</a>
+          <button class="btn wa" onClick="{{ bookWhats }}" style="font-size:16px;padding:17px 26px"><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 00-8.6 15l-1.3 4.8 4.9-1.3A10 10 0 1012 2zm0 2a8 8 0 11-4.2 14.8l-.3-.2-2.9.8.8-2.8-.2-.3A8 8 0 0112 4zm4.5 10.2c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1l-.7.9c-.1.1-.3.2-.5 0a6.5 6.5 0 01-3.2-2.8c-.2-.4.2-.4.6-1.2.1-.1 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4 0-.6.3-.9 1-.9 2.3-.1 3.5a9 9 0 003.9 3.4c1.6.6 1.9.5 2.3.5s1.4-.6 1.6-1.1.2-1 .1-1.1z"/></svg>{{ t.h_price }}</button>
+        </div>
+        <div style="display:flex;gap:22px;margin-top:26px;flex-wrap:wrap;color:rgba(251,245,234,.92);font-weight:600;font-size:14px;text-shadow:0 1px 10px rgba(0,0,0,.5)">
+          <span>✓ {{ t.hf_cancel }}</span><span>✓ {{ t.hf_pay }}</span><span>✓ {{ t.hf_seats }}</span>
+        </div>
+      </div>
+    </div>
+    <a href="#book" class="scrollcue" style="position:absolute;left:50%;transform:translateX(-50%);bottom:26px;z-index:6"><span class="dot"></span>{{ t.scroll }}</a>
+  </header>
+
+  <!-- ===================== BOOKING (below the fold) ===================== -->
+  <section id="book" style="background:linear-gradient(180deg,var(--surface-2),var(--sand));padding:clamp(56px,8vw,110px) clamp(16px,4vw,44px);position:relative;overflow:hidden">
+    <div class="sun-glow" style="width:420px;height:420px;background:radial-gradient(circle,var(--teal),transparent 70%);opacity:.14;top:-140px;right:-90px"></div>
+    <div style="position:relative;max-width:1120px;margin:0 auto;display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(24px,4vw,56px);align-items:center" class="hero-grid">
+      <div class="reveal">
+        <span class="chip">{{ t.bk_kicker }}</span>
+        <h2 class="disp" style="font-size:clamp(32px,4.4vw,52px);margin:16px 0 12px">{{ t.bk_title }}</h2>
+        <p style="color:var(--muted);font-weight:500;font-size:clamp(16px,1.8vw,19px);max-width:420px">{{ t.bk_sub }}</p>
+      </div>
+      <div class="neu reveal" style="padding:24px">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:13px">
+          <div><label class="fldlbl" for="ly-pickup">{{ t.b_pickup }}</label>
+            <select id="ly-pickup" class="fld" aria-label="Pickup"><option>Punta Cana Airport (PUJ)</option><option>Bávaro Hotel Zone</option><option>Cap Cana</option><option>Uvero Alto</option><option>La Romana (LRM)</option><option>Santo Domingo (SDQ)</option></select></div>
+          <div><label class="fldlbl" for="ly-drop">{{ t.b_drop }}</label>
+            <select id="ly-drop" class="fld" aria-label="Drop-off"><option>Hotel / Resort</option><option>Punta Cana Airport (PUJ)</option><option>Cap Cana</option><option>Bávaro</option><option>Santo Domingo</option><option>Excursion / Day trip</option></select></div>
+          <div><label class="fldlbl" for="ly-date">{{ t.b_date }}</label><input id="ly-date" class="fld" type="date" aria-label="Date"/></div>
+          <div><label class="fldlbl" for="ly-time">{{ t.b_time }}</label><input id="ly-time" class="fld" type="time" aria-label="Time"/></div>
+          <div><label class="fldlbl" for="ly-pax">{{ t.b_pax }}</label><select id="ly-pax" class="fld" aria-label="Passengers"><option>1–2</option><option>3–4</option><option>5–6</option><option>7–8</option></select></div>
+          <div><label class="fldlbl" for="ly-lug">{{ t.b_lug }}</label><select id="ly-lug" class="fld" aria-label="Luggage"><option>1–2</option><option>3–5</option><option>6–8</option><option>9+</option></select></div>
+        </div>
+        <button class="btn wa" onClick="{{ bookWhats }}" style="margin-top:16px;width:100%;font-size:16px;padding:16px"><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 00-8.6 15l-1.3 4.8 4.9-1.3A10 10 0 1012 2zm0 2a8 8 0 11-4.2 14.8l-.3-.2-2.9.8.8-2.8-.2-.3A8 8 0 0112 4zm4.5 10.2c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1l-.7.9c-.1.1-.3.2-.5 0a6.5 6.5 0 01-3.2-2.8c-.2-.4.2-.4.6-1.2.1-.1 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4 0-.6.3-.9 1-.9 2.3-.1 3.5a9 9 0 003.9 3.4c1.6.6 1.9.5 2.3.5s1.4-.6 1.6-1.1.2-1 .1-1.1z"/></svg>{{ t.b_get }} →</button>
+        <p style="margin:12px 2px 0;font-size:12px;color:var(--muted);line-height:1.5">{{ t.b_consent }} <button class="lk" onClick="{{ openPrivacy }}" style="color:var(--teal-deep);font-weight:700;text-decoration:underline">{{ t.b_privacy }}</button>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TRUST STRIP ===================== -->
+  <section aria-hidden="true" style="background:var(--ink);color:var(--surface);overflow:hidden;padding:16px 0">
+    <div class="marq-track"><span class="trust-run"></span></div>
+  </section>
+
+  <!-- ===================== SERVICES ===================== -->
+  <section id="services" style="background:var(--sand);padding:clamp(64px,9vw,130px) clamp(16px,4vw,44px);position:relative;overflow:hidden">
+    <div class="reveal" style="max-width:760px;margin-bottom:40px">
+      <span class="chip">{{ t.s_kicker }}</span>
+      <h2 class="disp" style="font-size:clamp(34px,5.5vw,66px);margin:16px 0 12px;max-width:16ch">{{ t.s_title }}</h2>
+      <p style="font-size:clamp(16px,1.8vw,20px);color:var(--muted);font-weight:500;max-width:600px">{{ t.s_sub }}</p>
+    </div>
+
+    <!-- featured airport card -->
+    <div class="neu svc-feat reveal">
+      <div class="txt">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+          <div class="svc-ic">✈</div>
+          <span class="chip" style="color:var(--coral)">{{ t.svc_featTag }}</span>
+        </div>
+        <h3 class="disp" style="font-size:clamp(26px,3.2vw,38px);margin:0 0 10px">{{ t.svc_airport }}</h3>
+        <p style="color:var(--muted);font-weight:500;font-size:17px;max-width:440px;margin:0 0 18px"><span class="l-en">A driver waiting at PUJ arrivals with your name sign, luggage loaded, and a cold van straight to your resort door. Flights tracked automatically.</span><span class="l-es">Un chofer esperando en llegadas de PUJ con tu letrero, equipaje cargado y una van fría directo a la puerta de tu resort. Vuelos rastreados automáticamente.</span></p>
+        <div style="display:flex;flex-wrap:wrap;gap:9px;margin-bottom:22px">
+          <span class="chip" style="text-transform:none;letter-spacing:0">🪧 <span class="l-en">Meet &amp; greet</span><span class="l-es">Recibimiento</span></span>
+          <span class="chip" style="text-transform:none;letter-spacing:0">✈ <span class="l-en">Flight tracking</span><span class="l-es">Seguimiento de vuelo</span></span>
+          <span class="chip" style="text-transform:none;letter-spacing:0">🕓 24/7</span>
+        </div>
+        <a class="btn" href="#book">{{ t.h_book }} →</a>
+      </div>
+      <div class="media">
+        <image-slot id="lm-svc-airport" shape="rect" placeholder="AIRPORT PICKUP PHOTO — driver at PUJ arrivals holding a name sign, guests with luggage"></image-slot>
+      </div>
+    </div>
+
+    <div class="svc-grid">
+      <div class="neu svc-card reveal"><div class="svc-ic">🏨</div><h3 class="disp" style="font-size:21px;margin:16px 0 8px">{{ t.svc_hotel }}</h3><p style="color:var(--muted);font-weight:500;font-size:15px"><span class="l-en">Move between resorts, Cap Cana villas or Santo Domingo comfortably.</span><span class="l-es">Muévete entre resorts, villas de Cap Cana o Santo Domingo con comodidad.</span></p></div>
+      <div class="neu svc-card reveal"><div class="svc-ic">↻</div><h3 class="disp" style="font-size:21px;margin:16px 0 8px">{{ t.svc_round }}</h3><p style="color:var(--muted);font-weight:500;font-size:15px"><span class="l-en">Book both ways and save. We track your return flight automatically.</span><span class="l-es">Reserva ida y vuelta y ahorra. Rastreamos tu vuelo de regreso.</span></p></div>
+      <div class="neu svc-card reveal"><div class="svc-ic">🌴</div><h3 class="disp" style="font-size:21px;margin:16px 0 8px">{{ t.svc_exc }}</h3><p style="color:var(--muted);font-weight:500;font-size:15px"><span class="l-en">Saona, Hoyo Azul, Los Haitises or a private driver by the hour.</span><span class="l-es">Saona, Hoyo Azul, Los Haitises o chofer privado por hora.</span></p></div>
+      <div class="neu svc-card reveal"><div class="svc-ic">👨‍👩‍👧</div><h3 class="disp" style="font-size:21px;margin:16px 0 8px">{{ t.svc_group }}</h3><p style="color:var(--muted);font-weight:500;font-size:15px"><span class="l-en">Up to 8 passengers with luggage. Free child seats on request.</span><span class="l-es">Hasta 8 pasajeros con equipaje. Sillas para niños gratis a solicitud.</span></p></div>
+      <div class="neu svc-card reveal" style="background:linear-gradient(150deg,var(--teal),var(--teal-deep));color:#fff;box-shadow:var(--raise-lg)"><div class="svc-ic" style="background:rgba(255,255,255,.16);box-shadow:none">💬</div><h3 class="disp" style="font-size:21px;margin:16px 0 8px">{{ t.svc_ask }}</h3><p style="color:rgba(255,255,255,.85);font-weight:500;font-size:15px"><span class="l-en">Tell us your flight and hotel on WhatsApp — we'll build the route.</span><span class="l-es">Cuéntanos tu vuelo y hotel por WhatsApp — armamos la ruta.</span></p><button class="btn wa sm" onClick="{{ bookWhats }}" style="margin-top:14px">WhatsApp</button></div>
+    </div>
+  </section>
+
+  <!-- ===================== THE VAN (photographic) ===================== -->
+  <section id="van" style="background:var(--ink);color:var(--surface);padding:clamp(64px,9vw,130px) clamp(16px,4vw,44px);position:relative;overflow:hidden">
+    <div class="sun-glow" style="width:500px;height:500px;background:radial-gradient(circle,var(--teal),transparent 70%);opacity:.3;top:-140px;right:-100px"></div>
+    <div class="van-grid" style="position:relative;max-width:1320px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4vw,60px);align-items:center">
+      <div class="reveal">
+        <span class="chip" style="background:rgba(255,255,255,.08);color:#7fd4de;box-shadow:none">Hyundai Grand Starex · 2018</span>
+        <h2 class="disp" style="font-size:clamp(34px,5.5vw,64px);margin:16px 0 16px;max-width:14ch">{{ t.v_title }}</h2>
+        <p style="font-size:clamp(16px,1.8vw,20px);color:rgba(251,245,234,.72);font-weight:500;max-width:520px;margin-bottom:24px">{{ t.v_sub }}</p>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:26px">
+          <span class="vchip">{{ t.vchip1 }}</span><span class="vchip">{{ t.vchip2 }}</span><span class="vchip">{{ t.vchip3 }}</span><span class="vchip">{{ t.vchip4 }}</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div style="background:rgba(255,255,255,.06);border-radius:16px;padding:18px"><div class="disp" style="font-size:19px;color:#7fd4de"><span class="l-en">Up to 8 seats</span><span class="l-es">Hasta 8 asientos</span></div><div style="color:rgba(251,245,234,.6);font-size:14px;margin-top:4px"><span class="l-en">Reclining, seat belts for all</span><span class="l-es">Reclinables, cinturón para todos</span></div></div>
+          <div style="background:rgba(255,255,255,.06);border-radius:16px;padding:18px"><div class="disp" style="font-size:19px;color:#7fd4de"><span class="l-en">Cold even at midday</span><span class="l-es">Frío hasta al mediodía</span></div><div style="color:rgba(251,245,234,.6);font-size:14px;margin-top:4px"><span class="l-en">A/C serviced monthly</span><span class="l-es">Aire con mantenimiento mensual</span></div></div>
+          <div style="background:rgba(255,255,255,.06);border-radius:16px;padding:18px"><div class="disp" style="font-size:19px;color:#7fd4de"><span class="l-en">Dedicated luggage</span><span class="l-es">Equipaje dedicado</span></div><div style="color:rgba(251,245,234,.6);font-size:14px;margin-top:4px"><span class="l-en">Room for 8+ large cases</span><span class="l-es">Espacio para 8+ maletas</span></div></div>
+          <div style="background:rgba(255,255,255,.06);border-radius:16px;padding:18px"><div class="disp" style="font-size:19px;color:#7fd4de"><span class="l-en">Free extras</span><span class="l-es">Extras gratis</span></div><div style="color:rgba(251,245,234,.6);font-size:14px;margin-top:4px"><span class="l-en">Water, Wi-Fi, child seat</span><span class="l-es">Agua, Wi-Fi, silla de niño</span></div></div>
+        </div>
+      </div>
+      <div class="reveal" style="display:grid;gap:14px">
+        <div class="ph-frame" style="aspect-ratio:16/10">
+          <image-slot id="lm-van-ext" shape="rect" placeholder="VAN PHOTO — exterior ¾ view of the Hyundai Grand Starex (palm / resort backdrop)"></image-slot>
+          <span class="ph-tag"><span class="l-en">Exterior ¾</span><span class="l-es">Exterior ¾</span></span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div class="ph-frame" style="aspect-ratio:1/1"><image-slot id="lm-van-int" shape="rect" placeholder="Interior — seats & cabin"></image-slot><span class="ph-tag"><span class="l-en">Interior</span><span class="l-es">Interior</span></span></div>
+          <div class="ph-frame" style="aspect-ratio:1/1"><image-slot id="lm-van-lug" shape="rect" placeholder="Luggage space loaded with suitcases"></image-slot><span class="ph-tag"><span class="l-en">Luggage</span><span class="l-es">Equipaje</span></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PRICES + currency ===================== -->
+  <section id="prices" style="background:var(--sand);padding:clamp(64px,9vw,130px) clamp(16px,4vw,44px)">
+    <div style="max-width:1320px;margin:0 auto">
+      <div class="reveal" style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:36px">
+        <div style="max-width:640px">
+          <span class="chip">{{ t.p_kicker }}</span>
+          <h2 class="disp" style="font-size:clamp(34px,5.5vw,64px);margin:16px 0 12px;max-width:15ch">{{ t.p_title }}</h2>
+          <p style="color:var(--muted);font-weight:500;font-size:clamp(16px,1.8vw,19px)">{{ t.p_sub }}</p>
+        </div>
+        <div class="neu" style="padding:16px 18px">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px"><span style="width:8px;height:8px;border-radius:50%;background:var(--palm)"></span><span style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)">{{ t.p_curLabel }}</span></div>
+          <div style="display:flex;flex-wrap:wrap;gap:7px">
+            <sc-for list="{{ currencies }}" as="c" hint-placeholder-count="7">
+              <button class="cur-btn" onClick="{{ c.pick }}" data-on="{{ c.on }}">{{ c.code }}</button>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px">
+        <sc-for list="{{ prices }}" as="r" hint-placeholder-count="5">
+          <div class="neu rcard reveal">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+              <span class="chip" style="font-size:10px;padding:5px 11px">{{ r.dur }}</span>
+              <span style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--coral)">{{ t.p_indicative }}</span>
+            </div>
+            <div class="disp" style="font-size:22px;margin:14px 0 2px">{{ r.from }}</div>
+            <div style="display:flex;align-items:center;gap:8px;color:var(--muted);font-weight:600;font-size:14px;margin-bottom:14px">→ {{ r.to }}</div>
+            <div style="display:flex;align-items:baseline;gap:8px"><span class="disp" style="font-size:34px;color:var(--teal-deep)">{{ r.one }}</span><span style="font-size:13px;color:var(--muted);font-weight:600">{{ t.p_oneWay }}</span></div>
+            <div style="font-size:13px;color:var(--muted);font-weight:600;margin-top:4px">{{ t.p_roundTrip }} · <b style="color:var(--ink)">{{ r.round }}</b></div>
+            <button class="btn sm wa" onClick="{{ r.book }}" style="margin-top:16px;width:100%">{{ t.p_confirm }}</button>
+          </div>
+        </sc-for>
+      </div>
+      <p class="reveal" style="margin:22px 2px 0;font-size:13px;color:var(--muted);line-height:1.6;max-width:820px"><span class="l-en">Fares are indicative, shown in <b>{{ curCode }}</b> — the final price is confirmed on WhatsApp before your trip. Conversions are indicative; in production, live mid-market rates are fetched from a public FX API (e.g. frankfurter.app / exchangerate.host). We do not represent any official bank rate.</span><span class="l-es">Las tarifas son indicativas, en <b>{{ curCode }}</b> — el precio final se confirma por WhatsApp antes del viaje. Las conversiones son indicativas; en producción se usan tasas medias en vivo de una API pública (frankfurter.app / exchangerate.host). No representamos una tasa bancaria oficial.</span></p>
+    </div>
+  </section>
+
+  <!-- ===================== ZONES MAP (real RD map + pins) ===================== -->
+  <section id="map" style="background:var(--surface-2);padding:clamp(64px,9vw,130px) clamp(16px,4vw,44px);border-block:1px solid var(--line);position:relative;overflow:hidden">
+    <svg class="ly-line" aria-hidden="true" viewBox="0 0 200 40" style="position:absolute;top:40px;right:24px;width:min(30vw,220px);color:var(--teal);opacity:.4"><path stroke="currentColor" stroke-width="2.4" d="M2 20 Q14 6 26 20 T50 20 T74 20 T98 20"/><path stroke="var(--coral)" stroke-width="2.4" d="M110 26 q10 -12 20 0 q10 12 20 0 M150 14 l8 6 -8 6" fill="none"/></svg>
+    <div style="max-width:1160px;margin:0 auto;position:relative">
+      <div class="reveal" style="max-width:720px;margin-bottom:36px">
+        <span class="chip">{{ t.m_kicker }}</span>
+        <h2 class="disp" style="font-size:clamp(34px,5.5vw,64px);margin:16px 0 12px;max-width:14ch">{{ t.m_title }}</h2>
+        <p style="color:var(--muted);font-weight:500;font-size:clamp(16px,1.8vw,19px)">{{ t.m_sub }}</p>
+      </div>
+      <div class="mapwrap reveal">
+        <div class="map-stage">
+          <img src="assets/rd-map.png" alt="Provincial map of the Dominican Republic with Transportes Los Yeyes service zones marked"/>
+          <sc-for list="{{ pins }}" as="p" hint-placeholder-count="6">
+            <button class="map-pin" data-hub="{{ p.hub }}" style="left:{{ p.x }};top:{{ p.y }}" aria-label="{{ p.name }}"><span class="ring"></span><span class="tip">{{ p.name }}</span></button>
+          </sc-for>
+        </div>
+        <div style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:22px 0 4px">{{ t.m_legend }}</div>
+        <div class="map-legend">
+          <sc-for list="{{ pins }}" as="p" hint-placeholder-count="6">
+            <span class="leg-chip"><span class="leg-dot" style="background:{{ p.color }}"></span>{{ p.name }}</span>
+          </sc-for>
+        </div>
+        <p style="margin:16px 2px 0;font-size:13px;color:var(--muted)">{{ t.m_foot }}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== DESTINATIONS (horizontal pin) ===================== -->
+  <section id="destinations" style="background:var(--sand);padding-top:clamp(56px,8vw,110px)">
+    <div class="reveal" style="max-width:900px;margin:0 auto 8px;padding:0 clamp(16px,4vw,44px)">
+      <span class="chip">{{ t.d_kicker }}</span>
+      <h2 class="disp" style="font-size:clamp(34px,5.5vw,66px);margin:16px 0 12px;max-width:16ch">{{ t.d_title }}</h2>
+      <p style="color:var(--muted);font-weight:500;font-size:clamp(16px,1.8vw,20px)">{{ t.d_sub }}</p>
+    </div>
+    <div id="expPin">
+      <div class="pinSticky">
+        <div class="pinTrack">
+          <div class="expcard neu" style="flex:0 0 clamp(300px,40vw,460px);height:clamp(400px,66vh,560px);overflow:hidden;position:relative;display:flex;flex-direction:column;justify-content:flex-end">
+            <div class="dest-img"><image-slot id="lm-dest-puj" shape="rect" placeholder="PUJ airport / arrivals photo"></image-slot></div>
+            <div class="dest-cap"><span class="chip" style="margin-bottom:10px">20–40 min</span><h3 class="disp" style="font-size:28px;margin:0 0 6px">Punta Cana (PUJ)</h3><p style="margin:0;color:var(--muted);font-weight:500"><span class="l-en">Airport ⇄ Bávaro &amp; Cap Cana resorts</span><span class="l-es">Aeropuerto ⇄ resorts de Bávaro y Cap Cana</span></p></div>
+          </div>
+          <div class="expcard neu" style="flex:0 0 clamp(300px,40vw,460px);height:clamp(400px,66vh,560px);overflow:hidden;position:relative;display:flex;flex-direction:column;justify-content:flex-end">
+            <div class="dest-img"><image-slot id="lm-dest-bavaro" shape="rect" placeholder="Bávaro beach / resort strip photo"></image-slot></div>
+            <div class="dest-cap"><span class="chip" style="margin-bottom:10px">20–35 min</span><h3 class="disp" style="font-size:28px;margin:0 0 6px">Bávaro</h3><p style="margin:0;color:var(--muted);font-weight:500"><span class="l-en">Beachfront all-inclusive resort strip</span><span class="l-es">Franja de resorts todo incluido frente al mar</span></p></div>
+          </div>
+          <div class="expcard neu" style="flex:0 0 clamp(300px,40vw,460px);height:clamp(400px,66vh,560px);overflow:hidden;position:relative;display:flex;flex-direction:column;justify-content:flex-end">
+            <div class="dest-img"><image-slot id="lm-dest-cap" shape="rect" placeholder="Cap Cana marina photo"></image-slot></div>
+            <div class="dest-cap"><span class="chip" style="margin-bottom:10px">15–30 min</span><h3 class="disp" style="font-size:28px;margin:0 0 6px">Cap Cana</h3><p style="margin:0;color:var(--muted);font-weight:500"><span class="l-en">Marina, golf villas &amp; luxury resorts</span><span class="l-es">Marina, villas de golf y resorts de lujo</span></p></div>
+          </div>
+          <div class="expcard neu" style="flex:0 0 clamp(300px,40vw,460px);height:clamp(400px,66vh,560px);overflow:hidden;position:relative;display:flex;flex-direction:column;justify-content:flex-end">
+            <div class="dest-img"><image-slot id="lm-dest-saona" shape="rect" placeholder="Saona Island beach photo"></image-slot></div>
+            <div class="dest-cap"><span class="chip" style="margin-bottom:10px"><span class="l-en">Day trip</span><span class="l-es">Excursión</span></span><h3 class="disp" style="font-size:28px;margin:0 0 6px">Isla Saona</h3><p style="margin:0;color:var(--muted);font-weight:500"><span class="l-en">Full-day beach &amp; natural pool tour</span><span class="l-es">Playa todo el día y piscina natural</span></p></div>
+          </div>
+          <div class="expcard neu" style="flex:0 0 clamp(300px,40vw,460px);height:clamp(400px,66vh,560px);overflow:hidden;position:relative;display:flex;flex-direction:column;justify-content:flex-end">
+            <div class="dest-img"><image-slot id="lm-dest-sdq" shape="rect" placeholder="Santo Domingo colonial photo"></image-slot></div>
+            <div class="dest-cap"><span class="chip" style="margin-bottom:10px">2.5–3 h</span><h3 class="disp" style="font-size:28px;margin:0 0 6px">Santo Domingo</h3><p style="margin:0;color:var(--muted);font-weight:500"><span class="l-en">Colonial Zone &amp; SDQ airport runs</span><span class="l-es">Zona Colonial y viajes al aeropuerto SDQ</span></p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== BEFORE YOU LAND (timeline) ===================== -->
+  <section style="background:var(--surface-2);padding:clamp(64px,9vw,130px) clamp(16px,4vw,44px);border-block:1px solid var(--line)">
+    <div style="max-width:1160px;margin:0 auto">
+      <div class="reveal" style="max-width:720px;margin-bottom:52px">
+        <span class="chip">{{ t.tl_kicker }}</span>
+        <h2 class="disp" style="font-size:clamp(34px,5.5vw,64px);margin:16px 0;max-width:15ch">{{ t.tl_title }}</h2>
+      </div>
+      <div class="tl reveal">
+        <div class="tl-step"><div class="tl-num">1</div><h3 class="disp" style="font-size:18px;margin:0 0 6px"><span class="l-en">Clear immigration</span><span class="l-es">Pasa migración</span></h3><p style="color:var(--muted);font-weight:500;font-size:14px;margin:0"><span class="l-en">Passport control &amp; the e-ticket. No rush — waiting is free.</span><span class="l-es">Control de pasaportes y e-ticket. Sin prisa — la espera es gratis.</span></p></div>
+        <div class="tl-step"><div class="tl-num">2</div><h3 class="disp" style="font-size:18px;margin:0 0 6px"><span class="l-en">Ping us on WhatsApp</span><span class="l-es">Escríbenos por WhatsApp</span></h3><p style="color:var(--muted);font-weight:500;font-size:14px;margin:0"><span class="l-en">Send "landed" — your driver is already tracking your flight.</span><span class="l-es">Envía "aterricé" — tu chofer ya rastrea tu vuelo.</span></p></div>
+        <div class="tl-step"><div class="tl-num">3</div><h3 class="disp" style="font-size:18px;margin:0 0 6px"><span class="l-en">Meet at the sign</span><span class="l-es">Nos vemos en el letrero</span></h3><p style="color:var(--muted);font-weight:500;font-size:14px;margin:0"><span class="l-en">Look for your name at the PUJ exit doors, right after customs.</span><span class="l-es">Busca tu nombre en las puertas de salida de PUJ, tras la aduana.</span></p></div>
+        <div class="tl-step"><div class="tl-num">4</div><h3 class="disp" style="font-size:18px;margin:0 0 6px"><span class="l-en">Grab your luggage</span><span class="l-es">Toma tu equipaje</span></h3><p style="color:var(--muted);font-weight:500;font-size:14px;margin:0"><span class="l-en">We load every case — the Starex swallows 8+ suitcases.</span><span class="l-es">Cargamos cada maleta — la Starex traga 8+ maletas.</span></p></div>
+        <div class="tl-step"><div class="tl-num">5</div><h3 class="disp" style="font-size:18px;margin:0 0 6px"><span class="l-en">Ride to your resort</span><span class="l-es">Viaja a tu resort</span></h3><p style="color:var(--muted);font-weight:500;font-size:14px;margin:0"><span class="l-en">Cold A/C, cold water, door-to-door. Relax — you've arrived.</span><span class="l-es">Aire frío, agua fría, puerta a puerta. Relájate — ya llegaste.</span></p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== WHY US + support langs + delay policy ===================== -->
+  <section style="background:var(--sand);padding:clamp(64px,9vw,130px) clamp(16px,4vw,44px);overflow:hidden">
+    <div style="max-width:1320px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4vw,56px);align-items:center" class="hero-grid">
+      <div class="reveal">
+        <span class="chip">{{ t.w_kicker }}</span>
+        <h2 class="disp" style="font-size:clamp(34px,5.5vw,62px);margin:16px 0 26px;max-width:14ch">{{ t.w_title }}</h2>
+        <div style="display:grid;gap:16px">
+          <div style="display:flex;gap:16px;align-items:flex-start"><div class="why-dot">✓</div><div><b style="font-size:17px"><span class="l-en">Fixed price, no meter</span><span class="l-es">Precio fijo, sin taxímetro</span></b><p style="margin:2px 0 0;color:var(--muted);font-weight:500"><span class="l-en">The price you see is the price you pay — tolls and taxes included.</span><span class="l-es">El precio que ves es el que pagas — peajes e impuestos incluidos.</span></p></div></div>
+          <div style="display:flex;gap:16px;align-items:flex-start"><div class="why-dot">✓</div><div><b style="font-size:17px"><span class="l-en">On time, every flight</span><span class="l-es">Puntual en cada vuelo</span></b><p style="margin:2px 0 0;color:var(--muted);font-weight:500"><span class="l-en">Live flight tracking means we're there when you walk out — day or night.</span><span class="l-es">Con seguimiento de vuelo estamos ahí cuando sales — de día o de noche.</span></p></div></div>
+          <div style="display:flex;gap:16px;align-items:flex-start"><div class="why-dot">✓</div><div><b style="font-size:17px"><span class="l-en">Drivers who know the island</span><span class="l-es">Choferes que conocen la isla</span></b><p style="margin:2px 0 0;color:var(--muted);font-weight:500"><span class="l-en">Vetted, insured, English-friendly local drivers with tourism plates.</span><span class="l-es">Choferes locales verificados, asegurados y con placa turística.</span></p></div></div>
+        </div>
+        <div style="margin-top:26px">
+          <div style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px">{{ t.w_speak }}</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <span class="chip" style="text-transform:none;letter-spacing:0">🇩🇴 Español</span><span class="chip" style="text-transform:none;letter-spacing:0">🇬🇧 English</span><span class="chip" style="text-transform:none;letter-spacing:0">🇫🇷 Français</span><span class="chip" style="text-transform:none;letter-spacing:0">🇩🇪 Deutsch</span>
+          </div>
+        </div>
+      </div>
+      <div class="reveal" style="display:grid;gap:20px">
+        <div style="position:relative;min-height:220px;display:grid;place-items:center">
+          <div class="sun-glow" style="width:300px;height:300px;background:radial-gradient(circle,var(--sun),transparent 68%);opacity:.4"></div>
+          <div class="drive" style="width:100%;max-width:460px" data-codevan="1"></div>
+        </div>
+        <div class="neu" style="padding:26px;background:linear-gradient(150deg,var(--teal),var(--teal-deep));color:#fff;box-shadow:var(--raise-lg)">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px"><span style="font-size:26px">🛬</span><h3 class="disp" style="font-size:22px;margin:0">{{ t.dl_title }}</h3></div>
+          <p style="margin:0 0 12px;color:rgba(255,255,255,.9);font-weight:500;line-height:1.55">{{ t.dl_body }}</p>
+          <button class="btn wa" onClick="{{ bookWhats }}">WhatsApp</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== EDITORIAL BAND (frosted quote panel) ===================== -->
+  <section style="position:relative;min-height:clamp(340px,44vw,500px);display:flex;align-items:center;overflow:hidden">
+    <div style="position:absolute;inset:0;z-index:0"><image-slot id="lm-editorial" shape="rect" placeholder="EDITORIAL BAND — wide Dominican hospitality moment (driver greeting guests, palm coastline, golden hour)"></image-slot></div>
+    <div style="position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(6,26,28,.5),rgba(6,26,28,.15))"></div>
+    <div class="reveal" style="position:relative;z-index:2;max-width:1160px;margin:0 auto;width:100%;padding:clamp(28px,5vw,60px) clamp(16px,4vw,44px)">
+      <div style="max-width:680px;background:color-mix(in srgb,var(--card) 82%,transparent);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.5);box-shadow:var(--raise-lg);border-radius:24px;padding:clamp(28px,3.6vw,44px)">
+        <div style="font-size:44px;line-height:.4;color:var(--teal);font-family:'Space Grotesk';height:26px">“</div>
+        <h2 class="disp" style="font-size:clamp(24px,3.2vw,40px);color:var(--ink);margin:0">{{ t.ed_quote }}</h2>
+        <div style="margin-top:18px;display:flex;align-items:center;gap:12px"><span class="ly-mark" aria-hidden="true" style="width:34px;height:34px;flex:0 0 34px"></span><span style="font-weight:700;color:var(--teal-deep)">Transportes Los Yeyes</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== REVIEWS ===================== -->
+  <section style="background:var(--surface-2);padding:clamp(64px,9vw,130px) clamp(16px,4vw,44px);border-block:1px solid var(--line);position:relative;overflow:hidden">
+    <div class="sun-glow" style="width:420px;height:420px;background:radial-gradient(circle,var(--teal),transparent 72%);opacity:.12;bottom:-160px;right:-80px"></div>
+    <div class="reveal" style="position:relative;max-width:760px;margin-bottom:44px">
+      <span class="chip">★★★★★ {{ t.rv_kicker }}</span>
+      <h2 class="disp" style="font-size:clamp(34px,5.5vw,62px);margin:16px 0;max-width:15ch">{{ t.rv_title }}</h2>
+    </div>
+    <div style="position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:22px">
+      <div class="neu reveal" style="padding:30px;display:flex;flex-direction:column;gap:14px"><div style="color:var(--sun);font-size:17px">★★★★★</div><p style="font-weight:500;line-height:1.55"><span class="l-en">"Our driver was waiting with a sign right as we cleared customs at PUJ. Ice-cold van, car seat ready for our toddler. Booked the return too."</span><span class="l-es">"Nuestro chofer esperaba con un letrero apenas salimos de aduana en PUJ. Van heladita y silla lista para el bebé. Reservamos también el regreso."</span></p><div style="display:flex;align-items:center;gap:10px;margin-top:auto"><div class="rv-av">🇨🇦</div><div><b>Sarah M.</b><div style="color:var(--muted);font-size:13px">Toronto, Canada</div></div></div></div>
+      <div class="neu reveal" style="padding:30px;display:flex;flex-direction:column;gap:14px"><div style="color:var(--sun);font-size:17px">★★★★★</div><p style="font-weight:500;line-height:1.55"><span class="l-en">"No airport chaos, no haggling. Price agreed on WhatsApp in English and paid in cash. The Starex fit six of us plus golf bags easily."</span><span class="l-es">"Sin caos en el aeropuerto ni regateo. Precio acordado por WhatsApp y pagado en efectivo. La Starex nos llevó a seis con palos de golf sin problema."</span></p><div style="display:flex;align-items:center;gap:10px;margin-top:auto"><div class="rv-av">🇺🇸</div><div><b>James R.</b><div style="color:var(--muted);font-size:13px">Chicago, USA</div></div></div></div>
+      <div class="neu reveal" style="padding:30px;display:flex;flex-direction:column;gap:14px"><div style="color:var(--sun);font-size:17px">★★★★★</div><p style="font-weight:500;line-height:1.55"><span class="l-en">"Flight landed at 1am and they were still there, smiling. Safe, clean, professional. This is the only transfer we'll use in Punta Cana."</span><span class="l-es">"El vuelo llegó a la 1am y ahí estaban, sonriendo. Seguro, limpio, profesional. Es el único traslado que usaremos en Punta Cana."</span></p><div style="display:flex;align-items:center;gap:10px;margin-top:auto"><div class="rv-av">🇩🇪</div><div><b>Lena K.</b><div style="color:var(--muted);font-size:13px">Munich, Germany</div></div></div></div>
+      <div class="neu reveal" style="padding:30px;display:flex;flex-direction:column;gap:14px"><div style="color:var(--sun);font-size:17px">★★★★★</div><p style="font-weight:500;line-height:1.55"><span class="l-en">"Booked from Paris, replied in French within minutes. Spotless van, friendly driver, and the round-trip pickup was right on time."</span><span class="l-es">"Reservé desde París y respondieron en francés en minutos. Van impecable, chofer amable, y la recogida de regreso puntual."</span></p><div style="display:flex;align-items:center;gap:10px;margin-top:auto"><div class="rv-av">🇫🇷</div><div><b>Camille D.</b><div style="color:var(--muted);font-size:13px">Paris, France</div></div></div></div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ ===================== -->
+  <section id="faq" style="background:var(--sand);padding:clamp(64px,9vw,130px) clamp(16px,4vw,44px)">
+    <div style="max-width:860px;margin:0 auto">
+      <div class="reveal" style="margin-bottom:36px">
+        <span class="chip">FAQ</span>
+        <h2 class="disp" style="font-size:clamp(34px,5.5vw,62px);margin:16px 0;max-width:15ch">{{ t.f_title }}</h2>
+      </div>
+      <div class="reveal">
+        <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="7">
+          <div class="faq-item" data-open="{{ f.open }}">
+            <button class="faq-q" onClick="{{ f.toggle }}" aria-expanded="{{ f.open }}">
+              <span><span class="l-en">{{ f.qEn }}</span><span class="l-es">{{ f.qEs }}</span></span>
+              <span class="faq-ic">+</span>
+            </button>
+            <div class="faq-a"><span class="l-en">{{ f.aEn }}</span><span class="l-es">{{ f.aEs }}</span></div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FINAL CTA ===================== -->
+  <section style="background:linear-gradient(160deg,var(--teal) 0%,var(--teal-deep) 100%);color:#fff;padding:clamp(64px,9vw,140px) clamp(16px,4vw,44px);position:relative;overflow:hidden">
+    <div class="sun-glow" style="width:520px;height:520px;background:radial-gradient(circle,var(--sun),transparent 66%);opacity:.4;top:-160px;left:-80px"></div>
+    <div class="cta-grid" style="position:relative;max-width:1160px;margin:0 auto;display:grid;grid-template-columns:1.2fr .8fr;gap:44px;align-items:center">
+      <div class="reveal">
+        <h2 class="disp" style="font-size:clamp(38px,6vw,78px);margin:0 0 18px;max-width:14ch">{{ t.c_title }}</h2>
+        <p style="font-size:clamp(17px,2vw,22px);color:rgba(255,255,255,.85);font-weight:500;max-width:520px">{{ t.c_sub }}</p>
+      </div>
+      <div class="reveal" style="display:flex;flex-direction:column;gap:14px">
+        <a class="btn" href="#book" style="background:#fff;color:var(--teal-deep);font-size:17px;padding:18px 28px">{{ t.c_book }} →</a>
+        <button class="btn wa" onClick="{{ bookWhats }}" style="font-size:17px;padding:18px 28px">WhatsApp +1 809 000 0000</button>
+        <p style="text-align:center;color:rgba(255,255,255,.72);font-size:13px;margin:4px 0 0;line-height:1.5">{{ t.c_waNote }}</p>
+      </div>
+    </div>
+  </section>
+
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer style="background:var(--ink);color:var(--surface);padding:0 clamp(16px,4vw,44px) 32px;position:relative">
+    <svg class="ly-line" aria-hidden="true" viewBox="0 0 1440 60" preserveAspectRatio="none" style="display:block;width:100%;height:46px;color:var(--teal);opacity:.5"><path stroke="currentColor" stroke-width="2.5" d="M0 40 Q60 14 120 40 T240 40 T360 40 T480 40 T600 40 T720 40 T840 40 T960 40 T1080 40 T1200 40 T1320 40 T1440 40"/></svg>
+    <div class="foot-grid" style="max-width:1320px;margin:8px auto 0;display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr 1.1fr;gap:32px">
+      <div>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px"><span class="ly-mark" aria-hidden="true"></span><span class="disp" style="font-size:22px">Transportes Los Yeyes</span></div>
+        <p style="color:rgba(251,245,234,.6);max-width:340px;line-height:1.55;font-weight:500;font-size:14px">{{ t.ft_tagline }}</p>
+        <div class="lic-badge" style="margin-top:18px"><span style="font-size:17px">🏅</span><div><div style="font-weight:700;font-size:12px;letter-spacing:.02em">{{ t.ft_license }}</div><div style="font-size:12px;color:rgba(251,245,234,.6)">#RD-XXXX</div></div></div>
+        <div style="display:flex;gap:10px;margin-top:18px"><span class="soc">f</span><span class="soc">◎</span><span class="soc">✆</span></div>
+      </div>
+      <div><div class="ftitle">{{ t.ft_companyT }}</div><div class="fcol"><span>Transportes Los Yeyes S.R.L.</span><span>Punta Cana, La Altagracia</span><span><span class="l-en">Dominican Republic</span><span class="l-es">República Dominicana</span></span><span><span class="l-en">Daily · 24/7 dispatch</span><span class="l-es">Diario · despacho 24/7</span></span></div></div>
+      <div><div class="ftitle">{{ t.ft_servicesT }}</div><div class="fcol"><span>{{ t.svc_airport }}</span><span>{{ t.svc_exc }}</span><span>Punta Cana (PUJ) · Bávaro</span><span>Cap Cana · La Romana</span><span>Santo Domingo (SDQ)</span></div></div>
+      <div><div class="ftitle">{{ t.ft_legalT }}</div><div class="fcol"><button class="lk flink" onClick="{{ openPrivacy }}">{{ t.ft_privacy }}</button><button class="lk flink" onClick="{{ openCookies }}">{{ t.ft_cookie }}</button><button class="lk flink" onClick="{{ openTerms }}">{{ t.ft_terms }}</button><button class="lk flink" onClick="{{ openCancel }}">{{ t.ft_cancel }}</button><button class="lk flink" onClick="{{ openCancel }}">{{ t.ft_complaints }}</button></div></div>
+      <div><div class="ftitle">{{ t.ft_contactT }}</div><div class="fcol"><span>hola@losyeyes.do</span><span>WhatsApp +1 809 000 0000</span><span>{{ t.ft_langs }}</span><button class="lk flink" onClick="{{ openCookies }}">{{ t.ft_cookiePrefs }}</button></div></div>
+    </div>
+    <div style="max-width:1320px;margin:34px auto 0;padding-top:22px;border-top:1px solid rgba(251,245,234,.15);display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;color:rgba(251,245,234,.5);font-weight:500;font-size:13px">
+      <span>© 2026 Transportes Los Yeyes · {{ t.ft_license }} #RD-XXXX</span>
+      <span>{{ t.ft_rights }}</span>
+      <span>{{ t.ft_made }} 🇩🇴</span>
+    </div>
+  </footer>
+
+  <!-- ===================== COOKIE CONSENT ===================== -->
+  <div class="cookie" role="dialog" aria-label="Cookie consent" style="display:{{ cookieDisplay }}">
+    <div style="flex:1;min-width:240px"><b style="font-size:15px">{{ t.ck_title }}</b><p style="margin:4px 0 0;color:var(--muted);font-size:13px;line-height:1.5">{{ t.ck_body }} <button class="lk" onClick="{{ openCookies }}" style="color:var(--teal-deep);font-weight:700;text-decoration:underline">{{ t.ck_policy }}</button></p></div>
+    <div style="display:flex;gap:9px;flex-wrap:wrap">
+      <button class="btn ghost sm" onClick="{{ openCookies }}">{{ t.ck_manage }}</button>
+      <button class="btn ghost sm" onClick="{{ cookieReject }}">{{ t.ck_reject }}</button>
+      <button class="btn sm" onClick="{{ cookieAccept }}">{{ t.ck_accept }}</button>
+    </div>
+  </div>
+
+  <!-- ===================== LEGAL MODALS ===================== -->
+  <div class="modal-back" style="display:{{ mPrivacy }}" onClick="{{ backClose }}">
+    <div class="modal" role="dialog" aria-modal="true" aria-label="Privacy Policy" onClick="{{ stop }}">
+      <button class="xbtn" onClick="{{ closeModal }}" aria-label="Close">✕</button>
+      <span class="chip"><span class="l-en">Privacy</span><span class="l-es">Privacidad</span></span>
+      <h3 style="font-size:clamp(24px,3vw,32px);margin:14px 0 6px">{{ t.md_privacy }}</h3>
+      <h4><span class="l-en">What we collect</span><span class="l-es">Qué recopilamos</span></h4>
+      <p><span class="l-en">Booking form details (pickup, drop-off, date, passengers, luggage), your WhatsApp number and messages when you contact us, and basic analytics (pages viewed, device type) if you accept analytics cookies.</span><span class="l-es">Datos del formulario (recogida, destino, fecha, pasajeros, equipaje), tu número de WhatsApp y mensajes al contactarnos, y analítica básica (páginas vistas, tipo de dispositivo) si aceptas cookies de analítica.</span></p>
+      <h4><span class="l-en">Why &amp; how long</span><span class="l-es">Por qué y cuánto tiempo</span></h4>
+      <p><span class="l-en">We use it only to quote and operate your transfer and to improve service. Booking records are kept for the period required by Dominican tax and tourism rules; you can request earlier deletion.</span><span class="l-es">Lo usamos solo para cotizar y operar tu traslado y para mejorar el servicio. Los registros se guardan por el período exigido por normas fiscales y turísticas dominicanas; puedes solicitar su eliminación antes.</span></p>
+      <h4><span class="l-en">Sharing</span><span class="l-es">Compartir</span></h4>
+      <p><span class="l-en">Shared only with the assigned driver and the payment and messaging providers (e.g. WhatsApp) needed to deliver the ride. Never sold.</span><span class="l-es">Se comparte solo con el chofer asignado y los proveedores de pago y mensajería (p. ej. WhatsApp) necesarios para el viaje. Nunca se vende.</span></p>
+      <h4><span class="l-en">Your rights &amp; contact</span><span class="l-es">Tus derechos y contacto</span></h4>
+      <p><span class="l-en">Access, correct or delete your data anytime by emailing privacy@losyeyes.do.</span><span class="l-es">Accede, corrige o elimina tus datos escribiendo a privacy@losyeyes.do.</span></p>
+    </div>
+  </div>
+
+  <div class="modal-back" style="display:{{ mCookies }}" onClick="{{ backClose }}">
+    <div class="modal" role="dialog" aria-modal="true" aria-label="Cookie preferences" onClick="{{ stop }}">
+      <button class="xbtn" onClick="{{ closeModal }}" aria-label="Close">✕</button>
+      <span class="chip">Cookies</span>
+      <h3 style="font-size:clamp(24px,3vw,32px);margin:14px 0 6px">{{ t.md_cookies }}</h3>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:14px;padding:16px 0;border-bottom:1px solid var(--line)"><div><b><span class="l-en">Essential</span><span class="l-es">Esenciales</span></b><p style="margin:2px 0 0"><span class="l-en">Required for the site to work. Always on.</span><span class="l-es">Necesarias para que el sitio funcione. Siempre activas.</span></p></div><span class="chip" style="color:var(--palm)"><span class="l-en">Always on</span><span class="l-es">Siempre</span></span></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:14px;padding:16px 0"><div><b><span class="l-en">Analytics</span><span class="l-es">Analítica</span></b><p style="margin:2px 0 0"><span class="l-en">Anonymous usage stats to improve the site.</span><span class="l-es">Estadísticas anónimas para mejorar el sitio.</span></p></div><span class="chip"><span class="l-en">Optional</span><span class="l-es">Opcional</span></span></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px">
+        <button class="btn ghost" onClick="{{ cookieReject }}">{{ t.ck_reject }}</button>
+        <button class="btn" onClick="{{ cookieAccept }}">{{ t.ck_accept }}</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-back" style="display:{{ mTerms }}" onClick="{{ backClose }}">
+    <div class="modal" role="dialog" aria-modal="true" aria-label="Terms and booking conditions" onClick="{{ stop }}">
+      <button class="xbtn" onClick="{{ closeModal }}" aria-label="Close">✕</button>
+      <span class="chip"><span class="l-en">Terms</span><span class="l-es">Términos</span></span>
+      <h3 style="font-size:clamp(24px,3vw,32px);margin:14px 0 6px">{{ t.md_terms }}</h3>
+      <h4><span class="l-en">What's included</span><span class="l-es">Qué incluye</span></h4>
+      <p><span class="l-en">Private vehicle, professional driver, fuel, tolls and taxes, meet &amp; greet, and one child seat on request. Gratuities are optional.</span><span class="l-es">Vehículo privado, chofer profesional, combustible, peajes e impuestos, recibimiento y una silla de niño a solicitud. Las propinas son opcionales.</span></p>
+      <h4><span class="l-en">Waiting time &amp; delays</span><span class="l-es">Espera y retrasos</span></h4>
+      <p><span class="l-en">Airport pickups include a free wait window of 60–90 minutes after landing. We track your flight; extended waits beyond the window may incur a small hourly fee agreed in advance.</span><span class="l-es">Las recogidas incluyen 60–90 minutos de espera gratis tras aterrizar. Rastreamos tu vuelo; esperas mayores pueden tener una tarifa por hora acordada antes.</span></p>
+      <h4><span class="l-en">Cancellation &amp; no-show</span><span class="l-es">Cancelación y no-show</span></h4>
+      <p><span class="l-en">Free cancellation up to 24 hours before pickup. No-shows without notice may be charged the full fare.</span><span class="l-es">Cancelación gratis hasta 24 horas antes. Los no-show sin aviso pueden cobrarse la tarifa completa.</span></p>
+      <h4><span class="l-en">Luggage, child seats &amp; liability</span><span class="l-es">Equipaje, sillas y responsabilidad</span></h4>
+      <p><span class="l-en">Up to 8 passengers with 8+ standard cases. Oversized gear must be declared. Service is insured per Dominican law; liability is limited to the value of the transfer except where law provides otherwise. Governing law: Dominican Republic.</span><span class="l-es">Hasta 8 pasajeros con 8+ maletas estándar. El equipo grande debe declararse. El servicio está asegurado según la ley dominicana; la responsabilidad se limita al valor del traslado salvo que la ley disponga otra cosa. Ley aplicable: República Dominicana.</span></p>
+    </div>
+  </div>
+
+  <div class="modal-back" style="display:{{ mCancel }}" onClick="{{ backClose }}">
+    <div class="modal" role="dialog" aria-modal="true" aria-label="Cancellation and complaints" onClick="{{ stop }}">
+      <button class="xbtn" onClick="{{ closeModal }}" aria-label="Close">✕</button>
+      <span class="chip"><span class="l-en">Cancellation</span><span class="l-es">Cancelación</span></span>
+      <h3 style="font-size:clamp(24px,3vw,32px);margin:14px 0 6px">{{ t.md_cancel }}</h3>
+      <h4><span class="l-en">How to cancel</span><span class="l-es">Cómo cancelar</span></h4>
+      <p><span class="l-en">Message us on WhatsApp with your booking name. Cancellations 24h or more before pickup are free with full refund of any deposit.</span><span class="l-es">Escríbenos por WhatsApp con el nombre de la reserva. Cancelaciones con 24h o más de anticipación son gratis con reembolso total.</span></p>
+      <h4><span class="l-en">Refunds</span><span class="l-es">Reembolsos</span></h4>
+      <p><span class="l-en">Deposits are refunded to the original payment method within a few business days.</span><span class="l-es">Los depósitos se reembolsan al método de pago original en pocos días hábiles.</span></p>
+      <h4><span class="l-en">A problem with your ride?</span><span class="l-es">¿Un problema con tu viaje?</span></h4>
+      <p><span class="l-en">We want to fix it. Email hola@losyeyes.do or message us on WhatsApp within 30 days and we'll respond promptly.</span><span class="l-es">Queremos resolverlo. Escribe a hola@losyeyes.do o por WhatsApp dentro de 30 días y responderemos pronto.</span></p>
+    </div>
+  </div>
+
+  <helmet>
+  <style>
+    .lm .ly-mark{width:42px;height:42px;flex:0 0 42px;border-radius:13px;display:block;background:
+      radial-gradient(circle at 50% 42%, #f7c24a 0 15%, transparent 16%),
+      linear-gradient(155deg,#0b6c7a,#0e8fa0 55%,#3fb8c6);
+      box-shadow:0 6px 14px rgba(11,108,122,.4), inset 0 1px 0 rgba(255,255,255,.25);position:relative;overflow:hidden}
+    .lm .ly-mark::after{content:"";position:absolute;left:-6px;right:-6px;bottom:6px;height:20px;
+      background:radial-gradient(circle at 20% 0,transparent 8px,#fbf5ea 9px) repeat-x;background-size:18px 20px;opacity:.9}
+    .lm .ly-mark::before{content:"";position:absolute;left:-6px;right:-6px;bottom:2px;height:20px;
+      background:radial-gradient(circle at 60% 0,transparent 8px,#bfeaf0 9px) repeat-x;background-size:16px 18px;opacity:.7}
+    .lm .svc-ic{width:56px;height:56px;border-radius:16px;background:var(--surface);box-shadow:var(--raise);display:grid;place-items:center;font-size:26px;flex:0 0 auto}
+    .lm .vchip{display:inline-flex;align-items:center;gap:6px;padding:8px 15px;border-radius:100px;background:rgba(255,255,255,.08);color:#bfeaf0;font-weight:700;font-size:13px;border:1px solid rgba(255,255,255,.12)}
+    .lm .why-dot{flex:0 0 32px;width:32px;height:32px;border-radius:50%;background:var(--teal);color:#fff;display:grid;place-items:center;font-weight:800;box-shadow:0 4px 10px color-mix(in srgb,var(--teal) 40%,transparent)}
+    .lm .rv-av{width:42px;height:42px;border-radius:50%;background:var(--surface);box-shadow:var(--raise);display:grid;place-items:center;font-size:22px}
+    .lm .lic-badge{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12)}
+    .lm .ftitle{font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:11px;color:rgba(251,245,234,.5);margin-bottom:14px}
+    .lm .fcol{display:grid;gap:9px;font-weight:500;color:rgba(251,245,234,.82);font-size:14px}
+    .lm .flink{color:rgba(251,245,234,.82);font-weight:500;font-size:14px}
+    .lm .flink:hover{color:#fff;text-decoration:underline}
+    .lm .soc{width:36px;height:36px;border-radius:11px;background:rgba(255,255,255,.08);display:grid;place-items:center;font-weight:700;cursor:pointer}
+    .lm .dest-img{position:absolute;inset:0;z-index:0}
+    .lm .dest-cap{position:relative;z-index:2;margin:14px;padding:20px;border-radius:18px;background:color-mix(in srgb,var(--card) 90%,transparent);backdrop-filter:blur(6px);box-shadow:var(--raise)}
+    .lm [data-codevan] svg{width:100%;height:auto;display:block;filter:drop-shadow(0 22px 30px rgba(30,55,50,.25))}
+    .lm .trust-run{display:flex;gap:14px;align-items:center}
+  </style>
+  </helmet>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:&quot;100%&quot;}}">
+class Component extends DCLogic {
+  state = { lang:'en', langOpen:false, faqOpen:{0:true}, currency:'USD', modal:null, cookie:'pending' };
+
+  langDefs = [
+    {code:'EN',key:'en',native:'English'}, {code:'ES',key:'es',native:'Español'},
+    {code:'FR',key:'fr',native:'Français'}, {code:'DE',key:'de',native:'Deutsch'},
+    {code:'PT',key:'pt',native:'Português'}, {code:'IT',key:'it',native:'Italiano'},
+    {code:'RU',key:'ru',native:'Русский'}, {code:'ZH',key:'zh',native:'中文'},
+    {code:'NL',key:'nl',native:'Nederlands'}, {code:'PL',key:'pl',native:'Polski'},
+  ];
+
+  i18n = {
+    en:{skip:'Skip to content',navServices:'Services',navPrices:'Prices',navZones:'Zones',navDest:'Destinations',navFaq:'FAQ',book:'Book transfer',
+      h_countries:'Travelers from 30+ countries',h_transfers:'12,000+ transfers',
+      h1:'Land in Punta Cana. Your private van is',h1hi:'already waiting.',
+      h_sub:'Airport to resort in a private, air-conditioned Hyundai Grand Starex — no queues, no shared shuttles, no surprises. Fixed price, flight tracking, meet & greet.',
+      h_book:'Book transfer',h_price:'Price on WhatsApp',scroll:'Scroll to book',
+      hf_cancel:'Free cancellation 24h',hf_pay:'Pay in cash or card',hf_seats:'8 seats · strong A/C',
+      bk_kicker:'Reservation',bk_title:'Book your transfer',bk_sub:'Tell us your route and get a fixed price on WhatsApp in minutes.',
+      b_pickup:'Pickup',b_drop:'Drop-off',b_date:'Date',b_time:'Time',b_pax:'Passengers',b_lug:'Luggage',
+      b_get:'Get my price on WhatsApp',b_consent:'By continuing you agree to be contacted about this transfer on WhatsApp. See our',b_privacy:'Privacy Policy',
+      s_kicker:'What we do',s_title:'Every ride, private and door to door',s_sub:'One van, one driver, one price — booked before you land or the moment you arrive.',
+      svc_featTag:'Most booked',svc_airport:'Airport transfer',svc_hotel:'Hotel to hotel',svc_round:'Round trip',svc_exc:'Excursions & hourly',svc_group:'Group & family',svc_ask:'Not sure? Ask us',
+      v_title:'Room to breathe the whole way',v_sub:'A full-size van kept cold, clean and comfortable — with room for the whole family and every suitcase.',
+      vchip1:'8 seats',vchip2:'Strong A/C',vchip3:'8+ suitcases',vchip4:'Free child seat',
+      p_kicker:'Indicative fares',p_title:'Know the price before you write',p_sub:'Per private van (up to 8 passengers), not per person. Tolls & taxes included.',
+      p_curLabel:'Currency · rates update live',p_indicative:'Indicative',p_oneWay:'one way',p_roundTrip:'Round trip',p_confirm:'Confirm on WhatsApp',
+      m_kicker:'Where we drive',m_title:'The east coast corridor',m_sub:'From Punta Cana airport out to every resort zone and across to Santo Domingo.',m_legend:'Service zones',m_foot:"Stylized coverage map. Don't see your hotel? Ask on WhatsApp.",
+      d_kicker:'Where we go',d_title:'Popular routes & day trips',d_sub:"Scroll to travel the coast — from PUJ arrivals to the island's best days out.",
+      tl_kicker:'Before you land',tl_title:'From the jet bridge to the back seat',
+      w_kicker:'Why Los Yeyes',w_title:'Locals who make arrival the easy part',w_speak:'Our team speaks (on WhatsApp & phone)',
+      dl_title:'Flight delayed? We wait.',dl_body:'We track your flight live and adjust automatically. Airport pickups include a free wait window of 60–90 min after landing — just message us on WhatsApp if you are held up.',
+      ed_quote:"Hospitality is our island's first language — and it starts the second you land.",
+      rv_kicker:'4.9 · 2,300+ rides',rv_title:'Tourists from everywhere, home safe',
+      f_title:'Good to know before you book',
+      c_title:'Your ride is waiting when you land',c_sub:'Lock in your private Starex transfer in under two minutes. Free cancellation up to 24 hours before pickup.',c_book:'Book my transfer',c_waNote:'Reply in minutes · English & Español · By messaging you agree to be contacted about this transfer.',
+      ft_tagline:'Private tourist transportation across the Dominican Republic. Based in Punta Cana, serving the whole east coast and Santo Domingo.',
+      ft_license:'Tourism transport license',ft_companyT:'Company',ft_servicesT:'Services · Zones',ft_legalT:'Legal',ft_contactT:'Contact',
+      ft_privacy:'Privacy Policy',ft_cookie:'Cookie Policy',ft_terms:'Terms & booking',ft_cancel:'Cancellation policy',ft_complaints:'Complaints',ft_cookiePrefs:'Cookie preferences',
+      ft_langs:'Languages: ES · EN · FR · DE +',ft_made:'Made in the Dominican Republic',ft_rights:'All photos & video © Transportes Los Yeyes / licensed.',
+      ck_title:'We use cookies',ck_body:'Essential cookies keep the site working; analytics cookies help us improve. You choose.',ck_manage:'Manage',ck_reject:'Reject non-essential',ck_accept:'Accept all',ck_policy:'Cookie Policy',
+      md_privacy:'Privacy Policy',md_cookies:'Cookie preferences',md_terms:'Terms & booking conditions',md_cancel:'Cancellation & complaints'},
+
+    es:{skip:'Saltar al contenido',navServices:'Servicios',navPrices:'Precios',navZones:'Zonas',navDest:'Destinos',navFaq:'FAQ',book:'Reservar',
+      h_countries:'Viajeros de 30+ países',h_transfers:'12,000+ traslados',
+      h1:'Llega a Punta Cana. Tu van privada ya',h1hi:'te está esperando.',
+      h_sub:'Del aeropuerto a tu resort en una Hyundai Grand Starex privada con aire acondicionado — sin filas, sin transporte compartido, sin sorpresas. Precio fijo, seguimiento de vuelo y recibimiento personal.',
+      h_book:'Reservar',h_price:'Precio por WhatsApp',scroll:'Desliza para reservar',
+      hf_cancel:'Cancelación gratis 24h',hf_pay:'Paga en efectivo o tarjeta',hf_seats:'8 asientos · aire potente',
+      bk_kicker:'Reserva',bk_title:'Reserva tu traslado',bk_sub:'Dinos tu ruta y recibe un precio fijo por WhatsApp en minutos.',
+      b_pickup:'Recogida',b_drop:'Destino',b_date:'Fecha',b_time:'Hora',b_pax:'Pasajeros',b_lug:'Equipaje',
+      b_get:'Recibir mi precio por WhatsApp',b_consent:'Al continuar aceptas ser contactado sobre este traslado por WhatsApp. Consulta la',b_privacy:'Política de Privacidad',
+      s_kicker:'Qué hacemos',s_title:'Cada viaje, privado y puerta a puerta',s_sub:'Una van, un chofer, un precio — reservado antes de llegar o en el momento en que aterrizas.',
+      svc_featTag:'Más reservado',svc_airport:'Traslado de aeropuerto',svc_hotel:'Hotel a hotel',svc_round:'Ida y vuelta',svc_exc:'Excursiones y por hora',svc_group:'Grupos y familias',svc_ask:'¿Dudas? Escríbenos',
+      v_title:'Espacio para viajar a gusto',v_sub:'Una van amplia, fría, limpia y cómoda — con espacio para toda la familia y cada maleta.',
+      vchip1:'8 asientos',vchip2:'Aire potente',vchip3:'8+ maletas',vchip4:'Silla de niño gratis',
+      p_kicker:'Tarifas indicativas',p_title:'Conoce el precio antes de escribir',p_sub:'Por van privada (hasta 8 pasajeros), no por persona. Peajes e impuestos incluidos.',
+      p_curLabel:'Moneda · tasas en vivo',p_indicative:'Indicativo',p_oneWay:'solo ida',p_roundTrip:'Ida y vuelta',p_confirm:'Confirmar por WhatsApp',
+      m_kicker:'Dónde manejamos',m_title:'El corredor de la costa este',m_sub:'Desde el aeropuerto de Punta Cana hacia cada zona de resorts y hasta Santo Domingo.',m_legend:'Zonas de servicio',m_foot:'Mapa de cobertura estilizado. ¿No ves tu hotel? Pregunta por WhatsApp.',
+      d_kicker:'A dónde vamos',d_title:'Rutas y excursiones favoritas',d_sub:'Desliza para recorrer la costa — desde llegadas en PUJ hasta las mejores excursiones.',
+      tl_kicker:'Antes de aterrizar',tl_title:'Del avión al asiento trasero',
+      w_kicker:'Por qué Los Yeyes',w_title:'Locales que hacen fácil tu llegada',w_speak:'Nuestro equipo habla (por WhatsApp y teléfono)',
+      dl_title:'¿Vuelo retrasado? Esperamos.',dl_body:'Rastreamos tu vuelo en vivo y ajustamos solos. Las recogidas incluyen una espera gratis de 60–90 min tras aterrizar — solo escríbenos por WhatsApp si te demoras.',
+      ed_quote:'La hospitalidad es el primer idioma de nuestra isla — y empieza apenas aterrizas.',
+      rv_kicker:'4.9 · 2,300+ viajes',rv_title:'Turistas de todo el mundo, seguros',
+      f_title:'Bueno saber antes de reservar',
+      c_title:'Tu viaje te espera cuando aterrizas',c_sub:'Aparta tu traslado privado en Starex en menos de dos minutos. Cancelación gratis hasta 24 horas antes.',c_book:'Reservar mi traslado',c_waNote:'Respuesta en minutos · English & Español · Al escribir aceptas ser contactado sobre este traslado.',
+      ft_tagline:'Transporte turístico privado en toda la República Dominicana. Con base en Punta Cana, cubriendo la costa este y Santo Domingo.',
+      ft_license:'Licencia de transporte turístico',ft_companyT:'Empresa',ft_servicesT:'Servicios · Zonas',ft_legalT:'Legal',ft_contactT:'Contacto',
+      ft_privacy:'Privacidad',ft_cookie:'Cookies',ft_terms:'Términos',ft_cancel:'Cancelaciones',ft_complaints:'Reclamos',ft_cookiePrefs:'Preferencias de cookies',
+      ft_langs:'Idiomas: ES · EN · FR · DE +',ft_made:'Hecho en República Dominicana',ft_rights:'Fotos y video © Transportes Los Yeyes / con licencia.',
+      ck_title:'Usamos cookies',ck_body:'Las cookies esenciales hacen funcionar el sitio; las de analítica nos ayudan a mejorar. Tú decides.',ck_manage:'Gestionar',ck_reject:'Rechazar opcionales',ck_accept:'Aceptar todo',ck_policy:'Política de Cookies',
+      md_privacy:'Política de Privacidad',md_cookies:'Preferencias de cookies',md_terms:'Términos y condiciones de reserva',md_cancel:'Cancelación y reclamos'},
+
+    fr:{skip:'Aller au contenu',navServices:'Services',navPrices:'Tarifs',navZones:'Zones',navDest:'Destinations',navFaq:'FAQ',book:'Réserver',
+      h_countries:'Voyageurs de 30+ pays',h_transfers:'12 000+ transferts',
+      h1:'Atterrissez à Punta Cana. Votre van privé',h1hi:'vous attend déjà.',
+      h_sub:"De l'aéroport au resort dans un Hyundai Grand Starex privé et climatisé — sans files, sans navette partagée, sans surprises. Prix fixe, suivi de vol et accueil personnalisé.",
+      h_book:'Réserver',h_price:'Prix sur WhatsApp',scroll:'Défiler pour réserver',
+      hf_cancel:'Annulation gratuite 24h',hf_pay:'Paiement espèces ou carte',hf_seats:'8 places · clim puissante',
+      bk_kicker:'Réservation',bk_title:'Réservez votre transfert',bk_sub:'Indiquez votre trajet et recevez un prix fixe sur WhatsApp en quelques minutes.',
+      b_pickup:'Prise en charge',b_drop:'Destination',b_date:'Date',b_time:'Heure',b_pax:'Passagers',b_lug:'Bagages',
+      b_get:'Obtenir mon prix sur WhatsApp',b_consent:'En continuant, vous acceptez d\u2019être contacté au sujet de ce transfert sur WhatsApp. Voir notre',b_privacy:'Politique de confidentialité',
+      s_kicker:'Ce que nous faisons',s_title:'Chaque trajet, privé et porte-à-porte',s_sub:'Un van, un chauffeur, un prix — réservé avant l\u2019atterrissage ou dès votre arrivée.',
+      svc_featTag:'Le plus réservé',svc_airport:'Transfert aéroport',svc_hotel:'Hôtel à hôtel',svc_round:'Aller-retour',svc_exc:'Excursions & à l\u2019heure',svc_group:'Groupes & familles',svc_ask:'Un doute ? Écrivez-nous',
+      v_title:'De l\u2019espace pour tout le trajet',v_sub:'Un grand van gardé frais, propre et confortable — avec de la place pour toute la famille et chaque valise.',
+      vchip1:'8 places',vchip2:'Clim puissante',vchip3:'8+ valises',vchip4:'Siège enfant gratuit',
+      p_kicker:'Tarifs indicatifs',p_title:'Connaissez le prix avant d\u2019écrire',p_sub:'Par van privé (jusqu\u2019à 8 passagers), pas par personne. Péages et taxes inclus.',
+      p_curLabel:'Devise · taux en direct',p_indicative:'Indicatif',p_oneWay:'aller simple',p_roundTrip:'Aller-retour',p_confirm:'Confirmer sur WhatsApp',
+      m_kicker:'Où nous roulons',m_title:'Le corridor de la côte est',m_sub:'De l\u2019aéroport de Punta Cana vers chaque zone de resorts et jusqu\u2019à Saint-Domingue.',m_legend:'Zones desservies',m_foot:'Carte de couverture stylisée. Vous ne voyez pas votre hôtel ? Demandez sur WhatsApp.',
+      d_kicker:'Où nous allons',d_title:'Itinéraires & excursions populaires',d_sub:'Faites défiler pour longer la côte — des arrivées à PUJ aux meilleures sorties de l\u2019île.',
+      tl_kicker:'Avant d\u2019atterrir',tl_title:'De la passerelle à la banquette arrière',
+      w_kicker:'Pourquoi Los Yeyes',w_title:'Des locaux qui simplifient votre arrivée',w_speak:'Notre équipe parle (WhatsApp & téléphone)',
+      dl_title:'Vol retardé ? On attend.',dl_body:'Nous suivons votre vol en direct et ajustons automatiquement. Les prises en charge à l\u2019aéroport incluent une attente gratuite de 60–90 min après l\u2019atterrissage — écrivez-nous sur WhatsApp en cas de retard.',
+      ed_quote:'L\u2019hospitalité est la première langue de notre île — et elle commence dès votre atterrissage.',
+      rv_kicker:'4.9 · 2 300+ trajets',rv_title:'Des touristes du monde entier, bien arrivés',
+      f_title:'Bon à savoir avant de réserver',
+      c_title:'Votre transfert vous attend à l\u2019atterrissage',c_sub:'Réservez votre transfert privé en Starex en moins de deux minutes. Annulation gratuite jusqu\u2019à 24 heures avant.',c_book:'Réserver mon transfert',c_waNote:'Réponse en minutes · English & Español · En écrivant, vous acceptez d\u2019être contacté à propos de ce transfert.',
+      ft_tagline:'Transport touristique privé dans toute la République dominicaine. Basés à Punta Cana, nous couvrons toute la côte est et Saint-Domingue.',
+      ft_license:'Licence de transport touristique',ft_companyT:'Entreprise',ft_servicesT:'Services · Zones',ft_legalT:'Légal',ft_contactT:'Contact',
+      ft_privacy:'Confidentialité',ft_cookie:'Cookies',ft_terms:'Conditions',ft_cancel:'Annulation',ft_complaints:'Réclamations',ft_cookiePrefs:'Préférences cookies',
+      ft_langs:'Langues : ES · EN · FR · DE +',ft_made:'Fait en République dominicaine',ft_rights:'Toutes les photos et vidéos © Transportes Los Yeyes / sous licence.',
+      ck_title:'Nous utilisons des cookies',ck_body:'Les cookies essentiels font fonctionner le site ; ceux d\u2019analyse nous aident à l\u2019améliorer. À vous de choisir.',ck_manage:'Gérer',ck_reject:'Refuser les non essentiels',ck_accept:'Tout accepter',ck_policy:'Politique cookies',
+      md_privacy:'Politique de confidentialité',md_cookies:'Préférences cookies',md_terms:'Conditions de réservation',md_cancel:'Annulation & réclamations'},
+
+    de:{skip:'Zum Inhalt springen',navServices:'Leistungen',navPrices:'Preise',navZones:'Zonen',navDest:'Ziele',navFaq:'FAQ',book:'Buchen',
+      h_countries:'Reisende aus 30+ Ländern',h_transfers:'12.000+ Transfers',
+      h1:'Ankommen in Punta Cana. Ihr privater Van',h1hi:'wartet schon.',
+      h_sub:'Vom Flughafen zum Resort in einem privaten, klimatisierten Hyundai Grand Starex — keine Schlangen, keine Sammeltransfers, keine Überraschungen. Festpreis, Flugverfolgung und persönlicher Empfang.',
+      h_book:'Buchen',h_price:'Preis per WhatsApp',scroll:'Zum Buchen scrollen',
+      hf_cancel:'Kostenlose Stornierung 24h',hf_pay:'Zahlung bar oder Karte',hf_seats:'8 Sitze · starke Klima',
+      bk_kicker:'Reservierung',bk_title:'Buchen Sie Ihren Transfer',bk_sub:'Nennen Sie uns Ihre Route und erhalten Sie in Minuten einen Festpreis per WhatsApp.',
+      b_pickup:'Abholung',b_drop:'Ziel',b_date:'Datum',b_time:'Uhrzeit',b_pax:'Passagiere',b_lug:'Gepäck',
+      b_get:'Preis per WhatsApp erhalten',b_consent:'Mit dem Fortfahren stimmen Sie zu, zu diesem Transfer über WhatsApp kontaktiert zu werden. Siehe unsere',b_privacy:'Datenschutzerklärung',
+      s_kicker:'Was wir tun',s_title:'Jede Fahrt privat und von Tür zu Tür',s_sub:'Ein Van, ein Fahrer, ein Preis — gebucht vor der Landung oder direkt bei Ankunft.',
+      svc_featTag:'Am meisten gebucht',svc_airport:'Flughafentransfer',svc_hotel:'Hotel zu Hotel',svc_round:'Hin- und Rückfahrt',svc_exc:'Ausflüge & stundenweise',svc_group:'Gruppen & Familien',svc_ask:'Unsicher? Fragen Sie uns',
+      v_title:'Platz zum Durchatmen den ganzen Weg',v_sub:'Ein großer Van, kühl, sauber und komfortabel — mit Platz für die ganze Familie und jeden Koffer.',
+      vchip1:'8 Sitze',vchip2:'Starke Klima',vchip3:'8+ Koffer',vchip4:'Kindersitz gratis',
+      p_kicker:'Richtpreise',p_title:'Preis kennen, bevor Sie schreiben',p_sub:'Pro privatem Van (bis 8 Passagiere), nicht pro Person. Maut und Steuern inklusive.',
+      p_curLabel:'Währung · Kurse live',p_indicative:'Richtwert',p_oneWay:'einfach',p_roundTrip:'Hin & zurück',p_confirm:'Per WhatsApp bestätigen',
+      m_kicker:'Wo wir fahren',m_title:'Der Ostküsten-Korridor',m_sub:'Vom Flughafen Punta Cana zu jeder Resortzone und bis nach Santo Domingo.',m_legend:'Servicezonen',m_foot:'Stilisierte Abdeckungskarte. Ihr Hotel fehlt? Fragen Sie per WhatsApp.',
+      d_kicker:'Wohin wir fahren',d_title:'Beliebte Routen & Tagesausflüge',d_sub:'Scrollen Sie die Küste entlang — von der Ankunft in PUJ bis zu den besten Ausflügen der Insel.',
+      tl_kicker:'Vor der Landung',tl_title:'Von der Gangway auf die Rückbank',
+      w_kicker:'Warum Los Yeyes',w_title:'Einheimische, die die Ankunft leicht machen',w_speak:'Unser Team spricht (WhatsApp & Telefon)',
+      dl_title:'Flug verspätet? Wir warten.',dl_body:'Wir verfolgen Ihren Flug live und passen automatisch an. Flughafenabholungen enthalten ein kostenloses Wartefenster von 60–90 Min nach der Landung — schreiben Sie uns bei Verzögerung einfach auf WhatsApp.',
+      ed_quote:'Gastfreundschaft ist die erste Sprache unserer Insel — und sie beginnt in der Sekunde Ihrer Landung.',
+      rv_kicker:'4.9 · 2.300+ Fahrten',rv_title:'Touristen von überall, sicher zu Hause',
+      f_title:'Gut zu wissen vor der Buchung',
+      c_title:'Ihre Fahrt wartet bei der Landung',c_sub:'Sichern Sie Ihren privaten Starex-Transfer in unter zwei Minuten. Kostenlose Stornierung bis 24 Stunden vor Abholung.',c_book:'Meinen Transfer buchen',c_waNote:'Antwort in Minuten · English & Español · Mit dem Schreiben stimmen Sie zu, zu diesem Transfer kontaktiert zu werden.',
+      ft_tagline:'Privater Touristentransport in der gesamten Dominikanischen Republik. Ansässig in Punta Cana, für die ganze Ostküste und Santo Domingo.',
+      ft_license:'Touristische Transportlizenz',ft_companyT:'Unternehmen',ft_servicesT:'Leistungen · Zonen',ft_legalT:'Rechtliches',ft_contactT:'Kontakt',
+      ft_privacy:'Datenschutz',ft_cookie:'Cookies',ft_terms:'AGB',ft_cancel:'Stornierung',ft_complaints:'Beschwerden',ft_cookiePrefs:'Cookie-Einstellungen',
+      ft_langs:'Sprachen: ES · EN · FR · DE +',ft_made:'Gemacht in der Dominikanischen Republik',ft_rights:'Alle Fotos & Videos © Transportes Los Yeyes / lizenziert.',
+      ck_title:'Wir verwenden Cookies',ck_body:'Essenzielle Cookies halten die Seite funktionsfähig; Analyse-Cookies helfen uns, sie zu verbessern. Sie entscheiden.',ck_manage:'Verwalten',ck_reject:'Nicht essenzielle ablehnen',ck_accept:'Alle akzeptieren',ck_policy:'Cookie-Richtlinie',
+      md_privacy:'Datenschutzerklärung',md_cookies:'Cookie-Einstellungen',md_terms:'Buchungsbedingungen',md_cancel:'Stornierung & Beschwerden'},
+
+    pt:{skip:'Ir para o conteúdo',navServices:'Serviços',navPrices:'Preços',navZones:'Zonas',navDest:'Destinos',navFaq:'FAQ',book:'Reservar',
+      h_countries:'Viajantes de 30+ países',h_transfers:'12.000+ traslados',
+      h1:'Chegue a Punta Cana. Sua van privativa já',h1hi:'está esperando.',
+      h_sub:'Do aeroporto ao resort numa Hyundai Grand Starex privativa com ar-condicionado — sem filas, sem transporte compartilhado, sem surpresas. Preço fixo, rastreamento de voo e recepção pessoal.',
+      h_book:'Reservar',h_price:'Preço no WhatsApp',scroll:'Role para reservar',
+      hf_cancel:'Cancelamento grátis 24h',hf_pay:'Pague em dinheiro ou cartão',hf_seats:'8 lugares · ar potente',
+      bk_kicker:'Reserva',bk_title:'Reserve seu traslado',bk_sub:'Diga sua rota e receba um preço fixo no WhatsApp em minutos.',
+      b_pickup:'Embarque',b_drop:'Destino',b_date:'Data',b_time:'Hora',b_pax:'Passageiros',b_lug:'Bagagem',
+      b_get:'Receber meu preço no WhatsApp',b_consent:'Ao continuar, você concorda em ser contatado sobre este traslado no WhatsApp. Veja nossa',b_privacy:'Política de Privacidade',
+      s_kicker:'O que fazemos',s_title:'Cada viagem, privativa e porta a porta',s_sub:'Uma van, um motorista, um preço — reservado antes de pousar ou no momento em que chega.',
+      svc_featTag:'Mais reservado',svc_airport:'Traslado do aeroporto',svc_hotel:'Hotel a hotel',svc_round:'Ida e volta',svc_exc:'Excursões e por hora',svc_group:'Grupos e famílias',svc_ask:'Dúvidas? Fale conosco',
+      v_title:'Espaço para viajar à vontade',v_sub:'Uma van ampla, fresca, limpa e confortável — com espaço para toda a família e cada mala.',
+      vchip1:'8 lugares',vchip2:'Ar potente',vchip3:'8+ malas',vchip4:'Cadeirinha grátis',
+      p_kicker:'Tarifas indicativas',p_title:'Saiba o preço antes de escrever',p_sub:'Por van privativa (até 8 passageiros), não por pessoa. Pedágios e impostos incluídos.',
+      p_curLabel:'Moeda · taxas ao vivo',p_indicative:'Indicativo',p_oneWay:'só ida',p_roundTrip:'Ida e volta',p_confirm:'Confirmar no WhatsApp',
+      m_kicker:'Onde dirigimos',m_title:'O corredor da costa leste',m_sub:'Do aeroporto de Punta Cana a cada zona de resorts e até Santo Domingo.',m_legend:'Zonas de serviço',m_foot:'Mapa de cobertura estilizado. Não vê seu hotel? Pergunte no WhatsApp.',
+      d_kicker:'Para onde vamos',d_title:'Rotas e passeios populares',d_sub:'Role para percorrer a costa — das chegadas em PUJ aos melhores passeios da ilha.',
+      tl_kicker:'Antes de pousar',tl_title:'Da ponte de embarque ao banco de trás',
+      w_kicker:'Por que Los Yeyes',w_title:'Locais que tornam a chegada fácil',w_speak:'Nossa equipe fala (WhatsApp e telefone)',
+      dl_title:'Voo atrasado? Nós esperamos.',dl_body:'Rastreamos seu voo ao vivo e ajustamos automaticamente. As recolhas no aeroporto incluem uma espera grátis de 60–90 min após o pouso — é só falar no WhatsApp se atrasar.',
+      ed_quote:'A hospitalidade é a primeira língua da nossa ilha — e começa no segundo em que você pousa.',
+      rv_kicker:'4.9 · 2.300+ viagens',rv_title:'Turistas de toda parte, em casa em segurança',
+      f_title:'Bom saber antes de reservar',
+      c_title:'Sua viagem espera quando você pousa',c_sub:'Garanta seu traslado privativo em Starex em menos de dois minutos. Cancelamento grátis até 24 horas antes.',c_book:'Reservar meu traslado',c_waNote:'Resposta em minutos · English & Español · Ao escrever você concorda em ser contatado sobre este traslado.',
+      ft_tagline:'Transporte turístico privativo em toda a República Dominicana. Sediado em Punta Cana, atendendo toda a costa leste e Santo Domingo.',
+      ft_license:'Licença de transporte turístico',ft_companyT:'Empresa',ft_servicesT:'Serviços · Zonas',ft_legalT:'Legal',ft_contactT:'Contato',
+      ft_privacy:'Privacidade',ft_cookie:'Cookies',ft_terms:'Termos',ft_cancel:'Cancelamento',ft_complaints:'Reclamações',ft_cookiePrefs:'Preferências de cookies',
+      ft_langs:'Idiomas: ES · EN · FR · DE +',ft_made:'Feito na República Dominicana',ft_rights:'Todas as fotos e vídeos © Transportes Los Yeyes / licenciados.',
+      ck_title:'Usamos cookies',ck_body:'Cookies essenciais mantêm o site funcionando; cookies de análise nos ajudam a melhorar. Você escolhe.',ck_manage:'Gerenciar',ck_reject:'Rejeitar não essenciais',ck_accept:'Aceitar todos',ck_policy:'Política de Cookies',
+      md_privacy:'Política de Privacidade',md_cookies:'Preferências de cookies',md_terms:'Termos e condições de reserva',md_cancel:'Cancelamento e reclamações'},
+
+    it:{skip:'Vai al contenuto',navServices:'Servizi',navPrices:'Prezzi',navZones:'Zone',navDest:'Destinazioni',navFaq:'FAQ',book:'Prenota',
+      h_countries:'Viaggiatori da 30+ paesi',h_transfers:'12.000+ transfer',
+      h1:'Atterri a Punta Cana. Il tuo van privato',h1hi:'ti aspetta già.',
+      h_sub:"Dall'aeroporto al resort in un Hyundai Grand Starex privato e climatizzato — niente code, niente navette condivise, niente sorprese. Prezzo fisso, monitoraggio del volo e accoglienza personale.",
+      h_book:'Prenota',h_price:'Prezzo su WhatsApp',scroll:'Scorri per prenotare',
+      hf_cancel:'Cancellazione gratis 24h',hf_pay:'Paga in contanti o carta',hf_seats:'8 posti · aria potente',
+      bk_kicker:'Prenotazione',bk_title:'Prenota il tuo transfer',bk_sub:'Dicci la tua tratta e ricevi un prezzo fisso su WhatsApp in pochi minuti.',
+      b_pickup:'Ritiro',b_drop:'Destinazione',b_date:'Data',b_time:'Ora',b_pax:'Passeggeri',b_lug:'Bagagli',
+      b_get:'Ricevi il mio prezzo su WhatsApp',b_consent:'Continuando accetti di essere contattato su questo transfer via WhatsApp. Vedi la nostra',b_privacy:'Informativa sulla privacy',
+      s_kicker:'Cosa facciamo',s_title:'Ogni viaggio, privato e porta a porta',s_sub:'Un van, un autista, un prezzo — prenotato prima di atterrare o appena arrivi.',
+      svc_featTag:'Più prenotato',svc_airport:'Transfer aeroporto',svc_hotel:'Hotel a hotel',svc_round:'Andata e ritorno',svc_exc:'Escursioni e a ore',svc_group:'Gruppi e famiglie',svc_ask:'Dubbi? Scrivici',
+      v_title:'Spazio per viaggiare comodi',v_sub:'Un van spazioso tenuto fresco, pulito e comodo — con posto per tutta la famiglia e ogni valigia.',
+      vchip1:'8 posti',vchip2:'Aria potente',vchip3:'8+ valigie',vchip4:'Seggiolino gratis',
+      p_kicker:'Tariffe indicative',p_title:'Conosci il prezzo prima di scrivere',p_sub:'Per van privato (fino a 8 passeggeri), non a persona. Pedaggi e tasse inclusi.',
+      p_curLabel:'Valuta · tassi in tempo reale',p_indicative:'Indicativo',p_oneWay:'sola andata',p_roundTrip:'A/R',p_confirm:'Conferma su WhatsApp',
+      m_kicker:'Dove guidiamo',m_title:'Il corridoio della costa est',m_sub:"Dall'aeroporto di Punta Cana verso ogni zona di resort e fino a Santo Domingo.",m_legend:'Zone di servizio',m_foot:'Mappa di copertura stilizzata. Non vedi il tuo hotel? Chiedi su WhatsApp.',
+      d_kicker:'Dove andiamo',d_title:'Rotte ed escursioni popolari',d_sub:"Scorri per percorrere la costa — dagli arrivi a PUJ alle migliori gite dell'isola.",
+      tl_kicker:'Prima di atterrare',tl_title:'Dal finger al sedile posteriore',
+      w_kicker:'Perché Los Yeyes',w_title:"Gente del posto che rende facile l'arrivo",w_speak:'Il nostro team parla (WhatsApp e telefono)',
+      dl_title:'Volo in ritardo? Aspettiamo.',dl_body:"Monitoriamo il tuo volo in tempo reale e ci adattiamo in automatico. I ritiri in aeroporto includono un'attesa gratuita di 60–90 min dopo l'atterraggio — scrivici su WhatsApp se sei in ritardo.",
+      ed_quote:"L'ospitalità è la prima lingua della nostra isola — e inizia nell'istante in cui atterri.",
+      rv_kicker:'4.9 · 2.300+ viaggi',rv_title:'Turisti da ogni dove, arrivati sicuri',
+      f_title:'Buono a sapersi prima di prenotare',
+      c_title:'Il tuo transfer ti aspetta quando atterri',c_sub:'Blocca il tuo transfer privato in Starex in meno di due minuti. Cancellazione gratuita fino a 24 ore prima.',c_book:'Prenota il mio transfer',c_waNote:'Risposta in minuti · English & Español · Scrivendo accetti di essere contattato su questo transfer.',
+      ft_tagline:'Trasporto turistico privato in tutta la Repubblica Dominicana. Con base a Punta Cana, copriamo tutta la costa est e Santo Domingo.',
+      ft_license:'Licenza di trasporto turistico',ft_companyT:'Azienda',ft_servicesT:'Servizi · Zone',ft_legalT:'Legale',ft_contactT:'Contatto',
+      ft_privacy:'Privacy',ft_cookie:'Cookie',ft_terms:'Termini',ft_cancel:'Cancellazione',ft_complaints:'Reclami',ft_cookiePrefs:'Preferenze cookie',
+      ft_langs:'Lingue: ES · EN · FR · DE +',ft_made:'Fatto nella Repubblica Dominicana',ft_rights:'Tutte le foto e i video © Transportes Los Yeyes / su licenza.',
+      ck_title:'Usiamo i cookie',ck_body:'I cookie essenziali fanno funzionare il sito; quelli di analisi ci aiutano a migliorare. Scegli tu.',ck_manage:'Gestisci',ck_reject:'Rifiuta non essenziali',ck_accept:'Accetta tutti',ck_policy:'Politica cookie',
+      md_privacy:'Informativa sulla privacy',md_cookies:'Preferenze cookie',md_terms:'Condizioni di prenotazione',md_cancel:'Cancellazione e reclami'},
+
+    ru:{skip:'Перейти к содержимому',navServices:'Услуги',navPrices:'Цены',navZones:'Зоны',navDest:'Направления',navFaq:'ЧаВо',book:'Забронировать',
+      h_countries:'Путешественники из 30+ стран',h_transfers:'12 000+ трансферов',
+      h1:'Прилетайте в Пунта-Кану. Ваш личный вэн',h1hi:'уже ждёт вас.',
+      h_sub:'От аэропорта до отеля в приватном Hyundai Grand Starex с кондиционером — без очередей, без общих шаттлов, без сюрпризов. Фиксированная цена, отслеживание рейса и личная встреча.',
+      h_book:'Забронировать',h_price:'Цена в WhatsApp',scroll:'Прокрутите, чтобы забронировать',
+      hf_cancel:'Бесплатная отмена 24ч',hf_pay:'Оплата наличными или картой',hf_seats:'8 мест · мощный кондиционер',
+      bk_kicker:'Бронирование',bk_title:'Забронируйте трансфер',bk_sub:'Назовите маршрут и получите фиксированную цену в WhatsApp за минуты.',
+      b_pickup:'Подача',b_drop:'Назначение',b_date:'Дата',b_time:'Время',b_pax:'Пассажиры',b_lug:'Багаж',
+      b_get:'Узнать цену в WhatsApp',b_consent:'Продолжая, вы соглашаетесь на связь по этому трансферу в WhatsApp. См. нашу',b_privacy:'Политику конфиденциальности',
+      s_kicker:'Чем мы занимаемся',s_title:'Каждая поездка — приватно и «от двери до двери»',s_sub:'Один вэн, один водитель, одна цена — забронируйте до прилёта или сразу по прибытии.',
+      svc_featTag:'Чаще всего бронируют',svc_airport:'Трансфер из аэропорта',svc_hotel:'Отель — отель',svc_round:'Туда и обратно',svc_exc:'Экскурсии и почасово',svc_group:'Группы и семьи',svc_ask:'Есть вопросы? Напишите',
+      v_title:'Простор на всю дорогу',v_sub:'Просторный вэн — прохладный, чистый и удобный, с местом для всей семьи и каждого чемодана.',
+      vchip1:'8 мест',vchip2:'Мощный кондиционер',vchip3:'8+ чемоданов',vchip4:'Детское кресло бесплатно',
+      p_kicker:'Ориентировочные тарифы',p_title:'Узнайте цену до того, как напишете',p_sub:'За приватный вэн (до 8 пассажиров), не за человека. Платные дороги и налоги включены.',
+      p_curLabel:'Валюта · курсы в реальном времени',p_indicative:'Ориентир',p_oneWay:'в одну сторону',p_roundTrip:'Туда-обратно',p_confirm:'Подтвердить в WhatsApp',
+      m_kicker:'Где мы ездим',m_title:'Коридор восточного побережья',m_sub:'От аэропорта Пунта-Кана к каждой курортной зоне и до Санто-Доминго.',m_legend:'Зоны обслуживания',m_foot:'Стилизованная карта покрытия. Не видите свой отель? Спросите в WhatsApp.',
+      d_kicker:'Куда мы едем',d_title:'Популярные маршруты и поездки',d_sub:'Прокрутите вдоль побережья — от прилётов в PUJ до лучших экскурсий острова.',
+      tl_kicker:'Перед посадкой',tl_title:'От трапа до заднего сиденья',
+      w_kicker:'Почему Los Yeyes',w_title:'Местные, с которыми прибытие — самое лёгкое',w_speak:'Наша команда говорит (WhatsApp и телефон)',
+      dl_title:'Рейс задержан? Мы ждём.',dl_body:'Мы отслеживаем ваш рейс в реальном времени и подстраиваемся автоматически. Встреча в аэропорту включает бесплатное ожидание 60–90 мин после посадки — просто напишите в WhatsApp, если задерживаетесь.',
+      ed_quote:'Гостеприимство — первый язык нашего острова, и оно начинается в ту секунду, когда вы приземляетесь.',
+      rv_kicker:'4.9 · 2 300+ поездок',rv_title:'Туристы отовсюду, доставлены безопасно',
+      f_title:'Полезно знать до бронирования',
+      c_title:'Ваша машина ждёт вас при посадке',c_sub:'Забронируйте приватный трансфер на Starex менее чем за две минуты. Бесплатная отмена за 24 часа до подачи.',c_book:'Забронировать трансфер',c_waNote:'Ответ за минуты · English & Español · Написав нам, вы соглашаетесь на связь по этому трансферу.',
+      ft_tagline:'Частные туристические перевозки по всей Доминиканской Республике. База в Пунта-Кане, обслуживаем всё восточное побережье и Санто-Доминго.',
+      ft_license:'Лицензия на туристические перевозки',ft_companyT:'Компания',ft_servicesT:'Услуги · Зоны',ft_legalT:'Правовое',ft_contactT:'Контакты',
+      ft_privacy:'Конфиденциальность',ft_cookie:'Cookie',ft_terms:'Условия',ft_cancel:'Отмена',ft_complaints:'Жалобы',ft_cookiePrefs:'Настройки cookie',
+      ft_langs:'Языки: ES · EN · FR · DE +',ft_made:'Сделано в Доминиканской Республике',ft_rights:'Все фото и видео © Transportes Los Yeyes / по лицензии.',
+      ck_title:'Мы используем файлы cookie',ck_body:'Основные cookie обеспечивают работу сайта; аналитические помогают нам его улучшать. Выбор за вами.',ck_manage:'Настроить',ck_reject:'Отклонить необязательные',ck_accept:'Принять все',ck_policy:'Политика cookie',
+      md_privacy:'Политика конфиденциальности',md_cookies:'Настройки cookie',md_terms:'Условия бронирования',md_cancel:'Отмена и жалобы'},
+
+    zh:{skip:'跳到内容',navServices:'服务',navPrices:'价格',navZones:'区域',navDest:'目的地',navFaq:'常见问题',book:'预订接送',
+      h_countries:'来自30多个国家的旅客',h_transfers:'12,000+次接送',
+      h1:'抵达蓬塔卡纳。您的专属商务车',h1hi:'已在恭候。',
+      h_sub:'乘坐私人空调现代 Grand Starex，从机场直达度假村——无需排队、不拼车、无隐藏费用。固定价格、航班追踪、专人接机。',
+      h_book:'预订接送',h_price:'WhatsApp 报价',scroll:'向下滚动预订',
+      hf_cancel:'24小时免费取消',hf_pay:'现金或刷卡支付',hf_seats:'8座 · 强力空调',
+      bk_kicker:'预订',bk_title:'预订您的接送',bk_sub:'告诉我们您的路线，几分钟内在 WhatsApp 获得固定价格。',
+      b_pickup:'上车地点',b_drop:'目的地',b_date:'日期',b_time:'时间',b_pax:'乘客',b_lug:'行李',
+      b_get:'在 WhatsApp 获取报价',b_consent:'继续即表示您同意就本次接送通过 WhatsApp 与您联系。请查看我们的',b_privacy:'隐私政策',
+      s_kicker:'我们的服务',s_title:'每一程都是私人、门到门',s_sub:'一辆车、一位司机、一个价格——落地前或到达时即可预订。',
+      svc_featTag:'最受欢迎',svc_airport:'机场接送',svc_hotel:'酒店到酒店',svc_round:'往返',svc_exc:'游览与包时',svc_group:'团体与家庭',svc_ask:'不确定？问我们',
+      v_title:'全程宽敞舒适',v_sub:'宽敞的商务车，凉爽、干净、舒适——足够全家人和每件行李。',
+      vchip1:'8个座位',vchip2:'强力空调',vchip3:'8+件行李',vchip4:'免费儿童座椅',
+      p_kicker:'参考价格',p_title:'联系前先知道价格',p_sub:'按私人车计价（最多8位乘客），非按人。含过路费和税费。',
+      p_curLabel:'货币 · 实时汇率',p_indicative:'参考',p_oneWay:'单程',p_roundTrip:'往返',p_confirm:'在 WhatsApp 确认',
+      m_kicker:'我们的行驶范围',m_title:'东海岸走廊',m_sub:'从蓬塔卡纳机场通往每个度假区，直至圣多明各。',m_legend:'服务区域',m_foot:'风格化覆盖地图。没看到您的酒店？在 WhatsApp 询问。',
+      d_kicker:'我们去哪里',d_title:'热门线路与一日游',d_sub:'滚动游览海岸——从 PUJ 到达到全岛最佳一日游。',
+      tl_kicker:'落地之前',tl_title:'从廊桥到后座',
+      w_kicker:'为什么选 Los Yeyes',w_title:'让抵达变轻松的本地人',w_speak:'我们的团队会说（WhatsApp 和电话）',
+      dl_title:'航班延误？我们等您。',dl_body:'我们实时追踪您的航班并自动调整。机场接机含落地后60–90分钟免费等待——若延误，只需在 WhatsApp 告知我们。',
+      ed_quote:'好客是我们岛屿的第一语言——从您落地的那一刻起。',
+      rv_kicker:'4.9 · 2,300+次乘车',rv_title:'来自各地的游客，平安抵达',
+      f_title:'预订前须知',
+      c_title:'落地即有专车等候',c_sub:'两分钟内锁定您的私人 Starex 接送。接车前24小时内可免费取消。',c_book:'预订我的接送',c_waNote:'几分钟内回复 · English & Español · 发送信息即表示您同意就本次接送与您联系。',
+      ft_tagline:'覆盖整个多米尼加共和国的私人旅游交通。总部位于蓬塔卡纳，服务整个东海岸及圣多明各。',
+      ft_license:'旅游运输许可证',ft_companyT:'公司',ft_servicesT:'服务 · 区域',ft_legalT:'法律',ft_contactT:'联系',
+      ft_privacy:'隐私',ft_cookie:'Cookie',ft_terms:'条款',ft_cancel:'取消',ft_complaints:'投诉',ft_cookiePrefs:'Cookie 偏好',
+      ft_langs:'语言：ES · EN · FR · DE +',ft_made:'产自多米尼加共和国',ft_rights:'所有照片和视频 © Transportes Los Yeyes / 已获授权。',
+      ck_title:'我们使用 Cookie',ck_body:'必要 Cookie 让网站正常运行；分析 Cookie 帮助我们改进。由您选择。',ck_manage:'管理',ck_reject:'拒绝非必要',ck_accept:'全部接受',ck_policy:'Cookie 政策',
+      md_privacy:'隐私政策',md_cookies:'Cookie 偏好',md_terms:'预订条款与条件',md_cancel:'取消与投诉'},
+
+    nl:{skip:'Naar inhoud',navServices:'Diensten',navPrices:'Prijzen',navZones:'Zones',navDest:'Bestemmingen',navFaq:'FAQ',book:'Boeken',
+      h_countries:'Reizigers uit 30+ landen',h_transfers:'12.000+ transfers',
+      h1:'Land in Punta Cana. Je privébusje',h1hi:'staat al klaar.',
+      h_sub:'Van luchthaven naar resort in een privé, airconditioned Hyundai Grand Starex — geen rijen, geen gedeelde shuttles, geen verrassingen. Vaste prijs, vluchtvolging en persoonlijke ontvangst.',
+      h_book:'Boeken',h_price:'Prijs via WhatsApp',scroll:'Scroll om te boeken',
+      hf_cancel:'Gratis annuleren 24u',hf_pay:'Betaal contant of met kaart',hf_seats:'8 stoelen · sterke airco',
+      bk_kicker:'Reservering',bk_title:'Boek je transfer',bk_sub:'Vertel ons je route en krijg binnen minuten een vaste prijs via WhatsApp.',
+      b_pickup:'Ophalen',b_drop:'Bestemming',b_date:'Datum',b_time:'Tijd',b_pax:'Passagiers',b_lug:'Bagage',
+      b_get:'Mijn prijs via WhatsApp',b_consent:'Door verder te gaan ga je akkoord met contact over deze transfer via WhatsApp. Zie ons',b_privacy:'Privacybeleid',
+      s_kicker:'Wat we doen',s_title:'Elke rit, privé en van deur tot deur',s_sub:'Eén busje, één chauffeur, één prijs — geboekt voor de landing of zodra je aankomt.',
+      svc_featTag:'Meest geboekt',svc_airport:'Luchthaventransfer',svc_hotel:'Hotel naar hotel',svc_round:'Heen en terug',svc_exc:'Excursies & per uur',svc_group:'Groepen & gezinnen',svc_ask:'Twijfel? Vraag het ons',
+      v_title:'De hele rit ruimte om te ademen',v_sub:'Een ruim busje, koel, schoon en comfortabel — met plek voor het hele gezin en elke koffer.',
+      vchip1:'8 stoelen',vchip2:'Sterke airco',vchip3:'8+ koffers',vchip4:'Gratis kinderzitje',
+      p_kicker:'Indicatieve tarieven',p_title:'Ken de prijs voordat je schrijft',p_sub:'Per privébusje (tot 8 passagiers), niet per persoon. Tol en belasting inbegrepen.',
+      p_curLabel:'Valuta · koersen live',p_indicative:'Indicatief',p_oneWay:'enkele reis',p_roundTrip:'Retour',p_confirm:'Bevestig via WhatsApp',
+      m_kicker:'Waar we rijden',m_title:'De oostkust-corridor',m_sub:'Van de luchthaven van Punta Cana naar elke resortzone en door naar Santo Domingo.',m_legend:'Servicezones',m_foot:'Gestileerde dekkingskaart. Zie je je hotel niet? Vraag het via WhatsApp.',
+      d_kicker:'Waar we heen gaan',d_title:'Populaire routes & dagtrips',d_sub:'Scroll langs de kust — van aankomst in PUJ tot de beste uitstapjes van het eiland.',
+      tl_kicker:'Voor de landing',tl_title:'Van de slurf naar de achterbank',
+      w_kicker:'Waarom Los Yeyes',w_title:'Locals die aankomen het makkelijke deel maken',w_speak:'Ons team spreekt (WhatsApp & telefoon)',
+      dl_title:'Vlucht vertraagd? We wachten.',dl_body:'We volgen je vlucht live en passen automatisch aan. Ophalen op de luchthaven bevat een gratis wachttijd van 60–90 min na de landing — stuur ons een bericht op WhatsApp als je vertraging hebt.',
+      ed_quote:'Gastvrijheid is de eerste taal van ons eiland — en die begint zodra je landt.',
+      rv_kicker:'4.9 · 2.300+ ritten',rv_title:'Toeristen van overal, veilig thuis',
+      f_title:'Goed om te weten voor je boekt',
+      c_title:'Je rit wacht als je landt',c_sub:'Regel je privé Starex-transfer in minder dan twee minuten. Gratis annuleren tot 24 uur voor ophalen.',c_book:'Boek mijn transfer',c_waNote:'Antwoord in minuten · English & Español · Door te berichten ga je akkoord met contact over deze transfer.',
+      ft_tagline:'Privé toeristisch vervoer door de hele Dominicaanse Republiek. Gevestigd in Punta Cana, voor de hele oostkust en Santo Domingo.',
+      ft_license:'Toeristische vervoersvergunning',ft_companyT:'Bedrijf',ft_servicesT:'Diensten · Zones',ft_legalT:'Juridisch',ft_contactT:'Contact',
+      ft_privacy:'Privacy',ft_cookie:'Cookies',ft_terms:'Voorwaarden',ft_cancel:'Annulering',ft_complaints:'Klachten',ft_cookiePrefs:'Cookievoorkeuren',
+      ft_langs:'Talen: ES · EN · FR · DE +',ft_made:'Gemaakt in de Dominicaanse Republiek',ft_rights:"Alle foto's & video © Transportes Los Yeyes / gelicentieerd.",
+      ck_title:'We gebruiken cookies',ck_body:'Essentiële cookies houden de site werkend; analytische cookies helpen ons verbeteren. Jij kiest.',ck_manage:'Beheren',ck_reject:'Niet-essentiële weigeren',ck_accept:'Alles accepteren',ck_policy:'Cookiebeleid',
+      md_privacy:'Privacybeleid',md_cookies:'Cookievoorkeuren',md_terms:'Boekingsvoorwaarden',md_cancel:'Annulering & klachten'},
+
+    pl:{skip:'Przejdź do treści',navServices:'Usługi',navPrices:'Ceny',navZones:'Strefy',navDest:'Kierunki',navFaq:'FAQ',book:'Rezerwuj',
+      h_countries:'Podróżni z 30+ krajów',h_transfers:'12 000+ transferów',
+      h1:'Ląduj w Punta Cana. Twój prywatny van',h1hi:'już czeka.',
+      h_sub:'Z lotniska do resortu prywatnym, klimatyzowanym Hyundaiem Grand Starex — bez kolejek, bez współdzielonych busów, bez niespodzianek. Stała cena, śledzenie lotu i osobiste powitanie.',
+      h_book:'Rezerwuj',h_price:'Cena na WhatsApp',scroll:'Przewiń, aby zarezerwować',
+      hf_cancel:'Darmowe anulowanie 24h',hf_pay:'Płać gotówką lub kartą',hf_seats:'8 miejsc · mocna klima',
+      bk_kicker:'Rezerwacja',bk_title:'Zarezerwuj transfer',bk_sub:'Podaj trasę i otrzymaj stałą cenę na WhatsApp w kilka minut.',
+      b_pickup:'Odbiór',b_drop:'Cel',b_date:'Data',b_time:'Godzina',b_pax:'Pasażerowie',b_lug:'Bagaż',
+      b_get:'Otrzymaj cenę na WhatsApp',b_consent:'Kontynuując, zgadzasz się na kontakt w sprawie tego transferu przez WhatsApp. Zobacz naszą',b_privacy:'Politykę prywatności',
+      s_kicker:'Co robimy',s_title:'Każdy przejazd prywatny, od drzwi do drzwi',s_sub:'Jeden van, jeden kierowca, jedna cena — zarezerwowany przed lądowaniem lub w chwili przylotu.',
+      svc_featTag:'Najczęściej rezerwowane',svc_airport:'Transfer z lotniska',svc_hotel:'Hotel do hotelu',svc_round:'W obie strony',svc_exc:'Wycieczki i na godziny',svc_group:'Grupy i rodziny',svc_ask:'Masz wątpliwości? Napisz',
+      v_title:'Przestrzeń na całą trasę',v_sub:'Duży van utrzymany w chłodzie, czysty i wygodny — z miejscem dla całej rodziny i każdej walizki.',
+      vchip1:'8 miejsc',vchip2:'Mocna klima',vchip3:'8+ walizek',vchip4:'Darmowy fotelik',
+      p_kicker:'Ceny orientacyjne',p_title:'Poznaj cenę, zanim napiszesz',p_sub:'Za prywatnego vana (do 8 pasażerów), nie od osoby. Opłaty drogowe i podatki wliczone.',
+      p_curLabel:'Waluta · kursy na żywo',p_indicative:'Orientacyjnie',p_oneWay:'w jedną stronę',p_roundTrip:'W obie strony',p_confirm:'Potwierdź na WhatsApp',
+      m_kicker:'Gdzie jeździmy',m_title:'Korytarz wschodniego wybrzeża',m_sub:'Z lotniska Punta Cana do każdej strefy resortów i aż do Santo Domingo.',m_legend:'Strefy obsługi',m_foot:'Stylizowana mapa zasięgu. Nie widzisz swojego hotelu? Zapytaj na WhatsApp.',
+      d_kicker:'Dokąd jeździmy',d_title:'Popularne trasy i wycieczki',d_sub:'Przewiń wzdłuż wybrzeża — od przylotów w PUJ po najlepsze wycieczki na wyspie.',
+      tl_kicker:'Zanim wylądujesz',tl_title:'Od rękawa do tylnego siedzenia',
+      w_kicker:'Dlaczego Los Yeyes',w_title:'Miejscowi, dzięki którym przylot jest łatwy',w_speak:'Nasz zespół mówi (WhatsApp i telefon)',
+      dl_title:'Lot opóźniony? Czekamy.',dl_body:'Śledzimy Twój lot na żywo i dostosowujemy się automatycznie. Odbiór z lotniska obejmuje darmowe okno oczekiwania 60–90 min po lądowaniu — napisz na WhatsApp, jeśli się spóźnisz.',
+      ed_quote:'Gościnność to pierwszy język naszej wyspy — i zaczyna się w chwili, gdy lądujesz.',
+      rv_kicker:'4.9 · 2 300+ przejazdów',rv_title:'Turyści zewsząd, bezpiecznie na miejscu',
+      f_title:'Warto wiedzieć przed rezerwacją',
+      c_title:'Twój przejazd czeka, gdy lądujesz',c_sub:'Zarezerwuj prywatny transfer Starex w niecałe dwie minuty. Darmowe anulowanie do 24 godzin przed odbiorem.',c_book:'Zarezerwuj transfer',c_waNote:'Odpowiedź w kilka minut · English & Español · Pisząc, zgadzasz się na kontakt w sprawie tego transferu.',
+      ft_tagline:'Prywatny transport turystyczny w całej Dominikanie. Z siedzibą w Punta Cana, obsługujemy całe wschodnie wybrzeże i Santo Domingo.',
+      ft_license:'Licencja transportu turystycznego',ft_companyT:'Firma',ft_servicesT:'Usługi · Strefy',ft_legalT:'Informacje prawne',ft_contactT:'Kontakt',
+      ft_privacy:'Prywatność',ft_cookie:'Cookies',ft_terms:'Regulamin',ft_cancel:'Anulowanie',ft_complaints:'Reklamacje',ft_cookiePrefs:'Ustawienia cookies',
+      ft_langs:'Języki: ES · EN · FR · DE +',ft_made:'Zrobione w Dominikanie',ft_rights:'Wszystkie zdjęcia i wideo © Transportes Los Yeyes / na licencji.',
+      ck_title:'Używamy plików cookie',ck_body:'Niezbędne cookie utrzymują działanie strony; analityczne pomagają nam ją ulepszać. Ty decydujesz.',ck_manage:'Zarządzaj',ck_reject:'Odrzuć zbędne',ck_accept:'Akceptuj wszystkie',ck_policy:'Polityka cookie',
+      md_privacy:'Polityka prywatności',md_cookies:'Ustawienia cookie',md_terms:'Warunki rezerwacji',md_cancel:'Anulowanie i reklamacje'},
+  };
+
+  rates = { USD:1, DOP:59, EUR:0.92, CAD:1.36, GBP:0.79, MXN:17.2, BRL:5.1 };
+  curSym = { USD:'$', DOP:'RD$', EUR:'€', CAD:'C$', GBP:'£', MXN:'MX$', BRL:'R$' };
+  curList = ['USD','DOP','EUR','CAD','GBP','MXN','BRL'];
+
+  routes = [
+    {fromEn:'Punta Cana (PUJ)', toEn:'Bávaro', dur:'20–35 min', usd:35},
+    {fromEn:'Punta Cana (PUJ)', toEn:'Cap Cana', dur:'15–30 min', usd:30},
+    {fromEn:'Punta Cana (PUJ)', toEn:'Uvero Alto', dur:'35–50 min', usd:45},
+    {fromEn:'Punta Cana (PUJ)', toEn:'La Romana (LRM)', dur:'60–75 min', usd:80},
+    {fromEn:'Punta Cana (PUJ)', toEn:'Santo Domingo', dur:'2.5–3 h', usd:170},
+  ];
+
+  pinDefs = [
+    {name:'Punta Cana (PUJ)', x:'87%', y:'50%', hub:true,  color:'#f2864b'},
+    {name:'Bávaro',           x:'85%', y:'44%', hub:false, color:'#0e8fa0'},
+    {name:'Uvero Alto',       x:'80%', y:'37%', hub:false, color:'#0e8fa0'},
+    {name:'Cap Cana',         x:'89%', y:'57%', hub:false, color:'#0e8fa0'},
+    {name:'La Romana (LRM)',  x:'68%', y:'58%', hub:false, color:'#0e8fa0'},
+    {name:'Santo Domingo (SDQ)', x:'52%', y:'62%', hub:false, color:'#0e8fa0'},
+  ];
+
+  faqDefs = [
+    {qEn:'How do I pay?', qEs:'¿Cómo pago?',
+     aEn:'Pay the driver in cash (USD, EUR or DOP) or by card. No prepayment required — you confirm the fixed price on WhatsApp before your trip.',
+     aEs:'Paga al chofer en efectivo (USD, EUR o DOP) o con tarjeta. No se requiere pago anticipado — confirmas el precio fijo por WhatsApp antes del viaje.'},
+    {qEn:'What if my flight is delayed?', qEs:'¿Y si mi vuelo se retrasa?',
+     aEn:'We track your flight in real time and adjust pickup automatically. Airport pickups include a free wait window of 60–90 minutes after landing — just message us on WhatsApp if you are held up.',
+     aEs:'Rastreamos tu vuelo en tiempo real y ajustamos la recogida automáticamente. Las recogidas incluyen una espera gratis de 60–90 minutos tras aterrizar — solo escríbenos por WhatsApp si te demoras.'},
+    {qEn:'Are the prices per person or per van?', qEs:'¿Los precios son por persona o por van?',
+     aEn:'Per private van (up to 8 passengers), not per person. Tolls and taxes are included. Fares shown are indicative — the final price is confirmed on WhatsApp.',
+     aEs:'Por van privada (hasta 8 pasajeros), no por persona. Peajes e impuestos incluidos. Las tarifas mostradas son indicativas — el precio final se confirma por WhatsApp.'},
+    {qEn:'Do you have child seats?', qEs:'¿Tienen sillas para niños?',
+     aEn:'Yes — infant and booster seats are free on request. Just tell us your children\u2019s ages when you book.',
+     aEs:'Sí — sillas para bebé y elevadores gratis a solicitud. Solo dinos las edades de tus niños al reservar.'},
+    {qEn:'What about late-night arrivals?', qEs:'¿Y las llegadas de madrugada?',
+     aEn:'We operate 24/7. Night arrivals are met exactly like any other flight, with a driver holding your name sign at arrivals.',
+     aEs:'Operamos 24/7. Las llegadas nocturnas se reciben igual que cualquier vuelo, con un chofer sosteniendo tu letrero en llegadas.'},
+    {qEn:'How much luggage fits?', qEs:'¿Cuánto equipaje cabe?',
+     aEn:'The Grand Starex comfortably fits 8 passengers with 8+ large suitcases. Traveling with sports or dive gear? Let us know in advance.',
+     aEs:'La Grand Starex lleva cómodamente 8 pasajeros con 8+ maletas grandes. ¿Viajas con equipo deportivo o de buceo? Avísanos con antelación.'},
+    {qEn:'Can I cancel, and what if something goes wrong?', qEs:'¿Puedo cancelar, y si algo sale mal?',
+     aEn:'Cancel free up to 24 hours before pickup for a full refund of any deposit. If there is ever a problem with your ride, message us on WhatsApp or email hola@losyeyes.do within 30 days — we will make it right.',
+     aEs:'Cancela gratis hasta 24 horas antes con reembolso total. Si alguna vez hay un problema con tu viaje, escríbenos por WhatsApp o a hola@losyeyes.do dentro de 30 días — lo resolveremos.'},
+  ];
+
+  componentDidMount(){
+    this.injectVan();
+    this.injectTrust();
+    document.addEventListener('click', this._outside = (e)=>{
+      if(this.state.langOpen && !e.target.closest('.langbtn') && !e.target.closest('.langmenu')) this.setState({langOpen:false});
+    });
+    document.addEventListener('keydown', this._esc = (e)=>{ if(e.key==='Escape' && this.state.modal) this.setState({modal:null}); });
+  }
+  componentWillUnmount(){ document.removeEventListener('click', this._outside); document.removeEventListener('keydown', this._esc); }
+
+  codeVanSVG(){
+    return `<svg viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="300" cy="266" rx="260" ry="14" fill="rgba(30,55,50,.14)"/>
+      <path d="M60 96 h300 q40 0 66 30 l70 40 q18 10 18 34 v54 q0 12 -12 12 H60 q-14 0 -14 -14 V110 q0 -14 14 -14 Z" fill="#fbf5ea" stroke="#16302f" stroke-width="6"/>
+      <path d="M372 128 q30 4 48 22 l40 32 h-88 Z" fill="#bfeaf0" stroke="#16302f" stroke-width="5"/>
+      <rect x="86" y="120" width="70" height="56" rx="7" fill="#bfeaf0" stroke="#16302f" stroke-width="5"/>
+      <rect x="168" y="120" width="70" height="56" rx="7" fill="#bfeaf0" stroke="#16302f" stroke-width="5"/>
+      <rect x="250" y="120" width="70" height="56" rx="7" fill="#bfeaf0" stroke="#16302f" stroke-width="5"/>
+      <rect x="46" y="150" width="470" height="10" fill="#0e8fa0"/>
+      <rect x="60" y="196" width="300" height="8" rx="4" fill="#0e8fa0" opacity=".5"/>
+      <circle cx="150" cy="232" r="40" fill="#16302f"/><circle cx="150" cy="232" r="17" fill="#f2e9d8"/>
+      <circle cx="430" cy="232" r="40" fill="#16302f"/><circle cx="430" cy="232" r="17" fill="#f2e9d8"/>
+      <rect x="470" y="150" width="22" height="26" rx="5" fill="#f4b740"/>
+    </svg>`;
+  }
+  injectVan(){ document.querySelectorAll('.lm [data-codevan]').forEach(el=>{ if(!el.dataset.done){ el.innerHTML = this.codeVanSVG(); el.dataset.done='1'; } }); }
+  injectTrust(){
+    const el = document.querySelector('.lm .trust-run'); if(!el) return;
+    const items = {
+      en:['✈ Flight tracking','🪧 Meet &amp; greet','💵 Fixed price · no hidden fees','🗣 Multilingual drivers','🕓 24/7 service','↩ Free cancellation 24h','👶 Free child seats','🏅 Tourism licensed','❄ Cold A/C'],
+      es:['✈ Seguimiento de vuelo','🪧 Recibimiento personal','💵 Precio fijo · sin sorpresas','🗣 Choferes multilingües','🕓 Servicio 24/7','↩ Cancelación gratis 24h','👶 Sillas de niño gratis','🏅 Licencia turística','❄ Aire frío']
+    };
+    const build = (arr)=>arr.map(t=>`<span style="display:inline-flex;align-items:center;gap:8px;padding:6px 20px;font-weight:600;font-size:15px;white-space:nowrap;color:#fbf5ea"><span>${t}</span><span style="color:#f4b740">·</span></span>`).join('');
+    const es = build(items.es), en = build(items.en);
+    el.innerHTML = `<span class="l-en"><span style="display:flex">${en}${en}</span></span><span class="l-es"><span style="display:flex">${es}${es}</span></span>`;
+    el.style.display='flex';
+  }
+
+  fmt(usd){
+    const cur = this.state.currency;
+    let v = usd * this.rates[cur];
+    v = (cur==='DOP'||cur==='MXN') ? Math.round(v/10)*10 : Math.round(v);
+    return this.curSym[cur] + v.toLocaleString('en-US') + (cur==='USD'?'':' '+cur);
+  }
+
+  waNumber = '18090000000';
+  openWa(msg){ window.open('https://wa.me/'+this.waNumber+'?text='+encodeURIComponent(msg), '_blank', 'noopener'); }
+  bookWhats = (e)=>{
+    if(e&&e.preventDefault) e.preventDefault();
+    const g = id => { const el = document.getElementById(id); return el ? el.value : ''; };
+    const es = this.state.lang==='es';
+    const msg = (es ? '¡Hola Transportes Los Yeyes! Quiero reservar un traslado privado.' : "Hi Transportes Los Yeyes! I'd like to book a private transfer.")
+      + `\n\n${es?'Recogida':'Pickup'}: ${g('ly-pickup')}`
+      + `\n${es?'Destino':'Drop-off'}: ${g('ly-drop')}`
+      + `\n${es?'Fecha':'Date'}: ${g('ly-date')} ${g('ly-time')}`
+      + `\n${es?'Pasajeros':'Passengers'}: ${g('ly-pax')}`
+      + `\n${es?'Equipaje':'Luggage'}: ${g('ly-lug')}`;
+    this.openWa(msg);
+  };
+
+  renderVals(){
+    const cur = this.state.lang;
+    const t = Object.assign({}, this.i18n.en, this.i18n[cur] || {});
+    return {
+      lang: cur, t,
+      langOpen: this.state.langOpen,
+      langCode: (this.langDefs.find(l=>l.key===cur)||{}).code || 'EN',
+      langMenuDisplay: this.state.langOpen ? 'grid' : 'none',
+      toggleLang: (e)=>{ e&&e.stopPropagation&&e.stopPropagation(); this.setState({langOpen:!this.state.langOpen}); },
+      bookWhats: this.bookWhats,
+      langs: this.langDefs.map(l=>({ code:l.code, native:l.native, active: l.key===cur, pick: ()=>this.setState({lang:l.key, langOpen:false}) })),
+      faqs: this.faqDefs.map((f,i)=>({ qEn:f.qEn, qEs:f.qEs, aEn:f.aEn, aEs:f.aEs, open: !!this.state.faqOpen[i],
+        toggle: ()=>{ const o={...this.state.faqOpen}; o[i]=!o[i]; this.setState({faqOpen:o}); } })),
+      curCode: this.state.currency,
+      currencies: this.curList.map(c=>({ code:c, on: c===this.state.currency, pick: ()=>this.setState({currency:c}) })),
+      pins: this.pinDefs.map(p=>({ name:p.name, x:p.x, y:p.y, hub:p.hub, color:p.color })),
+      prices: this.routes.map(r=>({ from:r.fromEn, to:r.toEn, dur:r.dur, one:this.fmt(r.usd), round:this.fmt(Math.round(r.usd*1.8/5)*5),
+        book: ()=>{ const es=this.state.lang==='es'; this.openWa((es?'¡Hola! Quiero reservar ':'Hi! I would like to book ')+r.fromEn+' → '+r.toEn+(es?'. ¿Precio y disponibilidad?':'. Price and availability?')); } })),
+      mPrivacy: this.state.modal==='privacy'?'flex':'none',
+      mCookies: this.state.modal==='cookies'?'flex':'none',
+      mTerms: this.state.modal==='terms'?'flex':'none',
+      mCancel: this.state.modal==='cancel'?'flex':'none',
+      openPrivacy:(e)=>{e&&e.preventDefault&&e.preventDefault();this.setState({modal:'privacy'});},
+      openCookies:(e)=>{e&&e.preventDefault&&e.preventDefault();this.setState({modal:'cookies'});},
+      openTerms:(e)=>{e&&e.preventDefault&&e.preventDefault();this.setState({modal:'terms'});},
+      openCancel:(e)=>{e&&e.preventDefault&&e.preventDefault();this.setState({modal:'cancel'});},
+      closeModal:()=>this.setState({modal:null}),
+      backClose:()=>this.setState({modal:null}),
+      stop:(e)=>{ e&&e.stopPropagation&&e.stopPropagation(); },
+      cookieDisplay: this.state.cookie==='pending' ? 'flex' : 'none',
+      cookieAccept:()=>this.setState({cookie:'accepted', modal:null}),
+      cookieReject:()=>this.setState({cookie:'rejected', modal:null}),
+    };
+  }
+
+  componentDidUpdate(){ this.injectVan(); }
+}
+</script>
+</body>
+</html>
