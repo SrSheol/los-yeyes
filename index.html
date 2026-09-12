@@ -58,10 +58,10 @@ image-slot::part(image){touch-action:pan-x pan-y!important;-webkit-user-drag:non
 <script>
 (function(){try{function lyNav(){var n=(window.matchMedia&&window.matchMedia('(max-width:900px)').matches)||window.innerWidth<=900;document.documentElement.classList.toggle('ly-narrow',!!n);var nav=document.querySelector('nav[aria-label="Primary"]');if(nav){document.documentElement.style.setProperty('--ly-nav-h',Math.round(nav.getBoundingClientRect().bottom)+'px');}}lyNav();window.addEventListener('resize',lyNav);window.addEventListener('scroll',lyNav,{passive:true});}catch(e){}})();
 </script>
-<link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32">
-<link rel="icon" href="assets/favicon-48.png" type="image/png" sizes="48x48">
-<link rel="apple-touch-icon" href="assets/apple-touch-icon.png" sizes="180x180">
-<link rel="shortcut icon" href="assets/favicon-32.png" type="image/png">
+<link rel="icon" href="assets/favicon-32.png?v=20" type="image/png" sizes="32x32">
+<link rel="icon" href="assets/favicon-48.png?v=20" type="image/png" sizes="48x48">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=20" sizes="180x180">
+<link rel="shortcut icon" href="assets/favicon-32.png?v=20" type="image/png">
 <script src="./support.js"></script>
 </head>
 <body>
@@ -287,7 +287,7 @@ image-slot::part(image){touch-action:pan-x pan-y!important;-webkit-user-drag:non
   <nav aria-label="Primary" style="position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--surface) 88%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)">
     <div class="ly-nav-inner">
       <a class="ly-brand" href="#top" aria-label="Transportes Los Yeyes home">
-        <img class="ly-mark" src="assets/logo-mark.png" width="42" height="42" alt="" decoding="async">
+        <img class="ly-mark" src="assets/logo-mark.png?v=20" width="42" height="42" alt="" decoding="async">
         <span style="display:flex;flex-direction:column;line-height:1.05">
           <span class="disp" style="font-size:20px;letter-spacing:-.01em">Los Yeyes</span>
           <span style="font-size:9.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);font-weight:700">Transportes · RD</span>
@@ -633,7 +633,7 @@ image-slot::part(image){touch-action:pan-x pan-y!important;-webkit-user-drag:non
       <div style="max-width:680px;background:color-mix(in srgb,var(--card) 82%,transparent);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.5);box-shadow:var(--raise-lg);border-radius:24px;padding:clamp(28px,3.6vw,44px)">
         <div style="font-size:44px;line-height:.4;color:var(--teal);font-family:'Space Grotesk';height:26px">“</div>
         <h2 class="disp" style="font-size:clamp(24px,3.2vw,40px);color:var(--ink);margin:0">{{ t.ed_quote }}</h2>
-        <div style="margin-top:18px;display:flex;align-items:center;gap:12px"><img class="ly-mark" src="assets/logo-mark.png" width="34" height="34" alt="" decoding="async" style="width:34px;height:34px;flex:0 0 34px"><span style="font-weight:700;color:var(--teal-deep)">Transportes Los Yeyes</span></div>
+        <div style="margin-top:18px;display:flex;align-items:center;gap:12px"><img class="ly-mark" src="assets/logo-mark.png?v=20" width="34" height="34" alt="" decoding="async" style="width:34px;height:34px;flex:0 0 34px"><span style="font-weight:700;color:var(--teal-deep)">Transportes Los Yeyes</span></div>
       </div>
     </div>
   </section>
@@ -699,7 +699,7 @@ image-slot::part(image){touch-action:pan-x pan-y!important;-webkit-user-drag:non
     <svg class="ly-line" aria-hidden="true" viewBox="0 0 1440 60" preserveAspectRatio="none" style="display:block;width:100%;height:46px;color:var(--teal);opacity:.5"><path stroke="currentColor" stroke-width="2.5" d="M0 40 Q60 14 120 40 T240 40 T360 40 T480 40 T600 40 T720 40 T840 40 T960 40 T1080 40 T1200 40 T1320 40 T1440 40"/></svg>
     <div class="foot-grid" style="max-width:1320px;margin:8px auto 0;display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr 1.1fr;gap:32px">
       <div>
-        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px"><img class="ly-mark" src="assets/logo-mark.png" width="42" height="42" alt="" decoding="async"><span class="disp" style="font-size:22px">Transportes Los Yeyes</span></div>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px"><img class="ly-mark" src="assets/logo-mark.png?v=20" width="42" height="42" alt="" decoding="async"><span class="disp" style="font-size:22px">Transportes Los Yeyes</span></div>
         <p style="color:rgba(251,245,234,.6);max-width:340px;line-height:1.55;font-weight:500;font-size:14px">{{ t.ft_tagline }}</p>
         <div class="lic-badge" style="margin-top:18px"><span style="font-size:17px">🏅</span><div><div style="font-weight:700;font-size:12px;letter-spacing:.02em">{{ t.ft_license }}</div><div style="font-size:12px;color:rgba(251,245,234,.6)">#RD-XXXX</div></div></div>
         <div style="display:flex;gap:10px;margin-top:18px"><span class="soc">f</span><span class="soc">◎</span><span class="soc">✆</span></div>
