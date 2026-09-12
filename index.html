@@ -7,7 +7,10 @@
 html,body{margin:0!important;padding:0!important;border:0!important;background:#f2e9d8!important}
 #dc-root,#dc-root>.sc-host{margin:0!important;padding:0!important;border:0!important;background:#f2e9d8!important;min-height:100%}
 /* Mobile nav — real <head> CSS (wins over Design) */
-.navlinks{display:flex!important;align-items:center;gap:24px}
+.navlinks{display:flex!important;align-items:center;justify-content:center;gap:clamp(10px,1.6vw,28px);flex-wrap:nowrap;min-width:0}
+.nav-link{color:#16302f;font-weight:600;font-size:clamp(13px,1.15vw,15px);white-space:nowrap;text-decoration:none;padding:6px 2px}
+.nav-link:hover{color:#0b6c7a}
+.ly-brand{display:flex;align-items:center;gap:12px;min-width:0;text-decoration:none;color:inherit;justify-self:start}
 .nav-toggle{display:none!important;width:44px;height:44px;border-radius:14px;border:0;cursor:pointer;background:#fbf5ea;box-shadow:7px 7px 18px rgba(120,120,100,.24),-7px -7px 16px rgba(255,255,255,.9);place-items:center;padding:0;color:#16302f;flex:0 0 auto}
 .nav-toggle span,.nav-toggle span::before,.nav-toggle span::after{display:block;width:20px;height:2px;background:currentColor;border-radius:2px;position:relative}
 .nav-toggle span::before,.nav-toggle span::after{content:"";position:absolute;left:0}
@@ -15,9 +18,8 @@ html,body{margin:0!important;padding:0!important;border:0!important;background:#
 .nav-toggle[aria-expanded="true"] span{background:transparent}
 .nav-toggle[aria-expanded="true"] span::before{top:0;transform:rotate(45deg)}
 .nav-toggle[aria-expanded="true"] span::after{top:0;transform:rotate(-45deg)}
-.ly-nav-inner{display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:1320px;margin:0 auto;padding:12px max(16px, env(safe-area-inset-right, 0px)) 12px max(16px, env(safe-area-inset-left, 0px));padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));width:100%;box-sizing:border-box}
-.ly-nav-inner>a{flex:0 1 auto;min-width:0}
-.ly-nav-actions{display:flex;align-items:center;gap:8px;flex:0 0 auto;margin-left:auto;z-index:2}
+.ly-nav-inner{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:12px;max-width:1320px;margin:0 auto;padding:12px max(16px, env(safe-area-inset-right, 0px)) 12px max(16px, env(safe-area-inset-left, 0px));padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));width:100%;box-sizing:border-box;position:relative}
+.ly-nav-actions{display:flex;align-items:center;gap:8px;justify-self:end;z-index:2}
 .ly-nav-actions .btn{flex:0 0 auto}
 /* Hamburger menu — same card pattern as .langmenu */
 .ly-menu-wrap{position:relative;flex:0 0 auto}
@@ -32,13 +34,14 @@ html,body{margin:0!important;padding:0!important;border:0!important;background:#
 @media (max-width:900px){
   .navlinks{display:none!important}
   .nav-toggle{display:inline-grid!important}
-  .ly-nav-inner{padding-left:max(14px, env(safe-area-inset-left, 0px))!important;padding-right:max(14px, env(safe-area-inset-right, 0px))!important;gap:8px!important}
-  .ly-nav-actions{gap:8px!important}
+  .ly-nav-inner{display:flex!important;justify-content:space-between!important;grid-template-columns:none!important;padding-left:max(14px, env(safe-area-inset-left, 0px))!important;padding-right:max(14px, env(safe-area-inset-right, 0px))!important;gap:8px!important}
+  .ly-nav-actions{gap:8px!important;margin-left:auto!important;justify-self:auto!important}
   .ly-nav-actions .btn{padding:10px 14px!important;font-size:13px!important;margin-right:0!important}
 }
 html.ly-narrow .navlinks{display:none!important}
 html.ly-narrow .nav-toggle{display:inline-grid!important}
-html.ly-narrow .ly-nav-inner{padding-left:max(14px, env(safe-area-inset-left, 0px))!important;padding-right:max(14px, env(safe-area-inset-right, 0px))!important}
+html.ly-narrow .ly-nav-inner{display:flex!important;justify-content:space-between!important;grid-template-columns:none!important;padding-left:max(14px, env(safe-area-inset-left, 0px))!important;padding-right:max(14px, env(safe-area-inset-right, 0px))!important}
+html.ly-narrow .ly-nav-actions{margin-left:auto!important}
 html.ly-narrow .ly-nav-actions .btn{padding:10px 14px!important;font-size:13px!important}
 </style>
 <script>
@@ -267,7 +270,7 @@ html.ly-narrow .ly-nav-actions .btn{padding:10px 14px!important;font-size:13px!i
   <!-- ===================== STICKY NAV ===================== -->
   <nav aria-label="Primary" style="position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--surface) 88%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)">
     <div class="ly-nav-inner">
-      <a href="#top" aria-label="Transportes Los Yeyes home" style="display:flex;align-items:center;gap:12px">
+      <a class="ly-brand" href="#top" aria-label="Transportes Los Yeyes home">
         <span class="ly-mark" aria-hidden="true"></span>
         <span style="display:flex;flex-direction:column;line-height:1.05">
           <span class="disp" style="font-size:20px;letter-spacing:-.01em">Los Yeyes</span>
@@ -275,11 +278,11 @@ html.ly-narrow .ly-nav-actions .btn{padding:10px 14px!important;font-size:13px!i
         </span>
       </a>
       <div class="navlinks">
-        <a href="#services" style="color:var(--ink);font-weight:600;font-size:15px">{{ t.navServices }}</a>
-        <a href="#prices" style="color:var(--ink);font-weight:600;font-size:15px">{{ t.navPrices }}</a>
-        <a href="#map" style="color:var(--ink);font-weight:600;font-size:15px">{{ t.navZones }}</a>
-        <a href="#destinations" style="color:var(--ink);font-weight:600;font-size:15px">{{ t.navDest }}</a>
-        <a href="#faq" style="color:var(--ink);font-weight:600;font-size:15px">{{ t.navFaq }}</a>
+        <a class="nav-link" href="#services">{{ t.navServices }}</a>
+        <a class="nav-link" href="#prices">{{ t.navPrices }}</a>
+        <a class="nav-link" href="#map">{{ t.navZones }}</a>
+        <a class="nav-link" href="#destinations">{{ t.navDest }}</a>
+        <a class="nav-link" href="#faq">{{ t.navFaq }}</a>
       </div>
       <div class="ly-nav-actions">
 
