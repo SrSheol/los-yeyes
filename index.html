@@ -21,7 +21,9 @@ html,body{margin:0!important;padding:0!important;border:0!important;background:#
 .ly-nav-actions .btn{flex:0 0 auto}
 /* Hamburger menu — same card pattern as .langmenu */
 .ly-menu-wrap{position:relative;flex:0 0 auto}
-.nav-drawer{display:none!important;position:absolute!important;top:calc(100% + 10px)!important;right:0!important;left:auto!important;bottom:auto!important;width:min(280px, calc(100vw - 32px))!important;height:auto!important;max-height:min(70vh, 480px)!important;overflow:auto!important;background:#fdf9f1!important;box-shadow:16px 16px 38px rgba(110,115,95,.28), -12px -12px 28px rgba(255,255,255,.95)!important;border-radius:18px!important;padding:12px!important;z-index:130!important;margin:0!important;flex-direction:column!important;gap:6px!important;box-sizing:border-box!important}
+.langmenu{position:fixed!important;top:var(--ly-nav-h, 72px)!important;left:50%!important;right:auto!important;transform:translateX(-50%)!important;width:min(330px, calc(100vw - 32px))!important;max-width:calc(100vw - 32px)!important;z-index:130!important}
+
+.nav-drawer{display:none!important;position:fixed!important;top:var(--ly-nav-h, 72px)!important;left:50%!important;right:auto!important;bottom:auto!important;transform:translateX(-50%)!important;width:min(320px, calc(100vw - 32px))!important;height:auto!important;max-height:min(70vh, 480px)!important;overflow:auto!important;background:#fdf9f1!important;box-shadow:16px 16px 38px rgba(110,115,95,.28), -12px -12px 28px rgba(255,255,255,.95)!important;border-radius:18px!important;padding:12px!important;z-index:130!important;margin:0!important;flex-direction:column!important;gap:6px!important;box-sizing:border-box!important}
 .nav-drawer[data-open="true"]{display:flex!important}
 .nav-drawer .nav-opt{display:flex!important;align-items:center!important;gap:10px!important;padding:11px 14px!important;border-radius:12px!important;color:#16302f!important;font-weight:600!important;font-size:15px!important;text-decoration:none!important;background:transparent!important;border:0!important;text-align:left!important;width:100%!important;box-sizing:border-box!important}
 .nav-drawer .nav-opt:hover{background:#f5edde!important;color:#0b6c7a!important}
@@ -40,7 +42,7 @@ html.ly-narrow .ly-nav-inner{padding-left:max(14px, env(safe-area-inset-left, 0p
 html.ly-narrow .ly-nav-actions .btn{padding:10px 14px!important;font-size:13px!important}
 </style>
 <script>
-(function(){try{var n=(window.matchMedia&&window.matchMedia('(max-width:900px)').matches)||window.innerWidth<=900;document.documentElement.classList.toggle('ly-narrow',!!n);window.addEventListener('resize',function(){var x=(window.matchMedia&&window.matchMedia('(max-width:900px)').matches)||window.innerWidth<=900;document.documentElement.classList.toggle('ly-narrow',!!x);});}catch(e){}})();
+(function(){try{function lyNav(){var n=(window.matchMedia&&window.matchMedia('(max-width:900px)').matches)||window.innerWidth<=900;document.documentElement.classList.toggle('ly-narrow',!!n);var nav=document.querySelector('nav[aria-label="Primary"]');if(nav){document.documentElement.style.setProperty('--ly-nav-h',Math.round(nav.getBoundingClientRect().bottom)+'px');}}lyNav();window.addEventListener('resize',lyNav);window.addEventListener('scroll',lyNav,{passive:true});}catch(e){}})();
 </script>
 <script src="./support.js"></script>
 </head>
@@ -148,7 +150,7 @@ html.ly-narrow .ly-nav-actions .btn{padding:10px 14px!important;font-size:13px!i
   .fld::placeholder{color:var(--muted);font-weight:500}
   .fldlbl{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:7px;display:block}
 
-  .langmenu{position:absolute;top:calc(100% + 10px);right:0;width:330px;max-width:calc(100vw - 32px);background:var(--card);box-shadow:var(--raise-lg);border-radius:18px;padding:12px;z-index:120;display:grid;grid-template-columns:1fr 1fr;gap:6px}
+  .langmenu{position:fixed;top:var(--ly-nav-h, 72px);left:50%;right:auto;transform:translateX(-50%);width:min(330px, calc(100vw - 32px));max-width:calc(100vw - 32px);background:var(--card);box-shadow:var(--raise-lg);border-radius:18px;padding:12px;z-index:120;display:grid;grid-template-columns:1fr 1fr;gap:6px}
   .lang-opt{display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:12px;border:0;background:transparent;cursor:pointer;font-family:'Manrope';font-weight:600;font-size:14px;color:var(--ink);text-align:left;transition:background .12s}
   .lang-opt:hover{background:var(--surface)}
   .lang-opt[data-active="true"]{background:var(--teal);color:#fff}
@@ -1228,6 +1230,7 @@ class Component extends DCLogic {
     this.syncNarrowNav();
     this._onResizeNav = ()=>this.syncNarrowNav();
     window.addEventListener('resize', this._onResizeNav);
+    window.addEventListener('scroll', this._onResizeNav, {passive:true});
     this.initDestCarousel();
     // prevent image/media drag
     try{
@@ -1258,6 +1261,11 @@ class Component extends DCLogic {
     try{
       const narrow = window.matchMedia('(max-width:900px)').matches || window.innerWidth <= 900;
       document.documentElement.classList.toggle('ly-narrow', !!narrow);
+      const nav = document.querySelector('.lm nav[aria-label="Primary"]') || document.querySelector('nav[aria-label="Primary"]');
+      if(nav){
+        const r = nav.getBoundingClientRect();
+        document.documentElement.style.setProperty('--ly-nav-h', Math.round(r.bottom) + 'px');
+      }
     }catch(e){}
   }
   kickHeroVideo(){
@@ -1300,7 +1308,7 @@ class Component extends DCLogic {
     document.addEventListener('pointerdown', unlock, {once:true});
     document.addEventListener('touchstart', unlock, {once:true, passive:true});
   }
-  componentWillUnmount(){ document.removeEventListener('click', this._outside); document.removeEventListener('keydown', this._esc); if(this._noDrag) document.removeEventListener('dragstart', this._noDrag); if(this._onResizeNav) window.removeEventListener('resize', this._onResizeNav); }
+  componentWillUnmount(){ document.removeEventListener('click', this._outside); document.removeEventListener('keydown', this._esc); if(this._noDrag) document.removeEventListener('dragstart', this._noDrag); if(this._onResizeNav){ window.removeEventListener('resize', this._onResizeNav); window.removeEventListener('scroll', this._onResizeNav); } }
 
   codeVanSVG(){
     return `<svg viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg">
