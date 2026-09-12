@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<style id="ly-flush">html,body{margin:0!important;padding:0!important;border:0!important;background:#f2e9d8!important}#dc-root,#dc-root>.sc-host{margin:0!important;padding:0!important;border:0!important;background:#f2e9d8!important;min-height:100%}</style>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -94,7 +95,7 @@
   .faq-ic{transition:transform .3s ease;color:var(--teal);font-size:26px;flex:0 0 auto}
 
   /* hero video stage */
-  .hero-media{position:absolute;inset:0;z-index:0;overflow:hidden}
+  .hero-media{position:absolute;inset:0;z-index:0;overflow:hidden;width:100%;height:100%;left:0;right:0;top:0;bottom:0}
   .hero-media > image-slot{position:absolute;inset:0;width:100%;height:100%}
   .hero-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;background:#061a1c}
   .hero-media > image-slot{z-index:0;opacity:0;pointer-events:none} /* poster behind; empty slot must not cover video */
@@ -1084,17 +1085,39 @@ class Component extends DCLogic {
   kickHeroVideo(){
     const v = document.querySelector('.lm video.hero-vid');
     if(!v) return;
+    // kill any leftover Design canvas letterbox bg
+    try{
+      document.documentElement.style.setProperty('background','#f2e9d8','important');
+      document.body.style.setProperty('margin','0','important');
+      document.body.style.setProperty('padding','0','important');
+      document.body.style.setProperty('background','#f2e9d8','important');
+      const root=document.getElementById('dc-root');
+      if(root){ root.style.setProperty('margin','0','important'); root.style.setProperty('padding','0','important'); root.style.setProperty('background','#f2e9d8','important'); }
+      document.querySelectorAll('[data-dc-canvas]').forEach(el=>{ if(el.tagName==='STYLE') el.textContent='html,body{background:#f2e9d8}#dc-root>.sc-host{position:relative;margin:0;padding:0;background:#f2e9d8}'; });
+    }catch(e){}
     v.muted = true;
     v.defaultMuted = true;
+    v.loop = true;
+    v.autoplay = true;
     v.playsInline = true;
     v.setAttribute('playsinline','');
     v.setAttribute('webkit-playsinline','');
+    v.setAttribute('muted','');
     const go = ()=>{ try{ const p=v.play(); if(p&&p.catch) p.catch(()=>{}); }catch(e){} };
     go();
-    v.addEventListener('canplay', go, {once:false});
-    v.addEventListener('loadeddata', go, {once:true});
+    ['canplay','loadeddata','loadedmetadata'].forEach(ev=>v.addEventListener(ev, go));
     document.addEventListener('visibilitychange', ()=>{ if(!document.hidden) go(); });
-    // one user-gesture fallback if autoplay is blocked
+    // if still stuck at 0 after 800ms, hard reload the src once
+    setTimeout(()=>{
+      if(v.paused || v.currentTime < 0.05){
+        const src = (v.querySelector('source')||{}).src || v.currentSrc || 'media/hero-starex-loop.mp4';
+        v.removeAttribute('src');
+        const s = v.querySelector('source');
+        if(s){ s.setAttribute('src', src.split('?')[0] + '?t=' + Date.now()); }
+        v.load();
+        go();
+      }
+    }, 800);
     const unlock = ()=>{ go(); document.removeEventListener('pointerdown', unlock); document.removeEventListener('touchstart', unlock); };
     document.addEventListener('pointerdown', unlock, {once:true});
     document.addEventListener('touchstart', unlock, {once:true, passive:true});

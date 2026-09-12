@@ -129,7 +129,7 @@
       }
     }
   `;
-  var FULL_PAGE_CSS = "html,body{height:100%;margin:0}#dc-root,#dc-root>.sc-host{height:100%}";
+  var FULL_PAGE_CSS = "html,body{min-height:100%;height:auto;margin:0;padding:0;background:#f2e9d8}#dc-root,#dc-root>.sc-host{min-height:100%;height:auto;margin:0;padding:0;background:#f2e9d8;width:100%}";
   function rootNameForDocument(doc, loc) {
     let bootPath = loc.pathname || "";
     if (!/\.dc\.html?$/i.test(safeDecode(bootPath))) {
@@ -1361,7 +1361,7 @@
 
   // src/helmet.ts
   var DESIGN_DOC_MODE_RE = /<meta\b[^>]*\bname\s*=\s*["']design_doc_mode["'][^>]*\b(?:content|value)\s*=\s*["'](\w+)["']/i;
-  var CANVAS_BG_LIGHT = "#f0eee6";
+  var CANVAS_BG_LIGHT = "#f2e9d8";
   var CANVAS_BG_DARK = "#2e2c26";
   function createHelmetManager(doc, isStreaming) {
     const mounted = /* @__PURE__ */ new Set();
@@ -1379,7 +1379,7 @@
     function applyCanvasBg() {
       if (!canvasStyleEl) return;
       const bg = appTheme === "dark" ? CANVAS_BG_DARK : CANVAS_BG_LIGHT;
-      canvasStyleEl.textContent = `html,body{background:${bg}}#dc-root>.sc-host{position:relative}`;
+      canvasStyleEl.textContent = `html,body{background:${bg};margin:0;padding:0}#dc-root>.sc-host{position:relative;margin:0;padding:0;background:${bg};width:100%}`;
     }
     function postDesignMode(mode) {
       if (window.parent === window) return;
