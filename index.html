@@ -49,6 +49,8 @@ image-slot{touch-action:pan-x pan-y!important;-webkit-user-drag:none}
 image-slot::part(image){touch-action:pan-x pan-y!important;-webkit-user-drag:none!important}
 .lm img,.lm video,.lm svg,.lm .expcard,.lm .dest-img,.lm .ph-frame,.lm .svc-feat .media{touch-action:pan-x pan-y!important;-webkit-user-drag:none}
 .dest-rail{touch-action:pan-x pan-y!important}
+
+.dest-nav{display:flex!important;justify-content:center!important;align-items:center!important;gap:16px!important;width:100%!important;margin:0 auto!important}
 </style>
 <script>
 (function(){try{function lyNav(){var n=(window.matchMedia&&window.matchMedia('(max-width:900px)').matches)||window.innerWidth<=900;document.documentElement.classList.toggle('ly-narrow',!!n);var nav=document.querySelector('nav[aria-label="Primary"]');if(nav){document.documentElement.style.setProperty('--ly-nav-h',Math.round(nav.getBoundingClientRect().bottom)+'px');}}lyNav();window.addEventListener('resize',lyNav);window.addEventListener('scroll',lyNav,{passive:true});}catch(e){}})();
@@ -132,7 +134,8 @@ image-slot::part(image){touch-action:pan-x pan-y!important;-webkit-user-drag:non
   .dest-rail.is-dragging{cursor:grabbing;scroll-behavior:auto;user-select:none}
   .dest-rail .expcard{flex:0 0 clamp(280px,72vw,420px);scroll-snap-align:center;scroll-snap-stop:always;height:clamp(380px,58vh,520px);overflow:hidden;position:relative;display:flex;flex-direction:column;justify-content:flex-end}
   .dest-nav{display:flex;gap:12px;justify-content:flex-end;padding:0 clamp(16px,4vw,44px);max-width:1320px;margin:0 auto}
-  .dest-prev,.dest-next{width:48px;height:48px;border-radius:50%;border:0;cursor:pointer;background:var(--card);box-shadow:var(--raise);color:var(--teal-deep);font-size:22px;display:grid;place-items:center;font-family:'Space Grotesk';font-weight:700;transition:transform .14s ease}
+  .dest-nav{display:flex;justify-content:center;align-items:center;gap:16px;width:100%;padding:4px 16px 8px;box-sizing:border-box}
+  .dest-prev,.dest-next{width:48px;height:48px;border-radius:50%;border:0;cursor:pointer;background:var(--card);box-shadow:var(--raise);color:var(--teal-deep);font-size:22px;display:grid;place-items:center;font-family:'Space Grotesk';font-weight:700;transition:transform .14s ease;flex:0 0 auto}
   .dest-prev:hover,.dest-next:hover{transform:translateY(-2px)}
   .dest-prev:active,.dest-next:active{transform:translateY(1px);box-shadow:var(--inset-sm)}
 
