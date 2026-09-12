@@ -28,8 +28,11 @@
     --inset:inset 6px 6px 12px rgba(120,120,100,.24), inset -6px -6px 12px rgba(255,255,255,.92);
     --inset-sm:inset 3px 3px 7px rgba(120,120,100,.22), inset -3px -3px 7px rgba(255,255,255,.9);
     font-family:'Manrope',system-ui,sans-serif;color:var(--ink);background:var(--sand);
-    position:relative;overflow-x:clip;-webkit-font-smoothing:antialiased;line-height:1.5
+    position:relative;overflow-x:clip;-webkit-font-smoothing:antialiased;line-height:1.5;
+    -webkit-user-select:none;user-select:none;-webkit-touch-callout:none
   }
+  .lm img, .lm image-slot, .lm video, .lm svg{-webkit-user-drag:none;user-drag:none}
+  .lm input,.lm textarea,.lm select,.lm [contenteditable]{-webkit-user-select:text;user-select:text}
   .lm .disp{font-family:'Space Grotesk',sans-serif;font-weight:700;line-height:1.04;letter-spacing:-.02em;text-wrap:balance}
   .lm a{color:var(--teal-deep);text-decoration:none}
   .lm a:hover{color:var(--teal)}
@@ -53,7 +56,7 @@
   .btn.ghost{background:var(--surface);color:var(--ink);box-shadow:var(--raise)}
   .btn.wa{background:#25d366;box-shadow:0 10px 22px rgba(37,211,102,.36), inset 0 1px 0 rgba(255,255,255,.3)}
   .btn.sm{padding:10px 18px;font-size:14px}
-  .btn:focus-visible,.langbtn:focus-visible,.lang-opt:focus-visible,.fld:focus-visible,.faq-q:focus-visible,.cur-btn:focus-visible,.lk:focus-visible,.xbtn:focus-visible,.map-pin:focus-visible{outline:3px solid var(--coral);outline-offset:3px}
+  .btn:focus-visible,.langbtn:focus-visible,.lang-opt:focus-visible,.fld:focus-visible,.faq-q:focus-visible,.cur-btn:focus-visible,.lk:focus-visible,.xbtn:focus-visible,.map-pin:focus-visible,.nav-toggle:focus-visible,.dest-prev:focus-visible,.dest-next:focus-visible{outline:3px solid var(--coral);outline-offset:3px}
   .lk{background:none;border:0;cursor:pointer;font:inherit;color:inherit;padding:0;text-align:left}
 
   @keyframes lm-rise{from{opacity:0;transform:translateY(42px)}to{opacity:1;transform:translateY(0)}}
@@ -72,9 +75,37 @@
   .drive{animation:lm-drive linear both;animation-timeline:view();animation-range:cover}
   .ly-line{fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:900;stroke-dashoffset:900;animation:ly-draw linear both;animation-timeline:view();animation-range:entry 0% cover 40%}
 
-  #expPin{position:relative;height:420vh;view-timeline-name:--exptl;view-timeline-axis:block}
-  #expPin .pinSticky{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center}
-  #expPin .pinTrack{display:flex;gap:28px;height:100vh;align-items:center;padding:0 6vw;width:max-content;will-change:transform;animation:lm-move-x linear forwards;animation-timeline:--exptl;animation-range:contain 0% contain 100%}
+  /* destinations carousel (replaces #expPin scroll-timeline) */
+  #expPin{display:none !important}
+  .dest-wrap{position:relative;padding:0 0 clamp(40px,6vw,72px)}
+  .dest-rail{display:flex;gap:28px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:18px clamp(16px,4vw,44px) 28px;scroll-behavior:smooth;cursor:grab;scrollbar-width:none;-ms-overflow-style:none}
+  .dest-rail::-webkit-scrollbar{display:none}
+  .dest-rail.is-dragging{cursor:grabbing;scroll-behavior:auto;user-select:none}
+  .dest-rail .expcard{flex:0 0 clamp(280px,72vw,420px);scroll-snap-align:start;height:clamp(380px,58vh,520px);overflow:hidden;position:relative;display:flex;flex-direction:column;justify-content:flex-end}
+  .dest-nav{display:flex;gap:12px;justify-content:flex-end;padding:0 clamp(16px,4vw,44px);max-width:1320px;margin:0 auto}
+  .dest-prev,.dest-next{width:48px;height:48px;border-radius:50%;border:0;cursor:pointer;background:var(--card);box-shadow:var(--raise);color:var(--teal-deep);font-size:22px;display:grid;place-items:center;font-family:'Space Grotesk';font-weight:700;transition:transform .14s ease}
+  .dest-prev:hover,.dest-next:hover{transform:translateY(-2px)}
+  .dest-prev:active,.dest-next:active{transform:translateY(1px);box-shadow:var(--inset-sm)}
+
+  /* mobile nav */
+  .nav-toggle{display:none;width:44px;height:44px;border-radius:14px;border:0;cursor:pointer;background:var(--surface);box-shadow:var(--raise);align-items:center;justify-content:center;padding:0;color:var(--ink);flex:0 0 auto}
+  .nav-toggle span,.nav-toggle span::before,.nav-toggle span::after{display:block;width:20px;height:2px;background:currentColor;border-radius:2px;position:relative;transition:transform .2s ease,opacity .2s}
+  .nav-toggle span::before,.nav-toggle span::after{content:"";position:absolute;left:0}
+  .nav-toggle span::before{top:-6px}.nav-toggle span::after{top:6px}
+  .nav-toggle[aria-expanded="true"] span{background:transparent}
+  .nav-toggle[aria-expanded="true"] span::before{top:0;transform:rotate(45deg)}
+  .nav-toggle[aria-expanded="true"] span::after{top:0;transform:rotate(-45deg)}
+  .nav-drawer{display:none;position:fixed;inset:0;z-index:110;background:rgba(6,26,28,.45);backdrop-filter:blur(4px)}
+  .nav-drawer-panel{position:absolute;top:0;left:0;bottom:0;width:min(320px,86vw);background:var(--card);box-shadow:var(--raise-lg);padding:88px 22px 28px;display:flex;flex-direction:column;gap:6px;overflow:auto}
+  .nav-drawer a{display:block;padding:14px 16px;border-radius:14px;color:var(--ink);font-weight:700;font-size:17px}
+  .nav-drawer a:hover{background:var(--surface);color:var(--teal-deep)}
+
+  /* decorative line-art */
+  @keyframes ly-float{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-10px) rotate(1.5deg)}}
+  .ly-art{position:absolute;pointer-events:none;z-index:0;opacity:.32;animation:ly-float 9s ease-in-out infinite}
+  .ly-art svg{display:block;width:100%;height:auto;overflow:visible}
+  .ly-art.a2{animation-duration:11s;animation-delay:-2s;opacity:.28}
+  .ly-art.a3{animation-duration:13s;animation-delay:-4s;opacity:.38}
 
   .fld{font-family:'Manrope';font-size:15px;font-weight:600;color:var(--ink);border:0;border-radius:14px;padding:14px 15px;background:var(--surface);box-shadow:var(--inset-sm);width:100%}
   .fld::placeholder{color:var(--muted);font-weight:500}
@@ -163,17 +194,13 @@
   .xbtn{position:absolute;top:18px;right:18px;width:40px;height:40px;border-radius:50%;border:0;cursor:pointer;background:var(--surface);box-shadow:var(--raise);font-size:20px;color:var(--ink);display:grid;place-items:center}
 
   @media (prefers-reduced-motion:reduce){
-    .reveal,.para,.marq-track,.drive,.hero-vid,.pin-ring,.map-pin .ring,.hero-sun svg,.scrollcue span.dot::after{animation:none;opacity:1;transform:none}
+    .reveal,.para,.marq-track,.drive,.hero-vid,.pin-ring,.map-pin .ring,.hero-sun svg,.scrollcue span.dot::after,.ly-art{animation:none;opacity:1;transform:none}
     .ly-line{animation:none;stroke-dashoffset:0}
-    /* keep hero video visible on Pages; only disable motion effects */
-    #expPin{height:auto}
-    #expPin .pinSticky{position:relative;height:auto;display:block}
-    #expPin .pinTrack{width:auto;flex-direction:column;height:auto;animation:none;padding:0}
-    #expPin .expcard{width:100% !important}
+    .ly-art{opacity:.28}
+    .dest-rail{scroll-behavior:auto}
   }
   @media (max-width:900px){
     .langmenu{grid-template-columns:1fr}
-    #expPin .pinTrack{width:max-content}
     .lm .hero-grid{grid-template-columns:1fr !important}
     .lm .cta-grid{grid-template-columns:1fr !important}
     .lm .van-grid{grid-template-columns:1fr !important}
@@ -183,9 +210,11 @@
     .lm .tl-step::before{display:none}
     .lm .foot-grid{grid-template-columns:1fr 1fr !important}
     .lm .navlinks{display:none}
+    .lm .nav-toggle{display:inline-grid}
     .lm .map-pin .tip{display:none}
     .lm .map-pin{width:18px;height:18px}
     .lm .map-pin[data-hub="true"]{width:22px;height:22px}
+    .dest-rail .expcard{flex-basis:clamp(260px,78vw,360px)}
   }
   @media (max-width:560px){ .lm .tl{grid-template-columns:1fr} .lm .foot-grid{grid-template-columns:1fr !important} }
 </style>
@@ -213,6 +242,7 @@
         <a href="#faq" style="color:var(--ink);font-weight:600;font-size:15px">{{ t.navFaq }}</a>
       </div>
       <div style="display:flex;align-items:center;gap:12px">
+        <button class="nav-toggle" type="button" aria-label="Menu" aria-expanded="{{ navOpen }}" aria-controls="ly-nav-drawer" onClick="{{ toggleNav }}"><span></span></button>
         <div style="position:relative">
           <button class="langbtn chip" onClick="{{ toggleLang }}" aria-haspopup="true" aria-expanded="{{ langOpen }}" style="cursor:pointer;border:0">
             <span style="font-size:13px">🌐</span><span>{{ langCode }}</span><span style="font-size:9px">▾</span>
@@ -226,6 +256,16 @@
           </div>
         </div>
         <a class="btn" href="#book" style="padding:12px 22px">{{ t.book }}</a>
+      </div>
+    </div>
+    <div class="nav-drawer" id="ly-nav-drawer" style="display:{{ navDrawerDisplay }}" onClick="{{ closeNav }}">
+      <div class="nav-drawer-panel" role="dialog" aria-label="Menu" onClick="{{ stop }}">
+        <a href="#services" onClick="{{ closeNav }}">{{ t.navServices }}</a>
+        <a href="#prices" onClick="{{ closeNav }}">{{ t.navPrices }}</a>
+        <a href="#map" onClick="{{ closeNav }}">{{ t.navZones }}</a>
+        <a href="#destinations" onClick="{{ closeNav }}">{{ t.navDest }}</a>
+        <a href="#faq" onClick="{{ closeNav }}">{{ t.navFaq }}</a>
+        <a href="#book" class="btn" style="margin-top:14px;text-align:center" onClick="{{ closeNav }}">{{ t.book }}</a>
       </div>
     </div>
   </nav>
@@ -300,6 +340,8 @@
 
   <!-- ===================== SERVICES ===================== -->
   <section id="services" style="background:var(--sand);padding:clamp(64px,9vw,130px) clamp(16px,4vw,44px);position:relative;overflow:hidden">
+    <div class="ly-art" aria-hidden="true" style="top:24px;right:clamp(8px,4vw,40px);width:min(140px,22vw)"><svg viewBox="0 0 120 140" fill="none"><path d="M60 130 V55" stroke="var(--teal)" stroke-width="2.2" stroke-linecap="round"/><path d="M60 58 C40 40 18 48 12 58 M60 58 C80 40 102 48 108 58 M60 52 C36 28 22 22 14 28 M60 52 C84 28 98 22 106 28 M60 48 C48 20 38 10 28 12 M60 48 C72 20 82 10 92 12" stroke="var(--palm)" stroke-width="2.2" stroke-linecap="round"/><path d="M48 130 Q60 122 72 130" stroke="var(--coral)" stroke-width="1.8" stroke-linecap="round" opacity=".8"/></svg></div>
+    <div class="ly-art a2" aria-hidden="true" style="bottom:18px;left:clamp(8px,3vw,36px);width:min(220px,40vw)"><svg viewBox="0 0 220 60" fill="none"><path d="M4 30 Q24 10 44 30 T84 30 T124 30 T164 30 T204 30" stroke="var(--teal)" stroke-width="2.2" stroke-linecap="round"/><path d="M4 42 Q24 26 44 42 T84 42 T124 42 T164 42 T204 42" stroke="var(--coral)" stroke-width="1.8" stroke-linecap="round" opacity=".85"/></svg></div>
     <div class="reveal" style="max-width:760px;margin-bottom:40px">
       <span class="chip">{{ t.s_kicker }}</span>
       <h2 class="disp" style="font-size:clamp(34px,5.5vw,66px);margin:16px 0 12px;max-width:16ch">{{ t.s_title }}</h2>
@@ -338,6 +380,7 @@
 
   <!-- ===================== THE VAN (photographic) ===================== -->
   <section id="van" style="background:var(--ink);color:var(--surface);padding:clamp(64px,9vw,130px) clamp(16px,4vw,44px);position:relative;overflow:hidden">
+    <div class="ly-art a3" aria-hidden="true" style="top:20px;left:clamp(8px,3vw,28px);width:min(110px,18vw)"><svg viewBox="0 0 100 100" fill="none"><circle cx="50" cy="50" r="16" stroke="#f4b740" stroke-width="2.2"/><path d="M50 8v12M50 80v12M8 50h12M80 50h12M20 20l9 9M71 71l9 9M80 20l-9 9M29 71l-9 9" stroke="#f4b740" stroke-width="2" stroke-linecap="round"/><circle cx="50" cy="50" r="28" stroke="#f2864b" stroke-width="1.4" stroke-dasharray="4 6" opacity=".7"/></svg></div>
     <div class="sun-glow" style="width:500px;height:500px;background:radial-gradient(circle,var(--teal),transparent 70%);opacity:.3;top:-140px;right:-100px"></div>
     <div class="van-grid" style="position:relative;max-width:1320px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4vw,60px);align-items:center">
       <div class="reveal">
@@ -368,7 +411,9 @@
   </section>
 
   <!-- ===================== PRICES + currency ===================== -->
-  <section id="prices" style="background:var(--sand);padding:clamp(64px,9vw,130px) clamp(16px,4vw,44px)">
+  <section id="prices" style="background:var(--sand);padding:clamp(64px,9vw,130px) clamp(16px,4vw,44px);position:relative;overflow:hidden">
+    <div class="ly-art a2" aria-hidden="true" style="top:40%;right:clamp(4px,2vw,24px);width:min(160px,28vw)"><svg viewBox="0 0 160 80" fill="none"><path d="M8 60 C40 10 70 70 100 30 S140 20 152 40" stroke="var(--teal)" stroke-width="2" stroke-dasharray="6 7" stroke-linecap="round"/><circle cx="8" cy="60" r="4" fill="var(--coral)"/><circle cx="152" cy="40" r="4" fill="var(--sun)"/></svg></div>
+    <div class="ly-art" aria-hidden="true" style="top:28px;right:clamp(12px,5vw,48px);width:min(180px,32vw)"><svg viewBox="0 0 180 50" fill="none"><path d="M2 28 Q22 8 42 28 T82 28 T122 28 T162 28" stroke="var(--teal)" stroke-width="2.2" stroke-linecap="round"/><path d="M140 12 l8 6 -8 6" stroke="var(--coral)" stroke-width="2" fill="none" stroke-linecap="round"/></svg></div>
     <div style="max-width:1320px;margin:0 auto">
       <div class="reveal" style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:36px">
         <div style="max-width:640px">
@@ -406,6 +451,7 @@
 
   <!-- ===================== ZONES MAP (real RD map + pins) ===================== -->
   <section id="map" style="background:var(--surface-2);padding:clamp(64px,9vw,130px) clamp(16px,4vw,44px);border-block:1px solid var(--line);position:relative;overflow:hidden">
+    <div class="ly-art a3" aria-hidden="true" style="bottom:24px;right:clamp(10px,4vw,40px);width:min(100px,18vw)"><svg viewBox="0 0 90 110" fill="none"><path d="M45 100 V42" stroke="var(--teal)" stroke-width="2" stroke-linecap="round"/><path d="M45 44 C30 30 14 34 10 42 M45 44 C60 30 76 34 80 42 M45 40 C32 20 22 14 14 16 M45 40 C58 20 68 14 76 16" stroke="var(--palm)" stroke-width="2" stroke-linecap="round"/></svg></div>
     <svg class="ly-line" aria-hidden="true" viewBox="0 0 200 40" style="position:absolute;top:40px;right:24px;width:min(30vw,220px);color:var(--teal);opacity:.4"><path stroke="currentColor" stroke-width="2.4" d="M2 20 Q14 6 26 20 T50 20 T74 20 T98 20"/><path stroke="var(--coral)" stroke-width="2.4" d="M110 26 q10 -12 20 0 q10 12 20 0 M150 14 l8 6 -8 6" fill="none"/></svg>
     <div style="max-width:1160px;margin:0 auto;position:relative">
       <div class="reveal" style="max-width:720px;margin-bottom:36px">
@@ -431,44 +477,48 @@
     </div>
   </section>
 
-  <!-- ===================== DESTINATIONS (horizontal pin) ===================== -->
+  <!-- ===================== DESTINATIONS (carousel) ===================== -->
   <section id="destinations" style="background:var(--sand);padding-top:clamp(56px,8vw,110px)">
     <div class="reveal" style="max-width:900px;margin:0 auto 8px;padding:0 clamp(16px,4vw,44px)">
       <span class="chip">{{ t.d_kicker }}</span>
       <h2 class="disp" style="font-size:clamp(34px,5.5vw,66px);margin:16px 0 12px;max-width:16ch">{{ t.d_title }}</h2>
       <p style="color:var(--muted);font-weight:500;font-size:clamp(16px,1.8vw,20px)">{{ t.d_sub }}</p>
     </div>
-    <div id="expPin">
-      <div class="pinSticky">
-        <div class="pinTrack">
-          <div class="expcard neu" style="flex:0 0 clamp(300px,40vw,460px);height:clamp(400px,66vh,560px);overflow:hidden;position:relative;display:flex;flex-direction:column;justify-content:flex-end">
+    <div class="dest-wrap">
+      <div class="dest-rail" id="ly-dest-rail">
+          <div class="expcard neu">
             <div class="dest-img"><image-slot id="lm-dest-puj" shape="rect" placeholder="PUJ airport / arrivals photo"></image-slot></div>
             <div class="dest-cap"><span class="chip" style="margin-bottom:10px">20–40 min</span><h3 class="disp" style="font-size:28px;margin:0 0 6px">Punta Cana (PUJ)</h3><p style="margin:0;color:var(--muted);font-weight:500"><span class="l-en">Airport ⇄ Bávaro &amp; Cap Cana resorts</span><span class="l-es">Aeropuerto ⇄ resorts de Bávaro y Cap Cana</span></p></div>
           </div>
-          <div class="expcard neu" style="flex:0 0 clamp(300px,40vw,460px);height:clamp(400px,66vh,560px);overflow:hidden;position:relative;display:flex;flex-direction:column;justify-content:flex-end">
+          <div class="expcard neu">
             <div class="dest-img"><image-slot id="lm-dest-bavaro" shape="rect" placeholder="Bávaro beach / resort strip photo"></image-slot></div>
             <div class="dest-cap"><span class="chip" style="margin-bottom:10px">20–35 min</span><h3 class="disp" style="font-size:28px;margin:0 0 6px">Bávaro</h3><p style="margin:0;color:var(--muted);font-weight:500"><span class="l-en">Beachfront all-inclusive resort strip</span><span class="l-es">Franja de resorts todo incluido frente al mar</span></p></div>
           </div>
-          <div class="expcard neu" style="flex:0 0 clamp(300px,40vw,460px);height:clamp(400px,66vh,560px);overflow:hidden;position:relative;display:flex;flex-direction:column;justify-content:flex-end">
+          <div class="expcard neu">
             <div class="dest-img"><image-slot id="lm-dest-cap" shape="rect" placeholder="Cap Cana marina photo"></image-slot></div>
             <div class="dest-cap"><span class="chip" style="margin-bottom:10px">15–30 min</span><h3 class="disp" style="font-size:28px;margin:0 0 6px">Cap Cana</h3><p style="margin:0;color:var(--muted);font-weight:500"><span class="l-en">Marina, golf villas &amp; luxury resorts</span><span class="l-es">Marina, villas de golf y resorts de lujo</span></p></div>
           </div>
-          <div class="expcard neu" style="flex:0 0 clamp(300px,40vw,460px);height:clamp(400px,66vh,560px);overflow:hidden;position:relative;display:flex;flex-direction:column;justify-content:flex-end">
+          <div class="expcard neu">
             <div class="dest-img"><image-slot id="lm-dest-saona" shape="rect" placeholder="Saona Island beach photo"></image-slot></div>
             <div class="dest-cap"><span class="chip" style="margin-bottom:10px"><span class="l-en">Day trip</span><span class="l-es">Excursión</span></span><h3 class="disp" style="font-size:28px;margin:0 0 6px">Isla Saona</h3><p style="margin:0;color:var(--muted);font-weight:500"><span class="l-en">Full-day beach &amp; natural pool tour</span><span class="l-es">Playa todo el día y piscina natural</span></p></div>
           </div>
-          <div class="expcard neu" style="flex:0 0 clamp(300px,40vw,460px);height:clamp(400px,66vh,560px);overflow:hidden;position:relative;display:flex;flex-direction:column;justify-content:flex-end">
+          <div class="expcard neu">
             <div class="dest-img"><image-slot id="lm-dest-sdq" shape="rect" placeholder="Santo Domingo colonial photo"></image-slot></div>
             <div class="dest-cap"><span class="chip" style="margin-bottom:10px">2.5–3 h</span><h3 class="disp" style="font-size:28px;margin:0 0 6px">Santo Domingo</h3><p style="margin:0;color:var(--muted);font-weight:500"><span class="l-en">Colonial Zone &amp; SDQ airport runs</span><span class="l-es">Zona Colonial y viajes al aeropuerto SDQ</span></p></div>
           </div>
-        </div>
+      </div>
+      <div class="dest-nav">
+        <button type="button" class="dest-prev" aria-label="Previous destination" onClick="{{ destScrollPrev }}">‹</button>
+        <button type="button" class="dest-next" aria-label="Next destination" onClick="{{ destScrollNext }}">›</button>
       </div>
     </div>
   </section>
 
   <!-- ===================== BEFORE YOU LAND (timeline) ===================== -->
-  <section style="background:var(--surface-2);padding:clamp(64px,9vw,130px) clamp(16px,4vw,44px);border-block:1px solid var(--line)">
-    <div style="max-width:1160px;margin:0 auto">
+  <section style="background:var(--surface-2);padding:clamp(64px,9vw,130px) clamp(16px,4vw,44px);border-block:1px solid var(--line);position:relative;overflow:hidden">
+    <div class="ly-art a3" aria-hidden="true" style="top:20px;left:clamp(8px,3vw,28px);width:min(110px,18vw)"><svg viewBox="0 0 100 100" fill="none"><circle cx="50" cy="50" r="16" stroke="var(--sun)" stroke-width="2.2"/><path d="M50 8v12M50 80v12M8 50h12M80 50h12M20 20l9 9M71 71l9 9M80 20l-9 9M29 71l-9 9" stroke="var(--sun)" stroke-width="2" stroke-linecap="round"/><circle cx="50" cy="50" r="28" stroke="var(--coral)" stroke-width="1.4" stroke-dasharray="4 6" opacity=".7"/></svg></div>
+    <div class="ly-art a2" aria-hidden="true" style="bottom:18px;left:clamp(8px,3vw,28px);width:min(160px,28vw)"><svg viewBox="0 0 160 80" fill="none"><path d="M8 60 C40 10 70 70 100 30 S140 20 152 40" stroke="var(--teal)" stroke-width="2" stroke-dasharray="6 7" stroke-linecap="round"/><circle cx="8" cy="60" r="4" fill="var(--coral)"/><circle cx="152" cy="40" r="4" fill="var(--sun)"/></svg></div>
+    <div style="max-width:1160px;margin:0 auto;position:relative;z-index:1">
       <div class="reveal" style="max-width:720px;margin-bottom:52px">
         <span class="chip">{{ t.tl_kicker }}</span>
         <h2 class="disp" style="font-size:clamp(34px,5.5vw,64px);margin:16px 0;max-width:15ch">{{ t.tl_title }}</h2>
@@ -544,8 +594,10 @@
   </section>
 
   <!-- ===================== FAQ ===================== -->
-  <section id="faq" style="background:var(--sand);padding:clamp(64px,9vw,130px) clamp(16px,4vw,44px)">
-    <div style="max-width:860px;margin:0 auto">
+  <section id="faq" style="background:var(--sand);padding:clamp(64px,9vw,130px) clamp(16px,4vw,44px);position:relative;overflow:hidden">
+    <div class="ly-art a2" aria-hidden="true" style="bottom:18px;left:clamp(8px,3vw,36px);width:min(220px,40vw)"><svg viewBox="0 0 220 60" fill="none"><path d="M4 30 Q24 10 44 30 T84 30 T124 30 T164 30 T204 30" stroke="var(--teal)" stroke-width="2.2" stroke-linecap="round"/><path d="M4 42 Q24 26 44 42 T84 42 T124 42 T164 42 T204 42" stroke="var(--coral)" stroke-width="1.8" stroke-linecap="round" opacity=".85"/></svg></div>
+    <div class="ly-art a2" aria-hidden="true" style="top:20px;left:clamp(10px,4vw,40px);width:min(100px,18vw)"><svg viewBox="0 0 90 110" fill="none"><path d="M45 100 V42" stroke="var(--teal)" stroke-width="2" stroke-linecap="round"/><path d="M45 44 C30 30 14 34 10 42 M45 44 C60 30 76 34 80 42 M45 40 C32 20 22 14 14 16 M45 40 C58 20 68 14 76 16" stroke="var(--palm)" stroke-width="2" stroke-linecap="round"/></svg></div>
+    <div style="max-width:860px;margin:0 auto;position:relative;z-index:1">
       <div class="reveal" style="margin-bottom:36px">
         <span class="chip">FAQ</span>
         <h2 class="disp" style="font-size:clamp(34px,5.5vw,62px);margin:16px 0;max-width:15ch">{{ t.f_title }}</h2>
@@ -706,7 +758,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:&quot;100%&quot;}}">
 class Component extends DCLogic {
-  state = { lang:'en', langOpen:false, faqOpen:{0:true}, currency:'USD', modal:null, cookie:'pending' };
+  state = { lang:'en', langOpen:false, navOpen:false, faqOpen:{0:true}, currency:'USD', modal:null, cookie:(()=>{ try{ const r=JSON.parse(localStorage.getItem('ly_cookie_consent')||'null'); if(r&&(r.v==='accepted'||r.v==='rejected')&&r.exp>Date.now()) return r.v; }catch(e){} return 'pending'; })() };
 
   langDefs = [
     {code:'EN',key:'en',native:'English'}, {code:'ES',key:'es',native:'Español'},
@@ -733,7 +785,7 @@ class Component extends DCLogic {
       p_kicker:'Indicative fares',p_title:'Know the price before you write',p_sub:'Per private van (up to 8 passengers), not per person. Tolls & taxes included.',
       p_curLabel:'Currency · rates update live',p_indicative:'Indicative',p_oneWay:'one way',p_roundTrip:'Round trip',p_confirm:'Confirm on WhatsApp',
       m_kicker:'Where we drive',m_title:'The east coast corridor',m_sub:'From Punta Cana airport out to every resort zone and across to Santo Domingo.',m_legend:'Service zones',m_foot:"Stylized coverage map. Don't see your hotel? Ask on WhatsApp.",
-      d_kicker:'Where we go',d_title:'Popular routes & day trips',d_sub:"Scroll to travel the coast — from PUJ arrivals to the island's best days out.",
+      d_kicker:'Where we go',d_title:'Popular routes & day trips',d_sub:"Swipe or use the arrows — from PUJ arrivals to the island's best days out.",
       tl_kicker:'Before you land',tl_title:'From the jet bridge to the back seat',
       w_kicker:'Why Los Yeyes',w_title:'Locals who make arrival the easy part',w_speak:'Our team speaks (on WhatsApp & phone)',
       dl_title:'Flight delayed? We wait.',dl_body:'We track your flight live and adjust automatically. Airport pickups include a free wait window of 60–90 min after landing — just message us on WhatsApp if you are held up.',
@@ -764,7 +816,7 @@ class Component extends DCLogic {
       p_kicker:'Tarifas indicativas',p_title:'Conoce el precio antes de escribir',p_sub:'Por van privada (hasta 8 pasajeros), no por persona. Peajes e impuestos incluidos.',
       p_curLabel:'Moneda · tasas en vivo',p_indicative:'Indicativo',p_oneWay:'solo ida',p_roundTrip:'Ida y vuelta',p_confirm:'Confirmar por WhatsApp',
       m_kicker:'Dónde manejamos',m_title:'El corredor de la costa este',m_sub:'Desde el aeropuerto de Punta Cana hacia cada zona de resorts y hasta Santo Domingo.',m_legend:'Zonas de servicio',m_foot:'Mapa de cobertura estilizado. ¿No ves tu hotel? Pregunta por WhatsApp.',
-      d_kicker:'A dónde vamos',d_title:'Rutas y excursiones favoritas',d_sub:'Desliza para recorrer la costa — desde llegadas en PUJ hasta las mejores excursiones.',
+      d_kicker:'A dónde vamos',d_title:'Rutas y excursiones favoritas',d_sub:'Desliza o usa las flechas — desde llegadas en PUJ hasta las mejores excursiones.',
       tl_kicker:'Antes de aterrizar',tl_title:'Del avión al asiento trasero',
       w_kicker:'Por qué Los Yeyes',w_title:'Locales que hacen fácil tu llegada',w_speak:'Nuestro equipo habla (por WhatsApp y teléfono)',
       dl_title:'¿Vuelo retrasado? Esperamos.',dl_body:'Rastreamos tu vuelo en vivo y ajustamos solos. Las recogidas incluyen una espera gratis de 60–90 min tras aterrizar — solo escríbenos por WhatsApp si te demoras.',
@@ -795,7 +847,7 @@ class Component extends DCLogic {
       p_kicker:'Tarifs indicatifs',p_title:'Connaissez le prix avant d\u2019écrire',p_sub:'Par van privé (jusqu\u2019à 8 passagers), pas par personne. Péages et taxes inclus.',
       p_curLabel:'Devise · taux en direct',p_indicative:'Indicatif',p_oneWay:'aller simple',p_roundTrip:'Aller-retour',p_confirm:'Confirmer sur WhatsApp',
       m_kicker:'Où nous roulons',m_title:'Le corridor de la côte est',m_sub:'De l\u2019aéroport de Punta Cana vers chaque zone de resorts et jusqu\u2019à Saint-Domingue.',m_legend:'Zones desservies',m_foot:'Carte de couverture stylisée. Vous ne voyez pas votre hôtel ? Demandez sur WhatsApp.',
-      d_kicker:'Où nous allons',d_title:'Itinéraires & excursions populaires',d_sub:'Faites défiler pour longer la côte — des arrivées à PUJ aux meilleures sorties de l\u2019île.',
+      d_kicker:'Où nous allons',d_title:'Itinéraires & excursions populaires',d_sub:'Faites glisser ou utilisez les flèches — des arrivées à PUJ aux meilleures sorties de l\u2019île.',
       tl_kicker:'Avant d\u2019atterrir',tl_title:'De la passerelle à la banquette arrière',
       w_kicker:'Pourquoi Los Yeyes',w_title:'Des locaux qui simplifient votre arrivée',w_speak:'Notre équipe parle (WhatsApp & téléphone)',
       dl_title:'Vol retardé ? On attend.',dl_body:'Nous suivons votre vol en direct et ajustons automatiquement. Les prises en charge à l\u2019aéroport incluent une attente gratuite de 60–90 min après l\u2019atterrissage — écrivez-nous sur WhatsApp en cas de retard.',
@@ -826,7 +878,7 @@ class Component extends DCLogic {
       p_kicker:'Richtpreise',p_title:'Preis kennen, bevor Sie schreiben',p_sub:'Pro privatem Van (bis 8 Passagiere), nicht pro Person. Maut und Steuern inklusive.',
       p_curLabel:'Währung · Kurse live',p_indicative:'Richtwert',p_oneWay:'einfach',p_roundTrip:'Hin & zurück',p_confirm:'Per WhatsApp bestätigen',
       m_kicker:'Wo wir fahren',m_title:'Der Ostküsten-Korridor',m_sub:'Vom Flughafen Punta Cana zu jeder Resortzone und bis nach Santo Domingo.',m_legend:'Servicezonen',m_foot:'Stilisierte Abdeckungskarte. Ihr Hotel fehlt? Fragen Sie per WhatsApp.',
-      d_kicker:'Wohin wir fahren',d_title:'Beliebte Routen & Tagesausflüge',d_sub:'Scrollen Sie die Küste entlang — von der Ankunft in PUJ bis zu den besten Ausflügen der Insel.',
+      d_kicker:'Wohin wir fahren',d_title:'Beliebte Routen & Tagesausflüge',d_sub:'Wischen oder Pfeile nutzen — von der Ankunft in PUJ bis zu den besten Ausflügen der Insel.',
       tl_kicker:'Vor der Landung',tl_title:'Von der Gangway auf die Rückbank',
       w_kicker:'Warum Los Yeyes',w_title:'Einheimische, die die Ankunft leicht machen',w_speak:'Unser Team spricht (WhatsApp & Telefon)',
       dl_title:'Flug verspätet? Wir warten.',dl_body:'Wir verfolgen Ihren Flug live und passen automatisch an. Flughafenabholungen enthalten ein kostenloses Wartefenster von 60–90 Min nach der Landung — schreiben Sie uns bei Verzögerung einfach auf WhatsApp.',
@@ -857,7 +909,7 @@ class Component extends DCLogic {
       p_kicker:'Tarifas indicativas',p_title:'Saiba o preço antes de escrever',p_sub:'Por van privativa (até 8 passageiros), não por pessoa. Pedágios e impostos incluídos.',
       p_curLabel:'Moeda · taxas ao vivo',p_indicative:'Indicativo',p_oneWay:'só ida',p_roundTrip:'Ida e volta',p_confirm:'Confirmar no WhatsApp',
       m_kicker:'Onde dirigimos',m_title:'O corredor da costa leste',m_sub:'Do aeroporto de Punta Cana a cada zona de resorts e até Santo Domingo.',m_legend:'Zonas de serviço',m_foot:'Mapa de cobertura estilizado. Não vê seu hotel? Pergunte no WhatsApp.',
-      d_kicker:'Para onde vamos',d_title:'Rotas e passeios populares',d_sub:'Role para percorrer a costa — das chegadas em PUJ aos melhores passeios da ilha.',
+      d_kicker:'Para onde vamos',d_title:'Rotas e passeios populares',d_sub:'Deslize ou use as setas — das chegadas em PUJ aos melhores passeios da ilha.',
       tl_kicker:'Antes de pousar',tl_title:'Da ponte de embarque ao banco de trás',
       w_kicker:'Por que Los Yeyes',w_title:'Locais que tornam a chegada fácil',w_speak:'Nossa equipe fala (WhatsApp e telefone)',
       dl_title:'Voo atrasado? Nós esperamos.',dl_body:'Rastreamos seu voo ao vivo e ajustamos automaticamente. As recolhas no aeroporto incluem uma espera grátis de 60–90 min após o pouso — é só falar no WhatsApp se atrasar.',
@@ -888,7 +940,7 @@ class Component extends DCLogic {
       p_kicker:'Tariffe indicative',p_title:'Conosci il prezzo prima di scrivere',p_sub:'Per van privato (fino a 8 passeggeri), non a persona. Pedaggi e tasse inclusi.',
       p_curLabel:'Valuta · tassi in tempo reale',p_indicative:'Indicativo',p_oneWay:'sola andata',p_roundTrip:'A/R',p_confirm:'Conferma su WhatsApp',
       m_kicker:'Dove guidiamo',m_title:'Il corridoio della costa est',m_sub:"Dall'aeroporto di Punta Cana verso ogni zona di resort e fino a Santo Domingo.",m_legend:'Zone di servizio',m_foot:'Mappa di copertura stilizzata. Non vedi il tuo hotel? Chiedi su WhatsApp.',
-      d_kicker:'Dove andiamo',d_title:'Rotte ed escursioni popolari',d_sub:"Scorri per percorrere la costa — dagli arrivi a PUJ alle migliori gite dell'isola.",
+      d_kicker:'Dove andiamo',d_title:'Rotte ed escursioni popolari',d_sub:"Scorri o usa le frecce — dagli arrivi a PUJ alle migliori gite dell'isola.",
       tl_kicker:'Prima di atterrare',tl_title:'Dal finger al sedile posteriore',
       w_kicker:'Perché Los Yeyes',w_title:"Gente del posto che rende facile l'arrivo",w_speak:'Il nostro team parla (WhatsApp e telefono)',
       dl_title:'Volo in ritardo? Aspettiamo.',dl_body:"Monitoriamo il tuo volo in tempo reale e ci adattiamo in automatico. I ritiri in aeroporto includono un'attesa gratuita di 60–90 min dopo l'atterraggio — scrivici su WhatsApp se sei in ritardo.",
@@ -1073,14 +1125,91 @@ class Component extends DCLogic {
      aEs:'Cancela gratis hasta 24 horas antes con reembolso total. Si alguna vez hay un problema con tu viaje, escríbenos por WhatsApp o a hola@losyeyes.do dentro de 30 días — lo resolveremos.'},
   ];
 
+  readCookieConsent(){
+    try{
+      const raw = localStorage.getItem('ly_cookie_consent');
+      if(!raw) return null;
+      const data = JSON.parse(raw);
+      if(!data || (data.v!=='accepted' && data.v!=='rejected')) return null;
+      if(!data.exp || data.exp < Date.now()) return null;
+      return data.v;
+    }catch(e){ return null; }
+  }
+  writeCookieConsent(value){
+    try{
+      const exp = Date.now() + 365*24*60*60*1000;
+      localStorage.setItem('ly_cookie_consent', JSON.stringify({v:value, exp}));
+    }catch(e){}
+  }
+
+  initDestCarousel(){
+    const rail = document.getElementById('ly-dest-rail');
+    if(!rail || rail.dataset.lyDrag==='1') return;
+    rail.dataset.lyDrag='1';
+    let down=false, startX=0, startLeft=0, moved=false;
+    const isTouch = (e)=> e.pointerType==='touch' || (e.touches && e.touches.length);
+    rail.addEventListener('pointerdown', (e)=>{
+      if(e.pointerType==='touch') return; // keep native touch scroll
+      if(e.button!=null && e.button!==0) return;
+      down=true; moved=false; startX=e.clientX; startLeft=rail.scrollLeft;
+      rail.classList.add('is-dragging');
+      try{ rail.setPointerCapture(e.pointerId); }catch(err){}
+    });
+    rail.addEventListener('pointermove', (e)=>{
+      if(!down || e.pointerType==='touch') return;
+      const dx = e.clientX - startX;
+      if(Math.abs(dx)>3) moved=true;
+      rail.scrollLeft = startLeft - dx;
+    });
+    const end = (e)=>{
+      if(!down) return;
+      down=false; rail.classList.remove('is-dragging');
+      try{ if(e&&e.pointerId!=null) rail.releasePointerCapture(e.pointerId); }catch(err){}
+    };
+    rail.addEventListener('pointerup', end);
+    rail.addEventListener('pointercancel', end);
+    rail.addEventListener('click', (e)=>{ if(moved){ e.preventDefault(); e.stopPropagation(); moved=false; } }, true);
+  }
+
+  destScroll(dir){
+    const rail = document.getElementById('ly-dest-rail');
+    if(!rail) return;
+    const card = rail.querySelector('.expcard');
+    const step = card ? (card.getBoundingClientRect().width + 28) : Math.max(280, rail.clientWidth*0.8);
+    rail.scrollBy({ left: dir * step, behavior: 'smooth' });
+  }
+
   componentDidMount(){
+    const saved = this.readCookieConsent();
+    if(saved && saved !== this.state.cookie) this.setState({cookie:saved});
     this.injectVan();
     this.injectTrust();
     this.kickHeroVideo();
+    this.initDestCarousel();
+    // prevent image/media drag
+    try{
+      document.querySelectorAll('.lm img, .lm video, .lm svg').forEach(el=>{ try{ el.setAttribute('draggable','false'); el.draggable=false; }catch(e){} });
+      document.addEventListener('dragstart', this._noDrag = (e)=>{
+        const t = e.target;
+        if(!t || !t.closest || !t.closest('.lm')) return;
+        if(t.closest('input,textarea,select,[contenteditable]')) return;
+        if(t.tagName==='IMG' || t.tagName==='VIDEO' || t.tagName==='SVG' || t.closest('svg') || t.tagName==='IMAGE-SLOT'){
+          e.preventDefault();
+        }
+      });
+    }catch(e){}
     document.addEventListener('click', this._outside = (e)=>{
       if(this.state.langOpen && !e.target.closest('.langbtn') && !e.target.closest('.langmenu')) this.setState({langOpen:false});
+      if(this.state.navOpen && !e.target.closest('.nav-toggle') && !e.target.closest('.nav-drawer-panel')) this.setState({navOpen:false});
     });
-    document.addEventListener('keydown', this._esc = (e)=>{ if(e.key==='Escape' && this.state.modal) this.setState({modal:null}); });
+    document.addEventListener('keydown', this._esc = (e)=>{
+      if(e.key==='Escape'){
+        const next = {};
+        if(this.state.modal) next.modal=null;
+        if(this.state.navOpen) next.navOpen=false;
+        if(Object.keys(next).length) this.setState(next);
+      }
+    });
   }
   kickHeroVideo(){
     const v = document.querySelector('.lm video.hero-vid');
@@ -1122,7 +1251,7 @@ class Component extends DCLogic {
     document.addEventListener('pointerdown', unlock, {once:true});
     document.addEventListener('touchstart', unlock, {once:true, passive:true});
   }
-  componentWillUnmount(){ document.removeEventListener('click', this._outside); document.removeEventListener('keydown', this._esc); }
+  componentWillUnmount(){ document.removeEventListener('click', this._outside); document.removeEventListener('keydown', this._esc); if(this._noDrag) document.removeEventListener('dragstart', this._noDrag); }
 
   codeVanSVG(){
     return `<svg viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg">
@@ -1204,8 +1333,15 @@ class Component extends DCLogic {
       backClose:()=>this.setState({modal:null}),
       stop:(e)=>{ e&&e.stopPropagation&&e.stopPropagation(); },
       cookieDisplay: this.state.cookie==='pending' ? 'flex' : 'none',
-      cookieAccept:()=>this.setState({cookie:'accepted', modal:null}),
-      cookieReject:()=>this.setState({cookie:'rejected', modal:null}),
+      cookieAccept:()=>{ this.writeCookieConsent('accepted'); this.setState({cookie:'accepted', modal:null}); },
+      cookieReject:()=>{ this.writeCookieConsent('rejected'); this.setState({cookie:'rejected', modal:null}); },
+      navOpen: !!this.state.navOpen,
+      navDrawerDisplay: this.state.navOpen ? 'block' : 'none',
+      toggleNav:(e)=>{ e&&e.stopPropagation&&e.stopPropagation(); this.setState({navOpen:!this.state.navOpen, langOpen:false}); },
+      closeNav:(e)=>{ e&&e.stopPropagation&&e.stopPropagation(); this.setState({navOpen:false}); },
+      destScroll:(dir)=>this.destScroll(dir),
+      destScrollPrev:()=>this.destScroll(-1),
+      destScrollNext:()=>this.destScroll(1),
     };
   }
 

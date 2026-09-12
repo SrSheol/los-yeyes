@@ -1,0 +1,35 @@
+Transportes Los Yeyes — index.html patch notes
+Date: 2026-09-11 (America/Mexico_City)
+
+1) Cookie consent persistence
+   - localStorage key ly_cookie_consent stores {v:'accepted'|'rejected', exp}
+   - 12-month expiry (365 days from accept/reject)
+   - Initial state reads consent via IIFE; readCookieConsent() / writeCookieConsent(value) helpers
+   - Banner stays hidden when a valid choice exists; footer Cookie preferences still opens the modal
+   - Modal accept/reject also persists
+
+2) Mobile navbar (≤900px)
+   - .nav-toggle hamburger (desktop hidden); .nav-drawer overlay + panel with same links
+   - State: navOpen; renderVals: toggleNav, closeNav, navDrawerDisplay
+   - Closes on link click, Escape, and outside click
+   - Lang switcher + Book remain in the top bar on mobile
+
+3) Destinations carousel
+   - Replaced #expPin sticky/scroll-timeline (420vh) with .dest-rail horizontal scroller
+   - Scroll-snap, touch-native scroll, optional scrollbar hide
+   - .dest-prev / .dest-next arrow buttons; destScroll(dir) + initDestCarousel() (pointer drag on mouse only)
+   - EN/ES/FR/DE/PT/IT d_sub copy updated for swipe/arrows
+
+4) Decorative line-art (.ly-art)
+   - Palms, waves, sun arcs, dashed routes in #services, #van, #prices, #map, timeline, #faq
+   - Teal/coral/sun strokes, low opacity, pointer-events:none, aria-hidden
+   - @keyframes ly-float; prefers-reduced-motion disables animation
+
+5) Selection / drag guards
+   - .lm user-select:none; form fields re-enabled
+   - img / image-slot / video / svg user-drag:none
+   - componentDidMount sets draggable=false and blocks dragstart on media (not form fields)
+
+Sanity: kickHeroVideo, readCookieConsent, dest-rail, nav-toggle, ly-art, user-select present.
+DCLogic class closing brace present; node --check of script passes.
+Only index.html edited (+ this PATCH_NOTES.txt).
