@@ -33,3 +33,95 @@ Date: 2026-09-11 (America/Mexico_City)
 Sanity: kickHeroVideo, readCookieConsent, dest-rail, nav-toggle, ly-art, user-select present.
 DCLogic class closing brace present; node --check of script passes.
 Only index.html edited (+ this PATCH_NOTES.txt).
+
+---
+Karún Travel Group rebrand — patch notes
+Date: 2026-09-17 (America/Mexico_City)
+
+1) Full rebrand
+   - "Transportes Los Yeyes" / "Los Yeyes" -> "Karún Travel Group" across
+     title, meta, nav, footer, all 10 language blocks in the main app script.
+   - Logo assets (favicons, nav mark, apple-touch-icon) regenerated from the
+     client-provided Karún PNG; old Los Yeyes files overwritten.
+   - Palette derived from the logo: --teal -> navy #151a54 / #0a0d33,
+     --coral -> red #c8102e (CSS custom properties on .lm, so all .btn/.chip/
+     map-pin/etc. that reference var(--teal)/var(--coral) recolored globally).
+     Every hardcoded legacy hex that bypassed the variables was also swapped.
+
+2) Real tarifario
+   - assets/tarifario.json: all 115 hotels / 10 zones extracted verbatim from
+     the client's PDF (Tarifario_regular_Karun_Travel__Definitivo_MINIVAN__
+     TECHO_ALTO.pdf). Mirrored inline in karun-wizard.js for zero-fetch
+     reliability (works from file:// too).
+
+3) New "Interactive demo" section — Fleet, rate search, booking wizard
+   - Added karun-wizard.js (self-contained, no build step) + matching CSS in
+     index.html (krn-* classes) implementing:
+     - Fleet cards for the 5 requested vehicles (illustrative SVG placeholders
+       — see assets/CREDITS.md — real photos pending).
+     - Searchable/filterable rate table over all 115 hotels.
+     - Multi-leg booking wizard: add/remove legs, per-leg pax-band pricing
+       (Starex 1-6 / Techo Alto 7-10 / +extra-pax beyond 10), vehicle picker,
+       passenger fields, mock payment (card/PayPal/cash — no real charge),
+       booking-code confirmation, canvas-drawn downloadable pickup sign,
+       copy-summary, edit-booking, localStorage draft persistence.
+   - IMPORTANT ARCHITECTURAL NOTE: this section is NOT inside the <x-dc>
+     template that the main landing's React runtime compiles and re-renders.
+     Verified via Playwright that placing new dynamic content inside that
+     tree gets wiped on every re-render (React reconciles children strictly
+     from the compiled template), and that plain `onclick="..."` attribute
+     strings are passed through as literal props (not wrapped into real
+     functions), so they silently fail to fire once mounted by that runtime.
+     The whole demo section was therefore moved to sit as an independent
+     sibling block right after `</x-dc>` in the DOM, with its own `.lm`-class
+     wrapper (reusing the same CSS custom properties/utility classes) and its
+     own ES/EN toggle (default ES), so it works identically regardless of
+     whether the React bundle loads from unpkg.com.
+   - Pickup-sign canvas draws the logo from an embedded base64 data URI
+     (not assets/logo-mark.png) specifically to avoid canvas tainting under
+     file:// previews; confirmed with Playwright that toDataURL()/toBlob()
+     both work after this change.
+
+4) Sanity checks performed
+   - Whole-file HTML tag-balance check (zero mismatches).
+   - node --check on karun-wizard.js.
+   - Playwright (real Chromium) end-to-end: fleet quote CTA, hotel search/
+     filter, multi-leg pricing math, form submit -> confirmation -> pickup
+     sign download -> copy-summary -> edit-booking -> language toggle.
+   - Confirmed the pre-existing unpkg.com React-load-over-file:// failure
+     also occurs on the untouched original index.html — not a regression.
+
+Not done in this pass: full translation of the new Fleet/demo copy into the
+8 non-ES/EN languages already in the site (fr/de/pt/it/ru/zh/nl/pl); the new
+section only offers ES/EN. Real fleet photography still pending from the
+client.
+
+
+---
+Merge into los-yeyes Pages repo — patch notes
+Date: 2026-09-17 (America/Mexico_City)
+
+1) Merged Claude Karún delivery into /workspace/los-yeyes-pages
+   - Took Claude index.html + karun-wizard.js as feature base.
+   - Preserved support.js, image-slot.js, media/hero-starex-loop.mp4,
+     assets/rd-map.png from the existing Pages repo.
+   - Added assets/tarifario.json (115 hotels), Karún logo/favicon set,
+     README.md, CREDITS.md.
+
+2) Fleet photos
+   - Created assets/fleet/ with five referential JPEGs:
+     starex.jpg, escalade-2020.jpg, solati-2014.jpg, hiace-2019.jpg,
+     suburban-lwb-2020.jpg (Wikimedia Commons + Pexels; see CREDITS.md).
+   - Replaced SVG placeholders in #fleet cards with <img> tags; CSS
+     object-fit:cover on .krn-fleet-media img.
+
+3) Logo cleanup
+   - Renamed unused logo-los-yeyes.png/.jpg → logo-karun.png/.jpg
+     (content already Karún; filenames now match brand).
+
+4) i18n
+   - html lang=es; React default lang es; demo scope data-lang=es.
+   - ES+EN strings retained; Spanish is the default visible UI.
+
+5) Static-only constraints unchanged
+   - Mock payment / no WhatsApp API / no AI mention on public site.
