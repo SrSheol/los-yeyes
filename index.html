@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Transportes Los Yeyes</title>
+<title>Karún Travel Group</title>
 <style id="ly-flush">
 html,body{margin:0!important;padding:0!important;border:0!important;background:#f2e9d8!important}
 #dc-root,#dc-root>.sc-host{margin:0!important;padding:0!important;border:0!important;background:#f2e9d8!important;min-height:100%}
 /* Mobile nav — real <head> CSS (wins over Design) */
 .navlinks{display:flex!important;align-items:center;justify-content:center;gap:clamp(10px,1.6vw,28px);flex-wrap:nowrap;min-width:0}
 .nav-link{color:#16302f;font-weight:600;font-size:clamp(13px,1.15vw,15px);white-space:nowrap;text-decoration:none;padding:6px 2px}
-.nav-link:hover{color:#0b6c7a}
+.nav-link:hover{color:#0a0d33}
 .ly-brand{display:flex;align-items:center;gap:12px;min-width:0;text-decoration:none;color:inherit;justify-self:start}
 .nav-toggle{display:none!important;width:44px;height:44px;border-radius:14px;border:0;cursor:pointer;background:#fbf5ea;box-shadow:7px 7px 18px rgba(120,120,100,.24),-7px -7px 16px rgba(255,255,255,.9);place-items:center;padding:0;color:#16302f;flex:0 0 auto}
 .nav-toggle span,.nav-toggle span::before,.nav-toggle span::after{display:block;width:20px;height:2px;background:currentColor;border-radius:2px;position:relative}
@@ -29,9 +29,9 @@ html,body{margin:0!important;padding:0!important;border:0!important;background:#
 .nav-drawer{display:none!important;position:fixed!important;top:var(--ly-nav-h, 72px)!important;left:50%!important;right:auto!important;bottom:auto!important;transform:translateX(-50%)!important;width:min(320px, calc(100vw - 32px))!important;height:auto!important;max-height:min(70vh, 480px)!important;overflow:auto!important;background:#fdf9f1!important;box-shadow:16px 16px 38px rgba(110,115,95,.28), -12px -12px 28px rgba(255,255,255,.95)!important;border-radius:18px!important;padding:12px!important;z-index:130!important;margin:0!important;flex-direction:column!important;gap:6px!important;box-sizing:border-box!important}
 .nav-drawer[data-open="true"]{display:flex!important}
 .nav-drawer .nav-opt{display:flex!important;align-items:center!important;gap:10px!important;padding:11px 14px!important;border-radius:12px!important;color:#16302f!important;font-weight:600!important;font-size:15px!important;text-decoration:none!important;background:transparent!important;border:0!important;text-align:left!important;width:100%!important;box-sizing:border-box!important}
-.nav-drawer .nav-opt:hover{background:#f5edde!important;color:#0b6c7a!important}
-.nav-drawer .nav-opt-cta{margin-top:4px!important;background:#0e8fa0!important;color:#fff!important;font-weight:700!important;justify-content:center!important}
-.nav-drawer .nav-opt-cta:hover{background:#0b6c7a!important;color:#fff!important}
+.nav-drawer .nav-opt:hover{background:#f5edde!important;color:#0a0d33!important}
+.nav-drawer .nav-opt-cta{margin-top:4px!important;background:#151a54!important;color:#fff!important;font-weight:700!important;justify-content:center!important}
+.nav-drawer .nav-opt-cta:hover{background:#0a0d33!important;color:#fff!important}
 @media (max-width:900px){
   .navlinks{display:none!important}
   .nav-toggle{display:inline-grid!important}
@@ -58,13 +58,16 @@ image-slot::part(image){touch-action:pan-x pan-y!important;-webkit-user-drag:non
 <script>
 (function(){try{function lyNav(){var n=(window.matchMedia&&window.matchMedia('(max-width:900px)').matches)||window.innerWidth<=900;document.documentElement.classList.toggle('ly-narrow',!!n);var nav=document.querySelector('nav[aria-label="Primary"]');if(nav){document.documentElement.style.setProperty('--ly-nav-h',Math.round(nav.getBoundingClientRect().bottom)+'px');}}lyNav();window.addEventListener('resize',lyNav);window.addEventListener('scroll',lyNav,{passive:true});}catch(e){}})();
 </script>
-<link rel="icon" href="assets/favicon-32.png?v=20" type="image/png" sizes="32x32">
-<link rel="icon" href="assets/favicon-48.png?v=20" type="image/png" sizes="48x48">
-<link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=20" sizes="180x180">
-<link rel="shortcut icon" href="assets/favicon-32.png?v=20" type="image/png">
+<link rel="icon" href="assets/favicon-32.png?v=21" type="image/png" sizes="32x32">
+<link rel="icon" href="assets/favicon-48.png?v=21" type="image/png" sizes="48x48">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=21" sizes="180x180">
+<link rel="shortcut icon" href="assets/favicon-32.png?v=21" type="image/png">
 <script src="./support.js"></script>
 </head>
 <body>
+<div class="lm" id="krn-banner-wrap" data-lang="es" style="display:block">
+  <div class="krn-banner" role="note"><span class="l-en">Public demo · simulated booking &amp; payments — <b>no real transaction is made</b></span><span class="l-es">Demo pública · reservas y pagos simulados — <b>no se realiza ningún cobro real</b></span></div>
+</div>
 <x-dc>
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -80,7 +83,7 @@ image-slot::part(image){touch-action:pan-x pan-y!important;-webkit-user-drag:non
   .lm{
     --sand:#f2e9d8; --surface:#fbf5ea; --surface-2:#f5edde; --card:#fdf9f1;
     --ink:#16302f; --muted:#647b76; --line:rgba(22,48,47,.12);
-    --teal:#0e8fa0; --teal-deep:#0b6c7a; --coral:#f2864b; --palm:#2f8f6b; --sun:#f4b740;
+    --teal:#151a54; --teal-deep:#0a0d33; --coral:#c8102e; --palm:#1f6b52; --sun:#f4b740;
     --raise:7px 7px 18px rgba(120,120,100,.24), -7px -7px 16px rgba(255,255,255,.9);
     --raise-lg:16px 16px 38px rgba(110,115,95,.28), -12px -12px 28px rgba(255,255,255,.95);
     --inset:inset 6px 6px 12px rgba(120,120,100,.24), inset -6px -6px 12px rgba(255,255,255,.92);
@@ -99,8 +102,12 @@ image-slot::part(image){touch-action:pan-x pan-y!important;-webkit-user-drag:non
   .lm a.btn:hover{color:#fff}
   .lm ::selection{background:var(--teal);color:#fff}
   .lm p{text-wrap:pretty}
-  .l-en{display:inline}.l-es{display:none}
-  .lm[data-lang="es"] .l-en{display:none}.lm[data-lang="es"] .l-es{display:inline}
+  /* ES default (incl. before React hydrates); EN/other langs show .l-en */
+  .l-en{display:none}.l-es{display:inline}
+  .lm[data-lang="en"] .l-en,.lm[data-lang="fr"] .l-en,.lm[data-lang="de"] .l-en,
+  .lm[data-lang="pt"] .l-en,.lm[data-lang="it"] .l-en{display:inline}
+  .lm[data-lang="en"] .l-es,.lm[data-lang="fr"] .l-es,.lm[data-lang="de"] .l-es,
+  .lm[data-lang="pt"] .l-es,.lm[data-lang="it"] .l-es{display:none}
 
   .skip{position:absolute;left:-9999px;top:0;z-index:2000;background:var(--ink);color:#fff;padding:12px 20px;border-radius:0 0 12px 0;font-weight:700}
   .skip:focus{left:0}
@@ -276,6 +283,43 @@ image-slot::part(image){touch-action:pan-x pan-y!important;-webkit-user-drag:non
     .dest-rail .expcard{flex-basis:clamp(260px,78vw,360px)}
   }
   @media (max-width:560px){ .lm .tl{grid-template-columns:1fr} .lm .foot-grid{grid-template-columns:1fr !important} }
+
+  /* ===== Karún: demo banner, fleet, rate search, booking wizard ===== */
+  .krn-banner{background:var(--ink);color:var(--surface);text-align:center;font-size:12.5px;font-weight:700;letter-spacing:.03em;padding:8px 14px}
+  .krn-banner b{color:var(--sun)}
+  .krn-fleet-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+  .krn-fleet-card{overflow:hidden;padding:0;display:flex;flex-direction:column}
+  .krn-fleet-media{position:relative;aspect-ratio:16/9;background:var(--surface)}
+  .krn-fleet-media img,.krn-fleet-media svg{width:100%;height:100%;display:block;object-fit:cover}
+  .krn-fleet-badge{position:absolute;left:10px;bottom:10px;font-size:10px;font-weight:700;letter-spacing:.03em;background:rgba(22,48,47,.72);color:#fff;padding:5px 10px;border-radius:100px}
+  .krn-fleet-body{padding:18px}
+  .krn-rate-table{width:100%;border-collapse:collapse;font-size:14px;min-width:640px}
+  .krn-rate-table thead th{text-align:left;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:14px 16px;border-bottom:1px solid var(--line);white-space:nowrap}
+  .krn-rate-table tbody td{padding:12px 16px;border-bottom:1px solid var(--line);vertical-align:middle}
+  .krn-rate-table tbody tr:last-child td{border-bottom:0}
+  .krn-rate-table tbody tr:hover{background:var(--surface)}
+  .krn-rate-table .krn-hotel-name{font-weight:700}
+  .krn-rate-table .krn-zone-tag{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+  .krn-rate-table .krn-price{font-weight:800;color:var(--teal)}
+  .krn-divider{height:1px;background:var(--line);margin:22px 0}
+  .krn-leg{background:var(--surface);border-radius:18px;padding:16px;margin-bottom:14px;position:relative}
+  .krn-leg-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+  .krn-leg-title{font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--teal-deep)}
+  .krn-leg-remove{background:none;border:0;color:var(--coral);font-weight:700;font-size:13px;cursor:pointer;padding:4px 8px}
+  .krn-leg-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .krn-leg-grid .full{grid-column:1/-1}
+  .krn-leg-price{margin-top:10px;font-size:13px;font-weight:700;color:var(--teal-deep);text-align:right}
+  .krn-pay-opts{display:flex;flex-wrap:wrap;gap:10px}
+  .krn-pay-opt{display:flex;align-items:center;gap:8px;background:var(--surface);box-shadow:var(--inset-sm);border-radius:100px;padding:10px 16px;font-weight:600;font-size:14px;cursor:pointer}
+  .krn-pay-opt input{accent-color:var(--teal)}
+  .krn-sign-preview{display:flex;justify-content:center;background:var(--surface-2);border-radius:16px;padding:16px}
+  .krn-sign-preview canvas{width:100%;max-width:420px;height:auto;border-radius:10px;box-shadow:var(--raise)}
+  #krn-confirm-card dl{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;margin:0;font-size:14.5px}
+  #krn-confirm-card dt{color:var(--muted);font-weight:700}
+  #krn-confirm-card dd{margin:0;font-weight:600}
+  @media (max-width:640px){ .krn-leg-grid{grid-template-columns:1fr} }
+  #krn-lang-toggle{cursor:pointer}
+  #krn-demo-scope, #krn-banner-wrap{ -webkit-user-select:auto; user-select:auto }
 </style>
 </helmet>
 
@@ -286,16 +330,18 @@ image-slot::part(image){touch-action:pan-x pan-y!important;-webkit-user-drag:non
   <!-- ===================== STICKY NAV ===================== -->
   <nav aria-label="Primary" style="position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--surface) 88%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)">
     <div class="ly-nav-inner">
-      <a class="ly-brand" href="#top" aria-label="Transportes Los Yeyes home">
-        <img class="ly-mark" src="assets/logo-mark.png?v=20" width="42" height="42" alt="" decoding="async">
+      <a class="ly-brand" href="#top" aria-label="Karún Travel Group home">
+        <img class="ly-mark" src="assets/logo-mark.png?v=21" width="42" height="42" alt="" decoding="async">
         <span style="display:flex;flex-direction:column;line-height:1.05">
-          <span class="disp" style="font-size:20px;letter-spacing:-.01em">Los Yeyes</span>
-          <span style="font-size:9.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);font-weight:700">Transportes · RD</span>
+          <span class="disp" style="font-size:20px;letter-spacing:-.01em">Karún</span>
+          <span style="font-size:9.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);font-weight:700">Travel Group · RD</span>
         </span>
       </a>
       <div class="navlinks">
         <a class="nav-link" href="#services">{{ t.navServices }}</a>
+        <a class="nav-link" href="#fleet"><span class="l-en">Fleet</span><span class="l-es">Flota</span></a>
         <a class="nav-link" href="#prices">{{ t.navPrices }}</a>
+        <a class="nav-link" href="#reservar"><span class="l-en">Book demo</span><span class="l-es">Reservar demo</span></a>
         <a class="nav-link" href="#map">{{ t.navZones }}</a>
         <a class="nav-link" href="#destinations">{{ t.navDest }}</a>
         <a class="nav-link" href="#faq">{{ t.navFaq }}</a>
@@ -306,7 +352,9 @@ image-slot::part(image){touch-action:pan-x pan-y!important;-webkit-user-drag:non
           <button class="nav-toggle" type="button" aria-label="Menu" aria-expanded="{{ navOpen }}" aria-controls="ly-nav-drawer" aria-haspopup="true" onClick="{{ toggleNav }}"><span></span></button>
           <div class="nav-drawer" id="ly-nav-drawer" role="menu" data-open="{{ navOpen }}">
             <a href="#services" class="nav-opt" role="menuitem" onClick="{{ closeNav }}">{{ t.navServices }}</a>
+            <a href="#fleet" class="nav-opt" role="menuitem" onClick="{{ closeNav }}"><span class="l-en">Fleet</span><span class="l-es">Flota</span></a>
             <a href="#prices" class="nav-opt" role="menuitem" onClick="{{ closeNav }}">{{ t.navPrices }}</a>
+            <a href="#reservar" class="nav-opt" role="menuitem" onClick="{{ closeNav }}"><span class="l-en">Book demo</span><span class="l-es">Reservar demo</span></a>
             <a href="#map" class="nav-opt" role="menuitem" onClick="{{ closeNav }}">{{ t.navZones }}</a>
             <a href="#destinations" class="nav-opt" role="menuitem" onClick="{{ closeNav }}">{{ t.navDest }}</a>
             <a href="#faq" class="nav-opt" role="menuitem" onClick="{{ closeNav }}">{{ t.navFaq }}</a>
@@ -354,7 +402,7 @@ image-slot::part(image){touch-action:pan-x pan-y!important;-webkit-user-drag:non
           <span>· {{ t.h_transfers }}</span>
         </div>
         <span class="chip" style="margin-bottom:22px">📍 Punta Cana · Bávaro · Cap Cana · Santo Domingo</span>
-        <h1 class="disp" style="font-size:clamp(42px,6.6vw,84px);margin:0 0 22px;color:#fff;text-shadow:0 2px 26px rgba(0,0,0,.45);max-width:15ch">{{ t.h1 }} <span style="color:#8fe2ec">{{ t.h1hi }}</span></h1>
+        <h1 class="disp" style="font-size:clamp(42px,6.6vw,84px);margin:0 0 22px;color:#fff;text-shadow:0 2px 26px rgba(0,0,0,.45);max-width:15ch">{{ t.h1 }} <span style="color:#ffce54">{{ t.h1hi }}</span></h1>
         <p style="font-size:clamp(17px,1.9vw,21px);color:rgba(251,245,234,.92);max-width:560px;margin:0 0 32px;font-weight:500;text-shadow:0 1px 14px rgba(0,0,0,.5)">{{ t.h_sub }}</p>
         <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
           <a class="btn" href="#book" style="font-size:16px;padding:17px 30px">{{ t.h_book }} →</a>
@@ -440,21 +488,21 @@ image-slot::part(image){touch-action:pan-x pan-y!important;-webkit-user-drag:non
 
   <!-- ===================== THE VAN (photographic) ===================== -->
   <section id="van" style="background:var(--ink);color:var(--surface);padding:clamp(64px,9vw,130px) clamp(16px,4vw,44px);position:relative;overflow:hidden">
-    <div class="ly-art a3" aria-hidden="true" style="top:20px;left:clamp(8px,3vw,28px);width:min(110px,18vw)"><svg viewBox="0 0 100 100" fill="none"><circle cx="50" cy="50" r="16" stroke="#f4b740" stroke-width="2.2"/><path d="M50 8v12M50 80v12M8 50h12M80 50h12M20 20l9 9M71 71l9 9M80 20l-9 9M29 71l-9 9" stroke="#f4b740" stroke-width="2" stroke-linecap="round"/><circle cx="50" cy="50" r="28" stroke="#f2864b" stroke-width="1.4" stroke-dasharray="4 6" opacity=".7"/></svg></div>
+    <div class="ly-art a3" aria-hidden="true" style="top:20px;left:clamp(8px,3vw,28px);width:min(110px,18vw)"><svg viewBox="0 0 100 100" fill="none"><circle cx="50" cy="50" r="16" stroke="#f4b740" stroke-width="2.2"/><path d="M50 8v12M50 80v12M8 50h12M80 50h12M20 20l9 9M71 71l9 9M80 20l-9 9M29 71l-9 9" stroke="#f4b740" stroke-width="2" stroke-linecap="round"/><circle cx="50" cy="50" r="28" stroke="#c8102e" stroke-width="1.4" stroke-dasharray="4 6" opacity=".7"/></svg></div>
     <div class="sun-glow" style="width:500px;height:500px;background:radial-gradient(circle,var(--teal),transparent 70%);opacity:.3;top:-140px;right:-100px"></div>
     <div class="van-grid" style="position:relative;max-width:1320px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4vw,60px);align-items:center">
       <div class="reveal">
-        <span class="chip" style="background:rgba(255,255,255,.08);color:#7fd4de;box-shadow:none">Hyundai Grand Starex · 2018</span>
+        <span class="chip" style="background:rgba(255,255,255,.08);color:#9aa3e8;box-shadow:none">Hyundai Grand Starex · 2018</span>
         <h2 class="disp" style="font-size:clamp(34px,5.5vw,64px);margin:16px 0 16px;max-width:14ch">{{ t.v_title }}</h2>
         <p style="font-size:clamp(16px,1.8vw,20px);color:rgba(251,245,234,.72);font-weight:500;max-width:520px;margin-bottom:24px">{{ t.v_sub }}</p>
         <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:26px">
           <span class="vchip">{{ t.vchip1 }}</span><span class="vchip">{{ t.vchip2 }}</span><span class="vchip">{{ t.vchip3 }}</span><span class="vchip">{{ t.vchip4 }}</span>
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
-          <div style="background:rgba(255,255,255,.06);border-radius:16px;padding:18px"><div class="disp" style="font-size:19px;color:#7fd4de"><span class="l-en">Up to 8 seats</span><span class="l-es">Hasta 8 asientos</span></div><div style="color:rgba(251,245,234,.6);font-size:14px;margin-top:4px"><span class="l-en">Reclining, seat belts for all</span><span class="l-es">Reclinables, cinturón para todos</span></div></div>
-          <div style="background:rgba(255,255,255,.06);border-radius:16px;padding:18px"><div class="disp" style="font-size:19px;color:#7fd4de"><span class="l-en">Cold even at midday</span><span class="l-es">Frío hasta al mediodía</span></div><div style="color:rgba(251,245,234,.6);font-size:14px;margin-top:4px"><span class="l-en">A/C serviced monthly</span><span class="l-es">Aire con mantenimiento mensual</span></div></div>
-          <div style="background:rgba(255,255,255,.06);border-radius:16px;padding:18px"><div class="disp" style="font-size:19px;color:#7fd4de"><span class="l-en">Dedicated luggage</span><span class="l-es">Equipaje dedicado</span></div><div style="color:rgba(251,245,234,.6);font-size:14px;margin-top:4px"><span class="l-en">Room for 8+ large cases</span><span class="l-es">Espacio para 8+ maletas</span></div></div>
-          <div style="background:rgba(255,255,255,.06);border-radius:16px;padding:18px"><div class="disp" style="font-size:19px;color:#7fd4de"><span class="l-en">Free extras</span><span class="l-es">Extras gratis</span></div><div style="color:rgba(251,245,234,.6);font-size:14px;margin-top:4px"><span class="l-en">Water, Wi-Fi, child seat</span><span class="l-es">Agua, Wi-Fi, silla de niño</span></div></div>
+          <div style="background:rgba(255,255,255,.06);border-radius:16px;padding:18px"><div class="disp" style="font-size:19px;color:#9aa3e8"><span class="l-en">Up to 8 seats</span><span class="l-es">Hasta 8 asientos</span></div><div style="color:rgba(251,245,234,.6);font-size:14px;margin-top:4px"><span class="l-en">Reclining, seat belts for all</span><span class="l-es">Reclinables, cinturón para todos</span></div></div>
+          <div style="background:rgba(255,255,255,.06);border-radius:16px;padding:18px"><div class="disp" style="font-size:19px;color:#9aa3e8"><span class="l-en">Cold even at midday</span><span class="l-es">Frío hasta al mediodía</span></div><div style="color:rgba(251,245,234,.6);font-size:14px;margin-top:4px"><span class="l-en">A/C serviced monthly</span><span class="l-es">Aire con mantenimiento mensual</span></div></div>
+          <div style="background:rgba(255,255,255,.06);border-radius:16px;padding:18px"><div class="disp" style="font-size:19px;color:#9aa3e8"><span class="l-en">Dedicated luggage</span><span class="l-es">Equipaje dedicado</span></div><div style="color:rgba(251,245,234,.6);font-size:14px;margin-top:4px"><span class="l-en">Room for 8+ large cases</span><span class="l-es">Espacio para 8+ maletas</span></div></div>
+          <div style="background:rgba(255,255,255,.06);border-radius:16px;padding:18px"><div class="disp" style="font-size:19px;color:#9aa3e8"><span class="l-en">Free extras</span><span class="l-es">Extras gratis</span></div><div style="color:rgba(251,245,234,.6);font-size:14px;margin-top:4px"><span class="l-en">Water, Wi-Fi, child seat</span><span class="l-es">Agua, Wi-Fi, silla de niño</span></div></div>
         </div>
       </div>
       <div class="reveal" style="display:grid;gap:14px">
@@ -521,7 +569,7 @@ image-slot::part(image){touch-action:pan-x pan-y!important;-webkit-user-drag:non
       </div>
       <div class="mapwrap reveal">
         <div class="map-stage">
-          <img src="assets/rd-map.png" alt="Provincial map of the Dominican Republic with Transportes Los Yeyes service zones marked"/>
+          <img src="assets/rd-map.png" alt="Provincial map of the Dominican Republic with Karún Travel Group service zones marked"/>
           <sc-for list="{{ pins }}" as="p" hint-placeholder-count="6">
             <button class="map-pin" data-hub="{{ p.hub }}" style="left:{{ p.x }};top:{{ p.y }}" aria-label="{{ p.name }}"><span class="ring"></span><span class="tip">{{ p.name }}</span></button>
           </sc-for>
@@ -633,7 +681,7 @@ image-slot::part(image){touch-action:pan-x pan-y!important;-webkit-user-drag:non
       <div style="max-width:680px;background:color-mix(in srgb,var(--card) 82%,transparent);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.5);box-shadow:var(--raise-lg);border-radius:24px;padding:clamp(28px,3.6vw,44px)">
         <div style="font-size:44px;line-height:.4;color:var(--teal);font-family:'Space Grotesk';height:26px">“</div>
         <h2 class="disp" style="font-size:clamp(24px,3.2vw,40px);color:var(--ink);margin:0">{{ t.ed_quote }}</h2>
-        <div style="margin-top:18px;display:flex;align-items:center;gap:12px"><img class="ly-mark" src="assets/logo-mark.png?v=20" width="34" height="34" alt="" decoding="async" style="width:34px;height:34px;flex:0 0 34px"><span style="font-weight:700;color:var(--teal-deep)">Transportes Los Yeyes</span></div>
+        <div style="margin-top:18px;display:flex;align-items:center;gap:12px"><img class="ly-mark" src="assets/logo-mark.png?v=21" width="34" height="34" alt="" decoding="async" style="width:34px;height:34px;flex:0 0 34px"><span style="font-weight:700;color:var(--teal-deep)">Karún Travel Group</span></div>
       </div>
     </div>
   </section>
@@ -699,18 +747,18 @@ image-slot::part(image){touch-action:pan-x pan-y!important;-webkit-user-drag:non
     <svg class="ly-line" aria-hidden="true" viewBox="0 0 1440 60" preserveAspectRatio="none" style="display:block;width:100%;height:46px;color:var(--teal);opacity:.5"><path stroke="currentColor" stroke-width="2.5" d="M0 40 Q60 14 120 40 T240 40 T360 40 T480 40 T600 40 T720 40 T840 40 T960 40 T1080 40 T1200 40 T1320 40 T1440 40"/></svg>
     <div class="foot-grid" style="max-width:1320px;margin:8px auto 0;display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr 1.1fr;gap:32px">
       <div>
-        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px"><img class="ly-mark" src="assets/logo-mark.png?v=20" width="42" height="42" alt="" decoding="async"><span class="disp" style="font-size:22px">Transportes Los Yeyes</span></div>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px"><img class="ly-mark" src="assets/logo-mark.png?v=21" width="42" height="42" alt="" decoding="async"><span class="disp" style="font-size:22px">Karún Travel Group</span></div>
         <p style="color:rgba(251,245,234,.6);max-width:340px;line-height:1.55;font-weight:500;font-size:14px">{{ t.ft_tagline }}</p>
         <div class="lic-badge" style="margin-top:18px"><span style="font-size:17px">🏅</span><div><div style="font-weight:700;font-size:12px;letter-spacing:.02em">{{ t.ft_license }}</div><div style="font-size:12px;color:rgba(251,245,234,.6)">#RD-XXXX</div></div></div>
         <div style="display:flex;gap:10px;margin-top:18px"><span class="soc">f</span><span class="soc">◎</span><span class="soc">✆</span></div>
       </div>
-      <div><div class="ftitle">{{ t.ft_companyT }}</div><div class="fcol"><span>Transportes Los Yeyes S.R.L.</span><span>Punta Cana, La Altagracia</span><span><span class="l-en">Dominican Republic</span><span class="l-es">República Dominicana</span></span><span><span class="l-en">Daily · 24/7 dispatch</span><span class="l-es">Diario · despacho 24/7</span></span></div></div>
+      <div><div class="ftitle">{{ t.ft_companyT }}</div><div class="fcol"><span>Karún Travel Group S.R.L.</span><span>Punta Cana, La Altagracia</span><span><span class="l-en">Dominican Republic</span><span class="l-es">República Dominicana</span></span><span><span class="l-en">Daily · 24/7 dispatch</span><span class="l-es">Diario · despacho 24/7</span></span></div></div>
       <div><div class="ftitle">{{ t.ft_servicesT }}</div><div class="fcol"><span>{{ t.svc_airport }}</span><span>{{ t.svc_exc }}</span><span>Punta Cana (PUJ) · Bávaro</span><span>Cap Cana · La Romana</span><span>Santo Domingo (SDQ)</span></div></div>
       <div><div class="ftitle">{{ t.ft_legalT }}</div><div class="fcol"><button class="lk flink" onClick="{{ openPrivacy }}">{{ t.ft_privacy }}</button><button class="lk flink" onClick="{{ openCookies }}">{{ t.ft_cookie }}</button><button class="lk flink" onClick="{{ openTerms }}">{{ t.ft_terms }}</button><button class="lk flink" onClick="{{ openCancel }}">{{ t.ft_cancel }}</button><button class="lk flink" onClick="{{ openCancel }}">{{ t.ft_complaints }}</button></div></div>
       <div><div class="ftitle">{{ t.ft_contactT }}</div><div class="fcol"><span>hola@losyeyes.do</span><span>WhatsApp +1 809 000 0000</span><span>{{ t.ft_langs }}</span><button class="lk flink" onClick="{{ openCookies }}">{{ t.ft_cookiePrefs }}</button></div></div>
     </div>
     <div style="max-width:1320px;margin:34px auto 0;padding-top:22px;border-top:1px solid rgba(251,245,234,.15);display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;color:rgba(251,245,234,.5);font-weight:500;font-size:13px">
-      <span>© 2026 Transportes Los Yeyes · {{ t.ft_license }} #RD-XXXX</span>
+      <span>© 2026 Karún Travel Group · {{ t.ft_license }} #RD-XXXX</span>
       <span>{{ t.ft_rights }}</span>
       <span>{{ t.ft_made }} 🇩🇴</span>
     </div>
@@ -810,6 +858,233 @@ image-slot::part(image){touch-action:pan-x pan-y!important;-webkit-user-drag:non
 
 </div>
 </x-dc>
+<div class="lm" id="krn-demo-scope" data-lang="es" style="display:block">
+
+  <!-- ===================== DEMO SECTION DIVIDER ===================== -->
+  <section id="demo-start" style="background:var(--ink);color:var(--surface);padding:clamp(48px,7vw,80px) clamp(16px,4vw,44px);text-align:center;position:relative;overflow:hidden">
+    <span class="chip" style="background:rgba(255,255,255,.08);color:#9aa3e8;box-shadow:none">
+      <span class="l-en">Interactive demo</span><span class="l-es">Demo interactiva</span>
+    </span>
+    <h2 class="disp" style="font-size:clamp(30px,4.6vw,50px);margin:16px auto 10px;max-width:20ch">
+      <span class="l-en">See the fleet, check rates, try a booking</span><span class="l-es">Mira la flota, consulta tarifas, prueba una reserva</span>
+    </h2>
+    <p style="color:rgba(251,245,234,.75);font-weight:500;font-size:16px;max-width:560px;margin:0 auto 22px">
+      <span class="l-en">Everything below is a live, working demo of the Karún Travel Group booking experience.</span><span class="l-es">Todo lo de abajo es una demo funcional del flujo de reserva de Karún Travel Group.</span>
+    </p>
+    <button type="button" id="krn-lang-toggle" class="btn ghost sm" style="background:rgba(255,255,255,.1);color:#fff;box-shadow:none">🌐 <span id="krn-lang-toggle-label">ES · Español</span></button>
+  </section>
+
+  <!-- ===================== FLEET (Karún) ===================== -->
+  <section id="fleet" style="background:var(--sand);padding:clamp(64px,9vw,130px) clamp(16px,4vw,44px);position:relative;overflow:hidden">
+    <div style="max-width:1320px;margin:0 auto">
+      <div class="reveal" style="max-width:760px;margin-bottom:40px">
+        <span class="chip"><span class="l-en">Our fleet</span><span class="l-es">Nuestra flota</span></span>
+        <h2 class="disp" style="font-size:clamp(34px,5.5vw,64px);margin:16px 0 12px;max-width:16ch"><span class="l-en">Five vehicles, one standard of care</span><span class="l-es">Cinco vehículos, un solo estándar</span></h2>
+        <p style="color:var(--muted);font-weight:500;font-size:clamp(16px,1.8vw,19px);max-width:640px"><span class="l-en">From a couple traveling light to a family with a full luggage cart — pick a unit and start your quote instantly.</span><span class="l-es">Desde una pareja viajando ligero hasta una familia con carrito lleno de equipaje — elige una unidad y cotiza al instante.</span></p>
+      </div>
+
+      <div class="krn-fleet-grid">
+
+        <div class="neu krn-fleet-card reveal" data-vehicle="Hyundai Grand Starex">
+          <div class="krn-fleet-media">
+            <img src="assets/fleet/starex.jpg" alt="Hyundai Grand Starex — exterior referencial" width="640" height="360" loading="lazy" decoding="async">
+            <span class="krn-fleet-badge"><span class="l-en">Referential · client photo pending</span><span class="l-es">Referencial · foto del cliente pendiente</span></span>
+          </div>
+          <div class="krn-fleet-body">
+            <h3 class="disp" style="font-size:21px;margin:0 0 4px">Hyundai Grand Starex</h3>
+            <div style="color:var(--muted);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">2018 · <span class="l-en">approx. 1–6 pax</span><span class="l-es">aprox. 1–6 pax</span></div>
+            <button class="btn sm" style="width:100%" onclick="window.KRN.startQuote('Hyundai Grand Starex')"><span class="l-en">Quote this vehicle</span><span class="l-es">Cotizar esta unidad</span> →</button>
+          </div>
+        </div>
+
+        <div class="neu krn-fleet-card reveal" data-vehicle="Cadillac Escalade 2020">
+          <div class="krn-fleet-media">
+            <img src="assets/fleet/escalade-2020.jpg" alt="Cadillac Escalade — exterior referencial" width="640" height="360" loading="lazy" decoding="async">
+            <span class="krn-fleet-badge"><span class="l-en">Referential · client photo pending</span><span class="l-es">Referencial · foto del cliente pendiente</span></span>
+          </div>
+          <div class="krn-fleet-body">
+            <h3 class="disp" style="font-size:21px;margin:0 0 4px">Cadillac Escalade</h3>
+            <div style="color:var(--muted);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">2020 · <span class="l-en">approx. 1–6 pax</span><span class="l-es">aprox. 1–6 pax</span></div>
+            <button class="btn sm" style="width:100%" onclick="window.KRN.startQuote('Cadillac Escalade 2020')"><span class="l-en">Quote this vehicle</span><span class="l-es">Cotizar esta unidad</span> →</button>
+          </div>
+        </div>
+
+        <div class="neu krn-fleet-card reveal" data-vehicle="Hyundai Solati 2014">
+          <div class="krn-fleet-media">
+            <img src="assets/fleet/solati-2014.jpg" alt="Hyundai Solati — exterior referencial" width="640" height="360" loading="lazy" decoding="async">
+            <span class="krn-fleet-badge"><span class="l-en">Referential · client photo pending</span><span class="l-es">Referencial · foto del cliente pendiente</span></span>
+          </div>
+          <div class="krn-fleet-body">
+            <h3 class="disp" style="font-size:21px;margin:0 0 4px">Hyundai Solati</h3>
+            <div style="color:var(--muted);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">2014 · <span class="l-en">approx. 7–10 pax</span><span class="l-es">aprox. 7–10 pax</span></div>
+            <button class="btn sm" style="width:100%" onclick="window.KRN.startQuote('Hyundai Solati 2014')"><span class="l-en">Quote this vehicle</span><span class="l-es">Cotizar esta unidad</span> →</button>
+          </div>
+        </div>
+
+        <div class="neu krn-fleet-card reveal" data-vehicle="Toyota Hiace 2019">
+          <div class="krn-fleet-media">
+            <img src="assets/fleet/hiace-2019.jpg" alt="Toyota Hiace — exterior referencial" width="640" height="360" loading="lazy" decoding="async">
+            <span class="krn-fleet-badge"><span class="l-en">Referential · client photo pending</span><span class="l-es">Referencial · foto del cliente pendiente</span></span>
+          </div>
+          <div class="krn-fleet-body">
+            <h3 class="disp" style="font-size:21px;margin:0 0 4px">Toyota Hiace</h3>
+            <div style="color:var(--muted);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">2019 · <span class="l-en">approx. 7–10 pax</span><span class="l-es">aprox. 7–10 pax</span></div>
+            <button class="btn sm" style="width:100%" onclick="window.KRN.startQuote('Toyota Hiace 2019')"><span class="l-en">Quote this vehicle</span><span class="l-es">Cotizar esta unidad</span> →</button>
+          </div>
+        </div>
+
+        <div class="neu krn-fleet-card reveal" data-vehicle="Chevrolet Suburban LWB 2020">
+          <div class="krn-fleet-media">
+            <img src="assets/fleet/suburban-lwb-2020.jpg" alt="Chevrolet Suburban LWB — exterior referencial" width="640" height="360" loading="lazy" decoding="async">
+            <span class="krn-fleet-badge"><span class="l-en">Referential · client photo pending</span><span class="l-es">Referencial · foto del cliente pendiente</span></span>
+          </div>
+          <div class="krn-fleet-body">
+            <h3 class="disp" style="font-size:21px;margin:0 0 4px">Chevrolet Suburban LWB</h3>
+            <div style="color:var(--muted);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">2020 · <span class="l-en">approx. 7–10 pax</span><span class="l-es">aprox. 7–10 pax</span></div>
+            <button class="btn sm" style="width:100%" onclick="window.KRN.startQuote('Chevrolet Suburban LWB 2020')"><span class="l-en">Quote this vehicle</span><span class="l-es">Cotizar esta unidad</span> →</button>
+          </div>
+        </div>
+
+      </div>
+      <p class="reveal" style="margin:20px 2px 0;font-size:13px;color:var(--muted);max-width:820px"><span class="l-en">Referential stock photos for this demo — final client vehicle photography is added in production. Fares below follow the STAREX (1–6 pax) / TECHO ALTO (7–10 pax) bands from the official rate sheet regardless of which unit is shown.</span><span class="l-es">Fotos de referencia de unidades para esta demo — la fotografía real del cliente se agrega en producción. Las tarifas abajo siguen las bandas STAREX (1–6 pax) / TECHO ALTO (7–10 pax) de la tarifa oficial, sin importar la unidad mostrada.</span></p>
+    </div>
+  </section>
+
+  <!-- ===================== RATE SHEET SEARCH (Karún — real tarifario) ===================== -->
+  <section id="rates-search" style="background:var(--surface-2);padding:clamp(56px,8vw,100px) clamp(16px,4vw,44px);border-block:1px solid var(--line);position:relative;overflow:hidden">
+    <div style="max-width:1160px;margin:0 auto">
+      <div class="reveal" style="display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:24px">
+        <div style="max-width:640px">
+          <span class="chip"><span class="l-en">Full hotel rate sheet</span><span class="l-es">Tarifario completo por hotel</span></span>
+          <h2 class="disp" style="font-size:clamp(30px,4.6vw,48px);margin:16px 0 10px"><span class="l-en">Search your hotel</span><span class="l-es">Busca tu hotel</span></h2>
+          <p style="color:var(--muted);font-weight:500;font-size:16px"><span class="l-en">One-way rates from Punta Cana Airport (PUJ), in USD.</span><span class="l-es">Tarifas one-way desde el Aeropuerto de Punta Cana (PUJ), en USD.</span></p>
+        </div>
+        <span class="chip" style="color:var(--coral)"><span class="l-en">Indicative prices · demo</span><span class="l-es">Precios indicativos · demo</span></span>
+      </div>
+
+      <div class="neu reveal" style="padding:18px;margin-bottom:18px;display:flex;gap:12px;flex-wrap:wrap">
+        <div style="flex:2;min-width:220px">
+          <label class="fldlbl" for="krn-hotel-search"><span class="l-en">Hotel name</span><span class="l-es">Nombre del hotel</span></label>
+          <input id="krn-hotel-search" class="fld" type="search" placeholder="Ej. Hard Rock, Barceló, Casa de Campo…" autocomplete="off" oninput="window.KRN.filterRates()">
+        </div>
+        <div style="flex:1;min-width:200px">
+          <label class="fldlbl" for="krn-zone-filter"><span class="l-en">Zone</span><span class="l-es">Zona</span></label>
+          <select id="krn-zone-filter" class="fld" onchange="window.KRN.filterRates()">
+            <option value=""><span class="l-en">All zones</span><span class="l-es">Todas las zonas</span></option>
+          </select>
+        </div>
+      </div>
+
+      <div class="neu reveal" style="padding:0;overflow:hidden">
+        <div style="overflow-x:auto">
+          <table class="krn-rate-table" id="krn-rate-table">
+            <thead>
+              <tr>
+                <th><span class="l-en">Hotel</span><span class="l-es">Hotel</span></th>
+                <th><span class="l-en">Zone</span><span class="l-es">Zona</span></th>
+                <th>Starex <span style="font-weight:500;color:var(--muted)">(1–6)</span></th>
+                <th><span class="l-en">High roof</span><span class="l-es">Techo alto</span> <span style="font-weight:500;color:var(--muted)">(7–10)</span></th>
+                <th><span class="l-en">Extra pax</span><span class="l-es">Pax extra</span></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="krn-rate-tbody"></tbody>
+          </table>
+        </div>
+        <p id="krn-rate-empty" style="display:none;padding:26px;text-align:center;color:var(--muted)"><span class="l-en">No hotel matches your search.</span><span class="l-es">Ningún hotel coincide con tu búsqueda.</span></p>
+      </div>
+      <p class="reveal" style="margin:16px 2px 0;font-size:12.5px;color:var(--muted);max-width:820px"><span class="l-en">Rates from the official Karún Travel Group price sheet, one-way from PUJ. Non-Starex fleet units are billed on the same STAREX / TECHO ALTO band shown here; exact vehicle assignment is confirmed before the trip.</span><span class="l-es">Tarifas de la tarifa oficial de Karún Travel Group, one-way desde PUJ. Las unidades de la flota que no son la Starex se cobran según la misma banda STAREX / TECHO ALTO mostrada aquí; la unidad exacta se confirma antes del viaje.</span></p>
+    </div>
+  </section>
+
+  <!-- ===================== BOOKING DEMO WIZARD (Karún) ===================== -->
+  <section id="reservar" style="background:var(--sand);padding:clamp(64px,9vw,120px) clamp(16px,4vw,44px);position:relative;overflow:hidden">
+    <div style="max-width:960px;margin:0 auto">
+      <div class="reveal" style="max-width:720px;margin-bottom:30px">
+        <span class="chip"><span class="l-en">Demo booking flow</span><span class="l-es">Flujo de reserva demo</span></span>
+        <h2 class="disp" style="font-size:clamp(32px,4.8vw,52px);margin:16px 0 12px"><span class="l-en">Build your trip</span><span class="l-es">Arma tu viaje</span></h2>
+        <p style="color:var(--muted);font-weight:500;font-size:16px;max-width:600px"><span class="l-en">Add one or more legs, pick a vehicle and "pay" in demo mode — nothing is charged. This simulates the real booking flow.</span><span class="l-es">Agrega uno o más tramos, elige un vehículo y "paga" en modo demo — no se cobra nada. Esto simula el flujo real de reserva.</span></p>
+      </div>
+
+      <!-- ---- FORM VIEW ---- -->
+      <form id="krn-wizard-form" class="neu reveal" style="padding:clamp(18px,3vw,30px)" onsubmit="return window.KRN.confirmBooking(event)">
+
+        <div id="krn-legs"></div>
+
+        <button type="button" class="btn ghost sm" onclick="window.KRN.addLeg()" style="margin-bottom:22px">+ <span class="l-en">Add leg</span><span class="l-es">Agregar tramo</span></button>
+
+        <div class="krn-divider"></div>
+
+        <div style="margin-bottom:18px">
+          <label class="fldlbl" for="krn-vehicle"><span class="l-en">Vehicle</span><span class="l-es">Vehículo</span></label>
+          <select id="krn-vehicle" class="fld" style="width:100%">
+            <option>Hyundai Grand Starex</option>
+            <option>Cadillac Escalade 2020</option>
+            <option>Hyundai Solati 2014</option>
+            <option>Toyota Hiace 2019</option>
+            <option>Chevrolet Suburban LWB 2020</option>
+          </select>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-bottom:18px">
+          <div><label class="fldlbl" for="krn-name"><span class="l-en">Passenger name</span><span class="l-es">Nombre del pasajero</span></label><input id="krn-name" class="fld" type="text" required placeholder="Ej. Antonio Camino"></div>
+          <div><label class="fldlbl" for="krn-email">Email</label><input id="krn-email" class="fld" type="email" placeholder="tu@correo.com"></div>
+          <div><label class="fldlbl" for="krn-whatsapp">WhatsApp</label><input id="krn-whatsapp" class="fld" type="tel" placeholder="+1 809 000 0000"></div>
+          <div><label class="fldlbl" for="krn-notes"><span class="l-en">Notes (optional)</span><span class="l-es">Notas (opcional)</span></label><input id="krn-notes" class="fld" type="text" placeholder="Ej. silla para bebé"></div>
+        </div>
+
+        <div class="krn-divider"></div>
+
+        <div style="margin-bottom:18px">
+          <div class="fldlbl" style="margin-bottom:8px"><span class="l-en">Payment (demo — no real charge)</span><span class="l-es">Pago (demo — sin cobro real)</span></div>
+          <div class="krn-pay-opts">
+            <label class="krn-pay-opt"><input type="radio" name="krn-pay" value="card" checked><span>💳 <span class="l-en">Card</span><span class="l-es">Tarjeta</span></span></label>
+            <label class="krn-pay-opt"><input type="radio" name="krn-pay" value="paypal"><span>🅿️ PayPal</span></label>
+            <label class="krn-pay-opt"><input type="radio" name="krn-pay" value="cash"><span>💵 <span class="l-en">Cash to driver</span><span class="l-es">Efectivo al chofer</span></span></label>
+          </div>
+        </div>
+
+        <div class="neu" style="background:var(--surface);padding:16px 18px;margin-bottom:20px">
+          <div id="krn-legs-summary" style="font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:8px"></div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline">
+            <span style="font-weight:700"><span class="l-en">Total</span><span class="l-es">Total</span></span>
+            <span class="disp" id="krn-total" style="font-size:28px;color:var(--teal)">US$ 0.00</span>
+          </div>
+        </div>
+
+        <button type="submit" class="btn" style="width:100%;font-size:16px;padding:16px"><span class="l-en">Confirm demo booking</span><span class="l-es">Confirmar reserva demo</span> →</button>
+        <p style="margin:12px 2px 0;font-size:12px;color:var(--muted);line-height:1.5"><span class="l-en">This is a public demo. No real charge, email or WhatsApp message is sent.</span><span class="l-es">Esta es una demo pública. No se realiza ningún cobro, correo o mensaje de WhatsApp real.</span></p>
+      </form>
+
+      <!-- ---- SUCCESS VIEW ---- -->
+      <div id="krn-wizard-success" class="neu reveal" style="display:none;padding:clamp(18px,3vw,30px)">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px">
+          <span style="font-size:26px">✅</span>
+          <h3 class="disp" style="font-size:24px;margin:0"><span class="l-en">Your demo reservation is confirmed!</span><span class="l-es">¡Tu reserva demo está confirmada!</span></h3>
+        </div>
+        <span class="chip" style="color:var(--coral);margin:10px 0 18px;display:inline-flex"><span class="l-en">DEMO — no real charge</span><span class="l-es">DEMO — sin cobro real</span></span>
+
+        <div class="neu" style="background:var(--surface);padding:18px;margin-bottom:20px" id="krn-confirm-card"></div>
+
+        <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px">
+          <button type="button" class="btn sm" onclick="window.KRN.downloadSign()">🪧 <span class="l-en">Download pickup sign</span><span class="l-es">Descargar letrero</span></button>
+          <button type="button" class="btn ghost sm" onclick="window.KRN.copySummary()">📋 <span class="l-en">Copy summary</span><span class="l-es">Copiar resumen</span></button>
+          <button type="button" class="btn ghost sm" onclick="window.KRN.editBooking()">✎ <span class="l-en">Edit booking</span><span class="l-es">Editar reserva</span></button>
+        </div>
+
+        <div class="krn-sign-preview">
+          <canvas id="krn-sign-canvas" width="900" height="600"></canvas>
+        </div>
+
+        <p style="margin:18px 2px 0;font-size:12.5px;color:var(--muted);line-height:1.6"><span class="l-en">In production, a WhatsApp confirmation and a 24-hour reminder before pickup are sent automatically. This demo only shows what that message will look like.</span><span class="l-es">En producción, se envía automáticamente una confirmación por WhatsApp y un recordatorio 24 horas antes del pickup. Esta demo solo muestra cómo se verá ese mensaje.</span></p>
+      </div>
+
+    </div>
+  </section>
+
+</div>
+<!-- /krn-demo-scope -->
+
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:&quot;100%&quot;}}">
 class Component extends DCLogic {
   state = { lang:'es', langOpen:false, navOpen:false, faqOpen:{0:true}, currency:'USD', modal:null, cookie:(()=>{ try{ const r=JSON.parse(localStorage.getItem('ly_cookie_consent')||'null'); if(r&&(r.v==='accepted'||r.v==='rejected')&&r.exp>Date.now()) return r.v; }catch(e){} return 'pending'; })() };
@@ -841,7 +1116,7 @@ class Component extends DCLogic {
       m_kicker:'Where we drive',m_title:'The east coast corridor',m_sub:'From Punta Cana airport out to every resort zone and across to Santo Domingo.',m_legend:'Service zones',m_foot:"Stylized coverage map. Don't see your hotel? Ask on WhatsApp.",
       d_kicker:'Where we go',d_title:'Popular routes & day trips',d_sub:"Swipe or use the arrows — from PUJ arrivals to the island's best days out.",
       tl_kicker:'Before you land',tl_title:'From the jet bridge to the back seat',
-      w_kicker:'Why Los Yeyes',w_title:'Locals who make arrival the easy part',w_speak:'Our team speaks (on WhatsApp & phone)',
+      w_kicker:'Why Karún',w_title:'Locals who make arrival the easy part',w_speak:'Our team speaks (on WhatsApp & phone)',
       dl_title:'Flight delayed? We wait.',dl_body:'We track your flight live and adjust automatically. Airport pickups include a free wait window of 60–90 min after landing — just message us on WhatsApp if you are held up.',
       ed_quote:"Hospitality is our island's first language — and it starts the second you land.",
       rv_kicker:'4.9 · 2,300+ rides',rv_title:'Tourists from everywhere, home safe',
@@ -850,7 +1125,7 @@ class Component extends DCLogic {
       ft_tagline:'Private tourist transportation across the Dominican Republic. Based in Punta Cana, serving the whole east coast and Santo Domingo.',
       ft_license:'Tourism transport license',ft_companyT:'Company',ft_servicesT:'Services · Zones',ft_legalT:'Legal',ft_contactT:'Contact',
       ft_privacy:'Privacy Policy',ft_cookie:'Cookie Policy',ft_terms:'Terms & booking',ft_cancel:'Cancellation policy',ft_complaints:'Complaints',ft_cookiePrefs:'Cookie preferences',
-      ft_langs:'Languages: ES · EN · FR · DE +',ft_made:'Made in the Dominican Republic',ft_rights:'All photos & video © Transportes Los Yeyes / licensed.',
+      ft_langs:'Languages: ES · EN · FR · DE +',ft_made:'Made in the Dominican Republic',ft_rights:'All photos & video © Karún Travel Group / licensed.',
       ck_title:'We use cookies',ck_body:'Essential cookies keep the site working; analytics cookies help us improve. You choose.',ck_manage:'Manage',ck_reject:'Reject non-essential',ck_accept:'Accept all',ck_policy:'Cookie Policy',
       md_privacy:'Privacy Policy',md_cookies:'Cookie preferences',md_terms:'Terms & booking conditions',md_cancel:'Cancellation & complaints'},
 
@@ -872,7 +1147,7 @@ class Component extends DCLogic {
       m_kicker:'Dónde manejamos',m_title:'El corredor de la costa este',m_sub:'Desde el aeropuerto de Punta Cana hacia cada zona de resorts y hasta Santo Domingo.',m_legend:'Zonas de servicio',m_foot:'Mapa de cobertura estilizado. ¿No ves tu hotel? Pregunta por WhatsApp.',
       d_kicker:'A dónde vamos',d_title:'Rutas y excursiones favoritas',d_sub:'Desliza o usa las flechas — desde llegadas en PUJ hasta las mejores excursiones.',
       tl_kicker:'Antes de aterrizar',tl_title:'Del avión al asiento trasero',
-      w_kicker:'Por qué Los Yeyes',w_title:'Locales que hacen fácil tu llegada',w_speak:'Nuestro equipo habla (por WhatsApp y teléfono)',
+      w_kicker:'Por qué Karún',w_title:'Locales que hacen fácil tu llegada',w_speak:'Nuestro equipo habla (por WhatsApp y teléfono)',
       dl_title:'¿Vuelo retrasado? Esperamos.',dl_body:'Rastreamos tu vuelo en vivo y ajustamos solos. Las recogidas incluyen una espera gratis de 60–90 min tras aterrizar — solo escríbenos por WhatsApp si te demoras.',
       ed_quote:'La hospitalidad es el primer idioma de nuestra isla — y empieza apenas aterrizas.',
       rv_kicker:'4.9 · 2,300+ viajes',rv_title:'Turistas de todo el mundo, seguros',
@@ -881,7 +1156,7 @@ class Component extends DCLogic {
       ft_tagline:'Transporte turístico privado en toda la República Dominicana. Con base en Punta Cana, cubriendo la costa este y Santo Domingo.',
       ft_license:'Licencia de transporte turístico',ft_companyT:'Empresa',ft_servicesT:'Servicios · Zonas',ft_legalT:'Legal',ft_contactT:'Contacto',
       ft_privacy:'Privacidad',ft_cookie:'Cookies',ft_terms:'Términos',ft_cancel:'Cancelaciones',ft_complaints:'Reclamos',ft_cookiePrefs:'Preferencias de cookies',
-      ft_langs:'Idiomas: ES · EN · FR · DE +',ft_made:'Hecho en República Dominicana',ft_rights:'Fotos y video © Transportes Los Yeyes / con licencia.',
+      ft_langs:'Idiomas: ES · EN · FR · DE +',ft_made:'Hecho en República Dominicana',ft_rights:'Fotos y video © Karún Travel Group / con licencia.',
       ck_title:'Usamos cookies',ck_body:'Las cookies esenciales hacen funcionar el sitio; las de analítica nos ayudan a mejorar. Tú decides.',ck_manage:'Gestionar',ck_reject:'Rechazar opcionales',ck_accept:'Aceptar todo',ck_policy:'Política de Cookies',
       md_privacy:'Política de Privacidad',md_cookies:'Preferencias de cookies',md_terms:'Términos y condiciones de reserva',md_cancel:'Cancelación y reclamos'},
 
@@ -903,7 +1178,7 @@ class Component extends DCLogic {
       m_kicker:'Où nous roulons',m_title:'Le corridor de la côte est',m_sub:'De l\u2019aéroport de Punta Cana vers chaque zone de resorts et jusqu\u2019à Saint-Domingue.',m_legend:'Zones desservies',m_foot:'Carte de couverture stylisée. Vous ne voyez pas votre hôtel ? Demandez sur WhatsApp.',
       d_kicker:'Où nous allons',d_title:'Itinéraires & excursions populaires',d_sub:'Faites glisser ou utilisez les flèches — des arrivées à PUJ aux meilleures sorties de l\u2019île.',
       tl_kicker:'Avant d\u2019atterrir',tl_title:'De la passerelle à la banquette arrière',
-      w_kicker:'Pourquoi Los Yeyes',w_title:'Des locaux qui simplifient votre arrivée',w_speak:'Notre équipe parle (WhatsApp & téléphone)',
+      w_kicker:'Pourquoi Karún',w_title:'Des locaux qui simplifient votre arrivée',w_speak:'Notre équipe parle (WhatsApp & téléphone)',
       dl_title:'Vol retardé ? On attend.',dl_body:'Nous suivons votre vol en direct et ajustons automatiquement. Les prises en charge à l\u2019aéroport incluent une attente gratuite de 60–90 min après l\u2019atterrissage — écrivez-nous sur WhatsApp en cas de retard.',
       ed_quote:'L\u2019hospitalité est la première langue de notre île — et elle commence dès votre atterrissage.',
       rv_kicker:'4.9 · 2 300+ trajets',rv_title:'Des touristes du monde entier, bien arrivés',
@@ -912,7 +1187,7 @@ class Component extends DCLogic {
       ft_tagline:'Transport touristique privé dans toute la République dominicaine. Basés à Punta Cana, nous couvrons toute la côte est et Saint-Domingue.',
       ft_license:'Licence de transport touristique',ft_companyT:'Entreprise',ft_servicesT:'Services · Zones',ft_legalT:'Légal',ft_contactT:'Contact',
       ft_privacy:'Confidentialité',ft_cookie:'Cookies',ft_terms:'Conditions',ft_cancel:'Annulation',ft_complaints:'Réclamations',ft_cookiePrefs:'Préférences cookies',
-      ft_langs:'Langues : ES · EN · FR · DE +',ft_made:'Fait en République dominicaine',ft_rights:'Toutes les photos et vidéos © Transportes Los Yeyes / sous licence.',
+      ft_langs:'Langues : ES · EN · FR · DE +',ft_made:'Fait en République dominicaine',ft_rights:'Toutes les photos et vidéos © Karún Travel Group / sous licence.',
       ck_title:'Nous utilisons des cookies',ck_body:'Les cookies essentiels font fonctionner le site ; ceux d\u2019analyse nous aident à l\u2019améliorer. À vous de choisir.',ck_manage:'Gérer',ck_reject:'Refuser les non essentiels',ck_accept:'Tout accepter',ck_policy:'Politique cookies',
       md_privacy:'Politique de confidentialité',md_cookies:'Préférences cookies',md_terms:'Conditions de réservation',md_cancel:'Annulation & réclamations'},
 
@@ -934,7 +1209,7 @@ class Component extends DCLogic {
       m_kicker:'Wo wir fahren',m_title:'Der Ostküsten-Korridor',m_sub:'Vom Flughafen Punta Cana zu jeder Resortzone und bis nach Santo Domingo.',m_legend:'Servicezonen',m_foot:'Stilisierte Abdeckungskarte. Ihr Hotel fehlt? Fragen Sie per WhatsApp.',
       d_kicker:'Wohin wir fahren',d_title:'Beliebte Routen & Tagesausflüge',d_sub:'Wischen oder Pfeile nutzen — von der Ankunft in PUJ bis zu den besten Ausflügen der Insel.',
       tl_kicker:'Vor der Landung',tl_title:'Von der Gangway auf die Rückbank',
-      w_kicker:'Warum Los Yeyes',w_title:'Einheimische, die die Ankunft leicht machen',w_speak:'Unser Team spricht (WhatsApp & Telefon)',
+      w_kicker:'Warum Karún',w_title:'Einheimische, die die Ankunft leicht machen',w_speak:'Unser Team spricht (WhatsApp & Telefon)',
       dl_title:'Flug verspätet? Wir warten.',dl_body:'Wir verfolgen Ihren Flug live und passen automatisch an. Flughafenabholungen enthalten ein kostenloses Wartefenster von 60–90 Min nach der Landung — schreiben Sie uns bei Verzögerung einfach auf WhatsApp.',
       ed_quote:'Gastfreundschaft ist die erste Sprache unserer Insel — und sie beginnt in der Sekunde Ihrer Landung.',
       rv_kicker:'4.9 · 2.300+ Fahrten',rv_title:'Touristen von überall, sicher zu Hause',
@@ -943,7 +1218,7 @@ class Component extends DCLogic {
       ft_tagline:'Privater Touristentransport in der gesamten Dominikanischen Republik. Ansässig in Punta Cana, für die ganze Ostküste und Santo Domingo.',
       ft_license:'Touristische Transportlizenz',ft_companyT:'Unternehmen',ft_servicesT:'Leistungen · Zonen',ft_legalT:'Rechtliches',ft_contactT:'Kontakt',
       ft_privacy:'Datenschutz',ft_cookie:'Cookies',ft_terms:'AGB',ft_cancel:'Stornierung',ft_complaints:'Beschwerden',ft_cookiePrefs:'Cookie-Einstellungen',
-      ft_langs:'Sprachen: ES · EN · FR · DE +',ft_made:'Gemacht in der Dominikanischen Republik',ft_rights:'Alle Fotos & Videos © Transportes Los Yeyes / lizenziert.',
+      ft_langs:'Sprachen: ES · EN · FR · DE +',ft_made:'Gemacht in der Dominikanischen Republik',ft_rights:'Alle Fotos & Videos © Karún Travel Group / lizenziert.',
       ck_title:'Wir verwenden Cookies',ck_body:'Essenzielle Cookies halten die Seite funktionsfähig; Analyse-Cookies helfen uns, sie zu verbessern. Sie entscheiden.',ck_manage:'Verwalten',ck_reject:'Nicht essenzielle ablehnen',ck_accept:'Alle akzeptieren',ck_policy:'Cookie-Richtlinie',
       md_privacy:'Datenschutzerklärung',md_cookies:'Cookie-Einstellungen',md_terms:'Buchungsbedingungen',md_cancel:'Stornierung & Beschwerden'},
 
@@ -965,7 +1240,7 @@ class Component extends DCLogic {
       m_kicker:'Onde dirigimos',m_title:'O corredor da costa leste',m_sub:'Do aeroporto de Punta Cana a cada zona de resorts e até Santo Domingo.',m_legend:'Zonas de serviço',m_foot:'Mapa de cobertura estilizado. Não vê seu hotel? Pergunte no WhatsApp.',
       d_kicker:'Para onde vamos',d_title:'Rotas e passeios populares',d_sub:'Deslize ou use as setas — das chegadas em PUJ aos melhores passeios da ilha.',
       tl_kicker:'Antes de pousar',tl_title:'Da ponte de embarque ao banco de trás',
-      w_kicker:'Por que Los Yeyes',w_title:'Locais que tornam a chegada fácil',w_speak:'Nossa equipe fala (WhatsApp e telefone)',
+      w_kicker:'Por que Karún',w_title:'Locais que tornam a chegada fácil',w_speak:'Nossa equipe fala (WhatsApp e telefone)',
       dl_title:'Voo atrasado? Nós esperamos.',dl_body:'Rastreamos seu voo ao vivo e ajustamos automaticamente. As recolhas no aeroporto incluem uma espera grátis de 60–90 min após o pouso — é só falar no WhatsApp se atrasar.',
       ed_quote:'A hospitalidade é a primeira língua da nossa ilha — e começa no segundo em que você pousa.',
       rv_kicker:'4.9 · 2.300+ viagens',rv_title:'Turistas de toda parte, em casa em segurança',
@@ -974,7 +1249,7 @@ class Component extends DCLogic {
       ft_tagline:'Transporte turístico privativo em toda a República Dominicana. Sediado em Punta Cana, atendendo toda a costa leste e Santo Domingo.',
       ft_license:'Licença de transporte turístico',ft_companyT:'Empresa',ft_servicesT:'Serviços · Zonas',ft_legalT:'Legal',ft_contactT:'Contato',
       ft_privacy:'Privacidade',ft_cookie:'Cookies',ft_terms:'Termos',ft_cancel:'Cancelamento',ft_complaints:'Reclamações',ft_cookiePrefs:'Preferências de cookies',
-      ft_langs:'Idiomas: ES · EN · FR · DE +',ft_made:'Feito na República Dominicana',ft_rights:'Todas as fotos e vídeos © Transportes Los Yeyes / licenciados.',
+      ft_langs:'Idiomas: ES · EN · FR · DE +',ft_made:'Feito na República Dominicana',ft_rights:'Todas as fotos e vídeos © Karún Travel Group / licenciados.',
       ck_title:'Usamos cookies',ck_body:'Cookies essenciais mantêm o site funcionando; cookies de análise nos ajudam a melhorar. Você escolhe.',ck_manage:'Gerenciar',ck_reject:'Rejeitar não essenciais',ck_accept:'Aceitar todos',ck_policy:'Política de Cookies',
       md_privacy:'Política de Privacidade',md_cookies:'Preferências de cookies',md_terms:'Termos e condições de reserva',md_cancel:'Cancelamento e reclamações'},
 
@@ -996,7 +1271,7 @@ class Component extends DCLogic {
       m_kicker:'Dove guidiamo',m_title:'Il corridoio della costa est',m_sub:"Dall'aeroporto di Punta Cana verso ogni zona di resort e fino a Santo Domingo.",m_legend:'Zone di servizio',m_foot:'Mappa di copertura stilizzata. Non vedi il tuo hotel? Chiedi su WhatsApp.',
       d_kicker:'Dove andiamo',d_title:'Rotte ed escursioni popolari',d_sub:"Scorri o usa le frecce — dagli arrivi a PUJ alle migliori gite dell'isola.",
       tl_kicker:'Prima di atterrare',tl_title:'Dal finger al sedile posteriore',
-      w_kicker:'Perché Los Yeyes',w_title:"Gente del posto che rende facile l'arrivo",w_speak:'Il nostro team parla (WhatsApp e telefono)',
+      w_kicker:'Perché Karún',w_title:"Gente del posto che rende facile l'arrivo",w_speak:'Il nostro team parla (WhatsApp e telefono)',
       dl_title:'Volo in ritardo? Aspettiamo.',dl_body:"Monitoriamo il tuo volo in tempo reale e ci adattiamo in automatico. I ritiri in aeroporto includono un'attesa gratuita di 60–90 min dopo l'atterraggio — scrivici su WhatsApp se sei in ritardo.",
       ed_quote:"L'ospitalità è la prima lingua della nostra isola — e inizia nell'istante in cui atterri.",
       rv_kicker:'4.9 · 2.300+ viaggi',rv_title:'Turisti da ogni dove, arrivati sicuri',
@@ -1005,7 +1280,7 @@ class Component extends DCLogic {
       ft_tagline:'Trasporto turistico privato in tutta la Repubblica Dominicana. Con base a Punta Cana, copriamo tutta la costa est e Santo Domingo.',
       ft_license:'Licenza di trasporto turistico',ft_companyT:'Azienda',ft_servicesT:'Servizi · Zone',ft_legalT:'Legale',ft_contactT:'Contatto',
       ft_privacy:'Privacy',ft_cookie:'Cookie',ft_terms:'Termini',ft_cancel:'Cancellazione',ft_complaints:'Reclami',ft_cookiePrefs:'Preferenze cookie',
-      ft_langs:'Lingue: ES · EN · FR · DE +',ft_made:'Fatto nella Repubblica Dominicana',ft_rights:'Tutte le foto e i video © Transportes Los Yeyes / su licenza.',
+      ft_langs:'Lingue: ES · EN · FR · DE +',ft_made:'Fatto nella Repubblica Dominicana',ft_rights:'Tutte le foto e i video © Karún Travel Group / su licenza.',
       ck_title:'Usiamo i cookie',ck_body:'I cookie essenziali fanno funzionare il sito; quelli di analisi ci aiutano a migliorare. Scegli tu.',ck_manage:'Gestisci',ck_reject:'Rifiuta non essenziali',ck_accept:'Accetta tutti',ck_policy:'Politica cookie',
       md_privacy:'Informativa sulla privacy',md_cookies:'Preferenze cookie',md_terms:'Condizioni di prenotazione',md_cancel:'Cancellazione e reclami'},
 
@@ -1027,7 +1302,7 @@ class Component extends DCLogic {
       m_kicker:'Где мы ездим',m_title:'Коридор восточного побережья',m_sub:'От аэропорта Пунта-Кана к каждой курортной зоне и до Санто-Доминго.',m_legend:'Зоны обслуживания',m_foot:'Стилизованная карта покрытия. Не видите свой отель? Спросите в WhatsApp.',
       d_kicker:'Куда мы едем',d_title:'Популярные маршруты и поездки',d_sub:'Прокрутите вдоль побережья — от прилётов в PUJ до лучших экскурсий острова.',
       tl_kicker:'Перед посадкой',tl_title:'От трапа до заднего сиденья',
-      w_kicker:'Почему Los Yeyes',w_title:'Местные, с которыми прибытие — самое лёгкое',w_speak:'Наша команда говорит (WhatsApp и телефон)',
+      w_kicker:'Почему Karún',w_title:'Местные, с которыми прибытие — самое лёгкое',w_speak:'Наша команда говорит (WhatsApp и телефон)',
       dl_title:'Рейс задержан? Мы ждём.',dl_body:'Мы отслеживаем ваш рейс в реальном времени и подстраиваемся автоматически. Встреча в аэропорту включает бесплатное ожидание 60–90 мин после посадки — просто напишите в WhatsApp, если задерживаетесь.',
       ed_quote:'Гостеприимство — первый язык нашего острова, и оно начинается в ту секунду, когда вы приземляетесь.',
       rv_kicker:'4.9 · 2 300+ поездок',rv_title:'Туристы отовсюду, доставлены безопасно',
@@ -1036,7 +1311,7 @@ class Component extends DCLogic {
       ft_tagline:'Частные туристические перевозки по всей Доминиканской Республике. База в Пунта-Кане, обслуживаем всё восточное побережье и Санто-Доминго.',
       ft_license:'Лицензия на туристические перевозки',ft_companyT:'Компания',ft_servicesT:'Услуги · Зоны',ft_legalT:'Правовое',ft_contactT:'Контакты',
       ft_privacy:'Конфиденциальность',ft_cookie:'Cookie',ft_terms:'Условия',ft_cancel:'Отмена',ft_complaints:'Жалобы',ft_cookiePrefs:'Настройки cookie',
-      ft_langs:'Языки: ES · EN · FR · DE +',ft_made:'Сделано в Доминиканской Республике',ft_rights:'Все фото и видео © Transportes Los Yeyes / по лицензии.',
+      ft_langs:'Языки: ES · EN · FR · DE +',ft_made:'Сделано в Доминиканской Республике',ft_rights:'Все фото и видео © Karún Travel Group / по лицензии.',
       ck_title:'Мы используем файлы cookie',ck_body:'Основные cookie обеспечивают работу сайта; аналитические помогают нам его улучшать. Выбор за вами.',ck_manage:'Настроить',ck_reject:'Отклонить необязательные',ck_accept:'Принять все',ck_policy:'Политика cookie',
       md_privacy:'Политика конфиденциальности',md_cookies:'Настройки cookie',md_terms:'Условия бронирования',md_cancel:'Отмена и жалобы'},
 
@@ -1058,7 +1333,7 @@ class Component extends DCLogic {
       m_kicker:'我们的行驶范围',m_title:'东海岸走廊',m_sub:'从蓬塔卡纳机场通往每个度假区，直至圣多明各。',m_legend:'服务区域',m_foot:'风格化覆盖地图。没看到您的酒店？在 WhatsApp 询问。',
       d_kicker:'我们去哪里',d_title:'热门线路与一日游',d_sub:'滚动游览海岸——从 PUJ 到达到全岛最佳一日游。',
       tl_kicker:'落地之前',tl_title:'从廊桥到后座',
-      w_kicker:'为什么选 Los Yeyes',w_title:'让抵达变轻松的本地人',w_speak:'我们的团队会说（WhatsApp 和电话）',
+      w_kicker:'为什么选 Karún',w_title:'让抵达变轻松的本地人',w_speak:'我们的团队会说（WhatsApp 和电话）',
       dl_title:'航班延误？我们等您。',dl_body:'我们实时追踪您的航班并自动调整。机场接机含落地后60–90分钟免费等待——若延误，只需在 WhatsApp 告知我们。',
       ed_quote:'好客是我们岛屿的第一语言——从您落地的那一刻起。',
       rv_kicker:'4.9 · 2,300+次乘车',rv_title:'来自各地的游客，平安抵达',
@@ -1067,7 +1342,7 @@ class Component extends DCLogic {
       ft_tagline:'覆盖整个多米尼加共和国的私人旅游交通。总部位于蓬塔卡纳，服务整个东海岸及圣多明各。',
       ft_license:'旅游运输许可证',ft_companyT:'公司',ft_servicesT:'服务 · 区域',ft_legalT:'法律',ft_contactT:'联系',
       ft_privacy:'隐私',ft_cookie:'Cookie',ft_terms:'条款',ft_cancel:'取消',ft_complaints:'投诉',ft_cookiePrefs:'Cookie 偏好',
-      ft_langs:'语言：ES · EN · FR · DE +',ft_made:'产自多米尼加共和国',ft_rights:'所有照片和视频 © Transportes Los Yeyes / 已获授权。',
+      ft_langs:'语言：ES · EN · FR · DE +',ft_made:'产自多米尼加共和国',ft_rights:'所有照片和视频 © Karún Travel Group / 已获授权。',
       ck_title:'我们使用 Cookie',ck_body:'必要 Cookie 让网站正常运行；分析 Cookie 帮助我们改进。由您选择。',ck_manage:'管理',ck_reject:'拒绝非必要',ck_accept:'全部接受',ck_policy:'Cookie 政策',
       md_privacy:'隐私政策',md_cookies:'Cookie 偏好',md_terms:'预订条款与条件',md_cancel:'取消与投诉'},
 
@@ -1089,7 +1364,7 @@ class Component extends DCLogic {
       m_kicker:'Waar we rijden',m_title:'De oostkust-corridor',m_sub:'Van de luchthaven van Punta Cana naar elke resortzone en door naar Santo Domingo.',m_legend:'Servicezones',m_foot:'Gestileerde dekkingskaart. Zie je je hotel niet? Vraag het via WhatsApp.',
       d_kicker:'Waar we heen gaan',d_title:'Populaire routes & dagtrips',d_sub:'Scroll langs de kust — van aankomst in PUJ tot de beste uitstapjes van het eiland.',
       tl_kicker:'Voor de landing',tl_title:'Van de slurf naar de achterbank',
-      w_kicker:'Waarom Los Yeyes',w_title:'Locals die aankomen het makkelijke deel maken',w_speak:'Ons team spreekt (WhatsApp & telefoon)',
+      w_kicker:'Waarom Karún',w_title:'Locals die aankomen het makkelijke deel maken',w_speak:'Ons team spreekt (WhatsApp & telefoon)',
       dl_title:'Vlucht vertraagd? We wachten.',dl_body:'We volgen je vlucht live en passen automatisch aan. Ophalen op de luchthaven bevat een gratis wachttijd van 60–90 min na de landing — stuur ons een bericht op WhatsApp als je vertraging hebt.',
       ed_quote:'Gastvrijheid is de eerste taal van ons eiland — en die begint zodra je landt.',
       rv_kicker:'4.9 · 2.300+ ritten',rv_title:'Toeristen van overal, veilig thuis',
@@ -1098,7 +1373,7 @@ class Component extends DCLogic {
       ft_tagline:'Privé toeristisch vervoer door de hele Dominicaanse Republiek. Gevestigd in Punta Cana, voor de hele oostkust en Santo Domingo.',
       ft_license:'Toeristische vervoersvergunning',ft_companyT:'Bedrijf',ft_servicesT:'Diensten · Zones',ft_legalT:'Juridisch',ft_contactT:'Contact',
       ft_privacy:'Privacy',ft_cookie:'Cookies',ft_terms:'Voorwaarden',ft_cancel:'Annulering',ft_complaints:'Klachten',ft_cookiePrefs:'Cookievoorkeuren',
-      ft_langs:'Talen: ES · EN · FR · DE +',ft_made:'Gemaakt in de Dominicaanse Republiek',ft_rights:"Alle foto's & video © Transportes Los Yeyes / gelicentieerd.",
+      ft_langs:'Talen: ES · EN · FR · DE +',ft_made:'Gemaakt in de Dominicaanse Republiek',ft_rights:"Alle foto's & video © Karún Travel Group / gelicentieerd.",
       ck_title:'We gebruiken cookies',ck_body:'Essentiële cookies houden de site werkend; analytische cookies helpen ons verbeteren. Jij kiest.',ck_manage:'Beheren',ck_reject:'Niet-essentiële weigeren',ck_accept:'Alles accepteren',ck_policy:'Cookiebeleid',
       md_privacy:'Privacybeleid',md_cookies:'Cookievoorkeuren',md_terms:'Boekingsvoorwaarden',md_cancel:'Annulering & klachten'},
 
@@ -1120,7 +1395,7 @@ class Component extends DCLogic {
       m_kicker:'Gdzie jeździmy',m_title:'Korytarz wschodniego wybrzeża',m_sub:'Z lotniska Punta Cana do każdej strefy resortów i aż do Santo Domingo.',m_legend:'Strefy obsługi',m_foot:'Stylizowana mapa zasięgu. Nie widzisz swojego hotelu? Zapytaj na WhatsApp.',
       d_kicker:'Dokąd jeździmy',d_title:'Popularne trasy i wycieczki',d_sub:'Przewiń wzdłuż wybrzeża — od przylotów w PUJ po najlepsze wycieczki na wyspie.',
       tl_kicker:'Zanim wylądujesz',tl_title:'Od rękawa do tylnego siedzenia',
-      w_kicker:'Dlaczego Los Yeyes',w_title:'Miejscowi, dzięki którym przylot jest łatwy',w_speak:'Nasz zespół mówi (WhatsApp i telefon)',
+      w_kicker:'Dlaczego Karún',w_title:'Miejscowi, dzięki którym przylot jest łatwy',w_speak:'Nasz zespół mówi (WhatsApp i telefon)',
       dl_title:'Lot opóźniony? Czekamy.',dl_body:'Śledzimy Twój lot na żywo i dostosowujemy się automatycznie. Odbiór z lotniska obejmuje darmowe okno oczekiwania 60–90 min po lądowaniu — napisz na WhatsApp, jeśli się spóźnisz.',
       ed_quote:'Gościnność to pierwszy język naszej wyspy — i zaczyna się w chwili, gdy lądujesz.',
       rv_kicker:'4.9 · 2 300+ przejazdów',rv_title:'Turyści zewsząd, bezpiecznie na miejscu',
@@ -1129,7 +1404,7 @@ class Component extends DCLogic {
       ft_tagline:'Prywatny transport turystyczny w całej Dominikanie. Z siedzibą w Punta Cana, obsługujemy całe wschodnie wybrzeże i Santo Domingo.',
       ft_license:'Licencja transportu turystycznego',ft_companyT:'Firma',ft_servicesT:'Usługi · Strefy',ft_legalT:'Informacje prawne',ft_contactT:'Kontakt',
       ft_privacy:'Prywatność',ft_cookie:'Cookies',ft_terms:'Regulamin',ft_cancel:'Anulowanie',ft_complaints:'Reklamacje',ft_cookiePrefs:'Ustawienia cookies',
-      ft_langs:'Języki: ES · EN · FR · DE +',ft_made:'Zrobione w Dominikanie',ft_rights:'Wszystkie zdjęcia i wideo © Transportes Los Yeyes / na licencji.',
+      ft_langs:'Języki: ES · EN · FR · DE +',ft_made:'Zrobione w Dominikanie',ft_rights:'Wszystkie zdjęcia i wideo © Karún Travel Group / na licencji.',
       ck_title:'Używamy plików cookie',ck_body:'Niezbędne cookie utrzymują działanie strony; analityczne pomagają nam ją ulepszać. Ty decydujesz.',ck_manage:'Zarządzaj',ck_reject:'Odrzuć zbędne',ck_accept:'Akceptuj wszystkie',ck_policy:'Polityka cookie',
       md_privacy:'Polityka prywatności',md_cookies:'Ustawienia cookie',md_terms:'Warunki rezerwacji',md_cancel:'Anulowanie i reklamacje'},
   };
@@ -1147,12 +1422,12 @@ class Component extends DCLogic {
   ];
 
   pinDefs = [
-    {name:'Punta Cana (PUJ)', x:'87%', y:'50%', hub:true,  color:'#f2864b'},
-    {name:'Bávaro',           x:'85%', y:'44%', hub:false, color:'#0e8fa0'},
-    {name:'Uvero Alto',       x:'80%', y:'37%', hub:false, color:'#0e8fa0'},
-    {name:'Cap Cana',         x:'89%', y:'57%', hub:false, color:'#0e8fa0'},
-    {name:'La Romana (LRM)',  x:'68%', y:'58%', hub:false, color:'#0e8fa0'},
-    {name:'Santo Domingo (SDQ)', x:'52%', y:'62%', hub:false, color:'#0e8fa0'},
+    {name:'Punta Cana (PUJ)', x:'87%', y:'50%', hub:true,  color:'#c8102e'},
+    {name:'Bávaro',           x:'85%', y:'44%', hub:false, color:'#151a54'},
+    {name:'Uvero Alto',       x:'80%', y:'37%', hub:false, color:'#151a54'},
+    {name:'Cap Cana',         x:'89%', y:'57%', hub:false, color:'#151a54'},
+    {name:'La Romana (LRM)',  x:'68%', y:'58%', hub:false, color:'#151a54'},
+    {name:'Santo Domingo (SDQ)', x:'52%', y:'62%', hub:false, color:'#151a54'},
   ];
 
   faqDefs = [
@@ -1342,8 +1617,8 @@ class Component extends DCLogic {
       <rect x="86" y="120" width="70" height="56" rx="7" fill="#bfeaf0" stroke="#16302f" stroke-width="5"/>
       <rect x="168" y="120" width="70" height="56" rx="7" fill="#bfeaf0" stroke="#16302f" stroke-width="5"/>
       <rect x="250" y="120" width="70" height="56" rx="7" fill="#bfeaf0" stroke="#16302f" stroke-width="5"/>
-      <rect x="46" y="150" width="470" height="10" fill="#0e8fa0"/>
-      <rect x="60" y="196" width="300" height="8" rx="4" fill="#0e8fa0" opacity=".5"/>
+      <rect x="46" y="150" width="470" height="10" fill="#151a54"/>
+      <rect x="60" y="196" width="300" height="8" rx="4" fill="#151a54" opacity=".5"/>
       <circle cx="150" cy="232" r="40" fill="#16302f"/><circle cx="150" cy="232" r="17" fill="#f2e9d8"/>
       <circle cx="430" cy="232" r="40" fill="#16302f"/><circle cx="430" cy="232" r="17" fill="#f2e9d8"/>
       <rect x="470" y="150" width="22" height="26" rx="5" fill="#f4b740"/>
@@ -1379,7 +1654,7 @@ class Component extends DCLogic {
     if(e&&e.preventDefault) e.preventDefault();
     const g = id => { const el = document.getElementById(id); return el ? el.value : ''; };
     const es = this.state.lang==='es';
-    const msg = (es ? '¡Hola Transportes Los Yeyes! Quiero reservar un traslado privado.' : "Hi Transportes Los Yeyes! I'd like to book a private transfer.")
+    const msg = (es ? '¡Hola Karún Travel Group! Quiero reservar un traslado privado.' : "Hi Karún Travel Group! I'd like to book a private transfer.")
       + `\n\n${es?'Recogida':'Pickup'}: ${g('ly-pickup')}`
       + `\n${es?'Destino':'Drop-off'}: ${g('ly-drop')}`
       + `\n${es?'Fecha':'Date'}: ${g('ly-date')} ${g('ly-time')}`
@@ -1433,5 +1708,6 @@ class Component extends DCLogic {
   componentDidUpdate(){ this.injectVan(); }
 }
 </script>
+<script src="./karun-wizard.js" defer></script>
 </body>
 </html>

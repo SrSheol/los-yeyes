@@ -1,0 +1,747 @@
+{
+  "currency": "USD",
+  "origin": "Punta Cana Airport (PUJ)",
+  "updated": "2026-09-17",
+  "zones": [
+    {
+      "zone": "UVERO ALTO",
+      "hotels": [
+        {
+          "name": "SIVORY PUNTA CANA",
+          "starex": 50,
+          "techoAlto": 60,
+          "extraPax": 5
+        },
+        {
+          "name": "ZOETRY AQUA PUNTA CANA",
+          "starex": 50,
+          "techoAlto": 60,
+          "extraPax": 5
+        },
+        {
+          "name": "W PUNTA CANA",
+          "starex": 50,
+          "techoAlto": 60,
+          "extraPax": 5
+        },
+        {
+          "name": "EXCELLENCE PUNTA CANA",
+          "starex": 50,
+          "techoAlto": 60,
+          "extraPax": 5
+        },
+        {
+          "name": "PLAYA PALMERA",
+          "starex": 50,
+          "techoAlto": 60,
+          "extraPax": 5
+        },
+        {
+          "name": "GRAND SIRENIS COCOTAL BEACH",
+          "starex": 50,
+          "techoAlto": 60,
+          "extraPax": 5
+        },
+        {
+          "name": "GRAND SIRENIS PUNTA CANA",
+          "starex": 50,
+          "techoAlto": 60,
+          "extraPax": 5
+        },
+        {
+          "name": "EXCELLENCE EL CARMEN",
+          "starex": 50,
+          "techoAlto": 60,
+          "extraPax": 5
+        },
+        {
+          "name": "FINEST PUNTA CANA",
+          "starex": 50,
+          "techoAlto": 60,
+          "extraPax": 5
+        },
+        {
+          "name": "SECRETS TIDES PUNTA CANA",
+          "starex": 45,
+          "techoAlto": 55,
+          "extraPax": 5
+        },
+        {
+          "name": "BREATHLESS PUNTA CANA",
+          "starex": 45,
+          "techoAlto": 55,
+          "extraPax": 5
+        },
+        {
+          "name": "DREAMS ONYX",
+          "starex": 45,
+          "techoAlto": 55,
+          "extraPax": 5
+        },
+        {
+          "name": "LIVE AQUA PUNTA CANA",
+          "starex": 45,
+          "techoAlto": 55,
+          "extraPax": 5
+        },
+        {
+          "name": "WYNDHAM ALTRA P.C.",
+          "starex": 45,
+          "techoAlto": 55,
+          "extraPax": 5
+        },
+        {
+          "name": "NICKELODEON PUNTA CANA",
+          "starex": 45,
+          "techoAlto": 55,
+          "extraPax": 5
+        },
+        {
+          "name": "AZUL SENSATORI DOMINICANA",
+          "starex": 45,
+          "techoAlto": 55,
+          "extraPax": 5
+        },
+        {
+          "name": "ROYALTON CHIC PUNTA CANA",
+          "starex": 70,
+          "techoAlto": 80,
+          "extraPax": 5
+        },
+        {
+          "name": "OCEAN EL FARO EL BESO",
+          "starex": 45,
+          "techoAlto": 55,
+          "extraPax": 5
+        },
+        {
+          "name": "OCEAN EL FARO",
+          "starex": 45,
+          "techoAlto": 55,
+          "extraPax": 5
+        }
+      ]
+    },
+    {
+      "zone": "MACAO AREA",
+      "hotels": [
+        {
+          "name": "DREAMS MACAO BEACH",
+          "starex": 40,
+          "techoAlto": 50,
+          "extraPax": 5
+        }
+      ]
+    },
+    {
+      "zone": "ARENA GORDA",
+      "hotels": [
+        {
+          "name": "HARD ROCK PUNTA CANA",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "RIU REPUBLICA",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "OCCIDENTAL CARIBE",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "ROYALTON BAVARO",
+          "starex": 40,
+          "techoAlto": 50,
+          "extraPax": 5
+        },
+        {
+          "name": "ROYALTON PUNTA CANA",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "HIDEAWAY AT ROYALTON PUNTA CANA",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "ROYALTON SPLASH PUNTA CANA",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "MAJESTIC MIRAGE",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "MAJESTIC ELEGANCE",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "MAJESTIC COLONIAL",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "BAHIA PRINCIPE LUXURY AMBAR",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "BAHIA PRINCIPE GRAND BAVARO",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "BAHIA PRINCIPE GRAND TURQUEZA",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "BAHIA PRINCIPE FANTASIA",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "BAHIA P. GRAND PUNTA CANA",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "BAHIA P. LUXURY ESMERALDA",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "RIU PALACE PUNTA CANA",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "RIU BAMBU",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "RIU PALACE MACAO",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "RIU PALACE BAVARO",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "IBEROSTAR PUNTA CANA",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "IBEROSTAR DOMINICANA",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "IBEROSTAR SELECTION BÁVARO",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "CORAL LEVEL AT IBEROSTAR BÁVARO",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "IBEROSTAR JOIA BÁVARO",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "WHALA URBAN PUNTA CANA",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "PUNTA CANA PRINCESS",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "VIK ARENA BLANCA",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "OCEAN BLUE GOLF & BEACH",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "TROPICAL DELUXE PRINCESS",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "CARIBE DELUXE PRINCESS",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "PARADISUS PUNTA CANA",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "THE RESERVE AT PPC",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "GRAND BAVARO PRINCESS",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "OCCIDENTAL PUNTA CANA",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "TRS TURQUESA",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "GRAND PALLADIUM PALACE",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "GRAND PALLADIUM PUNTA CANA",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "GRAND PALLADIUM BÁVARO",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "PRESIDENTIAL SUITES PUNTA CANA",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "VISTA SOL PUNTA CANA",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "IMPRESSIVE PREMIUM PUNTA CANA",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "IMPRESSIVE PUNTA CANA",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "WHALA BAVARO HOTEL",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "DREAMS ROYAL BEACH",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "SECRETS ROYAL BEACH",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        }
+      ]
+    },
+    {
+      "zone": "BAVARO AREA",
+      "hotels": [
+        {
+          "name": "PARADISUS PALMA REAL",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "THE RESERVE AT PPR",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "PARADISUS G. CANA/ FALCONS BY MELIA",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "MELIA PUNTA CANA",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "THE LEVEL AT MELIA PUNTA CANA",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "GARDEN SUITES BY MELIÁ",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "MELIA CARIBE BEACH",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "LOPESAN COSTA BÁVARO",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "BARCELO BAVARO BEACH",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "BARCELO BAVARO PALACE",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "AC MARRIOT PUNTA CANA",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "DREAMS FLORA",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "SUNSCAPE COCO PUNTA CANA",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "JEWEL PALM BEACH",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "BAKOUR PUNTA CANA SUITES",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "SERENADE ALL SUITES",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "SERENADE PUNTA CANA",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "CATALONIA ROYAL BÁVARO",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "CATALONIA BAVARO BEACH",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "CATALONIA PUNTA CANA",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        }
+      ]
+    },
+    {
+      "zone": "CABEZA DE TORO",
+      "hotels": [
+        {
+          "name": "EDEN ROC CAP CANA",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        }
+      ]
+    },
+    {
+      "zone": "CAP CANA",
+      "hotels": [
+        {
+          "name": "THE ST REGIS CAP CANA",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "SANCTUARY CAP CANA",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "DREAMS CAP CANA",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "AZUL BEACH CAP CANA",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "SECRETS CAP CANA",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "HYATT ZIVA CAP CANA",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "HYATT ZILARA CAP CANA",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "PUNTA PALMERA CAP CANA",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        },
+        {
+          "name": "SPORTS ILLUSTRATED CAP CANA",
+          "starex": 25,
+          "techoAlto": 35,
+          "extraPax": 5
+        }
+      ]
+    },
+    {
+      "zone": "PUNTA CANA",
+      "hotels": [
+        {
+          "name": "TORTUGA BAY",
+          "starex": 20,
+          "techoAlto": 30,
+          "extraPax": 5
+        },
+        {
+          "name": "CLUB MED PUNTA CANA",
+          "starex": 20,
+          "techoAlto": 30,
+          "extraPax": 5
+        },
+        {
+          "name": "WESTIN PUNTA CANA",
+          "starex": 20,
+          "techoAlto": 30,
+          "extraPax": 5
+        },
+        {
+          "name": "FOUR POINT BY SHERATON",
+          "starex": 20,
+          "techoAlto": 30,
+          "extraPax": 5
+        }
+      ]
+    },
+    {
+      "zone": "PLAYA NUEVA ROMANA",
+      "hotels": [
+        {
+          "name": "BAHIA P. GRAND LA ROMANA",
+          "starex": 140,
+          "techoAlto": 160,
+          "extraPax": 20
+        },
+        {
+          "name": "BAHIA P. LUXURY BOUGANVILLE",
+          "starex": 140,
+          "techoAlto": 160,
+          "extraPax": 20
+        }
+      ]
+    },
+    {
+      "zone": "LA ROMANA",
+      "hotels": [
+        {
+          "name": "CASA DE CAMPO",
+          "starex": 120,
+          "techoAlto": 145,
+          "extraPax": 20
+        }
+      ]
+    },
+    {
+      "zone": "BAYAHIBE",
+      "hotels": [
+        {
+          "name": "HM ALMA DE BAYAHIBE",
+          "starex": 110,
+          "techoAlto": 135,
+          "extraPax": 20
+        },
+        {
+          "name": "DREAMS DOMINICUS",
+          "starex": 110,
+          "techoAlto": 135,
+          "extraPax": 20
+        },
+        {
+          "name": "CATALONIA ROYAL LA ROMANA",
+          "starex": 110,
+          "techoAlto": 135,
+          "extraPax": 20
+        },
+        {
+          "name": "CATALONIA GRAND DOMINICUS",
+          "starex": 110,
+          "techoAlto": 135,
+          "extraPax": 20
+        },
+        {
+          "name": "IBEROSTAR HACIENDA DOMINICUS",
+          "starex": 110,
+          "techoAlto": 135,
+          "extraPax": 20
+        },
+        {
+          "name": "VIVA WYNDHAM PALACE",
+          "starex": 110,
+          "techoAlto": 135,
+          "extraPax": 20
+        },
+        {
+          "name": "VIVA WYNDHAM BEACH",
+          "starex": 110,
+          "techoAlto": 135,
+          "extraPax": 20
+        },
+        {
+          "name": "WHALA BAYAHIBE",
+          "starex": 110,
+          "techoAlto": 135,
+          "extraPax": 20
+        },
+        {
+          "name": "SECRETS LA ROMANA",
+          "starex": 110,
+          "techoAlto": 135,
+          "extraPax": 20
+        },
+        {
+          "name": "DREAMS LA ROMANA",
+          "starex": 110,
+          "techoAlto": 135,
+          "extraPax": 20
+        },
+        {
+          "name": "SUNSCAPE DOMINICUS",
+          "starex": 110,
+          "techoAlto": 135,
+          "extraPax": 20
+        },
+        {
+          "name": "CADAQUES CARIBE",
+          "starex": 110,
+          "techoAlto": 135,
+          "extraPax": 20
+        }
+      ]
+    }
+  ]
+}
