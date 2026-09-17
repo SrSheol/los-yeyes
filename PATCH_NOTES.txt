@@ -125,3 +125,15 @@ Date: 2026-09-17 (America/Mexico_City)
 
 5) Static-only constraints unchanged
    - Mock payment / no WhatsApp API / no AI mention on public site.
+
+---
+2026-09-17 — Ocean palette + section order (America/Mexico_City)
+
+- Restored beach/sea chrome: sand #f3efe4, sea teal #0e8fa0 / #0a6b7c, sunset coral #f2864b
+  (navy/red UI chrome removed; Karún logo assets unchanged).
+- Nav (desktop + hamburger): Servicios → Flota → Tarifas → Reservar → Zonas → Destinos → FAQ
+  with Tarifas → #rates-search and Reservar → #reservar.
+- Slimmed #van and #prices inside React landing to short teasers + CTAs to #fleet / #rates-search.
+- Softened #demo-start copy (“Reserva y flota”) and added a thin sea-wave divider above the
+  post-footer demo scope (demo nodes remain outside <x-dc>).
+- Added “Reservar demo” → #reservar on hero, book, services, and final CTA.
