@@ -159,25 +159,40 @@
   var OTHER_VALUE = "__OTHER__";
   var PUJ_VALUE = "__PUJ__";
 
+  var COLLAPSED_LIMIT = 12;
+  var ratesExpanded = false;
+  var legs = [];
+  var legSeq = 1;
+  var lastBooking = null;
+  var uiBoundGen = 0;
+  var observersStarted = false;
+
+  function pageLangScope() {
+    var fleet = document.getElementById("fleet");
+    if (fleet) {
+      var near = fleet.closest(".lm[data-lang]");
+      if (near) return near;
+    }
+    var main = document.querySelector("x-dc .lm[data-lang], main .lm[data-lang], .lm[data-lang]:not(#krn-banner-wrap)");
+    if (main) return main;
+    return document.getElementById("krn-banner-wrap");
+  }
+
   function isEs() {
-    var scope = document.getElementById("krn-demo-scope");
-    return !!(scope && scope.getAttribute("data-lang") === "es");
+    var scope = pageLangScope();
+    var lang = scope ? scope.getAttribute("data-lang") : "es";
+    return !lang || lang === "es";
   }
 
-  function setLang(lang) {
-    ["krn-demo-scope", "krn-banner-wrap"].forEach(function (id) {
-      var el = document.getElementById(id);
-      if (el) el.setAttribute("data-lang", lang);
-    });
-    var label = document.getElementById("krn-lang-toggle-label");
-    if (label) label.textContent = lang === "es" ? "ES · Español" : "EN · English";
-    try { localStorage.setItem("krn_lang", lang); } catch (e) {}
-    onLangChange();
+  function syncBannerLang() {
+    var scope = pageLangScope();
+    var lang = scope ? (scope.getAttribute("data-lang") || "es") : "es";
+    var banner = document.getElementById("krn-banner-wrap");
+    if (banner) banner.setAttribute("data-lang", lang === "es" ? "es" : (lang === "en" ? "en" : lang));
+    // Banner CSS only flips for en/fr/de/pt/it — mirror that: non-es shows .l-en
+    if (banner && lang !== "es") banner.setAttribute("data-lang", lang);
   }
 
-  function toggleLang() {
-    setLang(isEs() ? "en" : "es");
-  }
   function tt(en, es) { return isEs() ? es : en; }
   function fmtUsd(n) { return "US$ " + n.toFixed(2); }
   function esc(s) { var d = document.createElement("div"); d.textContent = s == null ? "" : String(s); return d.innerHTML; }
@@ -218,51 +233,114 @@
     sel.value = keep || "";
   }
 
+  function hasActiveFilter() {
+    var searchEl = document.getElementById("krn-hotel-search");
+    var zoneEl = document.getElementById("krn-zone-filter");
+    var q = searchEl ? (searchEl.value || "").trim() : "";
+    var zone = zoneEl ? zoneEl.value : "";
+    return !!(q || zone);
+  }
+
+  function updateRatesMoreUi(total, shown, filtering) {
+    var wrap = document.getElementById("krn-rates-more-wrap");
+    var moreBtn = document.getElementById("krn-rates-more");
+    var lessBtn = document.getElementById("krn-rates-less");
+    var count = document.getElementById("krn-rates-count");
+    if (!wrap) return;
+    if (filtering) {
+      wrap.style.display = total ? "block" : "none";
+      if (moreBtn) moreBtn.style.display = "none";
+      if (lessBtn) lessBtn.style.display = "none";
+      if (count) {
+        count.textContent = total
+          ? tt(total + " matching hotel" + (total === 1 ? "" : "s"), total + " hotel" + (total === 1 ? "" : "es") + " coincidente" + (total === 1 ? "" : "s"))
+          : "";
+      }
+      return;
+    }
+    wrap.style.display = total > COLLAPSED_LIMIT ? "block" : (total ? "block" : "none");
+    var collapsed = !ratesExpanded && total > COLLAPSED_LIMIT;
+    if (moreBtn) moreBtn.style.display = collapsed ? "inline-flex" : "none";
+    if (lessBtn) lessBtn.style.display = (!collapsed && total > COLLAPSED_LIMIT) ? "inline-flex" : "none";
+    if (count) {
+      if (collapsed) {
+        count.textContent = tt(
+          "Showing " + shown + " of " + total + " hotels · indicative / demo",
+          "Mostrando " + shown + " de " + total + " hoteles · indicativo / demo"
+        );
+      } else {
+        count.textContent = tt(
+          total + " hotels · indicative / demo",
+          total + " hoteles · indicativo / demo"
+        );
+      }
+    }
+  }
+
   function renderRateTable() {
     var tbody = document.getElementById("krn-rate-tbody");
     var empty = document.getElementById("krn-rate-empty");
     if (!tbody) return;
-    var q = (document.getElementById("krn-hotel-search").value || "").trim().toUpperCase();
-    var zone = document.getElementById("krn-zone-filter").value;
+    var searchEl = document.getElementById("krn-hotel-search");
+    var zoneEl = document.getElementById("krn-zone-filter");
+    var q = ((searchEl && searchEl.value) || "").trim().toUpperCase();
+    var zone = (zoneEl && zoneEl.value) || "";
+    var filtering = !!(q || zone);
     var rows = FLAT_HOTELS.filter(function (h) {
       return (!zone || h.zone === zone) && (!q || h.name.indexOf(q) !== -1);
     });
-    tbody.innerHTML = rows.map(function (h) {
-      return '<tr>' +
-        '<td class="krn-hotel-name">' + esc(titleCase(h.name)) + '</td>' +
-        '<td class="krn-zone-tag">' + esc(titleCase(h.zone)) + '</td>' +
-        '<td class="krn-price">' + fmtUsd(h.starex) + '</td>' +
-        '<td class="krn-price">' + fmtUsd(h.techoAlto) + '</td>' +
-        '<td>' + fmtUsd(h.extraPax) + '</td>' +
-        '<td><button type="button" class="btn ghost sm" data-hotel="' + esc(h.name) + '">' + tt("Book", "Reservar") + '</button></td>' +
-        '</tr>';
+    var total = rows.length;
+    var showAll = filtering || ratesExpanded || total <= COLLAPSED_LIMIT;
+    var visible = showAll ? rows : rows.slice(0, COLLAPSED_LIMIT);
+    tbody.innerHTML = visible.map(function (h) {
+      return "<tr>" +
+        '<td class="krn-hotel-name">' + esc(titleCase(h.name)) + "</td>" +
+        '<td class="krn-zone-tag">' + esc(titleCase(h.zone)) + "</td>" +
+        '<td class="krn-price">' + fmtUsd(h.starex) + "</td>" +
+        '<td class="krn-price">' + fmtUsd(h.techoAlto) + "</td>" +
+        "<td>" + fmtUsd(h.extraPax) + "</td>" +
+        '<td><button type="button" class="btn ghost sm" data-hotel="' + esc(h.name) + '">' + tt("Book", "Reservar") + "</button></td>" +
+        "</tr>";
     }).join("");
-    empty.style.display = rows.length ? "none" : "block";
+    if (empty) empty.style.display = total ? "none" : "block";
+    tbody.setAttribute("data-krn-painted", "1");
     Array.prototype.forEach.call(tbody.querySelectorAll("button[data-hotel]"), function (btn) {
       btn.addEventListener("click", function () {
-        addLeg({ destination: btn.getAttribute("data-hotel") });
-        var reservar = document.getElementById("reservar");
-        if (reservar) reservar.scrollIntoView({ behavior: "smooth", block: "start" });
+        var hotel = findHotel(btn.getAttribute("data-hotel"));
+        if (!hotel) return;
+        startQuote(null, hotel.name);
       });
     });
+    updateRatesMoreUi(total, visible.length, filtering);
   }
 
-  function filterRates() { renderRateTable(); }
+  function filterRates() {
+    if (hasActiveFilter()) ratesExpanded = true;
+    renderRateTable();
+  }
 
-  /* ---------------- Wizard: legs ---------------- */
-  var legs = [];
-  var legSeq = 0;
+  function expandRates() {
+    ratesExpanded = true;
+    renderRateTable();
+  }
 
+  function collapseRates() {
+    ratesExpanded = false;
+    renderRateTable();
+    var section = document.getElementById("rates-search");
+    if (section) section.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  /* ---------------- Legs / wizard ---------------- */
   function newLeg(overrides) {
-    legSeq++;
     return Object.assign({
-      id: "leg" + legSeq,
+      id: "leg-" + (legSeq++),
       origin: PUJ_VALUE,
       destination: "",
       date: "",
       time: "",
-      flight: "",
-      pax: 2
+      pax: "2",
+      flight: ""
     }, overrides || {});
   }
 
@@ -278,15 +356,16 @@
   }
 
   function destinationOptionsHtml(selected) {
-    var html = '<option value="">' + tt("Select a hotel…", "Selecciona un hotel…") + '</option>';
+    var html = '<option value="">' + tt("Select hotel / zone…", "Elige hotel / zona…") + "</option>";
+    html += '<option value="' + PUJ_VALUE + '"' + (selected === PUJ_VALUE ? " selected" : "") + ">Punta Cana Airport (PUJ)</option>";
     TARIFARIO.zones.forEach(function (z) {
       html += '<optgroup label="' + esc(titleCase(z.zone)) + '">';
       z.hotels.forEach(function (h) {
-        html += '<option value="' + esc(h.name) + '"' + (selected === h.name ? " selected" : "") + '>' + esc(titleCase(h.name)) + '</option>';
+        html += '<option value="' + esc(h.name) + '"' + (selected === h.name ? " selected" : "") + ">" + esc(titleCase(h.name)) + "</option>";
       });
-      html += '</optgroup>';
+      html += "</optgroup>";
     });
-    html += '<option value="' + OTHER_VALUE + '"' + (selected === OTHER_VALUE ? " selected" : "") + '>' + tt("Other — quote on request", "Otro — cotizar") + '</option>';
+    html += '<option value="' + OTHER_VALUE + '"' + (selected === OTHER_VALUE ? " selected" : "") + ">" + tt("Other (custom)", "Otro (personalizado)") + "</option>";
     return html;
   }
 
@@ -294,30 +373,26 @@
     var wrap = document.getElementById("krn-legs");
     if (!wrap) return;
     wrap.innerHTML = legs.map(function (leg, idx) {
-      return (
-        '<div class="krn-leg" data-leg="' + leg.id + '">' +
+      return '<div class="krn-leg" data-leg="' + leg.id + '">' +
           '<div class="krn-leg-head">' +
-            '<span class="krn-leg-title">' + tt("Leg", "Tramo") + ' ' + (idx + 1) + '</span>' +
-            (legs.length > 1 ? '<button type="button" class="krn-leg-remove" data-remove="' + leg.id + '">✕ ' + tt("Remove", "Quitar") + '</button>' : '') +
-          '</div>' +
+            '<span class="krn-leg-title">' + tt("Leg", "Tramo") + " " + (idx + 1) + "</span>" +
+            (legs.length > 1 ? '<button type="button" class="krn-leg-remove" data-remove="' + leg.id + '">✕ ' + tt("Remove", "Quitar") + "</button>" : "") +
+          "</div>" +
           '<div class="krn-leg-grid">' +
-            '<div><label class="fldlbl">' + tt("From", "Desde") + '</label>' +
-              '<select class="fld" data-field="origin" data-leg="' + leg.id + '">' +
-                '<option value="' + PUJ_VALUE + '"' + (leg.origin === PUJ_VALUE ? " selected" : "") + '>Punta Cana Airport (PUJ)</option>' +
-                '<option value="' + OTHER_VALUE + '"' + (leg.origin === OTHER_VALUE ? " selected" : "") + '>' + tt("Hotel (return trip)", "Hotel (viaje de regreso)") + '</option>' +
-              '</select></div>' +
-            '<div><label class="fldlbl">' + tt("To (hotel)", "Hasta (hotel)") + '</label>' +
-              '<select class="fld" data-field="destination" data-leg="' + leg.id + '">' + destinationOptionsHtml(leg.destination) + '</select></div>' +
-            '<div><label class="fldlbl">' + tt("Date", "Fecha") + '</label><input class="fld" type="date" data-field="date" data-leg="' + leg.id + '" value="' + esc(leg.date) + '"></div>' +
-            '<div><label class="fldlbl">' + tt("Time", "Hora") + '</label><input class="fld" type="time" data-field="time" data-leg="' + leg.id + '" value="' + esc(leg.time) + '"></div>' +
-            '<div><label class="fldlbl">' + tt("Flight (optional)", "Vuelo (opcional)") + '</label><input class="fld" type="text" data-field="flight" data-leg="' + leg.id + '" value="' + esc(leg.flight) + '" placeholder="AA1234"></div>' +
-            '<div><label class="fldlbl">' + tt("Passengers", "Pasajeros") + '</label><input class="fld" type="number" min="1" max="20" data-field="pax" data-leg="' + leg.id + '" value="' + esc(leg.pax) + '"></div>' +
-          '</div>' +
+            '<div><label class="fldlbl">' + tt("From", "Desde") + '</label><select class="fld" data-field="origin" data-leg-id="' + leg.id + '">' +
+              '<option value="' + PUJ_VALUE + '"' + (leg.origin === PUJ_VALUE ? " selected" : "") + ">Punta Cana Airport (PUJ)</option>" +
+              '<option value="' + OTHER_VALUE + '"' + (leg.origin === OTHER_VALUE ? " selected" : "") + ">" + tt("Other", "Otro") + "</option>" +
+            "</select></div>" +
+            '<div><label class="fldlbl">' + tt("To", "Hacia") + '</label><select class="fld" data-field="destination" data-leg-id="' + leg.id + '">' + destinationOptionsHtml(leg.destination) + "</select></div>" +
+            '<div><label class="fldlbl">' + tt("Date", "Fecha") + '</label><input class="fld" type="date" data-field="date" data-leg-id="' + leg.id + '" value="' + esc(leg.date) + '"></div>' +
+            '<div><label class="fldlbl">' + tt("Time", "Hora") + '</label><input class="fld" type="time" data-field="time" data-leg-id="' + leg.id + '" value="' + esc(leg.time) + '"></div>' +
+            '<div><label class="fldlbl">' + tt("Passengers", "Pasajeros") + '</label><input class="fld" type="number" min="1" max="20" data-field="pax" data-leg-id="' + leg.id + '" value="' + esc(leg.pax) + '"></div>' +
+            '<div><label class="fldlbl">' + tt("Flight # (optional)", "Vuelo # (opcional)") + '</label><input class="fld" type="text" data-field="flight" data-leg-id="' + leg.id + '" value="' + esc(leg.flight) + '" placeholder="AA123"></div>' +
+          "</div>" +
           '<div class="krn-leg-price" data-price-for="' + leg.id + '"></div>' +
-        '</div>'
-      );
+        "</div>";
     }).join("");
-
+    wrap.setAttribute("data-krn-painted", "1");
     Array.prototype.forEach.call(wrap.querySelectorAll("[data-field]"), function (el) {
       el.addEventListener("input", onLegFieldChange);
       el.addEventListener("change", onLegFieldChange);
@@ -329,162 +404,168 @@
   }
 
   function onLegFieldChange(e) {
-    var id = e.target.getAttribute("data-leg");
-    var field = e.target.getAttribute("data-field");
+    var el = e.target;
+    var id = el.getAttribute("data-leg-id");
+    var field = el.getAttribute("data-field");
     var leg = legs.filter(function (l) { return l.id === id; })[0];
-    if (!leg) return;
-    leg[field] = e.target.value;
+    if (!leg || !field) return;
+    leg[field] = el.value;
     updateLegPrices();
   }
 
   function updateLegPrices() {
-    var total = 0, hasQuote = false;
+    var total = 0;
     legs.forEach(function (leg) {
       var price = legPrice(leg);
       var el = document.querySelector('[data-price-for="' + leg.id + '"]');
-      if (price == null) {
-        hasQuote = true;
-        if (el) el.textContent = leg.destination ? tt("Price on request", "Precio a cotizar") : "";
-      } else {
-        total += price;
-        if (el) el.textContent = fmtUsd(price) + " · " + tt(leg.pax <= 6 ? "Starex band" : "High-roof band", leg.pax <= 6 ? "Banda Starex" : "Banda techo alto");
+      if (el) {
+        if (price == null) el.textContent = tt("Select a hotel to see the fare", "Elige un hotel para ver la tarifa");
+        else el.textContent = tt("Leg fare", "Tarifa del tramo") + ": " + fmtUsd(price);
       }
+      if (price != null) total += price;
     });
     var totalEl = document.getElementById("krn-total");
-    if (totalEl) totalEl.textContent = fmtUsd(total) + (hasQuote ? " +" : "");
+    if (totalEl) totalEl.textContent = fmtUsd(total);
     var summaryEl = document.getElementById("krn-legs-summary");
     if (summaryEl) {
       summaryEl.textContent = legs.map(function (leg, i) {
-        var dest = leg.destination === OTHER_VALUE ? tt("other destination", "otro destino") : (leg.destination ? titleCase(leg.destination) : tt("(no hotel selected)", "(sin hotel seleccionado)"));
-        return (tt("Leg", "Tramo") + " " + (i + 1) + ": PUJ ⇄ " + dest + " · " + leg.pax + " pax");
-      }).join(" — ");
+        var dest = leg.destination === PUJ_VALUE ? "PUJ" : (leg.destination === OTHER_VALUE ? tt("Other", "Otro") : titleCase(leg.destination || "—"));
+        var p = legPrice(leg);
+        return tt("Leg", "Tramo") + " " + (i + 1) + ": " + dest + (p != null ? " · " + fmtUsd(p) : "");
+      }).join(" · ");
     }
   }
 
-  /* ---------------- Vehicle quick-quote from Fleet ---------------- */
-  function startQuote(vehicleName) {
+  function startQuote(vehicleName, hotelName) {
     var sel = document.getElementById("krn-vehicle");
-    if (sel) sel.value = vehicleName;
-    var reservar = document.getElementById("reservar");
-    if (reservar) reservar.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (sel && vehicleName) {
+      for (var i = 0; i < sel.options.length; i++) {
+        if (sel.options[i].value === vehicleName || sel.options[i].text === vehicleName) {
+          sel.selectedIndex = i;
+          break;
+        }
+      }
+    }
+    if (hotelName) {
+      if (!legs.length) addLeg({ destination: hotelName });
+      else {
+        legs[0].destination = hotelName;
+        renderLegs();
+      }
+    }
+    var section = document.getElementById("reservar");
+    if (section) section.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
-  /* ---------------- Confirm / mock payment / sign ---------------- */
-  var lastBooking = null;
-
   function genCode() {
-    var n = Math.floor(100000 + Math.random() * 899999);
+    var n = Math.floor(Math.random() * 900000) + 100000;
     return "KRN-" + n;
   }
 
   function confirmBooking(e) {
     if (e && e.preventDefault) e.preventDefault();
-    var name = document.getElementById("krn-name").value.trim();
-    if (!name) { document.getElementById("krn-name").focus(); return false; }
+    var nameEl = document.getElementById("krn-name");
+    var name = nameEl ? nameEl.value.trim() : "";
+    if (!name) { if (nameEl) nameEl.focus(); return false; }
     var validLegs = legs.filter(function (l) { return l.destination; });
-    if (!validLegs.length) { alert(tt("Add at least one destination.", "Agrega al menos un destino.")); return false; }
-
-    var total = 0, hasQuote = false;
+    if (!validLegs.length) {
+      alert(tt("Add at least one leg with a destination.", "Agrega al menos un tramo con destino."));
+      return false;
+    }
     var legLines = legs.map(function (leg, i) {
-      var price = legPrice(leg);
-      if (price == null) hasQuote = true; else total += (price || 0);
-      var dest = leg.destination === OTHER_VALUE ? tt("Other (to quote)", "Otro (a cotizar)") : titleCase(leg.destination || "—");
       return {
         n: i + 1,
-        from: leg.origin === PUJ_VALUE ? "Punta Cana Airport (PUJ)" : dest,
-        to: leg.origin === PUJ_VALUE ? dest : "Punta Cana Airport (PUJ)",
-        date: leg.date || "—",
-        time: leg.time || "—",
-        flight: leg.flight || "—",
+        origin: leg.origin,
+        destination: leg.destination,
+        date: leg.date,
+        time: leg.time,
         pax: leg.pax,
-        price: price
+        flight: leg.flight,
+        price: legPrice(leg)
       };
     });
-
     var pay = (document.querySelector('input[name="krn-pay"]:checked') || {}).value || "card";
-    var payLabel = { card: tt("Card", "Tarjeta"), paypal: "PayPal", cash: tt("Cash to driver", "Efectivo al chofer") }[pay];
-
+    var total = 0;
+    legLines.forEach(function (l) { if (l.price != null) total += l.price; });
     lastBooking = {
       code: genCode(),
       name: name,
-      email: document.getElementById("krn-email").value.trim(),
-      whatsapp: document.getElementById("krn-whatsapp").value.trim(),
-      notes: document.getElementById("krn-notes").value.trim(),
-      vehicle: document.getElementById("krn-vehicle").value,
-      pay: payLabel,
-      legs: legLines,
+      email: (document.getElementById("krn-email") || {}).value || "",
+      whatsapp: (document.getElementById("krn-whatsapp") || {}).value || "",
+      notes: (document.getElementById("krn-notes") || {}).value || "",
+      vehicle: (document.getElementById("krn-vehicle") || {}).value || "",
+      pay: pay,
       total: total,
-      hasQuote: hasQuote,
-      createdAt: new Date().toISOString()
+      legs: legLines,
+      at: new Date().toISOString()
     };
-
     try { localStorage.setItem("krn_last_booking", JSON.stringify(lastBooking)); } catch (err) {}
-
+    var form = document.getElementById("krn-wizard-form");
+    var success = document.getElementById("krn-wizard-success");
+    if (form) form.style.display = "none";
+    if (success) {
+      success.style.display = "block";
+      success.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
     renderConfirmation();
-    document.getElementById("krn-wizard-form").style.display = "none";
-    document.getElementById("krn-wizard-success").style.display = "block";
-    document.getElementById("krn-wizard-success").scrollIntoView({ behavior: "smooth", block: "start" });
     return false;
   }
 
   function renderConfirmation() {
-    if (!lastBooking) return;
     var b = lastBooking;
+    if (!b) return;
     var card = document.getElementById("krn-confirm-card");
+    if (!card) return;
     var legsHtml = b.legs.map(function (l) {
-      return '<dt>' + tt("Leg", "Tramo") + ' ' + l.n + '</dt><dd>' + esc(l.from) + ' → ' + esc(l.to) + ' · ' + esc(l.date) + ' ' + esc(l.time) + ' · ' + l.pax + ' pax' + (l.price != null ? ' · ' + fmtUsd(l.price) : ' · ' + tt("to quote", "a cotizar")) + '</dd>';
+      var dest = l.destination === PUJ_VALUE ? "PUJ" : (l.destination === OTHER_VALUE ? tt("Other", "Otro") : titleCase(l.destination));
+      return "<div style=\"margin-bottom:8px\"><strong>" + tt("Leg", "Tramo") + " " + l.n + "</strong>: " +
+        esc(dest) + (l.date ? " · " + esc(l.date) : "") + (l.time ? " " + esc(l.time) : "") +
+        " · " + esc(String(l.pax)) + " pax" +
+        (l.price != null ? " · " + fmtUsd(l.price) : "") + "</div>";
     }).join("");
     card.innerHTML =
-      '<dl>' +
-      '<dt>' + tt("Booking code", "Código de reserva") + '</dt><dd><b>' + esc(b.code) + '</b></dd>' +
-      '<dt>' + tt("Passenger", "Pasajero") + '</dt><dd>' + esc(b.name) + '</dd>' +
-      legsHtml +
-      '<dt>' + tt("Vehicle", "Vehículo") + '</dt><dd>' + esc(b.vehicle) + '</dd>' +
-      '<dt>' + tt("Payment", "Pago") + '</dt><dd>' + esc(b.pay) + ' (' + tt("demo, not charged", "demo, sin cobro") + ')</dd>' +
-      '<dt>' + tt("Total", "Total") + '</dt><dd><b>' + fmtUsd(b.total) + (b.hasQuote ? " +" : "") + '</b></dd>' +
-      '</dl>';
+      "<dl>" +
+        "<dt>" + tt("Code", "Código") + "</dt><dd>" + esc(b.code) + "</dd>" +
+        "<dt>" + tt("Passenger", "Pasajero") + "</dt><dd>" + esc(b.name) + "</dd>" +
+        "<dt>" + tt("Vehicle", "Vehículo") + "</dt><dd>" + esc(b.vehicle) + "</dd>" +
+        "<dt>" + tt("Payment", "Pago") + "</dt><dd>" + esc(b.pay) + "</dd>" +
+        "<dt>" + tt("Total", "Total") + "</dt><dd>" + fmtUsd(b.total) + "</dd>" +
+      "</dl>" +
+      '<div style="margin-top:14px">' + legsHtml + "</div>";
     drawSign(b);
   }
 
   function drawSign(b) {
     var canvas = document.getElementById("krn-sign-canvas");
-    if (!canvas) return;
+    if (!canvas || !b) return;
     var ctx = canvas.getContext("2d");
-    var w = canvas.width, h = canvas.height;
-    ctx.clearRect(0, 0, w, h);
-    ctx.fillStyle = "#ffffff";
-    ctx.fillRect(0, 0, w, h);
-    ctx.strokeStyle = "#e7e2d4";
-    ctx.lineWidth = 6;
-    ctx.strokeRect(3, 3, w - 6, h - 6);
-
     function finishSign(logoImg) {
+      ctx.fillStyle = "#fbf8f1";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "#0e8fa0";
+      ctx.fillRect(0, 0, canvas.width, 18);
+      ctx.fillRect(0, canvas.height - 18, canvas.width, 18);
       if (logoImg) {
-        var lw = 160, lh = (logoImg.height / logoImg.width) * lw;
-        ctx.drawImage(logoImg, (w - lw) / 2, 34, lw, lh);
+        try { ctx.drawImage(logoImg, 36, 40, 110, 70); } catch (e) {}
       }
-      ctx.fillStyle = "#151a54";
+      ctx.fillStyle = "#0d3d4a";
+      ctx.font = "700 22px Manrope, sans-serif";
+      ctx.fillText("Karún Travel Group", 160, 78);
+      ctx.fillStyle = "#0a6b7c";
+      ctx.font = "600 16px Manrope, sans-serif";
+      ctx.fillText(tt("Airport pickup", "Recogida aeropuerto"), 160, 104);
+      ctx.fillStyle = "#0d3d4a";
+      ctx.font = "800 54px Space Grotesk, sans-serif";
+      wrapCenteredText(ctx, b.name.toUpperCase(), canvas.width / 2, 260, canvas.width - 80, 58);
+      ctx.font = "700 22px Manrope, sans-serif";
+      ctx.fillStyle = "#0e8fa0";
       ctx.textAlign = "center";
-      ctx.font = "700 66px 'Space Grotesk', Manrope, sans-serif";
-      var name = (b.name || "GUEST").toUpperCase();
-      wrapCenteredText(ctx, name, w / 2, 330, w - 90, 74);
-
-      ctx.strokeStyle = "#e7e2d4";
-      ctx.lineWidth = 2;
-      ctx.beginPath(); ctx.moveTo(60, h - 130); ctx.lineTo(w - 60, h - 130); ctx.stroke();
-
-      ctx.fillStyle = "#647b76";
-      ctx.font = "600 24px Manrope, sans-serif";
-      var flightLine = (b.legs[0] && b.legs[0].flight && b.legs[0].flight !== "—" ? ("Flight " + b.legs[0].flight + "  ·  ") : "") +
-        (b.legs[0] ? (b.legs[0].date + " " + b.legs[0].time) : "") + "  ·  " + (b.vehicle || "");
-      ctx.fillText(flightLine, w / 2, h - 88);
-      ctx.fillStyle = "#c8102e";
-      ctx.font = "800 26px Manrope, sans-serif";
-      ctx.fillText("KARÚN TRAVEL GROUP · PUNTA CANA", w / 2, h - 46);
+      ctx.fillText(b.code, canvas.width / 2, 420);
+      ctx.textAlign = "left";
+      ctx.fillStyle = "#6b7280";
+      ctx.font = "600 14px Manrope, sans-serif";
+      ctx.fillText(tt("DEMO — not a real booking", "DEMO — no es una reserva real"), 36, canvas.height - 40);
     }
-
-    // Embedded as a data URI (not fetched from assets/) so the canvas is never
-    // cross-origin-tainted, whether this page is opened via file:// or https://.
     var img = new Image();
     img.onload = function () { finishSign(img); };
     img.onerror = function () { finishSign(null); };
@@ -492,77 +573,84 @@
   }
 
   function wrapCenteredText(ctx, text, x, y, maxWidth, lineHeight) {
-    var words = text.split(" ");
-    var line = "", lines = [];
-    for (var i = 0; i < words.length; i++) {
-      var test = line ? line + " " + words[i] : words[i];
+    var words = String(text).split(/\s+/);
+    var lines = [];
+    var line = "";
+    words.forEach(function (w) {
+      var test = line ? line + " " + w : w;
       if (ctx.measureText(test).width > maxWidth && line) {
         lines.push(line);
-        line = words[i];
-      } else {
-        line = test;
-      }
-    }
+        line = w;
+      } else line = test;
+    });
     if (line) lines.push(line);
+    ctx.textAlign = "center";
     var startY = y - ((lines.length - 1) * lineHeight) / 2;
     lines.forEach(function (l, idx) { ctx.fillText(l, x, startY + idx * lineHeight); });
+    ctx.textAlign = "left";
   }
 
   function downloadSign() {
     var canvas = document.getElementById("krn-sign-canvas");
     if (!canvas) return;
-    try {
+    if (canvas.toBlob) {
       canvas.toBlob(function (blob) {
-        if (!blob) { alert(tt("Could not generate the sign image. Try again.", "No se pudo generar la imagen del letrero. Intenta de nuevo.")); return; }
+        if (!blob) return;
         var a = document.createElement("a");
         a.href = URL.createObjectURL(blob);
-        a.download = (lastBooking ? lastBooking.code : "karun-pickup-sign") + ".png";
+        a.download = (lastBooking && lastBooking.code ? lastBooking.code : "karun-sign") + ".png";
         document.body.appendChild(a);
         a.click();
-        document.body.removeChild(a);
+        a.remove();
         setTimeout(function () { URL.revokeObjectURL(a.href); }, 4000);
-      }, "image/png");
-    } catch (err) {
-      alert(tt("Could not generate the sign image. Try again.", "No se pudo generar la imagen del letrero. Intenta de nuevo."));
+      });
+    } else {
+      var a = document.createElement("a");
+      a.href = canvas.toDataURL("image/png");
+      a.download = "karun-sign.png";
+      a.click();
     }
   }
 
   function copySummary() {
-    if (!lastBooking) return;
     var b = lastBooking;
+    if (!b) return;
     var lines = [
-      "KARÚN TRAVEL GROUP — " + tt("Demo booking", "Reserva demo") + " " + b.code,
-      tt("Passenger", "Pasajero") + ": " + b.name
+      "Karún Travel Group — " + b.code,
+      b.name,
+      b.vehicle,
+      fmtUsd(b.total) + " · " + b.pay
     ];
     b.legs.forEach(function (l) {
-      lines.push(tt("Leg", "Tramo") + " " + l.n + ": " + l.from + " -> " + l.to + " | " + l.date + " " + l.time + " | " + l.pax + " pax | " + (l.price != null ? fmtUsd(l.price) : tt("to quote", "a cotizar")));
+      lines.push(tt("Leg", "Tramo") + " " + l.n + ": " + l.destination + (l.date ? " @ " + l.date : ""));
     });
-    lines.push(tt("Vehicle", "Vehículo") + ": " + b.vehicle);
-    lines.push(tt("Payment", "Pago") + ": " + b.pay + " (" + tt("demo", "demo") + ")");
-    lines.push(tt("Total", "Total") + ": " + fmtUsd(b.total) + (b.hasQuote ? " +" : ""));
     var text = lines.join("\n");
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(text).catch(function () { fallbackCopy(text); });
-    } else {
-      fallbackCopy(text);
-    }
+    } else fallbackCopy(text);
   }
+
   function fallbackCopy(text) {
     var ta = document.createElement("textarea");
-    ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
-    document.body.appendChild(ta); ta.select();
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
     try { document.execCommand("copy"); } catch (e) {}
-    document.body.removeChild(ta);
+    ta.remove();
   }
 
   function editBooking() {
-    document.getElementById("krn-wizard-success").style.display = "none";
-    document.getElementById("krn-wizard-form").style.display = "block";
-    document.getElementById("krn-wizard-form").scrollIntoView({ behavior: "smooth", block: "start" });
+    var success = document.getElementById("krn-wizard-success");
+    var form = document.getElementById("krn-wizard-form");
+    if (success) success.style.display = "none";
+    if (form) {
+      form.style.display = "block";
+      form.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   }
 
-  /* ---------------- Language reactivity ---------------- */
   function onLangChange() {
+    syncBannerLang();
     populateZoneFilter();
     renderRateTable();
     renderLegs();
@@ -576,16 +664,117 @@
     } catch (e) {}
   }
 
+  function bindStaticListenersOnce() {
+    if (bindStaticListenersOnce.done) return;
+    bindStaticListenersOnce.done = true;
+    document.addEventListener("click", function (e) {
+      var quoteBtn = e.target.closest && e.target.closest("[data-krn-quote]");
+      if (quoteBtn) {
+        e.preventDefault();
+        startQuote(quoteBtn.getAttribute("data-krn-quote"));
+        return;
+      }
+      var actBtn = e.target.closest && e.target.closest("[data-krn-action]");
+      if (!actBtn) return;
+      var act = actBtn.getAttribute("data-krn-action");
+      if (act === "add-leg") { e.preventDefault(); addLeg(); }
+      else if (act === "download-sign") { e.preventDefault(); downloadSign(); }
+      else if (act === "copy-summary") { e.preventDefault(); copySummary(); }
+      else if (act === "edit-booking") { e.preventDefault(); editBooking(); }
+      else if (act === "rates-more") { e.preventDefault(); expandRates(); }
+      else if (act === "rates-less") { e.preventDefault(); collapseRates(); }
+    });
+    document.addEventListener("submit", function (e) {
+      if (e.target && e.target.id === "krn-wizard-form") {
+        e.preventDefault();
+        confirmBooking(e);
+      }
+    });
+    document.addEventListener("input", function (e) {
+      if (e.target && e.target.id === "krn-hotel-search") filterRates();
+    });
+    document.addEventListener("change", function (e) {
+      if (e.target && e.target.id === "krn-zone-filter") filterRates();
+    });
+  }
+
+  var suppressObserver = false;
+  var lastSeenLang = null;
+
+  function refreshDynamicUi() {
+    syncBannerLang();
+    populateZoneFilter();
+    renderRateTable();
+    var legsWrap = document.getElementById("krn-legs");
+    if (!legs.length) addLeg();
+    else if (legsWrap) renderLegs();
+  }
+
+  function mountWizardUi() {
+    var tbody = document.getElementById("krn-rate-tbody");
+    var form = document.getElementById("krn-wizard-form");
+    if (!tbody || !form) return false;
+    var already = form.getAttribute("data-krn-ready") === "1";
+    var legsWrap = document.getElementById("krn-legs");
+    var ratesPainted = tbody.getAttribute("data-krn-painted") === "1";
+    var legsPainted = !legsWrap || legsWrap.getAttribute("data-krn-painted") === "1";
+    var needsPaint = !ratesPainted || !legsPainted;
+    if (already && !needsPaint) return true;
+    suppressObserver = true;
+    try {
+      if (!already) {
+        uiBoundGen += 1;
+        form.setAttribute("data-krn-ready", "1");
+        form.setAttribute("data-krn-bound", String(uiBoundGen));
+      }
+      refreshDynamicUi();
+      var scope = pageLangScope();
+      lastSeenLang = scope ? scope.getAttribute("data-lang") : null;
+    } finally {
+      suppressObserver = false;
+    }
+    return true;
+  }
+
+  function scheduleRemountCheck() {
+    mountWizardUi();
+  }
+
+  function startObservers() {
+    if (observersStarted) return;
+    observersStarted = true;
+    var debounce = null;
+    function kick() {
+      if (suppressObserver) return;
+      if (debounce) clearTimeout(debounce);
+      debounce = setTimeout(function () {
+        if (suppressObserver) return;
+        scheduleRemountCheck();
+        var scope = pageLangScope();
+        var lang = scope ? scope.getAttribute("data-lang") : null;
+        if (lang !== lastSeenLang) {
+          lastSeenLang = lang;
+          suppressObserver = true;
+          try { onLangChange(); }
+          finally { suppressObserver = false; }
+        }
+      }, 60);
+    }
+    var root = document.querySelector("x-dc") || document.body;
+    try {
+      var mo = new MutationObserver(kick);
+      mo.observe(root, { childList: true, subtree: true, attributes: true, attributeFilter: ["data-lang"] });
+    } catch (e) {}
+    setTimeout(scheduleRemountCheck, 200);
+    setTimeout(scheduleRemountCheck, 1000);
+    setTimeout(scheduleRemountCheck, 2500);
+  }
+
   function init() {
     restoreDraft();
-
-    var savedLang = "es";
-    try { savedLang = localStorage.getItem("krn_lang") || "es"; } catch (e) {}
-    setLang(savedLang); // also populates the zone filter + rate table via onLangChange()
-    addLeg();
-
-    var toggle = document.getElementById("krn-lang-toggle");
-    if (toggle) toggle.addEventListener("click", toggleLang);
+    bindStaticListenersOnce();
+    mountWizardUi();
+    startObservers();
   }
 
   if (document.readyState === "loading") {
@@ -595,12 +784,15 @@
   }
 
   window.KRN = {
-    startQuote: startQuote,
+    startQuote: function (vehicleName) { startQuote(vehicleName); },
     filterRates: filterRates,
     addLeg: function () { addLeg(); },
     confirmBooking: confirmBooking,
     downloadSign: downloadSign,
     copySummary: copySummary,
-    editBooking: editBooking
+    editBooking: editBooking,
+    expandRates: expandRates,
+    collapseRates: collapseRates,
+    remount: mountWizardUi
   };
 })();

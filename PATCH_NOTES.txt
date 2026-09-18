@@ -137,3 +137,26 @@ Date: 2026-09-17 (America/Mexico_City)
 - Softened #demo-start copy (“Reserva y flota”) and added a thin sea-wave divider above the
   post-footer demo scope (demo nodes remain outside <x-dc>).
 - Added “Reservar demo” → #reservar on hero, book, services, and final CTA.
+
+---
+2026-09-17 — True scroll order + collapsed tarifario (America/Mexico_City)
+
+1) Scroll order matches navbar
+   - Moved #fleet, #rates-search, #reservar into <x-dc> as static template HTML
+     immediately after #services (React preserves them; no post-footer demo block).
+   - Removed #van / #prices teasers and the old #krn-demo-scope section markup.
+   - DOM/nav sequence: #services → #fleet → #rates-search → #reservar → #map →
+     #destinations → #faq (hero/#book stay above; timeline/reviews/CTA/footer after).
+
+2) karun-wizard.js remount-safe
+   - Event delegation via data-krn-quote / data-krn-action (no inline onclick in template).
+   - Idempotent mount + MutationObserver on x-dc; re-paints when React remounts wipe
+     dynamic nodes (data-krn-ready / data-krn-painted markers).
+   - Language follows the main React .lm[data-lang]; banner wrap stays in sync.
+
+3) Tarifario UX
+   - Initially shows 12 rows; “Ver más tarifas” / “Show more rates” expands the rest
+     (with “Ver menos”); search/zone filter shows all matches automatically.
+   - Indicative / demo messaging retained on the section and count line.
+
+Ocean palette unchanged. Smoke: node --check karun-wizard.js; section ids unique.

@@ -489,35 +489,220 @@ image-slot::part(image){touch-action:pan-x pan-y!important;-webkit-user-drag:non
     </div>
   </section>
 
-  <!-- ===================== THE VAN (photographic) ===================== -->
-  <section id="van" style="background:var(--ink);color:var(--surface);padding:clamp(48px,7vw,90px) clamp(16px,4vw,44px);position:relative;overflow:hidden">
-    <div class="sun-glow" style="width:420px;height:420px;background:radial-gradient(circle,var(--teal),transparent 70%);opacity:.28;top:-140px;right:-100px"></div>
-    <div style="position:relative;max-width:900px;margin:0 auto;text-align:center" class="reveal">
-      <span class="chip" style="background:rgba(255,255,255,.08);color:#7ed4e0;box-shadow:none">
-        <span class="l-en">Fleet</span><span class="l-es">Flota</span>
-      </span>
-      <h2 class="disp" style="font-size:clamp(30px,4.8vw,52px);margin:16px 0 12px">
-        <span class="l-en">Private vans kept cold, clean and ready</span><span class="l-es">Vans privadas, frías, limpias y listas</span>
-      </h2>
-      <p style="font-size:clamp(16px,1.8vw,19px);color:rgba(251,245,234,.78);font-weight:500;max-width:560px;margin:0 auto 22px">
-        <span class="l-en">From the Starex to larger units — see seats, luggage and quote each vehicle in the full fleet.</span><span class="l-es">Desde la Starex hasta unidades más grandes — mira asientos, equipaje y cotiza cada vehículo en la flota completa.</span>
-      </p>
-      <a class="btn" href="#fleet" style="font-size:15px;padding:14px 26px"><span class="l-en">See full fleet</span><span class="l-es">Ver flota completa</span> →</a>
+  <!-- ===================== FLEET (Karún) ===================== -->
+  <section id="fleet" style="background:var(--sand);padding:clamp(64px,9vw,130px) clamp(16px,4vw,44px);position:relative;overflow:hidden">
+    <div style="max-width:1320px;margin:0 auto">
+      <div class="reveal" style="max-width:760px;margin-bottom:40px">
+        <span class="chip"><span class="l-en">Our fleet</span><span class="l-es">Nuestra flota</span></span>
+        <h2 class="disp" style="font-size:clamp(34px,5.5vw,64px);margin:16px 0 12px;max-width:16ch"><span class="l-en">Five vehicles, one standard of care</span><span class="l-es">Cinco vehículos, un solo estándar</span></h2>
+        <p style="color:var(--muted);font-weight:500;font-size:clamp(16px,1.8vw,19px);max-width:640px"><span class="l-en">From a couple traveling light to a family with a full luggage cart — pick a unit and start your quote instantly.</span><span class="l-es">Desde una pareja viajando ligero hasta una familia con carrito lleno de equipaje — elige una unidad y cotiza al instante.</span></p>
+      </div>
+
+      <div class="krn-fleet-grid">
+
+        <div class="neu krn-fleet-card reveal" data-vehicle="Hyundai Grand Starex">
+          <div class="krn-fleet-media">
+            <img src="assets/fleet/starex.jpg" alt="Hyundai Grand Starex — exterior referencial" width="640" height="360" loading="lazy" decoding="async">
+            <span class="krn-fleet-badge"><span class="l-en">Referential · client photo pending</span><span class="l-es">Referencial · foto del cliente pendiente</span></span>
+          </div>
+          <div class="krn-fleet-body">
+            <h3 class="disp" style="font-size:21px;margin:0 0 4px">Hyundai Grand Starex</h3>
+            <div style="color:var(--muted);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">2018 · <span class="l-en">approx. 1–6 pax</span><span class="l-es">aprox. 1–6 pax</span></div>
+            <button class="btn sm" style="width:100%" data-krn-quote="Hyundai Grand Starex"><span class="l-en">Quote this vehicle</span><span class="l-es">Cotizar esta unidad</span> →</button>
+          </div>
+        </div>
+
+        <div class="neu krn-fleet-card reveal" data-vehicle="Cadillac Escalade 2020">
+          <div class="krn-fleet-media">
+            <img src="assets/fleet/escalade-2020.jpg" alt="Cadillac Escalade — exterior referencial" width="640" height="360" loading="lazy" decoding="async">
+            <span class="krn-fleet-badge"><span class="l-en">Referential · client photo pending</span><span class="l-es">Referencial · foto del cliente pendiente</span></span>
+          </div>
+          <div class="krn-fleet-body">
+            <h3 class="disp" style="font-size:21px;margin:0 0 4px">Cadillac Escalade</h3>
+            <div style="color:var(--muted);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">2020 · <span class="l-en">approx. 1–6 pax</span><span class="l-es">aprox. 1–6 pax</span></div>
+            <button class="btn sm" style="width:100%" data-krn-quote="Cadillac Escalade 2020"><span class="l-en">Quote this vehicle</span><span class="l-es">Cotizar esta unidad</span> →</button>
+          </div>
+        </div>
+
+        <div class="neu krn-fleet-card reveal" data-vehicle="Hyundai Solati 2014">
+          <div class="krn-fleet-media">
+            <img src="assets/fleet/solati-2014.jpg" alt="Hyundai Solati — exterior referencial" width="640" height="360" loading="lazy" decoding="async">
+            <span class="krn-fleet-badge"><span class="l-en">Referential · client photo pending</span><span class="l-es">Referencial · foto del cliente pendiente</span></span>
+          </div>
+          <div class="krn-fleet-body">
+            <h3 class="disp" style="font-size:21px;margin:0 0 4px">Hyundai Solati</h3>
+            <div style="color:var(--muted);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">2014 · <span class="l-en">approx. 7–10 pax</span><span class="l-es">aprox. 7–10 pax</span></div>
+            <button class="btn sm" style="width:100%" data-krn-quote="Hyundai Solati 2014"><span class="l-en">Quote this vehicle</span><span class="l-es">Cotizar esta unidad</span> →</button>
+          </div>
+        </div>
+
+        <div class="neu krn-fleet-card reveal" data-vehicle="Toyota Hiace 2019">
+          <div class="krn-fleet-media">
+            <img src="assets/fleet/hiace-2019.jpg" alt="Toyota Hiace — exterior referencial" width="640" height="360" loading="lazy" decoding="async">
+            <span class="krn-fleet-badge"><span class="l-en">Referential · client photo pending</span><span class="l-es">Referencial · foto del cliente pendiente</span></span>
+          </div>
+          <div class="krn-fleet-body">
+            <h3 class="disp" style="font-size:21px;margin:0 0 4px">Toyota Hiace</h3>
+            <div style="color:var(--muted);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">2019 · <span class="l-en">approx. 7–10 pax</span><span class="l-es">aprox. 7–10 pax</span></div>
+            <button class="btn sm" style="width:100%" data-krn-quote="Toyota Hiace 2019"><span class="l-en">Quote this vehicle</span><span class="l-es">Cotizar esta unidad</span> →</button>
+          </div>
+        </div>
+
+        <div class="neu krn-fleet-card reveal" data-vehicle="Chevrolet Suburban LWB 2020">
+          <div class="krn-fleet-media">
+            <img src="assets/fleet/suburban-lwb-2020.jpg" alt="Chevrolet Suburban LWB — exterior referencial" width="640" height="360" loading="lazy" decoding="async">
+            <span class="krn-fleet-badge"><span class="l-en">Referential · client photo pending</span><span class="l-es">Referencial · foto del cliente pendiente</span></span>
+          </div>
+          <div class="krn-fleet-body">
+            <h3 class="disp" style="font-size:21px;margin:0 0 4px">Chevrolet Suburban LWB</h3>
+            <div style="color:var(--muted);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">2020 · <span class="l-en">approx. 7–10 pax</span><span class="l-es">aprox. 7–10 pax</span></div>
+            <button class="btn sm" style="width:100%" data-krn-quote="Chevrolet Suburban LWB 2020"><span class="l-en">Quote this vehicle</span><span class="l-es">Cotizar esta unidad</span> →</button>
+          </div>
+        </div>
+
+      </div>
+      <p class="reveal" style="margin:20px 2px 0;font-size:13px;color:var(--muted);max-width:820px"><span class="l-en">Referential stock photos for this demo — final client vehicle photography is added in production. Fares below follow the STAREX (1–6 pax) / TECHO ALTO (7–10 pax) bands from the official rate sheet regardless of which unit is shown.</span><span class="l-es">Fotos de referencia de unidades para esta demo — la fotografía real del cliente se agrega en producción. Las tarifas abajo siguen las bandas STAREX (1–6 pax) / TECHO ALTO (7–10 pax) de la tarifa oficial, sin importar la unidad mostrada.</span></p>
     </div>
   </section>
 
-  <!-- ===================== PRICES + currency ===================== -->
-  <section id="prices" style="background:var(--sand);padding:clamp(48px,7vw,90px) clamp(16px,4vw,44px);position:relative;overflow:hidden">
-    <div class="ly-art a2" aria-hidden="true" style="top:28px;right:clamp(12px,5vw,48px);width:min(180px,32vw)"><svg viewBox="0 0 180 50" fill="none"><path d="M2 28 Q22 8 42 28 T82 28 T122 28 T162 28" stroke="var(--teal)" stroke-width="2.2" stroke-linecap="round"/><path d="M140 12 l8 6 -8 6" stroke="var(--coral)" stroke-width="2" fill="none" stroke-linecap="round"/></svg></div>
-    <div style="max-width:900px;margin:0 auto;text-align:center;position:relative" class="reveal">
-      <span class="chip"><span class="l-en">Rates</span><span class="l-es">Tarifas</span></span>
-      <h2 class="disp" style="font-size:clamp(30px,4.8vw,52px);margin:16px 0 12px;max-width:18ch;margin-left:auto;margin-right:auto">
-        <span class="l-en">Transparent fares from PUJ</span><span class="l-es">Tarifas claras desde PUJ</span>
-      </h2>
-      <p style="color:var(--muted);font-weight:500;font-size:clamp(16px,1.8vw,19px);max-width:560px;margin:0 auto 22px">
-        <span class="l-en">Search the official one-way tarifario by hotel or zone — then continue to a simulated booking.</span><span class="l-es">Consulta el tarifario oficial one-way por hotel o zona — y continúa a una reserva simulada.</span>
-      </p>
-      <a class="btn" href="#rates-search" style="font-size:15px;padding:14px 26px"><span class="l-en">See full rate sheet</span><span class="l-es">Ver tarifario completo</span> →</a>
+  <!-- ===================== RATE SHEET SEARCH (Karún — real tarifario) ===================== -->
+  <section id="rates-search" style="background:var(--surface-2);padding:clamp(56px,8vw,100px) clamp(16px,4vw,44px);border-block:1px solid var(--line);position:relative;overflow:hidden">
+    <div style="max-width:1160px;margin:0 auto">
+      <div class="reveal" style="display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:24px">
+        <div style="max-width:640px">
+          <span class="chip"><span class="l-en">Full hotel rate sheet</span><span class="l-es">Tarifario completo por hotel</span></span>
+          <h2 class="disp" style="font-size:clamp(30px,4.6vw,48px);margin:16px 0 10px"><span class="l-en">Search your hotel</span><span class="l-es">Busca tu hotel</span></h2>
+          <p style="color:var(--muted);font-weight:500;font-size:16px"><span class="l-en">One-way rates from Punta Cana Airport (PUJ), in USD.</span><span class="l-es">Tarifas one-way desde el Aeropuerto de Punta Cana (PUJ), en USD.</span></p>
+        </div>
+        <span class="chip" style="color:var(--coral)"><span class="l-en">Indicative prices · demo</span><span class="l-es">Precios indicativos · demo</span></span>
+      </div>
+
+      <div class="neu reveal" style="padding:18px;margin-bottom:18px;display:flex;gap:12px;flex-wrap:wrap">
+        <div style="flex:2;min-width:220px">
+          <label class="fldlbl" for="krn-hotel-search"><span class="l-en">Hotel name</span><span class="l-es">Nombre del hotel</span></label>
+          <input id="krn-hotel-search" class="fld" type="search" placeholder="Ej. Hard Rock, Barceló, Casa de Campo…" autocomplete="off">
+        </div>
+        <div style="flex:1;min-width:200px">
+          <label class="fldlbl" for="krn-zone-filter"><span class="l-en">Zone</span><span class="l-es">Zona</span></label>
+          <select id="krn-zone-filter" class="fld">
+            <option value="">Todas las zonas</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="neu reveal" style="padding:0;overflow:hidden">
+        <div style="overflow-x:auto">
+          <table class="krn-rate-table" id="krn-rate-table">
+            <thead>
+              <tr>
+                <th><span class="l-en">Hotel</span><span class="l-es">Hotel</span></th>
+                <th><span class="l-en">Zone</span><span class="l-es">Zona</span></th>
+                <th>Starex <span style="font-weight:500;color:var(--muted)">(1–6)</span></th>
+                <th><span class="l-en">High roof</span><span class="l-es">Techo alto</span> <span style="font-weight:500;color:var(--muted)">(7–10)</span></th>
+                <th><span class="l-en">Extra pax</span><span class="l-es">Pax extra</span></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="krn-rate-tbody"></tbody>
+          </table>
+        </div>
+        <p id="krn-rate-empty" style="display:none;padding:26px;text-align:center;color:var(--muted)"><span class="l-en">No hotel matches your search.</span><span class="l-es">Ningún hotel coincide con tu búsqueda.</span></p>
+        <div id="krn-rates-more-wrap" style="padding:18px 16px;text-align:center;border-top:1px solid var(--line)">
+          <button type="button" id="krn-rates-more" class="btn ghost sm" data-krn-action="rates-more">
+            <span class="l-en">Show more rates</span><span class="l-es">Ver más tarifas</span>
+          </button>
+          <button type="button" id="krn-rates-less" class="btn ghost sm" data-krn-action="rates-less" style="display:none;margin-left:8px">
+            <span class="l-en">Show less</span><span class="l-es">Ver menos</span>
+          </button>
+          <p id="krn-rates-count" style="margin:12px 0 0;font-size:12.5px;color:var(--muted);font-weight:500"></p>
+        </div>
+      </div>
+      <p class="reveal" style="margin:16px 2px 0;font-size:12.5px;color:var(--muted);max-width:820px"><span class="l-en">Rates from the official Karún Travel Group price sheet, one-way from PUJ. Non-Starex fleet units are billed on the same STAREX / TECHO ALTO band shown here; exact vehicle assignment is confirmed before the trip.</span><span class="l-es">Tarifas de la tarifa oficial de Karún Travel Group, one-way desde PUJ. Las unidades de la flota que no son la Starex se cobran según la misma banda STAREX / TECHO ALTO mostrada aquí; la unidad exacta se confirma antes del viaje.</span></p>
+    </div>
+  </section>
+
+  <!-- ===================== BOOKING DEMO WIZARD (Karún) ===================== -->
+  <section id="reservar" style="background:var(--sand);padding:clamp(64px,9vw,120px) clamp(16px,4vw,44px);position:relative;overflow:hidden">
+    <div style="max-width:960px;margin:0 auto">
+      <div class="reveal" style="max-width:720px;margin-bottom:30px">
+        <span class="chip"><span class="l-en">Demo booking flow</span><span class="l-es">Flujo de reserva demo</span></span>
+        <h2 class="disp" style="font-size:clamp(32px,4.8vw,52px);margin:16px 0 12px"><span class="l-en">Build your trip</span><span class="l-es">Arma tu viaje</span></h2>
+        <p style="color:var(--muted);font-weight:500;font-size:16px;max-width:600px"><span class="l-en">Add one or more legs, pick a vehicle and "pay" in demo mode — nothing is charged. This simulates the real booking flow.</span><span class="l-es">Agrega uno o más tramos, elige un vehículo y "paga" en modo demo — no se cobra nada. Esto simula el flujo real de reserva.</span></p>
+      </div>
+
+      <!-- ---- FORM VIEW ---- -->
+      <form id="krn-wizard-form" class="neu reveal" style="padding:clamp(18px,3vw,30px)">
+
+        <div id="krn-legs"></div>
+
+        <button type="button" class="btn ghost sm" data-krn-action="add-leg" style="margin-bottom:22px">+ <span class="l-en">Add leg</span><span class="l-es">Agregar tramo</span></button>
+
+        <div class="krn-divider"></div>
+
+        <div style="margin-bottom:18px">
+          <label class="fldlbl" for="krn-vehicle"><span class="l-en">Vehicle</span><span class="l-es">Vehículo</span></label>
+          <select id="krn-vehicle" class="fld" style="width:100%">
+            <option>Hyundai Grand Starex</option>
+            <option>Cadillac Escalade 2020</option>
+            <option>Hyundai Solati 2014</option>
+            <option>Toyota Hiace 2019</option>
+            <option>Chevrolet Suburban LWB 2020</option>
+          </select>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-bottom:18px">
+          <div><label class="fldlbl" for="krn-name"><span class="l-en">Passenger name</span><span class="l-es">Nombre del pasajero</span></label><input id="krn-name" class="fld" type="text" required placeholder="Ej. Antonio Camino"></div>
+          <div><label class="fldlbl" for="krn-email">Email</label><input id="krn-email" class="fld" type="email" placeholder="tu@correo.com"></div>
+          <div><label class="fldlbl" for="krn-whatsapp">WhatsApp</label><input id="krn-whatsapp" class="fld" type="tel" placeholder="+1 809 000 0000"></div>
+          <div><label class="fldlbl" for="krn-notes"><span class="l-en">Notes (optional)</span><span class="l-es">Notas (opcional)</span></label><input id="krn-notes" class="fld" type="text" placeholder="Ej. silla para bebé"></div>
+        </div>
+
+        <div class="krn-divider"></div>
+
+        <div style="margin-bottom:18px">
+          <div class="fldlbl" style="margin-bottom:8px"><span class="l-en">Payment (demo — no real charge)</span><span class="l-es">Pago (demo — sin cobro real)</span></div>
+          <div class="krn-pay-opts">
+            <label class="krn-pay-opt"><input type="radio" name="krn-pay" value="card" checked><span>💳 <span class="l-en">Card</span><span class="l-es">Tarjeta</span></span></label>
+            <label class="krn-pay-opt"><input type="radio" name="krn-pay" value="paypal"><span>🅿️ PayPal</span></label>
+            <label class="krn-pay-opt"><input type="radio" name="krn-pay" value="cash"><span>💵 <span class="l-en">Cash to driver</span><span class="l-es">Efectivo al chofer</span></span></label>
+          </div>
+        </div>
+
+        <div class="neu" style="background:var(--surface);padding:16px 18px;margin-bottom:20px">
+          <div id="krn-legs-summary" style="font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:8px"></div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline">
+            <span style="font-weight:700"><span class="l-en">Total</span><span class="l-es">Total</span></span>
+            <span class="disp" id="krn-total" style="font-size:28px;color:var(--teal)">US$ 0.00</span>
+          </div>
+        </div>
+
+        <button type="submit" class="btn" style="width:100%;font-size:16px;padding:16px"><span class="l-en">Confirm demo booking</span><span class="l-es">Confirmar reserva demo</span> →</button>
+        <p style="margin:12px 2px 0;font-size:12px;color:var(--muted);line-height:1.5"><span class="l-en">This is a public demo. No real charge, email or WhatsApp message is sent.</span><span class="l-es">Esta es una demo pública. No se realiza ningún cobro, correo o mensaje de WhatsApp real.</span></p>
+      </form>
+
+      <!-- ---- SUCCESS VIEW ---- -->
+      <div id="krn-wizard-success" class="neu reveal" style="display:none;padding:clamp(18px,3vw,30px)">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px">
+          <span style="font-size:26px">✅</span>
+          <h3 class="disp" style="font-size:24px;margin:0"><span class="l-en">Your demo reservation is confirmed!</span><span class="l-es">¡Tu reserva demo está confirmada!</span></h3>
+        </div>
+        <span class="chip" style="color:var(--coral);margin:10px 0 18px;display:inline-flex"><span class="l-en">DEMO — no real charge</span><span class="l-es">DEMO — sin cobro real</span></span>
+
+        <div class="neu" style="background:var(--surface);padding:18px;margin-bottom:20px" id="krn-confirm-card"></div>
+
+        <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px">
+          <button type="button" class="btn sm" data-krn-action="download-sign">🪧 <span class="l-en">Download pickup sign</span><span class="l-es">Descargar letrero</span></button>
+          <button type="button" class="btn ghost sm" data-krn-action="copy-summary">📋 <span class="l-en">Copy summary</span><span class="l-es">Copiar resumen</span></button>
+          <button type="button" class="btn ghost sm" data-krn-action="edit-booking">✎ <span class="l-en">Edit booking</span><span class="l-es">Editar reserva</span></button>
+        </div>
+
+        <div class="krn-sign-preview">
+          <canvas id="krn-sign-canvas" width="900" height="600"></canvas>
+        </div>
+
+        <p style="margin:18px 2px 0;font-size:12.5px;color:var(--muted);line-height:1.6"><span class="l-en">In production, a WhatsApp confirmation and a 24-hour reminder before pickup are sent automatically. This demo only shows what that message will look like.</span><span class="l-es">En producción, se envía automáticamente una confirmación por WhatsApp y un recordatorio 24 horas antes del pickup. Esta demo solo muestra cómo se verá ese mensaje.</span></p>
+      </div>
+
     </div>
   </section>
 
@@ -823,235 +1008,7 @@ image-slot::part(image){touch-action:pan-x pan-y!important;-webkit-user-drag:non
 
 </div>
 </x-dc>
-<div class="lm" id="krn-demo-scope" data-lang="es" style="display:block">
-
-  <!-- ===================== DEMO SECTION DIVIDER ===================== -->
-  <div aria-hidden="true" style="background:var(--sand);line-height:0;overflow:hidden">
-    <svg viewBox="0 0 1440 48" preserveAspectRatio="none" style="display:block;width:100%;height:36px;color:var(--teal);opacity:.55"><path fill="currentColor" d="M0 24 Q120 0 240 24 T480 24 T720 24 T960 24 T1200 24 T1440 24 V48 H0 Z" opacity=".35"/><path fill="none" stroke="currentColor" stroke-width="2.2" d="M0 28 Q120 8 240 28 T480 28 T720 28 T960 28 T1200 28 T1440 28"/></svg>
-  </div>
-  <section id="demo-start" style="background:var(--ink);color:var(--surface);padding:clamp(40px,6vw,72px) clamp(16px,4vw,44px);text-align:center;position:relative;overflow:hidden">
-    <span class="chip" style="background:rgba(255,255,255,.08);color:#7ed4e0;box-shadow:none">
-      <span class="l-en">Booking &amp; fleet</span><span class="l-es">Reserva y flota</span>
-    </span>
-    <h2 class="disp" style="font-size:clamp(28px,4.2vw,46px);margin:16px auto 10px;max-width:22ch">
-      <span class="l-en">Continue with fleet, rates and a demo booking</span><span class="l-es">Sigue con flota, tarifas y una reserva demo</span>
-    </h2>
-    <p style="color:rgba(251,245,234,.75);font-weight:500;font-size:16px;max-width:560px;margin:0 auto 22px">
-      <span class="l-en">Browse units, look up one-way fares from PUJ, then try the simulated reservation flow.</span><span class="l-es">Explora unidades, consulta tarifas one-way desde PUJ y prueba el flujo de reserva simulada.</span>
-    </p>
-    <button type="button" id="krn-lang-toggle" class="btn ghost sm" style="background:rgba(255,255,255,.1);color:#fff;box-shadow:none">🌐 <span id="krn-lang-toggle-label">ES · Español</span></button>
-  </section>
-
-  <!-- ===================== FLEET (Karún) ===================== -->
-  <section id="fleet" style="background:var(--sand);padding:clamp(64px,9vw,130px) clamp(16px,4vw,44px);position:relative;overflow:hidden">
-    <div style="max-width:1320px;margin:0 auto">
-      <div class="reveal" style="max-width:760px;margin-bottom:40px">
-        <span class="chip"><span class="l-en">Our fleet</span><span class="l-es">Nuestra flota</span></span>
-        <h2 class="disp" style="font-size:clamp(34px,5.5vw,64px);margin:16px 0 12px;max-width:16ch"><span class="l-en">Five vehicles, one standard of care</span><span class="l-es">Cinco vehículos, un solo estándar</span></h2>
-        <p style="color:var(--muted);font-weight:500;font-size:clamp(16px,1.8vw,19px);max-width:640px"><span class="l-en">From a couple traveling light to a family with a full luggage cart — pick a unit and start your quote instantly.</span><span class="l-es">Desde una pareja viajando ligero hasta una familia con carrito lleno de equipaje — elige una unidad y cotiza al instante.</span></p>
-      </div>
-
-      <div class="krn-fleet-grid">
-
-        <div class="neu krn-fleet-card reveal" data-vehicle="Hyundai Grand Starex">
-          <div class="krn-fleet-media">
-            <img src="assets/fleet/starex.jpg" alt="Hyundai Grand Starex — exterior referencial" width="640" height="360" loading="lazy" decoding="async">
-            <span class="krn-fleet-badge"><span class="l-en">Referential · client photo pending</span><span class="l-es">Referencial · foto del cliente pendiente</span></span>
-          </div>
-          <div class="krn-fleet-body">
-            <h3 class="disp" style="font-size:21px;margin:0 0 4px">Hyundai Grand Starex</h3>
-            <div style="color:var(--muted);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">2018 · <span class="l-en">approx. 1–6 pax</span><span class="l-es">aprox. 1–6 pax</span></div>
-            <button class="btn sm" style="width:100%" onclick="window.KRN.startQuote('Hyundai Grand Starex')"><span class="l-en">Quote this vehicle</span><span class="l-es">Cotizar esta unidad</span> →</button>
-          </div>
-        </div>
-
-        <div class="neu krn-fleet-card reveal" data-vehicle="Cadillac Escalade 2020">
-          <div class="krn-fleet-media">
-            <img src="assets/fleet/escalade-2020.jpg" alt="Cadillac Escalade — exterior referencial" width="640" height="360" loading="lazy" decoding="async">
-            <span class="krn-fleet-badge"><span class="l-en">Referential · client photo pending</span><span class="l-es">Referencial · foto del cliente pendiente</span></span>
-          </div>
-          <div class="krn-fleet-body">
-            <h3 class="disp" style="font-size:21px;margin:0 0 4px">Cadillac Escalade</h3>
-            <div style="color:var(--muted);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">2020 · <span class="l-en">approx. 1–6 pax</span><span class="l-es">aprox. 1–6 pax</span></div>
-            <button class="btn sm" style="width:100%" onclick="window.KRN.startQuote('Cadillac Escalade 2020')"><span class="l-en">Quote this vehicle</span><span class="l-es">Cotizar esta unidad</span> →</button>
-          </div>
-        </div>
-
-        <div class="neu krn-fleet-card reveal" data-vehicle="Hyundai Solati 2014">
-          <div class="krn-fleet-media">
-            <img src="assets/fleet/solati-2014.jpg" alt="Hyundai Solati — exterior referencial" width="640" height="360" loading="lazy" decoding="async">
-            <span class="krn-fleet-badge"><span class="l-en">Referential · client photo pending</span><span class="l-es">Referencial · foto del cliente pendiente</span></span>
-          </div>
-          <div class="krn-fleet-body">
-            <h3 class="disp" style="font-size:21px;margin:0 0 4px">Hyundai Solati</h3>
-            <div style="color:var(--muted);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">2014 · <span class="l-en">approx. 7–10 pax</span><span class="l-es">aprox. 7–10 pax</span></div>
-            <button class="btn sm" style="width:100%" onclick="window.KRN.startQuote('Hyundai Solati 2014')"><span class="l-en">Quote this vehicle</span><span class="l-es">Cotizar esta unidad</span> →</button>
-          </div>
-        </div>
-
-        <div class="neu krn-fleet-card reveal" data-vehicle="Toyota Hiace 2019">
-          <div class="krn-fleet-media">
-            <img src="assets/fleet/hiace-2019.jpg" alt="Toyota Hiace — exterior referencial" width="640" height="360" loading="lazy" decoding="async">
-            <span class="krn-fleet-badge"><span class="l-en">Referential · client photo pending</span><span class="l-es">Referencial · foto del cliente pendiente</span></span>
-          </div>
-          <div class="krn-fleet-body">
-            <h3 class="disp" style="font-size:21px;margin:0 0 4px">Toyota Hiace</h3>
-            <div style="color:var(--muted);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">2019 · <span class="l-en">approx. 7–10 pax</span><span class="l-es">aprox. 7–10 pax</span></div>
-            <button class="btn sm" style="width:100%" onclick="window.KRN.startQuote('Toyota Hiace 2019')"><span class="l-en">Quote this vehicle</span><span class="l-es">Cotizar esta unidad</span> →</button>
-          </div>
-        </div>
-
-        <div class="neu krn-fleet-card reveal" data-vehicle="Chevrolet Suburban LWB 2020">
-          <div class="krn-fleet-media">
-            <img src="assets/fleet/suburban-lwb-2020.jpg" alt="Chevrolet Suburban LWB — exterior referencial" width="640" height="360" loading="lazy" decoding="async">
-            <span class="krn-fleet-badge"><span class="l-en">Referential · client photo pending</span><span class="l-es">Referencial · foto del cliente pendiente</span></span>
-          </div>
-          <div class="krn-fleet-body">
-            <h3 class="disp" style="font-size:21px;margin:0 0 4px">Chevrolet Suburban LWB</h3>
-            <div style="color:var(--muted);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">2020 · <span class="l-en">approx. 7–10 pax</span><span class="l-es">aprox. 7–10 pax</span></div>
-            <button class="btn sm" style="width:100%" onclick="window.KRN.startQuote('Chevrolet Suburban LWB 2020')"><span class="l-en">Quote this vehicle</span><span class="l-es">Cotizar esta unidad</span> →</button>
-          </div>
-        </div>
-
-      </div>
-      <p class="reveal" style="margin:20px 2px 0;font-size:13px;color:var(--muted);max-width:820px"><span class="l-en">Referential stock photos for this demo — final client vehicle photography is added in production. Fares below follow the STAREX (1–6 pax) / TECHO ALTO (7–10 pax) bands from the official rate sheet regardless of which unit is shown.</span><span class="l-es">Fotos de referencia de unidades para esta demo — la fotografía real del cliente se agrega en producción. Las tarifas abajo siguen las bandas STAREX (1–6 pax) / TECHO ALTO (7–10 pax) de la tarifa oficial, sin importar la unidad mostrada.</span></p>
-    </div>
-  </section>
-
-  <!-- ===================== RATE SHEET SEARCH (Karún — real tarifario) ===================== -->
-  <section id="rates-search" style="background:var(--surface-2);padding:clamp(56px,8vw,100px) clamp(16px,4vw,44px);border-block:1px solid var(--line);position:relative;overflow:hidden">
-    <div style="max-width:1160px;margin:0 auto">
-      <div class="reveal" style="display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:24px">
-        <div style="max-width:640px">
-          <span class="chip"><span class="l-en">Full hotel rate sheet</span><span class="l-es">Tarifario completo por hotel</span></span>
-          <h2 class="disp" style="font-size:clamp(30px,4.6vw,48px);margin:16px 0 10px"><span class="l-en">Search your hotel</span><span class="l-es">Busca tu hotel</span></h2>
-          <p style="color:var(--muted);font-weight:500;font-size:16px"><span class="l-en">One-way rates from Punta Cana Airport (PUJ), in USD.</span><span class="l-es">Tarifas one-way desde el Aeropuerto de Punta Cana (PUJ), en USD.</span></p>
-        </div>
-        <span class="chip" style="color:var(--coral)"><span class="l-en">Indicative prices · demo</span><span class="l-es">Precios indicativos · demo</span></span>
-      </div>
-
-      <div class="neu reveal" style="padding:18px;margin-bottom:18px;display:flex;gap:12px;flex-wrap:wrap">
-        <div style="flex:2;min-width:220px">
-          <label class="fldlbl" for="krn-hotel-search"><span class="l-en">Hotel name</span><span class="l-es">Nombre del hotel</span></label>
-          <input id="krn-hotel-search" class="fld" type="search" placeholder="Ej. Hard Rock, Barceló, Casa de Campo…" autocomplete="off" oninput="window.KRN.filterRates()">
-        </div>
-        <div style="flex:1;min-width:200px">
-          <label class="fldlbl" for="krn-zone-filter"><span class="l-en">Zone</span><span class="l-es">Zona</span></label>
-          <select id="krn-zone-filter" class="fld" onchange="window.KRN.filterRates()">
-            <option value=""><span class="l-en">All zones</span><span class="l-es">Todas las zonas</span></option>
-          </select>
-        </div>
-      </div>
-
-      <div class="neu reveal" style="padding:0;overflow:hidden">
-        <div style="overflow-x:auto">
-          <table class="krn-rate-table" id="krn-rate-table">
-            <thead>
-              <tr>
-                <th><span class="l-en">Hotel</span><span class="l-es">Hotel</span></th>
-                <th><span class="l-en">Zone</span><span class="l-es">Zona</span></th>
-                <th>Starex <span style="font-weight:500;color:var(--muted)">(1–6)</span></th>
-                <th><span class="l-en">High roof</span><span class="l-es">Techo alto</span> <span style="font-weight:500;color:var(--muted)">(7–10)</span></th>
-                <th><span class="l-en">Extra pax</span><span class="l-es">Pax extra</span></th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody id="krn-rate-tbody"></tbody>
-          </table>
-        </div>
-        <p id="krn-rate-empty" style="display:none;padding:26px;text-align:center;color:var(--muted)"><span class="l-en">No hotel matches your search.</span><span class="l-es">Ningún hotel coincide con tu búsqueda.</span></p>
-      </div>
-      <p class="reveal" style="margin:16px 2px 0;font-size:12.5px;color:var(--muted);max-width:820px"><span class="l-en">Rates from the official Karún Travel Group price sheet, one-way from PUJ. Non-Starex fleet units are billed on the same STAREX / TECHO ALTO band shown here; exact vehicle assignment is confirmed before the trip.</span><span class="l-es">Tarifas de la tarifa oficial de Karún Travel Group, one-way desde PUJ. Las unidades de la flota que no son la Starex se cobran según la misma banda STAREX / TECHO ALTO mostrada aquí; la unidad exacta se confirma antes del viaje.</span></p>
-    </div>
-  </section>
-
-  <!-- ===================== BOOKING DEMO WIZARD (Karún) ===================== -->
-  <section id="reservar" style="background:var(--sand);padding:clamp(64px,9vw,120px) clamp(16px,4vw,44px);position:relative;overflow:hidden">
-    <div style="max-width:960px;margin:0 auto">
-      <div class="reveal" style="max-width:720px;margin-bottom:30px">
-        <span class="chip"><span class="l-en">Demo booking flow</span><span class="l-es">Flujo de reserva demo</span></span>
-        <h2 class="disp" style="font-size:clamp(32px,4.8vw,52px);margin:16px 0 12px"><span class="l-en">Build your trip</span><span class="l-es">Arma tu viaje</span></h2>
-        <p style="color:var(--muted);font-weight:500;font-size:16px;max-width:600px"><span class="l-en">Add one or more legs, pick a vehicle and "pay" in demo mode — nothing is charged. This simulates the real booking flow.</span><span class="l-es">Agrega uno o más tramos, elige un vehículo y "paga" en modo demo — no se cobra nada. Esto simula el flujo real de reserva.</span></p>
-      </div>
-
-      <!-- ---- FORM VIEW ---- -->
-      <form id="krn-wizard-form" class="neu reveal" style="padding:clamp(18px,3vw,30px)" onsubmit="return window.KRN.confirmBooking(event)">
-
-        <div id="krn-legs"></div>
-
-        <button type="button" class="btn ghost sm" onclick="window.KRN.addLeg()" style="margin-bottom:22px">+ <span class="l-en">Add leg</span><span class="l-es">Agregar tramo</span></button>
-
-        <div class="krn-divider"></div>
-
-        <div style="margin-bottom:18px">
-          <label class="fldlbl" for="krn-vehicle"><span class="l-en">Vehicle</span><span class="l-es">Vehículo</span></label>
-          <select id="krn-vehicle" class="fld" style="width:100%">
-            <option>Hyundai Grand Starex</option>
-            <option>Cadillac Escalade 2020</option>
-            <option>Hyundai Solati 2014</option>
-            <option>Toyota Hiace 2019</option>
-            <option>Chevrolet Suburban LWB 2020</option>
-          </select>
-        </div>
-
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-bottom:18px">
-          <div><label class="fldlbl" for="krn-name"><span class="l-en">Passenger name</span><span class="l-es">Nombre del pasajero</span></label><input id="krn-name" class="fld" type="text" required placeholder="Ej. Antonio Camino"></div>
-          <div><label class="fldlbl" for="krn-email">Email</label><input id="krn-email" class="fld" type="email" placeholder="tu@correo.com"></div>
-          <div><label class="fldlbl" for="krn-whatsapp">WhatsApp</label><input id="krn-whatsapp" class="fld" type="tel" placeholder="+1 809 000 0000"></div>
-          <div><label class="fldlbl" for="krn-notes"><span class="l-en">Notes (optional)</span><span class="l-es">Notas (opcional)</span></label><input id="krn-notes" class="fld" type="text" placeholder="Ej. silla para bebé"></div>
-        </div>
-
-        <div class="krn-divider"></div>
-
-        <div style="margin-bottom:18px">
-          <div class="fldlbl" style="margin-bottom:8px"><span class="l-en">Payment (demo — no real charge)</span><span class="l-es">Pago (demo — sin cobro real)</span></div>
-          <div class="krn-pay-opts">
-            <label class="krn-pay-opt"><input type="radio" name="krn-pay" value="card" checked><span>💳 <span class="l-en">Card</span><span class="l-es">Tarjeta</span></span></label>
-            <label class="krn-pay-opt"><input type="radio" name="krn-pay" value="paypal"><span>🅿️ PayPal</span></label>
-            <label class="krn-pay-opt"><input type="radio" name="krn-pay" value="cash"><span>💵 <span class="l-en">Cash to driver</span><span class="l-es">Efectivo al chofer</span></span></label>
-          </div>
-        </div>
-
-        <div class="neu" style="background:var(--surface);padding:16px 18px;margin-bottom:20px">
-          <div id="krn-legs-summary" style="font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:8px"></div>
-          <div style="display:flex;justify-content:space-between;align-items:baseline">
-            <span style="font-weight:700"><span class="l-en">Total</span><span class="l-es">Total</span></span>
-            <span class="disp" id="krn-total" style="font-size:28px;color:var(--teal)">US$ 0.00</span>
-          </div>
-        </div>
-
-        <button type="submit" class="btn" style="width:100%;font-size:16px;padding:16px"><span class="l-en">Confirm demo booking</span><span class="l-es">Confirmar reserva demo</span> →</button>
-        <p style="margin:12px 2px 0;font-size:12px;color:var(--muted);line-height:1.5"><span class="l-en">This is a public demo. No real charge, email or WhatsApp message is sent.</span><span class="l-es">Esta es una demo pública. No se realiza ningún cobro, correo o mensaje de WhatsApp real.</span></p>
-      </form>
-
-      <!-- ---- SUCCESS VIEW ---- -->
-      <div id="krn-wizard-success" class="neu reveal" style="display:none;padding:clamp(18px,3vw,30px)">
-        <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px">
-          <span style="font-size:26px">✅</span>
-          <h3 class="disp" style="font-size:24px;margin:0"><span class="l-en">Your demo reservation is confirmed!</span><span class="l-es">¡Tu reserva demo está confirmada!</span></h3>
-        </div>
-        <span class="chip" style="color:var(--coral);margin:10px 0 18px;display:inline-flex"><span class="l-en">DEMO — no real charge</span><span class="l-es">DEMO — sin cobro real</span></span>
-
-        <div class="neu" style="background:var(--surface);padding:18px;margin-bottom:20px" id="krn-confirm-card"></div>
-
-        <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px">
-          <button type="button" class="btn sm" onclick="window.KRN.downloadSign()">🪧 <span class="l-en">Download pickup sign</span><span class="l-es">Descargar letrero</span></button>
-          <button type="button" class="btn ghost sm" onclick="window.KRN.copySummary()">📋 <span class="l-en">Copy summary</span><span class="l-es">Copiar resumen</span></button>
-          <button type="button" class="btn ghost sm" onclick="window.KRN.editBooking()">✎ <span class="l-en">Edit booking</span><span class="l-es">Editar reserva</span></button>
-        </div>
-
-        <div class="krn-sign-preview">
-          <canvas id="krn-sign-canvas" width="900" height="600"></canvas>
-        </div>
-
-        <p style="margin:18px 2px 0;font-size:12.5px;color:var(--muted);line-height:1.6"><span class="l-en">In production, a WhatsApp confirmation and a 24-hour reminder before pickup are sent automatically. This demo only shows what that message will look like.</span><span class="l-es">En producción, se envía automáticamente una confirmación por WhatsApp y un recordatorio 24 horas antes del pickup. Esta demo solo muestra cómo se verá ese mensaje.</span></p>
-      </div>
-
-    </div>
-  </section>
-
-</div>
-<!-- /krn-demo-scope -->
+<!-- krn-demo-scope removed: fleet / rates / reservar now live inside <x-dc> for true scroll order -->
 
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:&quot;100%&quot;}}">
 class Component extends DCLogic {
