@@ -1,3 +1,9 @@
+Destinos detail modal scroll lock — 2026-09-21 (America/Mexico_City)
+- Fixed-position body lock now preserves and restores the exact page scroll position.
+- Backdrop/document touch and wheel gestures are blocked while the modal body keeps contained scrolling.
+- Added overscroll containment in both modal style blocks; autoplay and remount teardown remain unchanged.
+
+---
 Transportes Los Yeyes — index.html patch notes
 Date: 2026-09-11 (America/Mexico_City)
 

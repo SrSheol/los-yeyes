@@ -51,7 +51,7 @@ image-slot::part(image){touch-action:pan-x pan-y!important;-webkit-user-drag:non
 .lm img,.lm video,.lm svg,.lm .dest-card,.lm .dest-img,.lm .ph-frame,.lm .svc-feat .media{touch-action:pan-x pan-y!important;-webkit-user-drag:none}
 .ly-mark{width:42px;height:42px;object-fit:contain;display:block;flex:0 0 auto}
 /* Dest detail modal (host appended to body — keep chrome outside Design remounts) */
-.dest-detail-back{position:fixed;inset:0;z-index:1100;display:none;align-items:center;justify-content:center;padding:max(12px,env(safe-area-inset-top)) 12px max(12px,env(safe-area-inset-bottom));background:rgba(6,26,28,.58);backdrop-filter:blur(7px);overflow:auto}
+.dest-detail-back{position:fixed;inset:0;z-index:1100;display:none;align-items:center;justify-content:center;padding:max(12px,env(safe-area-inset-top)) 12px max(12px,env(safe-area-inset-bottom));background:rgba(6,26,28,.58);backdrop-filter:blur(7px);overflow:hidden;overscroll-behavior:contain}
 .dest-detail-back[data-open="true"]{display:flex}
 .dest-detail{position:relative;width:min(760px,100%);max-height:min(92vh,920px);display:flex;flex-direction:column;overflow:hidden;background:#fffcf7;color:#0d3d4a;border-radius:24px;box-shadow:16px 16px 38px rgba(110,115,95,.28);outline:none}
 .dest-detail-x{position:absolute;top:max(10px,env(safe-area-inset-top,0px));right:max(10px,env(safe-area-inset-right,0px));z-index:5;width:42px;height:42px;border-radius:50%;border:0;cursor:pointer;background:#fbf8f1;box-shadow:7px 7px 18px rgba(120,120,100,.24);font-size:22px;color:#0d3d4a;display:grid;place-items:center}
@@ -69,11 +69,11 @@ image-slot::part(image){touch-action:pan-x pan-y!important;-webkit-user-drag:non
 .dest-carousel[data-auto="off"] .dest-carousel-progress,.dest-carousel[data-auto="off"] .dest-carousel-dots button[aria-current="true"]::after{display:none}
 @keyframes dest-dot-fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 @keyframes dest-kenburns{from{transform:scale(1.001)}to{transform:scale(1.06)}}
-.dest-detail-body{padding:clamp(18px,3vw,28px) clamp(18px,3.5vw,32px) clamp(22px,3vw,34px);overflow-y:auto;flex:1 1 auto;min-height:0;-webkit-overflow-scrolling:touch}
+.dest-detail-body{padding:clamp(18px,3vw,28px) clamp(18px,3.5vw,32px) clamp(22px,3vw,34px);overflow-y:auto;flex:1 1 auto;min-height:0;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;touch-action:pan-y}
 .dest-detail-body h2{font-family:'Space Grotesk',system-ui,sans-serif;font-size:clamp(26px,4vw,36px);margin:0 0 12px;line-height:1.08}
 .dest-detail-body .dest-detail-copy{color:#5a7a80;font-size:15.5px;line-height:1.65;font-weight:500}
 .dest-detail-body .dest-detail-copy p{margin:0 0 12px}
-body.dest-modal-lock{overflow:hidden!important}
+html.dest-modal-lock,body.dest-modal-lock{overflow:hidden!important}
 @media (max-width:640px){.dest-detail-back{padding:max(10px,env(safe-area-inset-top)) max(12px,env(safe-area-inset-right)) max(12px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left));align-items:center;justify-content:center}.dest-detail{width:100%;max-height:min(90dvh,920px);min-height:0;border-radius:22px}.dest-carousel{border-radius:22px 22px 0 0;aspect-ratio:16/11}.dest-detail-x{top:10px;right:10px}}
 @media (prefers-reduced-motion:reduce){.dest-carousel-track{transition:none}.dest-carousel-track img.is-active{animation:none}.dest-carousel-progress>span,.dest-carousel-dots button[aria-current="true"]::after{animation:none;transform:none}}
 </style>
@@ -176,7 +176,7 @@ body.dest-modal-lock{overflow:hidden!important}
   .lm .dest-card:focus-visible{outline:3px solid var(--teal);outline-offset:4px}
   .lm .dest-card .dest-more{position:absolute;z-index:3;top:14px;right:14px;display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border-radius:999px;background:color-mix(in srgb,var(--card) 92%,transparent);backdrop-filter:blur(8px);box-shadow:var(--raise);font-size:12px;font-weight:700;letter-spacing:.02em;color:var(--teal-deep);pointer-events:none}
   .lm .dest-card .dest-more::after{content:"";width:6px;height:6px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(-45deg);translate:0 -1px}
-  .dest-detail-back{position:fixed;inset:0;z-index:1100;display:none;align-items:center;justify-content:center;padding:max(12px,env(safe-area-inset-top)) max(12px,env(safe-area-inset-right)) max(12px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left));background:rgba(6,26,28,.58);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);overflow:auto}
+  .dest-detail-back{position:fixed;inset:0;z-index:1100;display:none;align-items:center;justify-content:center;padding:max(12px,env(safe-area-inset-top)) max(12px,env(safe-area-inset-right)) max(12px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left));background:rgba(6,26,28,.58);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);overflow:hidden;overscroll-behavior:contain}
   .dest-detail-back[data-open="true"]{display:flex}
   .dest-detail{position:relative;width:min(760px,100%);max-height:min(92vh,920px);display:flex;flex-direction:column;overflow:hidden;background:var(--card,#fffcf7);color:var(--ink,#0d3d4a);border-radius:24px;box-shadow:var(--raise-lg,16px 16px 38px rgba(110,115,95,.28));padding:0;outline:none}
   .dest-detail-x{position:absolute;top:max(10px,env(safe-area-inset-top,0px));right:max(10px,env(safe-area-inset-right,0px));z-index:5;width:42px;height:42px;border-radius:50%;border:0;cursor:pointer;background:var(--surface,#fbf8f1);box-shadow:var(--raise,7px 7px 18px rgba(120,120,100,.24));font-size:22px;line-height:1;color:var(--ink,#0d3d4a);display:grid;place-items:center}
@@ -197,7 +197,7 @@ body.dest-modal-lock{overflow:hidden!important}
   .dest-carousel[data-auto="off"] .dest-carousel-progress,.dest-carousel[data-auto="off"] .dest-carousel-dots button[aria-current="true"]::after{display:none}
   @keyframes dest-dot-fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
   @keyframes dest-kenburns{from{transform:scale(1.001)}to{transform:scale(1.06)}}
-  .dest-detail-body{padding:clamp(18px,3vw,28px) clamp(18px,3.5vw,32px) clamp(22px,3vw,34px);overflow-y:auto;flex:1 1 auto;min-height:0;-webkit-overflow-scrolling:touch}
+  .dest-detail-body{padding:clamp(18px,3vw,28px) clamp(18px,3.5vw,32px) clamp(22px,3vw,34px);overflow-y:auto;flex:1 1 auto;min-height:0;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;touch-action:pan-y}
   .dest-detail-body .chip{margin-bottom:10px}
   .dest-detail-body h2{font-family:'Space Grotesk',system-ui,sans-serif;font-size:clamp(26px,4vw,36px);margin:0 0 12px;line-height:1.08;letter-spacing:-.02em}
   .dest-detail-body .dest-detail-copy{color:var(--muted,#5a7a80);font-size:15.5px;line-height:1.65;font-weight:500}
@@ -205,7 +205,7 @@ body.dest-modal-lock{overflow:hidden!important}
   .dest-detail-body .dest-detail-copy p:last-child{margin-bottom:0}
   .dest-detail-body .dest-detail-copy ul{margin:0 0 12px;padding-left:1.15em}
   .dest-detail-body .dest-detail-copy li{margin:0 0 6px}
-  body.dest-modal-lock{overflow:hidden!important;touch-action:none}
+  html.dest-modal-lock,body.dest-modal-lock{overflow:hidden!important}
   @media (max-width:640px){
     .dest-detail-back{padding:max(10px,env(safe-area-inset-top)) max(12px,env(safe-area-inset-right)) max(14px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left));align-items:center;justify-content:center}
     .dest-detail{width:100%;max-height:min(90dvh,920px);min-height:0;border-radius:22px}
@@ -1577,6 +1577,101 @@ class Component extends DCLogic {
     }catch(e){ return this.state.lang || 'es'; }
   }
 
+  _destModalScrollArea(target){
+    const host = document.getElementById('dest-detail-root');
+    if(!host) return null;
+    const back = host.querySelector('#dest-detail-back');
+    if(!back || back.getAttribute('data-open') !== 'true') return null;
+    let el = target;
+    if(el && el.nodeType !== 1) el = el.parentElement;
+    if(!el || !el.closest) return null;
+    const matched = el.closest('.dest-detail-body, #dest-detail-copy');
+    if(!matched || !host.contains(matched)) return null;
+    const area = matched.closest('.dest-detail-body') || matched;
+    if(!area || !host.contains(area) || area.scrollHeight <= area.clientHeight + 1) return null;
+    return area;
+  }
+
+  _destModalLockScroll(){
+    if(this._destModalScrollLock) return;
+    const html = document.documentElement;
+    const body = document.body;
+    const savedY = Math.max(0, Number(window.scrollY || window.pageYOffset || 0));
+    const state = {
+      y: savedY,
+      htmlOverflow: html.style.overflow,
+      bodyOverflow: body.style.overflow,
+      bodyPosition: body.style.position,
+      bodyTop: body.style.top,
+      bodyWidth: body.style.width,
+      touch: null,
+      handlers: null
+    };
+    const listenerOptions = {capture:true, passive:false};
+    const onWheel = (e)=>{
+      const area = this._destModalScrollArea(e.target);
+      if(!area){ e.preventDefault(); return; }
+      const max = Math.max(0, area.scrollHeight - area.clientHeight);
+      const delta = e.deltaY || 0;
+      if((delta < 0 && area.scrollTop <= 0) || (delta > 0 && area.scrollTop >= max)) e.preventDefault();
+    };
+    const onTouchStart = (e)=>{
+      const area = this._destModalScrollArea(e.target);
+      const touch = e.touches && e.touches[0];
+      state.touch = area && touch ? {area, y:touch.clientY} : null;
+    };
+    const onTouchMove = (e)=>{
+      const area = this._destModalScrollArea(e.target);
+      if(!area){ e.preventDefault(); return; }
+      const touch = e.touches && e.touches[0];
+      const start = state.touch;
+      if(!touch || !start || start.area !== area){ e.preventDefault(); return; }
+      const max = Math.max(0, area.scrollHeight - area.clientHeight);
+      const delta = touch.clientY - start.y;
+      if((delta > 0 && area.scrollTop <= 0) || (delta < 0 && area.scrollTop >= max)) e.preventDefault();
+    };
+    const clearTouch = ()=>{ state.touch = null; };
+    this._destModalScrollLock = state;
+    html.classList.add('dest-modal-lock');
+    body.classList.add('dest-modal-lock');
+    html.style.overflow = 'hidden';
+    body.style.position = 'fixed';
+    body.style.top = '-' + savedY + 'px';
+    body.style.width = '100%';
+    body.style.overflow = 'hidden';
+    document.addEventListener('wheel', onWheel, listenerOptions);
+    document.addEventListener('touchstart', onTouchStart, {capture:true, passive:true});
+    document.addEventListener('touchmove', onTouchMove, listenerOptions);
+    document.addEventListener('touchend', clearTouch, {capture:true, passive:true});
+    document.addEventListener('touchcancel', clearTouch, {capture:true, passive:true});
+    state.handlers = {onWheel, onTouchStart, onTouchMove, clearTouch};
+  }
+
+  _destModalUnlockScroll(){
+    const state = this._destModalScrollLock;
+    if(!state) return;
+    const handlers = state.handlers;
+    if(handlers){
+      document.removeEventListener('wheel', handlers.onWheel, true);
+      document.removeEventListener('touchstart', handlers.onTouchStart, true);
+      document.removeEventListener('touchmove', handlers.onTouchMove, true);
+      document.removeEventListener('touchend', handlers.clearTouch, true);
+      document.removeEventListener('touchcancel', handlers.clearTouch, true);
+    }
+    state.touch = null;
+    const html = document.documentElement;
+    const body = document.body;
+    html.classList.remove('dest-modal-lock');
+    body.classList.remove('dest-modal-lock');
+    html.style.overflow = state.htmlOverflow;
+    body.style.overflow = state.bodyOverflow;
+    body.style.position = state.bodyPosition;
+    body.style.top = state.bodyTop;
+    body.style.width = state.bodyWidth;
+    this._destModalScrollLock = null;
+    window.scrollTo(0, state.y);
+  }
+
   openDestModal(slug){
     const meta = this.destModalMeta[slug];
     const pack = this.destModalCopy[slug];
@@ -1636,7 +1731,7 @@ class Component extends DCLogic {
     this._destModalReturnFocus = document.activeElement;
     back.hidden = false;
     back.setAttribute('data-open','true');
-    document.body.classList.add('dest-modal-lock');
+    this._destModalLockScroll();
     this._destModalStartAuto();
     // focus dialog after paint
     setTimeout(()=>{ try{ (closeBtn || dialog).focus(); }catch(e){} }, 30);
@@ -1760,10 +1855,9 @@ class Component extends DCLogic {
 
   closeDestModal(){
     const host = document.getElementById('dest-detail-root');
-    if(!host) return;
-    const back = host.querySelector('#dest-detail-back');
+    const back = host && host.querySelector('#dest-detail-back');
     if(back){ back.setAttribute('data-open','false'); back.hidden = true; }
-    document.body.classList.remove('dest-modal-lock');
+    this._destModalUnlockScroll();
     this._destModalStopAuto();
     this._destModalSlug = null;
     const ret = this._destModalReturnFocus;
