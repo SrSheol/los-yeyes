@@ -210,3 +210,9 @@ No fake prices or testimonials in the modal. Sticky stack scroll still works.
    - Both CSS copies (head + x-dc) kept in sync; desktop modal unchanged in spirit
 
 Sticky dest-stack / i18n untouched.
+
+---
+2026-09-21 — Carousel controls + centered mobile modal (America/Mexico_City)
+
+- Removed prev/next buttons, ArrowLeft/ArrowRight handlers, and related ARIA/i18n; dots, autoplay, progress, and Ken Burns remain.
+- Centered the ≤640px rounded modal with safe-area padding, ~90dvh cap, and internal body scrolling in both CSS copies.

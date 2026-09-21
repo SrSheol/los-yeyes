@@ -59,8 +59,6 @@ image-slot::part(image){touch-action:pan-x pan-y!important;-webkit-user-drag:non
 .dest-carousel-track{display:flex;height:100%;width:100%;transition:transform .55s cubic-bezier(.22,1,.36,1)}
 .dest-carousel-track img{flex:0 0 100%;width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.001);transform-origin:center center}
 .dest-carousel-track img.is-active{animation:dest-kenburns var(--dest-kb-ms,8s) ease-out forwards}
-.dest-carousel-btn{position:absolute;top:50%;translate:0 -50%;z-index:2;width:42px;height:42px;border-radius:50%;border:0;cursor:pointer;background:rgba(255,252,247,.9);box-shadow:7px 7px 18px rgba(120,120,100,.24);color:#0d3d4a;font-size:22px;display:grid;place-items:center}
-.dest-carousel-btn.prev{left:12px}.dest-carousel-btn.next{right:12px}
 .dest-carousel-dots{position:absolute;left:0;right:0;bottom:14px;z-index:2;display:flex;justify-content:center;gap:8px}
 .dest-carousel-dots button{width:9px;height:9px;border-radius:50%;border:0;padding:0;cursor:pointer;background:rgba(255,255,255,.45);position:relative;overflow:hidden;transition:width .25s ease,border-radius .25s ease,background .2s}
 .dest-carousel-dots button[aria-current="true"]{width:22px;border-radius:999px;background:rgba(255,255,255,.35)}
@@ -76,7 +74,7 @@ image-slot::part(image){touch-action:pan-x pan-y!important;-webkit-user-drag:non
 .dest-detail-body .dest-detail-copy{color:#5a7a80;font-size:15.5px;line-height:1.65;font-weight:500}
 .dest-detail-body .dest-detail-copy p{margin:0 0 12px}
 body.dest-modal-lock{overflow:hidden!important}
-@media (max-width:640px){.dest-detail-back{padding:max(10px,env(safe-area-inset-top)) max(12px,env(safe-area-inset-right)) max(12px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left));align-items:flex-end;justify-content:center}.dest-detail{width:100%;max-height:min(90dvh,920px);min-height:0;border-radius:22px}.dest-carousel{border-radius:22px 22px 0 0;aspect-ratio:16/11}.dest-detail-x{top:10px;right:10px}}
+@media (max-width:640px){.dest-detail-back{padding:max(10px,env(safe-area-inset-top)) max(12px,env(safe-area-inset-right)) max(12px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left));align-items:center;justify-content:center}.dest-detail{width:100%;max-height:min(90dvh,920px);min-height:0;border-radius:22px}.dest-carousel{border-radius:22px 22px 0 0;aspect-ratio:16/11}.dest-detail-x{top:10px;right:10px}}
 @media (prefers-reduced-motion:reduce){.dest-carousel-track{transition:none}.dest-carousel-track img.is-active{animation:none}.dest-carousel-progress>span,.dest-carousel-dots button[aria-current="true"]::after{animation:none;transform:none}}
 </style>
 <script>
@@ -188,10 +186,6 @@ body.dest-modal-lock{overflow:hidden!important}
   .dest-carousel-track{display:flex;height:100%;width:100%;transition:transform .55s cubic-bezier(.22,1,.36,1)}
   .dest-carousel-track img{flex:0 0 100%;width:100%;height:100%;object-fit:cover;display:block;user-select:none;-webkit-user-drag:none;transform:scale(1.001);transform-origin:center center}
   .dest-carousel-track img.is-active{animation:dest-kenburns var(--dest-kb-ms,8s) ease-out forwards}
-  .dest-carousel-btn{position:absolute;top:50%;translate:0 -50%;z-index:2;width:42px;height:42px;border-radius:50%;border:0;cursor:pointer;background:color-mix(in srgb,var(--card,#fffcf7) 90%,transparent);backdrop-filter:blur(6px);box-shadow:var(--raise,7px 7px 18px rgba(120,120,100,.24));color:var(--ink,#0d3d4a);font-size:22px;display:grid;place-items:center}
-  .dest-carousel-btn:focus-visible{outline:3px solid var(--teal,#0e8fa0);outline-offset:2px}
-  .dest-carousel-btn.prev{left:12px}
-  .dest-carousel-btn.next{right:12px}
   .dest-carousel-dots{position:absolute;left:0;right:0;bottom:14px;z-index:2;display:flex;justify-content:center;gap:8px}
   .dest-carousel-dots button{width:9px;height:9px;border-radius:50%;border:0;padding:0;cursor:pointer;background:rgba(255,255,255,.45);position:relative;overflow:hidden;transition:width .25s ease,border-radius .25s ease,background .2s}
   .dest-carousel-dots button[aria-current="true"]{width:22px;border-radius:999px;background:rgba(255,255,255,.35)}
@@ -213,7 +207,7 @@ body.dest-modal-lock{overflow:hidden!important}
   .dest-detail-body .dest-detail-copy li{margin:0 0 6px}
   body.dest-modal-lock{overflow:hidden!important;touch-action:none}
   @media (max-width:640px){
-    .dest-detail-back{padding:max(10px,env(safe-area-inset-top)) max(12px,env(safe-area-inset-right)) max(14px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left));align-items:flex-end;justify-content:center}
+    .dest-detail-back{padding:max(10px,env(safe-area-inset-top)) max(12px,env(safe-area-inset-right)) max(14px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left));align-items:center;justify-content:center}
     .dest-detail{width:100%;max-height:min(90dvh,920px);min-height:0;border-radius:22px}
     .dest-carousel{border-radius:22px 22px 0 0;aspect-ratio:16/11}
     .dest-detail-x{top:10px;right:10px}
@@ -1119,7 +1113,7 @@ class Component extends DCLogic {
       p_kicker:'Indicative fares',p_title:'Know the price before you write',p_sub:'Per private van (up to 8 passengers), not per person. Tolls & taxes included.',
       p_curLabel:'Currency · rates update live',p_indicative:'Indicative',p_oneWay:'one way',p_roundTrip:'Round trip',p_confirm:'Confirm on WhatsApp',
       m_kicker:'Where we drive',m_title:'The east coast corridor',m_sub:'From Punta Cana airport out to every resort zone and across to Santo Domingo.',m_legend:'Service zones',m_foot:"Stylized coverage map. Don't see your hotel? Ask on WhatsApp.",
-      d_kicker:'Where we go',d_title:'Popular routes & day trips',d_sub:"Destinations stack as you scroll — from PUJ arrivals to the island's best days out.",dm_close:'Close',dm_prev:'Previous image',dm_next:'Next image',dm_gallery:'Photo gallery',
+      d_kicker:'Where we go',d_title:'Popular routes & day trips',d_sub:"Destinations stack as you scroll — from PUJ arrivals to the island's best days out.",dm_close:'Close',dm_gallery:'Photo gallery',
       tl_kicker:'Before you land',tl_title:'From the jet bridge to the back seat',
       w_kicker:'Why Karún',w_title:'Locals who make arrival the easy part',w_speak:'Our team speaks (on WhatsApp & phone)',
       dl_title:'Flight delayed? We wait.',dl_body:'We track your flight live and adjust automatically. Airport pickups include a free wait window of 60–90 min after landing — just message us on WhatsApp if you are held up.',
@@ -1150,7 +1144,7 @@ class Component extends DCLogic {
       p_kicker:'Tarifas indicativas',p_title:'Conoce el precio antes de escribir',p_sub:'Por van privada (hasta 8 pasajeros), no por persona. Peajes e impuestos incluidos.',
       p_curLabel:'Moneda · tasas en vivo',p_indicative:'Indicativo',p_oneWay:'solo ida',p_roundTrip:'Ida y vuelta',p_confirm:'Confirmar por WhatsApp',
       m_kicker:'Dónde manejamos',m_title:'El corredor de la costa este',m_sub:'Desde el aeropuerto de Punta Cana hacia cada zona de resorts y hasta Santo Domingo.',m_legend:'Zonas de servicio',m_foot:'Mapa de cobertura estilizado. ¿No ves tu hotel? Pregunta por WhatsApp.',
-      d_kicker:'A dónde vamos',d_title:'Rutas y excursiones favoritas',d_sub:'Los destinos se apilan al hacer scroll — desde llegadas en PUJ hasta las mejores excursiones.',dm_close:'Cerrar',dm_prev:'Imagen anterior',dm_next:'Imagen siguiente',dm_gallery:'Galería de fotos',
+      d_kicker:'A dónde vamos',d_title:'Rutas y excursiones favoritas',d_sub:'Los destinos se apilan al hacer scroll — desde llegadas en PUJ hasta las mejores excursiones.',dm_close:'Cerrar',dm_gallery:'Galería de fotos',
       tl_kicker:'Antes de aterrizar',tl_title:'Del avión al asiento trasero',
       w_kicker:'Por qué Karún',w_title:'Locales que hacen fácil tu llegada',w_speak:'Nuestro equipo habla (por WhatsApp y teléfono)',
       dl_title:'¿Vuelo retrasado? Esperamos.',dl_body:'Rastreamos tu vuelo en vivo y ajustamos solos. Las recogidas incluyen una espera gratis de 60–90 min tras aterrizar — solo escríbenos por WhatsApp si te demoras.',
@@ -1181,7 +1175,7 @@ class Component extends DCLogic {
       p_kicker:'Tarifs indicatifs',p_title:'Connaissez le prix avant d\u2019écrire',p_sub:'Par van privé (jusqu\u2019à 8 passagers), pas par personne. Péages et taxes inclus.',
       p_curLabel:'Devise · taux en direct',p_indicative:'Indicatif',p_oneWay:'aller simple',p_roundTrip:'Aller-retour',p_confirm:'Confirmer sur WhatsApp',
       m_kicker:'Où nous roulons',m_title:'Le corridor de la côte est',m_sub:'De l\u2019aéroport de Punta Cana vers chaque zone de resorts et jusqu\u2019à Saint-Domingue.',m_legend:'Zones desservies',m_foot:'Carte de couverture stylisée. Vous ne voyez pas votre hôtel ? Demandez sur WhatsApp.',
-      d_kicker:'Où nous allons',d_title:'Itinéraires & excursions populaires',d_sub:'Les destinations s\u2019empilent en défilant — des arrivées à PUJ aux meilleures sorties de l\u2019île.',dm_close:'Fermer',dm_prev:'Image précédente',dm_next:'Image suivante',dm_gallery:'Galerie photos',
+      d_kicker:'Où nous allons',d_title:'Itinéraires & excursions populaires',d_sub:'Les destinations s\u2019empilent en défilant — des arrivées à PUJ aux meilleures sorties de l\u2019île.',dm_close:'Fermer',dm_gallery:'Galerie photos',
       tl_kicker:'Avant d\u2019atterrir',tl_title:'De la passerelle à la banquette arrière',
       w_kicker:'Pourquoi Karún',w_title:'Des locaux qui simplifient votre arrivée',w_speak:'Notre équipe parle (WhatsApp & téléphone)',
       dl_title:'Vol retardé ? On attend.',dl_body:'Nous suivons votre vol en direct et ajustons automatiquement. Les prises en charge à l\u2019aéroport incluent une attente gratuite de 60–90 min après l\u2019atterrissage — écrivez-nous sur WhatsApp en cas de retard.',
@@ -1212,7 +1206,7 @@ class Component extends DCLogic {
       p_kicker:'Richtpreise',p_title:'Preis kennen, bevor Sie schreiben',p_sub:'Pro privatem Van (bis 8 Passagiere), nicht pro Person. Maut und Steuern inklusive.',
       p_curLabel:'Währung · Kurse live',p_indicative:'Richtwert',p_oneWay:'einfach',p_roundTrip:'Hin & zurück',p_confirm:'Per WhatsApp bestätigen',
       m_kicker:'Wo wir fahren',m_title:'Der Ostküsten-Korridor',m_sub:'Vom Flughafen Punta Cana zu jeder Resortzone und bis nach Santo Domingo.',m_legend:'Servicezonen',m_foot:'Stilisierte Abdeckungskarte. Ihr Hotel fehlt? Fragen Sie per WhatsApp.',
-      d_kicker:'Wohin wir fahren',d_title:'Beliebte Routen & Tagesausflüge',d_sub:'Ziele stapeln sich beim Scrollen — von der Ankunft in PUJ bis zu den besten Ausflügen der Insel.',dm_close:'Schließen',dm_prev:'Vorheriges Bild',dm_next:'Nächstes Bild',dm_gallery:'Fotogalerie',
+      d_kicker:'Wohin wir fahren',d_title:'Beliebte Routen & Tagesausflüge',d_sub:'Ziele stapeln sich beim Scrollen — von der Ankunft in PUJ bis zu den besten Ausflügen der Insel.',dm_close:'Schließen',dm_gallery:'Fotogalerie',
       tl_kicker:'Vor der Landung',tl_title:'Von der Gangway auf die Rückbank',
       w_kicker:'Warum Karún',w_title:'Einheimische, die die Ankunft leicht machen',w_speak:'Unser Team spricht (WhatsApp & Telefon)',
       dl_title:'Flug verspätet? Wir warten.',dl_body:'Wir verfolgen Ihren Flug live und passen automatisch an. Flughafenabholungen enthalten ein kostenloses Wartefenster von 60–90 Min nach der Landung — schreiben Sie uns bei Verzögerung einfach auf WhatsApp.',
@@ -1243,7 +1237,7 @@ class Component extends DCLogic {
       p_kicker:'Tarifas indicativas',p_title:'Saiba o preço antes de escrever',p_sub:'Por van privativa (até 8 passageiros), não por pessoa. Pedágios e impostos incluídos.',
       p_curLabel:'Moeda · taxas ao vivo',p_indicative:'Indicativo',p_oneWay:'só ida',p_roundTrip:'Ida e volta',p_confirm:'Confirmar no WhatsApp',
       m_kicker:'Onde dirigimos',m_title:'O corredor da costa leste',m_sub:'Do aeroporto de Punta Cana a cada zona de resorts e até Santo Domingo.',m_legend:'Zonas de serviço',m_foot:'Mapa de cobertura estilizado. Não vê seu hotel? Pergunte no WhatsApp.',
-      d_kicker:'Para onde vamos',d_title:'Rotas e passeios populares',d_sub:'Os destinos se empilham ao rolar — das chegadas em PUJ aos melhores passeios da ilha.',dm_close:'Fechar',dm_prev:'Imagem anterior',dm_next:'Próxima imagem',dm_gallery:'Galeria de fotos',
+      d_kicker:'Para onde vamos',d_title:'Rotas e passeios populares',d_sub:'Os destinos se empilham ao rolar — das chegadas em PUJ aos melhores passeios da ilha.',dm_close:'Fechar',dm_gallery:'Galeria de fotos',
       tl_kicker:'Antes de pousar',tl_title:'Da ponte de embarque ao banco de trás',
       w_kicker:'Por que Karún',w_title:'Locais que tornam a chegada fácil',w_speak:'Nossa equipe fala (WhatsApp e telefone)',
       dl_title:'Voo atrasado? Nós esperamos.',dl_body:'Rastreamos seu voo ao vivo e ajustamos automaticamente. As recolhas no aeroporto incluem uma espera grátis de 60–90 min após o pouso — é só falar no WhatsApp se atrasar.',
@@ -1274,7 +1268,7 @@ class Component extends DCLogic {
       p_kicker:'Tariffe indicative',p_title:'Conosci il prezzo prima di scrivere',p_sub:'Per van privato (fino a 8 passeggeri), non a persona. Pedaggi e tasse inclusi.',
       p_curLabel:'Valuta · tassi in tempo reale',p_indicative:'Indicativo',p_oneWay:'sola andata',p_roundTrip:'A/R',p_confirm:'Conferma su WhatsApp',
       m_kicker:'Dove guidiamo',m_title:'Il corridoio della costa est',m_sub:"Dall'aeroporto di Punta Cana verso ogni zona di resort e fino a Santo Domingo.",m_legend:'Zone di servizio',m_foot:'Mappa di copertura stilizzata. Non vedi il tuo hotel? Chiedi su WhatsApp.',
-      d_kicker:'Dove andiamo',d_title:'Rotte ed escursioni popolari',d_sub:"Le destinazioni si impilano mentre scorri — dagli arrivi a PUJ alle migliori gite dell'isola.",dm_close:'Chiudi',dm_prev:'Immagine precedente',dm_next:'Immagine successiva',dm_gallery:'Galleria foto',
+      d_kicker:'Dove andiamo',d_title:'Rotte ed escursioni popolari',d_sub:"Le destinazioni si impilano mentre scorri — dagli arrivi a PUJ alle migliori gite dell'isola.",dm_close:'Chiudi',dm_gallery:'Galleria foto',
       tl_kicker:'Prima di atterrare',tl_title:'Dal finger al sedile posteriore',
       w_kicker:'Perché Karún',w_title:"Gente del posto che rende facile l'arrivo",w_speak:'Il nostro team parla (WhatsApp e telefono)',
       dl_title:'Volo in ritardo? Aspettiamo.',dl_body:"Monitoriamo il tuo volo in tempo reale e ci adattiamo in automatico. I ritiri in aeroporto includono un'attesa gratuita di 60–90 min dopo l'atterraggio — scrivici su WhatsApp se sei in ritardo.",
@@ -1305,7 +1299,7 @@ class Component extends DCLogic {
       p_kicker:'Ориентировочные тарифы',p_title:'Узнайте цену до того, как напишете',p_sub:'За приватный вэн (до 8 пассажиров), не за человека. Платные дороги и налоги включены.',
       p_curLabel:'Валюта · курсы в реальном времени',p_indicative:'Ориентир',p_oneWay:'в одну сторону',p_roundTrip:'Туда-обратно',p_confirm:'Подтвердить в WhatsApp',
       m_kicker:'Где мы ездим',m_title:'Коридор восточного побережья',m_sub:'От аэропорта Пунта-Кана к каждой курортной зоне и до Санто-Доминго.',m_legend:'Зоны обслуживания',m_foot:'Стилизованная карта покрытия. Не видите свой отель? Спросите в WhatsApp.',
-      d_kicker:'Куда мы едем',d_title:'Популярные маршруты и поездки',d_sub:'Направления наслаиваются при прокрутке — от прилётов в PUJ до лучших экскурсий острова.',dm_close:'Закрыть',dm_prev:'Предыдущее фото',dm_next:'Следующее фото',dm_gallery:'Фотогалерея',
+      d_kicker:'Куда мы едем',d_title:'Популярные маршруты и поездки',d_sub:'Направления наслаиваются при прокрутке — от прилётов в PUJ до лучших экскурсий острова.',dm_close:'Закрыть',dm_gallery:'Фотогалерея',
       tl_kicker:'Перед посадкой',tl_title:'От трапа до заднего сиденья',
       w_kicker:'Почему Karún',w_title:'Местные, с которыми прибытие — самое лёгкое',w_speak:'Наша команда говорит (WhatsApp и телефон)',
       dl_title:'Рейс задержан? Мы ждём.',dl_body:'Мы отслеживаем ваш рейс в реальном времени и подстраиваемся автоматически. Встреча в аэропорту включает бесплатное ожидание 60–90 мин после посадки — просто напишите в WhatsApp, если задерживаетесь.',
@@ -1336,7 +1330,7 @@ class Component extends DCLogic {
       p_kicker:'参考价格',p_title:'联系前先知道价格',p_sub:'按私人车计价（最多8位乘客），非按人。含过路费和税费。',
       p_curLabel:'货币 · 实时汇率',p_indicative:'参考',p_oneWay:'单程',p_roundTrip:'往返',p_confirm:'在 WhatsApp 确认',
       m_kicker:'我们的行驶范围',m_title:'东海岸走廊',m_sub:'从蓬塔卡纳机场通往每个度假区，直至圣多明各。',m_legend:'服务区域',m_foot:'风格化覆盖地图。没看到您的酒店？在 WhatsApp 询问。',
-      d_kicker:'我们去哪里',d_title:'热门线路与一日游',d_sub:'滚动时目的地层层叠放——从 PUJ 到达到全岛最佳一日游。',dm_close:'关闭',dm_prev:'上一张',dm_next:'下一张',dm_gallery:'图片集',
+      d_kicker:'我们去哪里',d_title:'热门线路与一日游',d_sub:'滚动时目的地层层叠放——从 PUJ 到达到全岛最佳一日游。',dm_close:'关闭',dm_gallery:'图片集',
       tl_kicker:'落地之前',tl_title:'从廊桥到后座',
       w_kicker:'为什么选 Karún',w_title:'让抵达变轻松的本地人',w_speak:'我们的团队会说（WhatsApp 和电话）',
       dl_title:'航班延误？我们等您。',dl_body:'我们实时追踪您的航班并自动调整。机场接机含落地后60–90分钟免费等待——若延误，只需在 WhatsApp 告知我们。',
@@ -1367,7 +1361,7 @@ class Component extends DCLogic {
       p_kicker:'Indicatieve tarieven',p_title:'Ken de prijs voordat je schrijft',p_sub:'Per privébusje (tot 8 passagiers), niet per persoon. Tol en belasting inbegrepen.',
       p_curLabel:'Valuta · koersen live',p_indicative:'Indicatief',p_oneWay:'enkele reis',p_roundTrip:'Retour',p_confirm:'Bevestig via WhatsApp',
       m_kicker:'Waar we rijden',m_title:'De oostkust-corridor',m_sub:'Van de luchthaven van Punta Cana naar elke resortzone en door naar Santo Domingo.',m_legend:'Servicezones',m_foot:'Gestileerde dekkingskaart. Zie je je hotel niet? Vraag het via WhatsApp.',
-      d_kicker:'Waar we heen gaan',d_title:'Populaire routes & dagtrips',d_sub:'Bestemmingen stapelen zich tijdens het scrollen — van aankomst in PUJ tot de beste uitstapjes van het eiland.',dm_close:'Sluiten',dm_prev:'Vorige foto',dm_next:'Volgende foto',dm_gallery:'Fotogalerij',
+      d_kicker:'Waar we heen gaan',d_title:'Populaire routes & dagtrips',d_sub:'Bestemmingen stapelen zich tijdens het scrollen — van aankomst in PUJ tot de beste uitstapjes van het eiland.',dm_close:'Sluiten',dm_gallery:'Fotogalerij',
       tl_kicker:'Voor de landing',tl_title:'Van de slurf naar de achterbank',
       w_kicker:'Waarom Karún',w_title:'Locals die aankomen het makkelijke deel maken',w_speak:'Ons team spreekt (WhatsApp & telefoon)',
       dl_title:'Vlucht vertraagd? We wachten.',dl_body:'We volgen je vlucht live en passen automatisch aan. Ophalen op de luchthaven bevat een gratis wachttijd van 60–90 min na de landing — stuur ons een bericht op WhatsApp als je vertraging hebt.',
@@ -1398,7 +1392,7 @@ class Component extends DCLogic {
       p_kicker:'Ceny orientacyjne',p_title:'Poznaj cenę, zanim napiszesz',p_sub:'Za prywatnego vana (do 8 pasażerów), nie od osoby. Opłaty drogowe i podatki wliczone.',
       p_curLabel:'Waluta · kursy na żywo',p_indicative:'Orientacyjnie',p_oneWay:'w jedną stronę',p_roundTrip:'W obie strony',p_confirm:'Potwierdź na WhatsApp',
       m_kicker:'Gdzie jeździmy',m_title:'Korytarz wschodniego wybrzeża',m_sub:'Z lotniska Punta Cana do każdej strefy resortów i aż do Santo Domingo.',m_legend:'Strefy obsługi',m_foot:'Stylizowana mapa zasięgu. Nie widzisz swojego hotelu? Zapytaj na WhatsApp.',
-      d_kicker:'Dokąd jeździmy',d_title:'Popularne trasy i wycieczki',d_sub:'Destynacje układają się w stos podczas przewijania — od przylotów w PUJ po najlepsze wycieczki na wyspie.',dm_close:'Zamknij',dm_prev:'Poprzednie zdjęcie',dm_next:'Następne zdjęcie',dm_gallery:'Galeria zdjęć',
+      d_kicker:'Dokąd jeździmy',d_title:'Popularne trasy i wycieczki',d_sub:'Destynacje układają się w stos podczas przewijania — od przylotów w PUJ po najlepsze wycieczki na wyspie.',dm_close:'Zamknij',dm_gallery:'Galeria zdjęć',
       tl_kicker:'Zanim wylądujesz',tl_title:'Od rękawa do tylnego siedzenia',
       w_kicker:'Dlaczego Karún',w_title:'Miejscowi, dzięki którym przylot jest łatwy',w_speak:'Nasz zespół mówi (WhatsApp i telefon)',
       dl_title:'Lot opóźniony? Czekamy.',dl_body:'Śledzimy Twój lot na żywo i dostosowujemy się automatycznie. Odbiór z lotniska obejmuje darmowe okno oczekiwania 60–90 min po lądowaniu — napisz na WhatsApp, jeśli się spóźnisz.',
@@ -1561,8 +1555,6 @@ class Component extends DCLogic {
           <button type="button" class="dest-detail-x" id="dest-detail-close" aria-label="Close">&times;</button>
           <div class="dest-carousel" id="dest-carousel" data-auto="off">
             <div class="dest-carousel-track" id="dest-carousel-track"></div>
-            <button type="button" class="dest-carousel-btn prev" id="dest-carousel-prev" aria-label="Previous">&#8249;</button>
-            <button type="button" class="dest-carousel-btn next" id="dest-carousel-next" aria-label="Next">&#8250;</button>
             <div class="dest-carousel-dots" id="dest-carousel-dots" role="tablist"></div>
             <div class="dest-carousel-progress" id="dest-carousel-progress" aria-hidden="true"><span></span></div>
           </div>
@@ -1612,14 +1604,10 @@ class Component extends DCLogic {
     const tag = host.querySelector('#dest-detail-tag');
     const body = host.querySelector('#dest-detail-copy');
     const closeBtn = host.querySelector('#dest-detail-close');
-    const prevBtn = host.querySelector('#dest-carousel-prev');
-    const nextBtn = host.querySelector('#dest-carousel-next');
     title.textContent = copy.title;
     tag.textContent = copy.tag;
     body.innerHTML = (copy.paras || []).map(p => '<p>'+p.replace(/</g,'&lt;')+'</p>').join('');
     closeBtn.setAttribute('aria-label', (t && t.dm_close) || 'Cerrar');
-    prevBtn.setAttribute('aria-label', (t && t.dm_prev) || 'Anterior');
-    nextBtn.setAttribute('aria-label', (t && t.dm_next) || 'Siguiente');
     track.innerHTML = '';
     dots.innerHTML = '';
     (meta.images || []).forEach((src, i)=>{
@@ -1792,13 +1780,9 @@ class Component extends DCLogic {
     const dialog = host.querySelector('#dest-detail-dialog');
     const carousel = host.querySelector('#dest-carousel');
     const onBackClick = (e)=>{ if(e.target === back) this.closeDestModal(); };
-    const onPrev = ()=> this._destModalGo(this._destModalIndex - 1);
-    const onNext = ()=> this._destModalGo(this._destModalIndex + 1);
     const onKey = (e)=>{
       if(!back || back.getAttribute('data-open') !== 'true') return;
       if(e.key === 'Escape'){ e.preventDefault(); this.closeDestModal(); return; }
-      if(e.key === 'ArrowLeft'){ e.preventDefault(); onPrev(); }
-      if(e.key === 'ArrowRight'){ e.preventDefault(); onNext(); }
     };
     const pause = ()=> this._destModalPauseAuto();
     const resume = ()=> this._destModalResumeAuto();
@@ -1813,8 +1797,6 @@ class Component extends DCLogic {
     };
     back.addEventListener('click', onBackClick);
     host.querySelector('#dest-detail-close').addEventListener('click', ()=> this.closeDestModal());
-    host.querySelector('#dest-carousel-prev').addEventListener('click', onPrev);
-    host.querySelector('#dest-carousel-next').addEventListener('click', onNext);
     dialog.addEventListener('click', (e)=> e.stopPropagation());
     carousel.addEventListener('mouseenter', pause);
     carousel.addEventListener('mouseleave', resume);
