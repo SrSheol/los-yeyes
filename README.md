@@ -28,8 +28,8 @@ rebranding y no es un cambio introducido aquí.
   FAQ): contenido de marketing ya existente, solo rebrandeado a Karún.
 - **Sección "Demo interactiva"** (al final de la página — Flota, Tarifario
   buscable, Reserva multi-tramo): es una demostración funcional, sin backend:
-  - Los precios salen del tarifario real (`assets/tarifario.json`, extraído del
-    PDF oficial de Karún) — no son inventados.
+  - Los precios salen del tarifario real (`assets/tarifario.json`, generado del
+    .xlsm oficial de Karún y verificado contra sus PDFs) — no son inventados.
   - El pago (tarjeta / PayPal / efectivo) es **simulado**: no se hace ningún
     cargo real, no hay integración con ninguna pasarela de pago.
   - La confirmación y el letrero de pickup se generan localmente en el
@@ -51,7 +51,12 @@ support.js              → motor de la landing principal (no tocar sin necesida
 image-slot.js            → utilidades de imágenes de la landing principal
 media/hero-starex-loop.mp4 → video hero (conservado del repo original)
 assets/rd-map.png        → mapa de zonas RD (conservado)
-assets/tarifario.json    → tarifario oficial (115 hoteles / 10 zonas)
+assets/tarifario.json    → tarifario oficial PUJ + SDQ (249 hoteles, 4 clases de vehículo)
+assets/tarifario.data.js → mismo dato para carga sin fetch (generado)
+tools/build_tarifario.py → regenera ambos desde el .xlsm y verifica contra los PDFs
+assets/karun-beach.css   → capa visual playera (olas, sol, relieve, movimiento)
+assets/karun-fx.js       → destellos del hero y reflejos de tarjetas
+assets/fonts/            → Fraunces + Figtree (woff2 propios, OFL)
 assets/fleet/            → fotos referenciales de las 5 unidades
 assets/CREDITS.md        → créditos de imágenes / gráficos usados en la demo
 ```
@@ -64,3 +69,14 @@ si viviera dentro de ese árbol), la sección de demo interactiva vive **fuera**
 del árbol que gestiona React, justo debajo de la landing principal, con su
 propio selector de idioma ES/EN. Esto la hace robusta e independiente de si
 React llega a cargar o no.
+
+## Actualizar tarifas
+
+```bash
+python3 tools/build_tarifario.py \
+  --xlsm "Tarifario_regular_Karun_Travel__Definitivo.xlsm" \
+  --pdf-dir "carpeta/con/los/pdfs"   # opcional; requiere pdftotext
+```
+
+Regenera `assets/tarifario.json` y `assets/tarifario.data.js`. Si un PDF no coincide con el
+Excel, el script termina con error y lista las diferencias. Requiere `openpyxl`.

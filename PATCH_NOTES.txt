@@ -1,3 +1,50 @@
+Beach / sensory redesign + tarifario refresh (v22) — 2026-09-21 (America/Mexico_City)
+
+1) Tarifario oficial (PUJ + SDQ, 4 clases de vehículo)
+   - tools/build_tarifario.py lee las 4 hojas visibles del .xlsm (DESDE PUNTA CANA SUB CADILLAC,
+     DESDE AEROP PUNTA CANA MINIVAN, DESDE AEROP SDQ, DESDE AEROP SDQ SUB CAD; las hojas antiguas
+     ocultas se ignoran) y genera assets/tarifario.json (legible) + assets/tarifario.data.js
+     (mismo dato, carga sin fetch; funciona también desde file://).
+   - Cada precio fue verificado contra los 5 PDFs enviados, fila por fila: 0 diferencias.
+     PUJ = 115 hoteles / 10 zonas · SDQ = 134 hoteles / 13 zonas. PUJ Starex/Techo alto coincide
+     exactamente con el tarifario anterior.
+   - Clases: starex (1–6) · hiace / techo alto (7–10) · suburban (1–4) · cadillac (1–4).
+     "Hiace Toyota" y "Techo Alto" son la misma columna (los dos PDFs tienen precios idénticos).
+   - "Pax adicional por vía" se guarda por clase (Playa Palmera: 5 en Starex/Hiace, 6 en Suburban/Cadillac).
+   - Normalización sin tocar precios (meta.normalizations): Occiental→Occidental, Couryard→Courtyard,
+     numeración de lista "1 EMBASSY…" eliminada; Hard Rock duplicado en SDQ descartado (meta.duplicatesDropped).
+   - Un hotel solo existe donde su hoja lo publica; no se inventó ninguno.
+   - Para confirmar con el cliente (datos tal cual vienen): Whala Urban (Suburban 45/55 vs 50/60 de sus vecinos),
+     Royalton Bavaro (Starex 40/50 vs 25/35 de su zona), Solati mapeada a la columna Hiace / Techo alto.
+
+2) Wizard y buscador (karun-wizard.js reescrito, remount-safe)
+   - Por tramo: aeropuerto (PUJ/SDQ) · sentido (llegada/salida) · hotel agrupado por zona del aeropuerto ·
+     vehículo (Automático = clase más barata que cubre el grupo, o clase fija) · fecha/hora/pax/vuelo.
+   - Precio: tarifa base cubre hasta paxMax de la clase; cada pax adicional cobra el "extra" de esa hoja.
+     Sugerencia si otra clase sale más barata. Tramos extra = una vía más a la tarifa publicada
+     (demo; las hojas no traen descuento de ida y vuelta). El tramo de regreso se pre-llena.
+   - Buscador: origen, clase de vehículo, texto sin acentos, zona; tarjetas en móvil.
+   - Tarjetas de flota con "Desde US$ … PUJ / SDQ" calculado del dato; pax corregidos según hojas
+     (Suburban 1–4, Cadillac 1–4). Mock de pago, letrero de pickup y localStorage intactos
+     (formato de reserva guardada v2; los borradores viejos se ignoran).
+
+3) Diseño playero / sensorial
+   - Tipografía: Fraunces (titulares, eje SOFT) + Figtree (texto/UI/precios), woff2 propios en assets/fonts
+     (OFL, ver assets/fonts/OFL.txt). Se eliminó Google Fonts. Ñ, tildes, ¡ ¿ verificados.
+   - assets/karun-beach.css: sol suave + mar de respaldo + orilla animada en el hero, divisores de ola,
+     lavados de luz por sección, relieve/insets, brillo en botones, barra de progreso de scroll (CSS
+     scroll-driven, con fallback JS), parallax del hero. Paleta teal sin cambios.
+   - assets/karun-fx.js: destellos de sol y partículas en el hero (canvas, pausa fuera de vista),
+     reflejo/parallax en tarjetas de flota. Todo apagado con prefers-reduced-motion.
+   - Destinos (stack sticky + modal, autoplay, sin flechas, scroll lock, Escape) sin cambios de comportamiento.
+   - Sin fotos/video nuevos en esta pasada (la sandbox no puede descargar de Unsplash/Pexels).
+
+4) Pruebas realizadas (Chromium headless)
+   - 21 casos de precio contra valores de los PDFs + 996 combinaciones hotel×clase contra el JSON.
+   - Flujo: buscar → reservar desde fila → tramo de regreso → confirmar → letrero PNG → editar; ES↔EN.
+   - Destinos: stack sticky, modal abre/cierra con Escape; móvil 390px sin overflow; reduced-motion sin animaciones infinitas.
+
+---
 Destinos detail modal scroll lock — 2026-09-21 (America/Mexico_City)
 - Fixed-position body lock now preserves and restores the exact page scroll position.
 - Backdrop/document touch and wheel gestures are blocked while the modal body keeps contained scrolling.

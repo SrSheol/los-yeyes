@@ -70,7 +70,7 @@ image-slot::part(image){touch-action:pan-x pan-y!important;-webkit-user-drag:non
 @keyframes dest-dot-fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 @keyframes dest-kenburns{from{transform:scale(1.001)}to{transform:scale(1.06)}}
 .dest-detail-body{padding:clamp(18px,3vw,28px) clamp(18px,3.5vw,32px) clamp(22px,3vw,34px);overflow-y:auto;flex:1 1 auto;min-height:0;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;touch-action:pan-y}
-.dest-detail-body h2{font-family:'Space Grotesk',system-ui,sans-serif;font-size:clamp(26px,4vw,36px);margin:0 0 12px;line-height:1.08}
+.dest-detail-body h2{font-family:var(--f-disp);font-size:clamp(26px,4vw,36px);margin:0 0 12px;line-height:1.08}
 .dest-detail-body .dest-detail-copy{color:#5a7a80;font-size:15.5px;line-height:1.65;font-weight:500}
 .dest-detail-body .dest-detail-copy p{margin:0 0 12px}
 html.dest-modal-lock,body.dest-modal-lock{overflow:hidden!important}
@@ -84,6 +84,11 @@ html.dest-modal-lock,body.dest-modal-lock{overflow:hidden!important}
 <link rel="icon" href="assets/favicon-48.png?v=21" type="image/png" sizes="48x48">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=21" sizes="180x180">
 <link rel="shortcut icon" href="assets/favicon-32.png?v=21" type="image/png">
+<!-- v22 beach layer: self-hosted Fraunces + Figtree (OFL) and the sensory stylesheet -->
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/fraunces-latin-full-normal.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/figtree-latin-wght-normal.woff2" crossorigin>
+<link rel="stylesheet" href="assets/fonts/karun-fonts.css?v=22">
+<link rel="stylesheet" href="assets/karun-beach.css?v=22">
 <script src="./support.js"></script>
 </head>
 <body>
@@ -92,9 +97,6 @@ html.dest-modal-lock,body.dest-modal-lock{overflow:hidden!important}
 </div>
 <x-dc>
 <helmet>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="./image-slot.js?v=13"></script>
 <style>
   /* Pages flush: kill Design canvas letterbox / white frame */
@@ -110,13 +112,13 @@ html.dest-modal-lock,body.dest-modal-lock{overflow:hidden!important}
     --raise-lg:16px 16px 38px rgba(110,115,95,.28), -12px -12px 28px rgba(255,255,255,.95);
     --inset:inset 6px 6px 12px rgba(120,120,100,.24), inset -6px -6px 12px rgba(255,255,255,.92);
     --inset-sm:inset 3px 3px 7px rgba(120,120,100,.22), inset -3px -3px 7px rgba(255,255,255,.9);
-    font-family:'Manrope',system-ui,sans-serif;color:var(--ink);background:var(--sand);
+    font-family:var(--f-body);color:var(--ink);background:var(--sand);
     position:relative;overflow-x:clip;-webkit-font-smoothing:antialiased;line-height:1.5;
     -webkit-user-select:none;user-select:none;-webkit-touch-callout:none
   }
   .lm img, .lm image-slot, .lm video, .lm svg{-webkit-user-drag:none;user-drag:none;touch-action:pan-x pan-y}
   .lm input,.lm textarea,.lm select,.lm [contenteditable]{-webkit-user-select:text;user-select:text}
-  .lm .disp{font-family:'Space Grotesk',sans-serif;font-weight:700;line-height:1.04;letter-spacing:-.02em;text-wrap:balance}
+  .lm .disp{font-family:var(--f-disp);font-weight:600;line-height:1.03;letter-spacing:-.022em;text-wrap:balance}
   .lm a{color:var(--teal-deep);text-decoration:none}
   .lm a:hover{color:var(--teal)}
   .lm a.btn{color:#fff}
@@ -137,7 +139,7 @@ html.dest-modal-lock,body.dest-modal-lock{overflow:hidden!important}
   .neu{background:var(--card);box-shadow:var(--raise);border-radius:22px}
   .chip{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:100px;background:var(--surface);box-shadow:var(--raise);font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal-deep);transition:transform .16s ease}
   .chip:hover{transform:translateY(-1px)}
-  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-family:'Manrope';font-weight:700;font-size:15px;border:0;cursor:pointer;border-radius:100px;padding:15px 26px;background:var(--teal);color:#fff;box-shadow:0 10px 22px color-mix(in srgb,var(--teal) 38%,transparent), inset 0 1px 0 rgba(255,255,255,.3);transition:transform .16s ease, box-shadow .16s ease}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-family:var(--f-body);font-weight:700;font-size:15px;border:0;cursor:pointer;border-radius:100px;padding:15px 26px;background:var(--teal);color:#fff;box-shadow:0 10px 22px color-mix(in srgb,var(--teal) 38%,transparent), inset 0 1px 0 rgba(255,255,255,.3);transition:transform .16s ease, box-shadow .16s ease}
   .btn:hover{transform:translateY(-2px)}
   .btn:active{transform:translateY(1px);box-shadow:inset 3px 3px 8px rgba(0,0,0,.22), inset -2px -2px 6px rgba(255,255,255,.2)}
   .btn.ghost{background:var(--surface);color:var(--ink);box-shadow:var(--raise)}
@@ -199,7 +201,7 @@ html.dest-modal-lock,body.dest-modal-lock{overflow:hidden!important}
   @keyframes dest-kenburns{from{transform:scale(1.001)}to{transform:scale(1.06)}}
   .dest-detail-body{padding:clamp(18px,3vw,28px) clamp(18px,3.5vw,32px) clamp(22px,3vw,34px);overflow-y:auto;flex:1 1 auto;min-height:0;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;touch-action:pan-y}
   .dest-detail-body .chip{margin-bottom:10px}
-  .dest-detail-body h2{font-family:'Space Grotesk',system-ui,sans-serif;font-size:clamp(26px,4vw,36px);margin:0 0 12px;line-height:1.08;letter-spacing:-.02em}
+  .dest-detail-body h2{font-family:var(--f-disp);font-size:clamp(26px,4vw,36px);margin:0 0 12px;line-height:1.08;letter-spacing:-.02em}
   .dest-detail-body .dest-detail-copy{color:var(--muted,#5a7a80);font-size:15.5px;line-height:1.65;font-weight:500}
   .dest-detail-body .dest-detail-copy p{margin:0 0 12px}
   .dest-detail-body .dest-detail-copy p:last-child{margin-bottom:0}
@@ -247,19 +249,19 @@ html.dest-modal-lock,body.dest-modal-lock{overflow:hidden!important}
   .ly-art.a2{animation-duration:11s;animation-delay:-2s;opacity:.28}
   .ly-art.a3{animation-duration:13s;animation-delay:-4s;opacity:.38}
 
-  .fld{font-family:'Manrope';font-size:15px;font-weight:600;color:var(--ink);border:0;border-radius:14px;padding:14px 15px;background:var(--surface);box-shadow:var(--inset-sm);width:100%}
+  .fld{font-family:var(--f-body);font-size:15px;font-weight:600;color:var(--ink);border:0;border-radius:14px;padding:14px 15px;background:var(--surface);box-shadow:var(--inset-sm);width:100%}
   .fld::placeholder{color:var(--muted);font-weight:500}
   .fldlbl{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:7px;display:block}
 
   .langmenu{position:fixed;top:var(--ly-nav-h, 72px);left:50%;right:auto;transform:translateX(-50%);width:min(330px, calc(100vw - 32px));max-width:calc(100vw - 32px);background:var(--card);box-shadow:var(--raise-lg);border-radius:18px;padding:12px;z-index:120;display:grid;grid-template-columns:1fr 1fr;gap:6px}
-  .lang-opt{display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:12px;border:0;background:transparent;cursor:pointer;font-family:'Manrope';font-weight:600;font-size:14px;color:var(--ink);text-align:left;transition:background .12s}
+  .lang-opt{display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:12px;border:0;background:transparent;cursor:pointer;font-family:var(--f-body);font-weight:600;font-size:14px;color:var(--ink);text-align:left;transition:background .12s}
   .lang-opt:hover{background:var(--surface)}
   .lang-opt[data-active="true"]{background:var(--teal);color:#fff}
   .lang-opt .code{width:30px;height:30px;flex:0 0 30px;border-radius:9px;display:grid;place-items:center;font-weight:800;font-size:11px;background:var(--surface);box-shadow:var(--inset-sm);color:var(--teal-deep)}
   .lang-opt[data-active="true"] .code{background:rgba(255,255,255,.22);color:#fff;box-shadow:none}
 
   .faq-item{border-bottom:1px solid var(--line)}
-  .faq-q{width:100%;text-align:left;background:transparent;border:0;cursor:pointer;font-family:'Space Grotesk';font-weight:700;font-size:clamp(18px,2.2vw,23px);color:var(--ink);padding:24px 0;display:flex;justify-content:space-between;align-items:center;gap:20px}
+  .faq-q{width:100%;text-align:left;background:transparent;border:0;cursor:pointer;font-family:var(--f-disp);font-weight:700;font-size:clamp(18px,2.2vw,23px);color:var(--ink);padding:24px 0;display:flex;justify-content:space-between;align-items:center;gap:20px}
   .faq-a{overflow:hidden;max-height:0;transition:max-height .35s ease,padding .35s ease;color:var(--muted);font-size:16px;line-height:1.6}
   .faq-item[data-open="true"] .faq-a{max-height:360px;padding-bottom:24px}
   .faq-item[data-open="true"] .faq-ic{transform:rotate(45deg)}
@@ -295,7 +297,7 @@ html.dest-modal-lock,body.dest-modal-lock{overflow:hidden!important}
   .svc-feat .media > image-slot{position:absolute;inset:0;width:100%;height:100%}
 
   /* prices + currency */
-  .cur-btn{font-family:'Manrope';font-weight:700;font-size:13px;border:0;cursor:pointer;padding:9px 14px;border-radius:100px;background:var(--surface);box-shadow:var(--inset-sm);color:var(--muted);transition:all .14s}
+  .cur-btn{font-family:var(--f-body);font-weight:700;font-size:13px;border:0;cursor:pointer;padding:9px 14px;border-radius:100px;background:var(--surface);box-shadow:var(--inset-sm);color:var(--muted);transition:all .14s}
   .cur-btn:hover{color:var(--ink)}
   .cur-btn[data-on="true"]{background:var(--teal);color:#fff;box-shadow:0 6px 14px color-mix(in srgb,var(--teal) 34%,transparent)}
   .rcard{padding:26px;display:flex;flex-direction:column;gap:4px;transition:transform .18s ease}
@@ -322,14 +324,14 @@ html.dest-modal-lock,body.dest-modal-lock{overflow:hidden!important}
   .tl-step{position:relative;padding:0 14px;text-align:center}
   .tl-step::before{content:"";position:absolute;top:26px;left:-50%;width:100%;height:3px;background:var(--line);z-index:0}
   .tl-step:first-child::before{display:none}
-  .tl-num{position:relative;z-index:1;width:54px;height:54px;border-radius:50%;margin:0 auto 16px;display:grid;place-items:center;background:var(--card);box-shadow:var(--raise);font-family:'Space Grotesk';font-weight:700;font-size:22px;color:var(--teal-deep)}
+  .tl-num{position:relative;z-index:1;width:54px;height:54px;border-radius:50%;margin:0 auto 16px;display:grid;place-items:center;background:var(--card);box-shadow:var(--raise);font-family:var(--f-disp);font-weight:700;font-size:22px;color:var(--teal-deep)}
 
   /* cookie + modal */
   .cookie{position:fixed;left:16px;right:16px;bottom:16px;z-index:900;max-width:760px;margin:0 auto;background:var(--card);box-shadow:var(--raise-lg);border-radius:20px;padding:20px 22px;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
   .modal-back{position:fixed;inset:0;z-index:1000;background:rgba(6,26,28,.55);backdrop-filter:blur(6px);align-items:flex-start;justify-content:center;padding:clamp(16px,5vh,60px) 16px;overflow:auto}
   .modal{background:var(--card);border-radius:24px;max-width:700px;width:100%;box-shadow:var(--raise-lg);padding:clamp(24px,4vw,42px);position:relative}
-  .modal h3{font-family:'Space Grotesk'}
-  .modal h4{font-family:'Space Grotesk';font-size:16px;margin:20px 0 6px;color:var(--ink)}
+  .modal h3{font-family:var(--f-disp)}
+  .modal h4{font-family:var(--f-disp);font-size:16px;margin:20px 0 6px;color:var(--ink)}
   .modal p{color:var(--muted);font-size:15px;line-height:1.6;margin:0 0 10px}
   .xbtn{position:absolute;top:18px;right:18px;width:40px;height:40px;border-radius:50%;border:0;cursor:pointer;background:var(--surface);box-shadow:var(--raise);font-size:20px;color:var(--ink);display:grid;place-items:center}
 
@@ -461,6 +463,7 @@ html.dest-modal-lock,body.dest-modal-lock{overflow:hidden!important}
       <video class="hero-vid" autoplay muted loop playsinline webkit-playsinline disableRemotePlayback preload="auto" aria-hidden="true">
         <source src="media/hero-starex-loop.mp4" type="video/mp4">
       </video>
+      <canvas class="krn-glint" aria-hidden="true"></canvas>
       <div class="hero-vig"></div>
     </div>
     <div class="hero-sun" aria-hidden="true">
@@ -475,7 +478,7 @@ html.dest-modal-lock,body.dest-modal-lock{overflow:hidden!important}
           <span>· {{ t.h_transfers }}</span>
         </div>
         <span class="chip" style="margin-bottom:22px">📍 Punta Cana · Bávaro · Cap Cana · Santo Domingo</span>
-        <h1 class="disp" style="font-size:clamp(42px,6.6vw,84px);margin:0 0 22px;color:#fff;text-shadow:0 2px 26px rgba(0,0,0,.45);max-width:15ch">{{ t.h1 }} <span style="color:#ffce54">{{ t.h1hi }}</span></h1>
+        <h1 class="disp" style="font-size:clamp(42px,6.6vw,84px);margin:0 0 22px;color:#fff;text-shadow:0 2px 26px rgba(0,0,0,.45);max-width:15ch">{{ t.h1 }} <span class="hl-sun">{{ t.h1hi }}</span></h1>
         <p style="font-size:clamp(17px,1.9vw,21px);color:rgba(251,245,234,.92);max-width:560px;margin:0 0 32px;font-weight:500;text-shadow:0 1px 14px rgba(0,0,0,.5)">{{ t.h_sub }}</p>
         <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
           <a class="btn" href="#book" style="font-size:16px;padding:17px 30px">{{ t.h_book }} →</a>
@@ -486,6 +489,11 @@ html.dest-modal-lock,body.dest-modal-lock{overflow:hidden!important}
           <span>✓ {{ t.hf_cancel }}</span><span>✓ {{ t.hf_pay }}</span><span>✓ {{ t.hf_seats }}</span>
         </div>
       </div>
+    </div>
+    <div class="krn-shore" aria-hidden="true">
+      <svg class="w1" viewBox="0 0 2880 120" preserveAspectRatio="none"><path fill="rgba(255,255,255,.30)" d="M0,58 Q120,32 240,58 T480,58 T720,58 T960,58 T1200,58 T1440,58 T1680,58 T1920,58 T2160,58 T2400,58 T2640,58 T2880,58 V120 H0 Z"/></svg>
+      <svg class="w2" viewBox="0 0 2880 120" preserveAspectRatio="none"><path fill="rgba(122,212,224,.42)" d="M0,70 Q180,36 360,70 T720,70 T1080,70 T1440,70 T1800,70 T2160,70 T2520,70 T2880,70 V120 H0 Z"/></svg>
+      <svg class="w3" viewBox="0 0 2880 120" preserveAspectRatio="none"><path fill="var(--surface-2)" d="M0,84 Q360,44 720,84 T1440,84 T2160,84 T2880,84 V120 H0 Z"/><path fill="none" stroke="rgba(255,255,255,.9)" stroke-width="2.2" stroke-linecap="round" d="M0,84 Q360,44 720,84 T1440,84 T2160,84 T2880,84 "/></svg>
     </div>
   </header>
 
@@ -580,7 +588,8 @@ html.dest-modal-lock,body.dest-modal-lock{overflow:hidden!important}
           </div>
           <div class="krn-fleet-body">
             <h3 class="disp" style="font-size:21px;margin:0 0 4px">Hyundai Grand Starex</h3>
-            <div style="color:var(--muted);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">2018 · <span class="l-en">approx. 1–6 pax</span><span class="l-es">aprox. 1–6 pax</span></div>
+            <div style="color:var(--muted);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">2018 · <span class="l-en">1–6 pax</span><span class="l-es">1–6 pax</span></div>
+            <div class="krn-from" data-krn-from="starex"></div>
             <button class="btn sm" style="width:100%" data-krn-quote="Hyundai Grand Starex"><span class="l-en">Quote this vehicle</span><span class="l-es">Cotizar esta unidad</span> →</button>
           </div>
         </div>
@@ -592,7 +601,8 @@ html.dest-modal-lock,body.dest-modal-lock{overflow:hidden!important}
           </div>
           <div class="krn-fleet-body">
             <h3 class="disp" style="font-size:21px;margin:0 0 4px">Cadillac Escalade</h3>
-            <div style="color:var(--muted);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">2020 · <span class="l-en">approx. 1–6 pax</span><span class="l-es">aprox. 1–6 pax</span></div>
+            <div style="color:var(--muted);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">2020 · <span class="l-en">1–4 pax</span><span class="l-es">1–4 pax</span></div>
+            <div class="krn-from" data-krn-from="cadillac"></div>
             <button class="btn sm" style="width:100%" data-krn-quote="Cadillac Escalade 2020"><span class="l-en">Quote this vehicle</span><span class="l-es">Cotizar esta unidad</span> →</button>
           </div>
         </div>
@@ -604,7 +614,8 @@ html.dest-modal-lock,body.dest-modal-lock{overflow:hidden!important}
           </div>
           <div class="krn-fleet-body">
             <h3 class="disp" style="font-size:21px;margin:0 0 4px">Hyundai Solati</h3>
-            <div style="color:var(--muted);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">2014 · <span class="l-en">approx. 7–10 pax</span><span class="l-es">aprox. 7–10 pax</span></div>
+            <div style="color:var(--muted);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">2014 · <span class="l-en">7–10 pax</span><span class="l-es">7–10 pax</span></div>
+            <div class="krn-from" data-krn-from="hiace"></div>
             <button class="btn sm" style="width:100%" data-krn-quote="Hyundai Solati 2014"><span class="l-en">Quote this vehicle</span><span class="l-es">Cotizar esta unidad</span> →</button>
           </div>
         </div>
@@ -616,7 +627,8 @@ html.dest-modal-lock,body.dest-modal-lock{overflow:hidden!important}
           </div>
           <div class="krn-fleet-body">
             <h3 class="disp" style="font-size:21px;margin:0 0 4px">Toyota Hiace</h3>
-            <div style="color:var(--muted);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">2019 · <span class="l-en">approx. 7–10 pax</span><span class="l-es">aprox. 7–10 pax</span></div>
+            <div style="color:var(--muted);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">2019 · <span class="l-en">7–10 pax</span><span class="l-es">7–10 pax</span></div>
+            <div class="krn-from" data-krn-from="hiace"></div>
             <button class="btn sm" style="width:100%" data-krn-quote="Toyota Hiace 2019"><span class="l-en">Quote this vehicle</span><span class="l-es">Cotizar esta unidad</span> →</button>
           </div>
         </div>
@@ -628,57 +640,63 @@ html.dest-modal-lock,body.dest-modal-lock{overflow:hidden!important}
           </div>
           <div class="krn-fleet-body">
             <h3 class="disp" style="font-size:21px;margin:0 0 4px">Chevrolet Suburban LWB</h3>
-            <div style="color:var(--muted);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">2020 · <span class="l-en">approx. 7–10 pax</span><span class="l-es">aprox. 7–10 pax</span></div>
+            <div style="color:var(--muted);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">2020 · <span class="l-en">1–4 pax</span><span class="l-es">1–4 pax</span></div>
+            <div class="krn-from" data-krn-from="suburban"></div>
             <button class="btn sm" style="width:100%" data-krn-quote="Chevrolet Suburban LWB 2020"><span class="l-en">Quote this vehicle</span><span class="l-es">Cotizar esta unidad</span> →</button>
           </div>
         </div>
 
       </div>
-      <p class="reveal" style="margin:20px 2px 0;font-size:13px;color:var(--muted);max-width:820px"><span class="l-en">Referential stock photos for this demo — final client vehicle photography is added in production. Fares below follow the STAREX (1–6 pax) / TECHO ALTO (7–10 pax) bands from the official rate sheet regardless of which unit is shown.</span><span class="l-es">Fotos de referencia de unidades para esta demo — la fotografía real del cliente se agrega en producción. Las tarifas abajo siguen las bandas STAREX (1–6 pax) / TECHO ALTO (7–10 pax) de la tarifa oficial, sin importar la unidad mostrada.</span></p>
+      <p class="reveal krn-note"><span class="l-en">Referential stock photos for this demo — final client vehicle photography is added in production. Fares follow the official sheet by vehicle class: Starex (1–6 pax), Hiace / Techo alto (7–10 pax), Suburban (1–4 pax) and Cadillac (1–4 pax). Hyundai Solati is quoted on the Hiace / Techo alto column.</span><span class="l-es">Fotos de referencia para esta demo — la fotografía real del cliente se agrega en producción. Las tarifas siguen la hoja oficial por clase de vehículo: Starex (1–6 pax), Hiace / Techo alto (7–10 pax), Suburban (1–4 pax) y Cadillac (1–4 pax). La Hyundai Solati se cotiza en la columna Hiace / Techo alto.</span></p>
     </div>
   </section>
 
   <!-- ===================== RATE SHEET SEARCH (Karún — real tarifario) ===================== -->
+  <div class="krn-wave" aria-hidden="true" style="--from:var(--sand);--to:var(--surface-2)"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><path class="tint" d="M0,22 C240,2 440,4 660,22 S1060,62 1270,24 S1410,6 1440,12 V80 H0 Z"/><path class="foam" d="M0,30 C200,4 400,4 620,28 S1020,68 1240,30 S1400,8 1440,16 V80 H0 Z"/><path d="M0,42 C220,6 420,6 640,38 S1040,78 1250,38 S1410,18 1440,28 V80 H0 Z"/></svg></div>
   <section id="rates-search" style="background:var(--surface-2);padding:clamp(56px,8vw,100px) clamp(16px,4vw,44px);border-block:1px solid var(--line);position:relative;overflow:hidden">
     <div style="max-width:1160px;margin:0 auto">
       <div class="reveal" style="display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:24px">
         <div style="max-width:640px">
           <span class="chip"><span class="l-en">Full hotel rate sheet</span><span class="l-es">Tarifario completo por hotel</span></span>
           <h2 class="disp" style="font-size:clamp(30px,4.6vw,48px);margin:16px 0 10px"><span class="l-en">Search your hotel</span><span class="l-es">Busca tu hotel</span></h2>
-          <p style="color:var(--muted);font-weight:500;font-size:16px"><span class="l-en">One-way rates from Punta Cana Airport (PUJ), in USD.</span><span class="l-es">Tarifas one-way desde el Aeropuerto de Punta Cana (PUJ), en USD.</span></p>
+          <p style="color:var(--muted);font-weight:500;font-size:16px"><span class="l-en">Official one-way rates from Punta Cana (PUJ) and Santo Domingo (SDQ) airports, per vehicle, in USD.</span><span class="l-es">Tarifas oficiales por vía desde los aeropuertos de Punta Cana (PUJ) y Santo Domingo (SDQ), por vehículo, en USD.</span></p>
         </div>
         <span class="chip" style="color:var(--coral)"><span class="l-en">Indicative prices · demo</span><span class="l-es">Precios indicativos · demo</span></span>
       </div>
 
-      <div class="neu reveal" style="padding:18px;margin-bottom:18px;display:flex;gap:12px;flex-wrap:wrap">
-        <div style="flex:2;min-width:220px">
-          <label class="fldlbl" for="krn-hotel-search"><span class="l-en">Hotel name</span><span class="l-es">Nombre del hotel</span></label>
-          <input id="krn-hotel-search" class="fld" type="search" placeholder="Ej. Hard Rock, Barceló, Casa de Campo…" autocomplete="off">
+      <div class="neu reveal krn-ctl" style="padding:18px;margin-bottom:18px">
+        <div class="krn-ctl-row">
+          <div>
+            <span class="krn-ctl-lbl"><span class="l-en">From airport</span><span class="l-es">Desde el aeropuerto</span></span>
+            <div id="krn-rate-origins" class="krn-segs" role="group" aria-label="Airport"></div>
+          </div>
+          <div style="flex:1;min-width:260px">
+            <span class="krn-ctl-lbl"><span class="l-en">Vehicle</span><span class="l-es">Vehículo</span></span>
+            <div id="krn-rate-classes" class="krn-chips" role="group" aria-label="Vehicle"></div>
+          </div>
         </div>
-        <div style="flex:1;min-width:200px">
-          <label class="fldlbl" for="krn-zone-filter"><span class="l-en">Zone</span><span class="l-es">Zona</span></label>
-          <select id="krn-zone-filter" class="fld">
-            <option value="">Todas las zonas</option>
-          </select>
+        <div class="krn-ctl-row">
+          <div style="flex:2;min-width:220px">
+            <label class="fldlbl" for="krn-hotel-search"><span class="l-en">Hotel name</span><span class="l-es">Nombre del hotel</span></label>
+            <input id="krn-hotel-search" class="fld" type="search" placeholder="Ej. Hard Rock, Barceló, Casa de Campo…" autocomplete="off">
+          </div>
+          <div style="flex:1;min-width:200px">
+            <label class="fldlbl" for="krn-zone-filter"><span class="l-en">Zone</span><span class="l-es">Zona</span></label>
+            <select id="krn-zone-filter" class="fld">
+              <option value="">Todas las zonas</option>
+            </select>
+          </div>
         </div>
       </div>
 
       <div class="neu reveal" style="padding:0;overflow:hidden">
         <div style="overflow-x:auto">
           <table class="krn-rate-table" id="krn-rate-table">
-            <thead>
-              <tr>
-                <th><span class="l-en">Hotel</span><span class="l-es">Hotel</span></th>
-                <th><span class="l-en">Zone</span><span class="l-es">Zona</span></th>
-                <th>Starex <span style="font-weight:500;color:var(--muted)">(1–6)</span></th>
-                <th><span class="l-en">High roof</span><span class="l-es">Techo alto</span> <span style="font-weight:500;color:var(--muted)">(7–10)</span></th>
-                <th><span class="l-en">Extra pax</span><span class="l-es">Pax extra</span></th>
-                <th></th>
-              </tr>
-            </thead>
+            <thead id="krn-rate-thead"></thead>
             <tbody id="krn-rate-tbody"></tbody>
           </table>
         </div>
+        <p id="krn-rate-meta" class="krn-rate-meta" style="padding:0 18px"></p>
         <p id="krn-rate-empty" style="display:none;padding:26px;text-align:center;color:var(--muted)"><span class="l-en">No hotel matches your search.</span><span class="l-es">Ningún hotel coincide con tu búsqueda.</span></p>
         <div id="krn-rates-more-wrap" style="padding:18px 16px;text-align:center;border-top:1px solid var(--line)">
           <button type="button" id="krn-rates-more" class="btn ghost sm" data-krn-action="rates-more">
@@ -690,17 +708,18 @@ html.dest-modal-lock,body.dest-modal-lock{overflow:hidden!important}
           <p id="krn-rates-count" style="margin:12px 0 0;font-size:12.5px;color:var(--muted);font-weight:500"></p>
         </div>
       </div>
-      <p class="reveal" style="margin:16px 2px 0;font-size:12.5px;color:var(--muted);max-width:820px"><span class="l-en">Rates from the official Karún Travel Group price sheet, one-way from PUJ. Non-Starex fleet units are billed on the same STAREX / TECHO ALTO band shown here; exact vehicle assignment is confirmed before the trip.</span><span class="l-es">Tarifas de la tarifa oficial de Karún Travel Group, one-way desde PUJ. Las unidades de la flota que no son la Starex se cobran según la misma banda STAREX / TECHO ALTO mostrada aquí; la unidad exacta se confirma antes del viaje.</span></p>
+      <p class="reveal krn-note"><span class="l-en">Tarifario de traslados regular — official Karún Travel Group rates, one-way (1 vía), per vehicle. The base fare covers the seats of the class (Starex 1–6, Hiace / Techo alto 7–10, Suburban 1–4, Cadillac 1–4); each additional passenger is charged the “pax adicional por vía” shown. Demo prices; the exact unit is confirmed before the trip.</span><span class="l-es">Tarifario de traslados regular — tarifas oficiales de Karún Travel Group, por vía (1 vía), por vehículo. La tarifa base cubre los asientos de la clase (Starex 1–6, Hiace / Techo alto 7–10, Suburban 1–4, Cadillac 1–4); cada pasajero adicional paga el “pax adicional por vía” indicado. Precios de demostración; la unidad exacta se confirma antes del viaje.</span></p>
     </div>
   </section>
 
   <!-- ===================== BOOKING DEMO WIZARD (Karún) ===================== -->
+  <div class="krn-wave" aria-hidden="true" style="--from:var(--surface-2);--to:var(--sand)"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><path class="tint" d="M0,22 C240,2 440,4 660,22 S1060,62 1270,24 S1410,6 1440,12 V80 H0 Z"/><path class="foam" d="M0,30 C200,4 400,4 620,28 S1020,68 1240,30 S1400,8 1440,16 V80 H0 Z"/><path d="M0,42 C220,6 420,6 640,38 S1040,78 1250,38 S1410,18 1440,28 V80 H0 Z"/></svg></div>
   <section id="reservar" style="background:var(--sand);padding:clamp(64px,9vw,120px) clamp(16px,4vw,44px);position:relative;overflow:hidden">
     <div style="max-width:960px;margin:0 auto">
       <div class="reveal" style="max-width:720px;margin-bottom:30px">
         <span class="chip"><span class="l-en">Demo booking flow</span><span class="l-es">Flujo de reserva demo</span></span>
         <h2 class="disp" style="font-size:clamp(32px,4.8vw,52px);margin:16px 0 12px"><span class="l-en">Build your trip</span><span class="l-es">Arma tu viaje</span></h2>
-        <p style="color:var(--muted);font-weight:500;font-size:16px;max-width:600px"><span class="l-en">Add one or more legs, pick a vehicle and "pay" in demo mode — nothing is charged. This simulates the real booking flow.</span><span class="l-es">Agrega uno o más tramos, elige un vehículo y "paga" en modo demo — no se cobra nada. Esto simula el flujo real de reserva.</span></p>
+        <p style="color:var(--muted);font-weight:500;font-size:16px;max-width:600px"><span class="l-en">Pick your airport (PUJ or SDQ), hotel and vehicle for each leg — add a return leg with one tap — and "pay" in demo mode. Nothing is charged. Prices come straight from the official rate sheet.</span><span class="l-es">Elige aeropuerto (PUJ o SDQ), hotel y vehículo para cada tramo — agrega el regreso con un toque — y "paga" en modo demo. No se cobra nada. Los precios salen directo del tarifario oficial.</span></p>
       </div>
 
       <!-- ---- FORM VIEW ---- -->
@@ -708,20 +727,10 @@ html.dest-modal-lock,body.dest-modal-lock{overflow:hidden!important}
 
         <div id="krn-legs"></div>
 
-        <button type="button" class="btn ghost sm" data-krn-action="add-leg" style="margin-bottom:22px">+ <span class="l-en">Add leg</span><span class="l-es">Agregar tramo</span></button>
+        <button type="button" class="btn ghost sm" data-krn-action="add-leg" style="margin-bottom:8px">+ <span class="l-en">Add leg (return trip)</span><span class="l-es">Agregar tramo (regreso)</span></button>
+        <p class="krn-note" style="margin:0 0 22px"><span class="l-en">Demo: each extra leg is quoted as one more one-way at the published fare — the rate sheets list no round-trip discount.</span><span class="l-es">Demo: cada tramo extra se cotiza como una vía más a la tarifa publicada — las hojas del tarifario no incluyen descuento por ida y vuelta.</span></p>
 
         <div class="krn-divider"></div>
-
-        <div style="margin-bottom:18px">
-          <label class="fldlbl" for="krn-vehicle"><span class="l-en">Vehicle</span><span class="l-es">Vehículo</span></label>
-          <select id="krn-vehicle" class="fld" style="width:100%">
-            <option>Hyundai Grand Starex</option>
-            <option>Cadillac Escalade 2020</option>
-            <option>Hyundai Solati 2014</option>
-            <option>Toyota Hiace 2019</option>
-            <option>Chevrolet Suburban LWB 2020</option>
-          </select>
-        </div>
 
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-bottom:18px">
           <div><label class="fldlbl" for="krn-name"><span class="l-en">Passenger name</span><span class="l-es">Nombre del pasajero</span></label><input id="krn-name" class="fld" type="text" required placeholder="Ej. Antonio Camino"></div>
@@ -749,6 +758,7 @@ html.dest-modal-lock,body.dest-modal-lock{overflow:hidden!important}
           </div>
         </div>
 
+        <p id="krn-form-msg" role="alert"></p>
         <button type="submit" class="btn" style="width:100%;font-size:16px;padding:16px"><span class="l-en">Confirm demo booking</span><span class="l-es">Confirmar reserva demo</span> →</button>
         <p style="margin:12px 2px 0;font-size:12px;color:var(--muted);line-height:1.5"><span class="l-en">This is a public demo. No real charge, email or WhatsApp message is sent.</span><span class="l-es">Esta es una demo pública. No se realiza ningún cobro, correo o mensaje de WhatsApp real.</span></p>
       </form>
@@ -780,6 +790,7 @@ html.dest-modal-lock,body.dest-modal-lock{overflow:hidden!important}
   </section>
 
   <!-- ===================== ZONES MAP (real RD map + pins) ===================== -->
+  <div class="krn-wave" aria-hidden="true" style="--from:var(--sand);--to:var(--surface-2)"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><path class="tint" d="M0,22 C240,2 440,4 660,22 S1060,62 1270,24 S1410,6 1440,12 V80 H0 Z"/><path class="foam" d="M0,30 C200,4 400,4 620,28 S1020,68 1240,30 S1400,8 1440,16 V80 H0 Z"/><path d="M0,42 C220,6 420,6 640,38 S1040,78 1250,38 S1410,18 1440,28 V80 H0 Z"/></svg></div>
   <section id="map" style="background:var(--surface-2);padding:clamp(64px,9vw,130px) clamp(16px,4vw,44px);border-block:1px solid var(--line);position:relative;overflow:hidden">
     <div class="ly-art a3" aria-hidden="true" style="bottom:24px;right:clamp(10px,4vw,40px);width:min(100px,18vw)"><svg viewBox="0 0 90 110" fill="none"><path d="M45 100 V42" stroke="var(--teal)" stroke-width="2" stroke-linecap="round"/><path d="M45 44 C30 30 14 34 10 42 M45 44 C60 30 76 34 80 42 M45 40 C32 20 22 14 14 16 M45 40 C58 20 68 14 76 16" stroke="var(--palm)" stroke-width="2" stroke-linecap="round"/></svg></div>
     <svg class="ly-line" aria-hidden="true" viewBox="0 0 200 40" style="position:absolute;top:40px;right:24px;width:min(30vw,220px);color:var(--teal);opacity:.4"><path stroke="currentColor" stroke-width="2.4" d="M2 20 Q14 6 26 20 T50 20 T74 20 T98 20"/><path stroke="var(--coral)" stroke-width="2.4" d="M110 26 q10 -12 20 0 q10 12 20 0 M150 14 l8 6 -8 6" fill="none"/></svg>
@@ -808,6 +819,7 @@ html.dest-modal-lock,body.dest-modal-lock{overflow:hidden!important}
   </section>
 
   <!-- ===================== DESTINATIONS (sticky stack) ===================== -->
+  <div class="krn-wave" aria-hidden="true" style="--from:var(--surface-2);--to:var(--sand)"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><path class="tint" d="M0,22 C240,2 440,4 660,22 S1060,62 1270,24 S1410,6 1440,12 V80 H0 Z"/><path class="foam" d="M0,30 C200,4 400,4 620,28 S1020,68 1240,30 S1400,8 1440,16 V80 H0 Z"/><path d="M0,42 C220,6 420,6 640,38 S1040,78 1250,38 S1410,18 1440,28 V80 H0 Z"/></svg></div>
   <section id="destinations" style="background:var(--sand);padding-top:clamp(56px,8vw,110px)">
     <div class="reveal" style="max-width:900px;margin:0 auto 8px;padding:0 clamp(16px,4vw,44px)">
       <span class="chip">{{ t.d_kicker }}</span>
@@ -902,7 +914,7 @@ html.dest-modal-lock,body.dest-modal-lock{overflow:hidden!important}
     <div style="position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(6,26,28,.5),rgba(6,26,28,.15))"></div>
     <div class="reveal" style="position:relative;z-index:2;max-width:1160px;margin:0 auto;width:100%;padding:clamp(28px,5vw,60px) clamp(16px,4vw,44px)">
       <div style="max-width:680px;background:color-mix(in srgb,var(--card) 82%,transparent);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.5);box-shadow:var(--raise-lg);border-radius:24px;padding:clamp(28px,3.6vw,44px)">
-        <div style="font-size:44px;line-height:.4;color:var(--teal);font-family:'Space Grotesk';height:26px">“</div>
+        <div style="font-size:44px;line-height:.4;color:var(--teal);font-family:var(--f-disp);height:26px">“</div>
         <h2 class="disp" style="font-size:clamp(24px,3.2vw,40px);color:var(--ink);margin:0">{{ t.ed_quote }}</h2>
         <div style="margin-top:18px;display:flex;align-items:center;gap:12px"><img class="ly-mark" src="assets/logo-mark.png?v=21" width="34" height="34" alt="" decoding="async" style="width:34px;height:34px;flex:0 0 34px"><span style="font-weight:700;color:var(--teal-deep)">Karún Travel Group</span></div>
       </div>
@@ -948,7 +960,7 @@ html.dest-modal-lock,body.dest-modal-lock{overflow:hidden!important}
   </section>
 
   <!-- ===================== FINAL CTA ===================== -->
-  <section style="background:linear-gradient(160deg,var(--teal) 0%,var(--teal-deep) 100%);color:#fff;padding:clamp(64px,9vw,140px) clamp(16px,4vw,44px);position:relative;overflow:hidden">
+  <section class="krn-cta" style="background:linear-gradient(160deg,var(--teal) 0%,var(--teal-deep) 100%);color:#fff;padding:clamp(64px,9vw,140px) clamp(16px,4vw,44px);position:relative;overflow:hidden">
     <div class="sun-glow" style="width:520px;height:520px;background:radial-gradient(circle,var(--sun),transparent 66%);opacity:.4;top:-160px;left:-80px"></div>
     <div class="cta-grid" style="position:relative;max-width:1160px;margin:0 auto;display:grid;grid-template-columns:1.2fr .8fr;gap:44px;align-items:center">
       <div class="reveal">
@@ -2194,6 +2206,8 @@ class Component extends DCLogic {
   componentDidUpdate(){ this.injectVan(); this.initDestStack(); this.initDestModal(); }
 }
 </script>
-<script src="./karun-wizard.js" defer></script>
+<script src="./assets/tarifario.data.js?v=22" defer></script>
+<script src="./karun-wizard.js?v=22" defer></script>
+<script src="./assets/karun-fx.js?v=22" defer></script>
 </body>
 </html>

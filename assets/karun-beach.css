@@ -1,0 +1,245 @@
+/* ==========================================================================
+   Karún Travel Group — beach / sensory layer (v22)
+   Loaded from the real <head>, after the Design runtime styles are declared
+   in index.html. Overrides therefore use `html .lm …` (higher specificity) so
+   they win regardless of stylesheet order. Brand core stays the teal / ocean
+   system (--teal #0e8fa0, --teal-deep #0a6b7c, --coral, --palm, --sun).
+   Everything animated is gated by prefers-reduced-motion at the bottom.
+   ========================================================================== */
+
+:root{
+  --f-disp:"Fraunces","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  --f-body:"Figtree",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --aqua:#7ad4e0;            /* shallow-water highlight */
+  --lagoon:#12a7b8;          /* lighter teal, near the beach bands */
+  --foam:#f7fbf8;
+  --dusk:#0a3340;            /* deeper ink for hero / dusk moments */
+  --dusk-2:#0c4552;
+  --krn-prog:0;
+}
+
+/* ---------- Typography ---------- */
+html .lm{font-family:var(--f-body);font-optical-sizing:auto;font-feature-settings:"ss01" 1}
+html .lm .disp{
+  font-family:var(--f-disp);font-weight:600;letter-spacing:-.022em;line-height:1.03;
+  font-variation-settings:"SOFT" 100,"WONK" 0;text-wrap:balance
+}
+html .lm .chip{font-weight:800;letter-spacing:.09em}
+html .lm .btn{font-weight:800;letter-spacing:.005em}
+html .lm .fldlbl{font-weight:800}
+html .lm .krn-price,html .lm #krn-total,html .lm .krn-extra,html .lm .krn-leg-price{font-variant-numeric:tabular-nums lining-nums}
+
+/* ---------- Depth & relief ---------- */
+html .lm .neu{
+  box-shadow:var(--raise),0 34px 60px -38px rgba(10,107,124,.30),inset 0 1px 0 rgba(255,255,255,.9);
+  background:linear-gradient(180deg,#fffdf9 0%,var(--card) 100%);
+}
+html .lm .neu.svc-card,html .lm .krn-fleet-card{transition:translate .35s cubic-bezier(.22,1,.36,1),box-shadow .35s ease}
+html .lm .neu.svc-card:hover,html .lm .krn-fleet-card:hover{
+  translate:0 -6px;
+  box-shadow:var(--raise-lg),0 46px 70px -40px rgba(10,107,124,.42),inset 0 1px 0 rgba(255,255,255,.95)
+}
+html .lm .svc-card:hover{transform:none}
+html .lm .fld{box-shadow:var(--inset-sm),inset 0 0 0 1px rgba(13,61,74,.05);transition:box-shadow .2s ease,background .2s}
+html .lm .fld:focus{outline:none;background:#fff;box-shadow:var(--inset-sm),0 0 0 3px color-mix(in srgb,var(--teal) 45%,transparent)}
+html .lm .fld:focus-visible{outline:3px solid var(--coral);outline-offset:2px}
+
+/* button sheen (micro-interaction) */
+html .lm .btn{position:relative;overflow:hidden;isolation:isolate;transition:transform .18s ease,box-shadow .25s ease,background .2s}
+html .lm .btn::after{
+  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:linear-gradient(105deg,transparent 32%,rgba(255,255,255,.38) 50%,transparent 68%);
+  transform:translateX(-130%);transition:transform .8s cubic-bezier(.22,1,.36,1)
+}
+html .lm .btn:hover::after{transform:translateX(130%)}
+html .lm .btn.ghost::after{background:linear-gradient(105deg,transparent 32%,rgba(14,143,160,.16) 50%,transparent 68%)}
+
+/* ---------- Nav: sea-glass + scroll "tide" progress ---------- */
+html .lm nav[aria-label="Primary"]{
+  background:linear-gradient(180deg,color-mix(in srgb,var(--foam) 97%,transparent),color-mix(in srgb,var(--surface) 94%,transparent));
+  backdrop-filter:blur(16px) saturate(1.25);-webkit-backdrop-filter:blur(16px) saturate(1.25);
+  box-shadow:0 12px 30px -22px rgba(10,107,124,.45)
+}
+html .lm nav[aria-label="Primary"]::after{
+  content:"";position:absolute;left:0;right:0;bottom:-1px;height:3px;pointer-events:none;
+  background:linear-gradient(90deg,var(--aqua),var(--teal) 55%,var(--sun));
+  transform-origin:0 50%;transform:scaleX(var(--krn-prog,0))
+}
+@supports (animation-timeline:scroll()){
+  html .lm nav[aria-label="Primary"]::after{transform:scaleX(0);animation:krn-progress linear both;animation-timeline:scroll(root)}
+  @keyframes krn-progress{to{transform:scaleX(1)}}
+}
+
+/* ---------- HERO: sun, sea, shoreline ---------- */
+html .lm .hero-vid{background:transparent}
+#top .hero-media::before{        /* sea/dusk backdrop — also the fallback if the video is slow or blocked */
+  content:"";position:absolute;inset:0;z-index:0;
+  background:
+    radial-gradient(60% 44% at 78% 22%,rgba(255,206,120,.30),transparent 70%),
+    linear-gradient(180deg,#0a3543 0%,#0b5062 38%,#0f7f92 66%,#0a4e5d 100%)
+}
+html .lm .hero-vig{
+  background:
+    radial-gradient(120% 90% at 6% 32%,rgba(7,42,52,.90) 0%,rgba(7,42,52,.66) 36%,rgba(7,42,52,.20) 72%,transparent 100%),
+    linear-gradient(180deg,rgba(6,38,48,.60) 0%,rgba(6,38,48,.04) 32%,rgba(6,38,48,.10) 60%,rgba(8,58,72,.86) 100%)
+}
+html .lm .hero-sun{top:8%;right:7%;width:min(34vw,380px);aspect-ratio:1/1;opacity:1;color:transparent;z-index:3}
+html .lm .hero-sun svg{display:none}
+html .lm .hero-sun::before{
+  content:"";position:absolute;inset:0;border-radius:50%;
+  background:radial-gradient(circle at 50% 50%,rgba(255,240,196,.98) 0 8%,rgba(255,214,120,.62) 15%,rgba(255,176,88,.24) 34%,rgba(255,150,80,0) 68%);
+  animation:krn-sun 9s ease-in-out infinite
+}
+@keyframes krn-sun{0%,100%{transform:scale(1);opacity:.88}50%{transform:scale(1.07);opacity:1}}
+
+.krn-glint{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-events:none;mix-blend-mode:screen}
+
+.krn-shore{position:absolute;left:0;right:0;bottom:-1px;height:clamp(64px,9vw,132px);z-index:4;pointer-events:none;overflow:hidden}
+.krn-shore svg{position:absolute;left:0;bottom:0;width:200%;height:100%;display:block}
+.krn-shore .w1{animation:krn-wave 34s linear infinite;opacity:.55}
+.krn-shore .w2{animation:krn-wave 24s linear infinite reverse;opacity:.9}
+.krn-shore .w3{animation:krn-wave 18s linear infinite}
+@keyframes krn-wave{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+html .lm .hl-sun{
+  background:linear-gradient(100deg,#ffe08a 0%,#ffbc5a 52%,#ff9c64 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent!important;
+  text-shadow:none;filter:drop-shadow(0 2px 16px rgba(0,0,0,.38))
+}
+@supports (animation-timeline:scroll()){
+  #top .hero-media{animation:krn-hero-par linear both;animation-timeline:scroll(root);animation-range:0 110vh}
+  @keyframes krn-hero-par{to{transform:translateY(9vh) scale(1.05)}}
+}
+
+/* ---------- Section washes (sun + sea light, behind content) ---------- */
+html .lm #services,html .lm #fleet,html .lm #rates-search,html .lm #reservar,html .lm #map,html .lm .krn-cta{isolation:isolate}
+html .lm #services::before,html .lm #fleet::before,html .lm #rates-search::before,html .lm #reservar::before,html .lm #map::before{
+  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none
+}
+html .lm #services::before{background:radial-gradient(60% 46% at 92% 0%,rgba(122,212,224,.30),transparent 64%),radial-gradient(52% 40% at 0% 100%,rgba(244,183,64,.16),transparent 66%)}
+html .lm #fleet::before{background:radial-gradient(70% 50% at 8% 0%,rgba(244,183,64,.14),transparent 62%),radial-gradient(60% 40% at 100% 100%,rgba(122,212,224,.14),transparent 70%)}
+html .lm #rates-search::before{background:radial-gradient(60% 50% at 100% 0%,rgba(18,167,184,.16),transparent 62%),repeating-linear-gradient(112deg,rgba(14,143,160,.028) 0 2px,transparent 2px 22px)}
+html .lm #reservar::before{background:radial-gradient(56% 50% at 50% 0%,rgba(244,183,64,.16),transparent 66%),radial-gradient(60% 40% at 0% 100%,rgba(122,212,224,.14),transparent 70%)}
+html .lm #map::before{background:radial-gradient(60% 46% at 0% 0%,rgba(122,212,224,.26),transparent 62%)}
+
+/* sections that start right after a wave fade their wash in, so no seam shows */
+html .lm #fleet::before,html .lm #rates-search::before,html .lm #reservar::before,html .lm #map::before{-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 160px,#000 calc(100% - 120px),transparent 100%);mask-image:linear-gradient(180deg,transparent 0,#000 160px,#000 calc(100% - 120px),transparent 100%)}
+html .lm #book .sun-glow{top:70px!important}
+
+/* the wave dividers replace the old hairline borders */
+html .lm #rates-search,html .lm #map{border-block:0!important}
+
+/* wave dividers between sections */
+.krn-wave{display:block;position:relative;height:clamp(40px,6vw,88px);background:var(--from,var(--sand));line-height:0;overflow:hidden}
+.krn-wave svg{display:block;width:104%;height:100%;margin-left:-2%;animation:krn-drift 15s ease-in-out infinite alternate}
+.krn-wave path{fill:var(--to,var(--surface-2))}
+.krn-wave path.foam{fill:rgba(255,255,255,.7)}
+.krn-wave path.tint{fill:rgba(18,167,184,.17)}
+@keyframes krn-drift{from{transform:translateX(-1.5%)}to{transform:translateX(1.5%)}}
+
+/* final CTA: caustic light on the teal gradient */
+html .lm .krn-cta::before{
+  content:"";position:absolute;inset:-20% -10%;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(38% 32% at 20% 30%,rgba(122,212,224,.32),transparent 70%),
+    radial-gradient(34% 30% at 78% 70%,rgba(255,220,140,.22),transparent 70%),
+    radial-gradient(30% 26% at 55% 15%,rgba(255,255,255,.16),transparent 70%);
+  animation:krn-caustic 16s ease-in-out infinite alternate
+}
+@keyframes krn-caustic{from{transform:translate3d(-3%,-2%,0) scale(1)}to{transform:translate3d(3%,3%,0) scale(1.08)}}
+
+/* ---------- Fleet cards: tactile hover (glare + inner parallax) ---------- */
+html .lm .krn-fleet-card{position:relative}
+html .lm .krn-fleet-card::after{
+  content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:2;opacity:0;transition:opacity .3s ease;
+  background:radial-gradient(circle at var(--mx,50%) var(--my,30%),rgba(255,255,255,.42),transparent 46%)
+}
+html .lm .krn-fleet-card:hover::after{opacity:1}
+html .lm .krn-fleet-media{overflow:hidden}
+html .lm .krn-fleet-media img{transform:scale(1.07) translate(calc(var(--px,0)*-7px),calc(var(--py,0)*-5px));transition:transform .35s cubic-bezier(.22,1,.36,1)}
+html .lm .krn-fleet-media::after{content:"";position:absolute;inset:auto 0 0 0;height:46%;background:linear-gradient(180deg,transparent,rgba(10,52,64,.32));pointer-events:none}
+html .lm .krn-fleet-badge{z-index:3;backdrop-filter:blur(6px);background:rgba(10,52,64,.62)}
+.krn-from{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 14px;margin:0 0 12px;padding:9px 12px;border-radius:12px;
+  background:var(--surface);box-shadow:var(--inset-sm);font-weight:600;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.krn-from-k{flex:0 0 100%;font-size:10.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase}
+.krn-from-v{white-space:nowrap}
+.krn-from-v b{font-size:15px;font-weight:800;color:var(--teal-deep)}
+.krn-from:empty{display:none}
+
+/* ---------- Rates UI: origin switch, vehicle chips, table ---------- */
+.krn-ctl{display:grid;gap:16px}
+.krn-ctl-row{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end}
+.krn-ctl-lbl{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 8px;display:block}
+.krn-segs{display:inline-flex;gap:8px;padding:6px;border-radius:20px;background:var(--surface);box-shadow:var(--inset-sm)}
+.krn-seg{display:inline-flex;align-items:center;gap:10px;padding:10px 18px 10px 12px;border:0;border-radius:15px;background:transparent;cursor:pointer;
+  font-family:var(--f-body);color:var(--muted);text-align:left;transition:background .2s,color .2s,box-shadow .25s,translate .2s}
+.krn-seg:hover{color:var(--ink)}
+.krn-seg-ic{width:32px;height:32px;border-radius:11px;display:grid;place-items:center;background:var(--card);box-shadow:var(--raise);font-size:15px;color:var(--teal-deep)}
+.krn-seg-tx{display:flex;flex-direction:column;line-height:1.1}
+.krn-seg-tx b{font-size:15px;font-weight:800;letter-spacing:.04em}
+.krn-seg-tx small{font-size:11.5px;font-weight:600;opacity:.85}
+.krn-seg[aria-pressed="true"]{color:#fff;background:linear-gradient(150deg,var(--lagoon),var(--teal-deep));box-shadow:0 12px 24px -10px color-mix(in srgb,var(--teal) 70%,transparent),inset 0 1px 0 rgba(255,255,255,.3)}
+.krn-seg[aria-pressed="true"] .krn-seg-ic{background:rgba(255,255,255,.2);box-shadow:none;color:#fff}
+.krn-chips{display:flex;flex-wrap:wrap;gap:8px}
+.krn-chipsel{font-family:var(--f-body);font-weight:800;font-size:13.5px;border:0;cursor:pointer;padding:10px 15px;border-radius:100px;background:var(--surface);color:var(--muted);
+  box-shadow:var(--raise);transition:color .18s,background .2s,box-shadow .2s,translate .18s}
+.krn-chipsel span{font-weight:600;opacity:.75;margin-left:3px}
+.krn-chipsel:hover{color:var(--ink);translate:0 -1px}
+.krn-chipsel[aria-pressed="true"]{color:#fff;background:var(--teal);box-shadow:0 10px 20px -8px color-mix(in srgb,var(--teal) 75%,transparent),inset 0 1px 0 rgba(255,255,255,.3)}
+.krn-seg:focus-visible,.krn-chipsel:focus-visible{outline:3px solid var(--coral);outline-offset:3px}
+.krn-rate-meta{margin:14px 2px 0;font-size:12.5px;font-weight:600;color:var(--muted)}
+
+html .lm .krn-rate-table thead th{background:linear-gradient(180deg,var(--surface),var(--surface-2));position:sticky;top:0}
+html .lm .krn-th-sub{font-weight:600;color:var(--muted);letter-spacing:0;text-transform:none}
+html .lm .krn-rate-table tbody tr{transition:background .15s}
+html .lm .krn-rate-table tbody tr:hover{background:color-mix(in srgb,var(--aqua) 14%,var(--surface))}
+html .lm .krn-price{font-weight:800;color:var(--teal-deep)}
+html .lm .krn-extra{color:var(--muted);font-weight:700}
+html .lm .krn-extra2{display:inline-block;line-height:1.35;font-size:12.5px}
+html .lm .krn-act{text-align:right;white-space:nowrap}
+.krn-swap tr{animation:krn-row .55s cubic-bezier(.22,1,.36,1) both;animation-delay:calc(var(--i,0)*26ms)}
+@keyframes krn-row{from{opacity:0;translate:0 10px}to{opacity:1;translate:0 0}}
+
+/* rates: card layout on phones */
+@media (max-width:720px){
+  html .lm .krn-rate-table{min-width:0}
+  html .lm .krn-rate-table thead{display:none}
+  html .lm .krn-rate-table,html .lm .krn-rate-table tbody{display:block;width:100%}
+  html .lm .krn-rate-table tr{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 14px;padding:16px;border-bottom:1px solid var(--line)}
+  html .lm .krn-rate-table tbody td{display:block;padding:0;border:0}
+  html .lm .krn-rate-table td[data-label]::before{content:attr(data-label);display:block;font-size:10.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+  html .lm .krn-rate-table td.krn-hotel-name{grid-column:1/-1;font-size:17px;font-family:var(--f-disp);font-weight:600}
+  html .lm .krn-rate-table td.krn-hotel-name::before,html .lm .krn-rate-table td.krn-zone-tag::before{display:none}
+  html .lm .krn-rate-table td.krn-zone-tag{grid-column:1/-1;margin-top:-4px}
+  html .lm .krn-rate-table td.krn-act{grid-column:1/-1;text-align:stretch}
+  html .lm .krn-rate-table td.krn-act .btn{width:100%}
+  .krn-segs{width:100%}.krn-seg{flex:1}
+}
+
+/* ---------- Wizard ---------- */
+html .lm .krn-leg{background:linear-gradient(180deg,var(--surface),var(--surface-2));box-shadow:var(--inset-sm)}
+html .lm .krn-leg-grid .full{grid-column:1/-1}
+html .lm .krn-leg-price{display:flex;flex-direction:column;align-items:flex-end;gap:2px;text-align:right;font-size:14px;color:var(--teal-deep)}
+.krn-muted{color:var(--muted);font-weight:600}
+.krn-price-sub{font-size:12.5px;font-weight:600;color:var(--muted)}
+.krn-advice{font-size:12.5px;font-weight:700;color:#a34d13;background:color-mix(in srgb,var(--sun) 24%,transparent);padding:4px 10px;border-radius:100px;margin-top:4px}
+.krn-conf-leg{margin-bottom:10px;line-height:1.55}
+#krn-form-msg{display:none;margin:0 0 14px;padding:11px 14px;border-radius:14px;background:color-mix(in srgb,var(--coral) 16%,var(--surface));color:#8a3a10;font-weight:700;font-size:14px}
+.krn-note{margin:12px 2px 0;font-size:12.5px;color:var(--muted);line-height:1.6;font-weight:500;max-width:820px}
+
+/* small phones: keep the nav on one line */
+@media (max-width:520px){html .lm .ly-brand>span>span:last-child{display:none}}
+
+/* ---------- Focus / a11y ---------- */
+html .lm a:focus-visible,html .lm summary:focus-visible{outline:3px solid var(--coral);outline-offset:3px;border-radius:6px}
+
+/* ---------- Reduced motion: everything ambient off, content visible ---------- */
+@media (prefers-reduced-motion:reduce){
+  .krn-shore .w1,.krn-shore .w2,.krn-shore .w3,.krn-wave svg,html .lm .hero-sun::before,html .lm .krn-cta::before,.krn-swap tr{animation:none!important}
+  #top .hero-media,html .lm nav[aria-label="Primary"]::after{animation:none!important}
+  html .lm nav[aria-label="Primary"]::after{transform:scaleX(var(--krn-prog,0))}
+  html .lm .btn::after{display:none}
+  html .lm .neu.svc-card:hover,html .lm .krn-fleet-card:hover{translate:none}
+  html .lm .krn-fleet-media img{transform:none!important;transition:none}
+  .krn-glint{display:none}
+}
