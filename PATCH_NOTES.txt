@@ -169,3 +169,28 @@ Ocean palette unchanged. Smoke: node --check karun-wizard.js; section ids unique
 - Ocean palette (ink veil, sand section, teal chips); JS sets --in / --cover for pin scale
   and cover fade. Remount-safe initDestStack; reduced-motion / short viewport → plain list.
 - i18n d_sub (all langs): destinations stack as you scroll (no swipe/arrow copy).
+
+---
+2026-09-21 — Destinos detail modal (America/Mexico_City)
+
+1) Floating destination modal on sticky Destinos cards
+   - Click / Enter / Space on `.dest-card[data-dest]` opens overlay + centered dialog
+   - Image carousel (prev/next + dots), gentle autoplay paused on hover/focus;
+     `prefers-reduced-motion` disables autoplay and slide transition
+   - Close: X, backdrop, Escape; body scroll lock; focus restored to the card
+   - Mobile near full-bleed; ocean palette (teal / sand / ink)
+   - Cards: cursor pointer + “Ver más / See more” affordance chip (sticky stack
+     `--in` / `--cover` / IntersectionObserver unchanged)
+
+2) Remount-safe JS (same pattern as initDestStack)
+   - `initDestModal` / `wireDestModalHost`; host lives on `document.body` outside
+     React remounts; stack listeners teardown + rebind in componentDidUpdate
+
+3) Content & assets
+   - 5 destinations: puj, bavaro, cap-cana, saona, santo-domingo
+   - Tourist-transfer copy (3 paragraphs each) in all 10 site languages via
+     `destModalCopy`; chrome keys `dm_close` / `dm_prev` / `dm_next` / `dm_gallery`
+     in every i18n block
+   - Local images: `assets/destinations/<slug>/01–04.jpg` (Unsplash; CREDITS.md)
+
+No fake prices or testimonials in the modal. Sticky stack scroll still works.

@@ -33,3 +33,16 @@ production. Attribution required for Wikimedia Commons (CC BY-SA).
 ## Still pending from client
 - Real unit photography for each fleet vehicle (exterior + interior).
 - Any trademark clearance if stock likenesses should not appear long-term.
+
+## Destination gallery (`assets/destinations/`)
+Royalty-free Unsplash stills used in the Destinos detail modal carousel
+(referential; not client photography). Files under:
+
+- `puj/` — tropical coast / travel arrival mood for PUJ transfers
+- `bavaro/` — beach & resort-strip atmosphere
+- `cap-cana/` — marina / luxury resort mood
+- `saona/` — turquoise island / natural-pool day-trip mood
+- `santo-domingo/` — colonial city / capital travel mood
+
+Sources: [Unsplash](https://unsplash.com) (Unsplash License — free to use).
+Replace with Karún’s own destination photography when available.
