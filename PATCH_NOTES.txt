@@ -194,3 +194,19 @@ Ocean palette unchanged. Smoke: node --check karun-wizard.js; section ids unique
    - Local images: `assets/destinations/<slug>/01–04.jpg` (Unsplash; CREDITS.md)
 
 No fake prices or testimonials in the modal. Sticky stack scroll still works.
+
+---
+2026-09-21 — Destinos modal polish: autoplay + mobile sheet (America/Mexico_City)
+
+1) Dynamic carousel autoplay
+   - setTimeout chain ~3.8s (was setInterval 5.2s); resets on prev/next/dot
+   - Visible bottom progress bar + expanding active pill-dot fill; pause CSS with hover/focus/touch
+   - Subtle Ken Burns on active slide; prefers-reduced-motion disables autoplay + motion
+   - Smooth transform track (.55s); autoplay still runs on mobile when modal is open
+
+2) Mobile modal (≤640px) — floating sheet, not full-bleed
+   - Backdrop keeps safe-area padding (~10–14px); dialog max-height ~90dvh, rounded 22px
+   - Flex column: carousel fixed aspect (shrink 0); body scrolls inside dialog
+   - Both CSS copies (head + x-dc) kept in sync; desktop modal unchanged in spirit
+
+Sticky dest-stack / i18n untouched.

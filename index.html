@@ -51,25 +51,33 @@ image-slot::part(image){touch-action:pan-x pan-y!important;-webkit-user-drag:non
 .lm img,.lm video,.lm svg,.lm .dest-card,.lm .dest-img,.lm .ph-frame,.lm .svc-feat .media{touch-action:pan-x pan-y!important;-webkit-user-drag:none}
 .ly-mark{width:42px;height:42px;object-fit:contain;display:block;flex:0 0 auto}
 /* Dest detail modal (host appended to body — keep chrome outside Design remounts) */
-.dest-detail-back{position:fixed;inset:0;z-index:1100;display:none;align-items:center;justify-content:center;padding:max(12px,env(safe-area-inset-top)) 12px;background:rgba(6,26,28,.58);backdrop-filter:blur(7px);overflow:auto}
+.dest-detail-back{position:fixed;inset:0;z-index:1100;display:none;align-items:center;justify-content:center;padding:max(12px,env(safe-area-inset-top)) 12px max(12px,env(safe-area-inset-bottom));background:rgba(6,26,28,.58);backdrop-filter:blur(7px);overflow:auto}
 .dest-detail-back[data-open="true"]{display:flex}
-.dest-detail{position:relative;width:min(760px,100%);max-height:min(92vh,920px);overflow:auto;background:#fffcf7;color:#0d3d4a;border-radius:24px;box-shadow:16px 16px 38px rgba(110,115,95,.28);outline:none}
-.dest-detail-x{position:absolute;top:12px;right:12px;z-index:5;width:42px;height:42px;border-radius:50%;border:0;cursor:pointer;background:#fbf8f1;box-shadow:7px 7px 18px rgba(120,120,100,.24);font-size:22px;color:#0d3d4a;display:grid;place-items:center}
-.dest-carousel{position:relative;aspect-ratio:16/10;background:#0d3d4a;overflow:hidden;border-radius:24px 24px 0 0}
-.dest-carousel-track{display:flex;height:100%;width:100%;transition:transform .45s cubic-bezier(.22,1,.36,1)}
-.dest-carousel-track img{flex:0 0 100%;width:100%;height:100%;object-fit:cover;display:block}
+.dest-detail{position:relative;width:min(760px,100%);max-height:min(92vh,920px);display:flex;flex-direction:column;overflow:hidden;background:#fffcf7;color:#0d3d4a;border-radius:24px;box-shadow:16px 16px 38px rgba(110,115,95,.28);outline:none}
+.dest-detail-x{position:absolute;top:max(10px,env(safe-area-inset-top,0px));right:max(10px,env(safe-area-inset-right,0px));z-index:5;width:42px;height:42px;border-radius:50%;border:0;cursor:pointer;background:#fbf8f1;box-shadow:7px 7px 18px rgba(120,120,100,.24);font-size:22px;color:#0d3d4a;display:grid;place-items:center}
+.dest-carousel{position:relative;aspect-ratio:16/10;background:#0d3d4a;overflow:hidden;border-radius:24px 24px 0 0;flex-shrink:0}
+.dest-carousel-track{display:flex;height:100%;width:100%;transition:transform .55s cubic-bezier(.22,1,.36,1)}
+.dest-carousel-track img{flex:0 0 100%;width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.001);transform-origin:center center}
+.dest-carousel-track img.is-active{animation:dest-kenburns var(--dest-kb-ms,8s) ease-out forwards}
 .dest-carousel-btn{position:absolute;top:50%;translate:0 -50%;z-index:2;width:42px;height:42px;border-radius:50%;border:0;cursor:pointer;background:rgba(255,252,247,.9);box-shadow:7px 7px 18px rgba(120,120,100,.24);color:#0d3d4a;font-size:22px;display:grid;place-items:center}
 .dest-carousel-btn.prev{left:12px}.dest-carousel-btn.next{right:12px}
-.dest-carousel-dots{position:absolute;left:0;right:0;bottom:12px;z-index:2;display:flex;justify-content:center;gap:8px}
-.dest-carousel-dots button{width:9px;height:9px;border-radius:50%;border:0;padding:0;cursor:pointer;background:rgba(255,255,255,.45)}
-.dest-carousel-dots button[aria-current="true"]{background:#fff;transform:scale(1.15)}
-.dest-detail-body{padding:clamp(18px,3vw,28px) clamp(18px,3.5vw,32px) clamp(22px,3vw,34px)}
+.dest-carousel-dots{position:absolute;left:0;right:0;bottom:14px;z-index:2;display:flex;justify-content:center;gap:8px}
+.dest-carousel-dots button{width:9px;height:9px;border-radius:50%;border:0;padding:0;cursor:pointer;background:rgba(255,255,255,.45);position:relative;overflow:hidden;transition:width .25s ease,border-radius .25s ease,background .2s}
+.dest-carousel-dots button[aria-current="true"]{width:22px;border-radius:999px;background:rgba(255,255,255,.35)}
+.dest-carousel-dots button[aria-current="true"]::after{content:"";position:absolute;inset:0;border-radius:inherit;background:#fff;transform:scaleX(0);transform-origin:left center;animation:dest-dot-fill var(--dest-auto-ms,3800ms) linear forwards}
+.dest-carousel-progress{position:absolute;left:0;right:0;bottom:0;z-index:3;height:3px;background:rgba(255,255,255,.18);pointer-events:none;overflow:hidden}
+.dest-carousel-progress>span{display:block;height:100%;width:100%;background:linear-gradient(90deg,#7ad4e0,#0e8fa0);transform:scaleX(0);transform-origin:left center;animation:dest-dot-fill var(--dest-auto-ms,3800ms) linear forwards}
+.dest-carousel.is-paused .dest-carousel-progress>span,.dest-carousel.is-paused .dest-carousel-dots button[aria-current="true"]::after,.dest-carousel.is-paused .dest-carousel-track img.is-active{animation-play-state:paused}
+.dest-carousel[data-auto="off"] .dest-carousel-progress,.dest-carousel[data-auto="off"] .dest-carousel-dots button[aria-current="true"]::after{display:none}
+@keyframes dest-dot-fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes dest-kenburns{from{transform:scale(1.001)}to{transform:scale(1.06)}}
+.dest-detail-body{padding:clamp(18px,3vw,28px) clamp(18px,3.5vw,32px) clamp(22px,3vw,34px);overflow-y:auto;flex:1 1 auto;min-height:0;-webkit-overflow-scrolling:touch}
 .dest-detail-body h2{font-family:'Space Grotesk',system-ui,sans-serif;font-size:clamp(26px,4vw,36px);margin:0 0 12px;line-height:1.08}
 .dest-detail-body .dest-detail-copy{color:#5a7a80;font-size:15.5px;line-height:1.65;font-weight:500}
 .dest-detail-body .dest-detail-copy p{margin:0 0 12px}
 body.dest-modal-lock{overflow:hidden!important}
-@media (max-width:640px){.dest-detail-back{padding:0;align-items:stretch}.dest-detail{width:100%;max-height:none;min-height:100%;border-radius:0}.dest-carousel{border-radius:0}}
-@media (prefers-reduced-motion:reduce){.dest-carousel-track{transition:none}}
+@media (max-width:640px){.dest-detail-back{padding:max(10px,env(safe-area-inset-top)) max(12px,env(safe-area-inset-right)) max(12px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left));align-items:flex-end;justify-content:center}.dest-detail{width:100%;max-height:min(90dvh,920px);min-height:0;border-radius:22px}.dest-carousel{border-radius:22px 22px 0 0;aspect-ratio:16/11}.dest-detail-x{top:10px;right:10px}}
+@media (prefers-reduced-motion:reduce){.dest-carousel-track{transition:none}.dest-carousel-track img.is-active{animation:none}.dest-carousel-progress>span,.dest-carousel-dots button[aria-current="true"]::after{animation:none;transform:none}}
 </style>
 <script>
 (function(){try{function lyNav(){var n=(window.matchMedia&&window.matchMedia('(max-width:900px)').matches)||window.innerWidth<=900;document.documentElement.classList.toggle('ly-narrow',!!n);var nav=document.querySelector('nav[aria-label="Primary"]');if(nav){document.documentElement.style.setProperty('--ly-nav-h',Math.round(nav.getBoundingClientRect().bottom)+'px');}}lyNav();window.addEventListener('resize',lyNav);window.addEventListener('scroll',lyNav,{passive:true});}catch(e){}})();
@@ -172,22 +180,30 @@ body.dest-modal-lock{overflow:hidden!important}
   .lm .dest-card .dest-more::after{content:"";width:6px;height:6px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(-45deg);translate:0 -1px}
   .dest-detail-back{position:fixed;inset:0;z-index:1100;display:none;align-items:center;justify-content:center;padding:max(12px,env(safe-area-inset-top)) max(12px,env(safe-area-inset-right)) max(12px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left));background:rgba(6,26,28,.58);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);overflow:auto}
   .dest-detail-back[data-open="true"]{display:flex}
-  .dest-detail{position:relative;width:min(760px,100%);max-height:min(92vh,920px);overflow:auto;background:var(--card,#fffcf7);color:var(--ink,#0d3d4a);border-radius:24px;box-shadow:var(--raise-lg,16px 16px 38px rgba(110,115,95,.28));padding:0;outline:none}
-  .dest-detail-x{position:absolute;top:12px;right:12px;z-index:5;width:42px;height:42px;border-radius:50%;border:0;cursor:pointer;background:var(--surface,#fbf8f1);box-shadow:var(--raise,7px 7px 18px rgba(120,120,100,.24));font-size:22px;line-height:1;color:var(--ink,#0d3d4a);display:grid;place-items:center}
+  .dest-detail{position:relative;width:min(760px,100%);max-height:min(92vh,920px);display:flex;flex-direction:column;overflow:hidden;background:var(--card,#fffcf7);color:var(--ink,#0d3d4a);border-radius:24px;box-shadow:var(--raise-lg,16px 16px 38px rgba(110,115,95,.28));padding:0;outline:none}
+  .dest-detail-x{position:absolute;top:max(10px,env(safe-area-inset-top,0px));right:max(10px,env(safe-area-inset-right,0px));z-index:5;width:42px;height:42px;border-radius:50%;border:0;cursor:pointer;background:var(--surface,#fbf8f1);box-shadow:var(--raise,7px 7px 18px rgba(120,120,100,.24));font-size:22px;line-height:1;color:var(--ink,#0d3d4a);display:grid;place-items:center}
   .dest-detail-x:hover{background:#fff}
   .dest-detail-x:focus-visible{outline:3px solid var(--teal,#0e8fa0);outline-offset:2px}
-  .dest-carousel{position:relative;aspect-ratio:16/10;background:var(--ink,#0d3d4a);overflow:hidden;border-radius:24px 24px 0 0}
-  .dest-carousel-track{display:flex;height:100%;width:100%;transition:transform .45s cubic-bezier(.22,1,.36,1)}
-  .dest-carousel-track img{flex:0 0 100%;width:100%;height:100%;object-fit:cover;display:block;user-select:none;-webkit-user-drag:none}
+  .dest-carousel{position:relative;aspect-ratio:16/10;background:var(--ink,#0d3d4a);overflow:hidden;border-radius:24px 24px 0 0;flex-shrink:0}
+  .dest-carousel-track{display:flex;height:100%;width:100%;transition:transform .55s cubic-bezier(.22,1,.36,1)}
+  .dest-carousel-track img{flex:0 0 100%;width:100%;height:100%;object-fit:cover;display:block;user-select:none;-webkit-user-drag:none;transform:scale(1.001);transform-origin:center center}
+  .dest-carousel-track img.is-active{animation:dest-kenburns var(--dest-kb-ms,8s) ease-out forwards}
   .dest-carousel-btn{position:absolute;top:50%;translate:0 -50%;z-index:2;width:42px;height:42px;border-radius:50%;border:0;cursor:pointer;background:color-mix(in srgb,var(--card,#fffcf7) 90%,transparent);backdrop-filter:blur(6px);box-shadow:var(--raise,7px 7px 18px rgba(120,120,100,.24));color:var(--ink,#0d3d4a);font-size:22px;display:grid;place-items:center}
   .dest-carousel-btn:focus-visible{outline:3px solid var(--teal,#0e8fa0);outline-offset:2px}
   .dest-carousel-btn.prev{left:12px}
   .dest-carousel-btn.next{right:12px}
-  .dest-carousel-dots{position:absolute;left:0;right:0;bottom:12px;z-index:2;display:flex;justify-content:center;gap:8px}
-  .dest-carousel-dots button{width:9px;height:9px;border-radius:50%;border:0;padding:0;cursor:pointer;background:rgba(255,255,255,.45)}
-  .dest-carousel-dots button[aria-current="true"]{background:#fff;transform:scale(1.15)}
+  .dest-carousel-dots{position:absolute;left:0;right:0;bottom:14px;z-index:2;display:flex;justify-content:center;gap:8px}
+  .dest-carousel-dots button{width:9px;height:9px;border-radius:50%;border:0;padding:0;cursor:pointer;background:rgba(255,255,255,.45);position:relative;overflow:hidden;transition:width .25s ease,border-radius .25s ease,background .2s}
+  .dest-carousel-dots button[aria-current="true"]{width:22px;border-radius:999px;background:rgba(255,255,255,.35)}
+  .dest-carousel-dots button[aria-current="true"]::after{content:"";position:absolute;inset:0;border-radius:inherit;background:#fff;transform:scaleX(0);transform-origin:left center;animation:dest-dot-fill var(--dest-auto-ms,3800ms) linear forwards}
   .dest-carousel-dots button:focus-visible{outline:2px solid var(--teal,#0e8fa0);outline-offset:2px}
-  .dest-detail-body{padding:clamp(18px,3vw,28px) clamp(18px,3.5vw,32px) clamp(22px,3vw,34px)}
+  .dest-carousel-progress{position:absolute;left:0;right:0;bottom:0;z-index:3;height:3px;background:rgba(255,255,255,.18);pointer-events:none;overflow:hidden}
+  .dest-carousel-progress>span{display:block;height:100%;width:100%;background:linear-gradient(90deg,#7ad4e0,var(--teal,#0e8fa0));transform:scaleX(0);transform-origin:left center;animation:dest-dot-fill var(--dest-auto-ms,3800ms) linear forwards}
+  .dest-carousel.is-paused .dest-carousel-progress>span,.dest-carousel.is-paused .dest-carousel-dots button[aria-current="true"]::after,.dest-carousel.is-paused .dest-carousel-track img.is-active{animation-play-state:paused}
+  .dest-carousel[data-auto="off"] .dest-carousel-progress,.dest-carousel[data-auto="off"] .dest-carousel-dots button[aria-current="true"]::after{display:none}
+  @keyframes dest-dot-fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+  @keyframes dest-kenburns{from{transform:scale(1.001)}to{transform:scale(1.06)}}
+  .dest-detail-body{padding:clamp(18px,3vw,28px) clamp(18px,3.5vw,32px) clamp(22px,3vw,34px);overflow-y:auto;flex:1 1 auto;min-height:0;-webkit-overflow-scrolling:touch}
   .dest-detail-body .chip{margin-bottom:10px}
   .dest-detail-body h2{font-family:'Space Grotesk',system-ui,sans-serif;font-size:clamp(26px,4vw,36px);margin:0 0 12px;line-height:1.08;letter-spacing:-.02em}
   .dest-detail-body .dest-detail-copy{color:var(--muted,#5a7a80);font-size:15.5px;line-height:1.65;font-weight:500}
@@ -197,12 +213,15 @@ body.dest-modal-lock{overflow:hidden!important}
   .dest-detail-body .dest-detail-copy li{margin:0 0 6px}
   body.dest-modal-lock{overflow:hidden!important;touch-action:none}
   @media (max-width:640px){
-    .dest-detail-back{padding:0;align-items:stretch}
-    .dest-detail{width:100%;max-height:none;min-height:100%;border-radius:0}
-    .dest-carousel{border-radius:0;aspect-ratio:16/11}
+    .dest-detail-back{padding:max(10px,env(safe-area-inset-top)) max(12px,env(safe-area-inset-right)) max(14px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left));align-items:flex-end;justify-content:center}
+    .dest-detail{width:100%;max-height:min(90dvh,920px);min-height:0;border-radius:22px}
+    .dest-carousel{border-radius:22px 22px 0 0;aspect-ratio:16/11}
+    .dest-detail-x{top:10px;right:10px}
   }
   @media (prefers-reduced-motion:reduce){
     .dest-carousel-track{transition:none}
+    .dest-carousel-track img.is-active{animation:none}
+    .dest-carousel-progress>span,.dest-carousel-dots button[aria-current="true"]::after{animation:none;transform:none}
   }
   @media (max-width:640px){
     .dest-stack{--dest-h:clamp(360px,62vh,480px);width:min(100% - 24px,920px)}
@@ -1540,11 +1559,12 @@ class Component extends DCLogic {
       <div class="dest-detail-back" id="dest-detail-back" hidden data-open="false" role="presentation">
         <div class="dest-detail" id="dest-detail-dialog" role="dialog" aria-modal="true" aria-labelledby="dest-detail-title" tabindex="-1">
           <button type="button" class="dest-detail-x" id="dest-detail-close" aria-label="Close">&times;</button>
-          <div class="dest-carousel" id="dest-carousel">
+          <div class="dest-carousel" id="dest-carousel" data-auto="off">
             <div class="dest-carousel-track" id="dest-carousel-track"></div>
             <button type="button" class="dest-carousel-btn prev" id="dest-carousel-prev" aria-label="Previous">&#8249;</button>
             <button type="button" class="dest-carousel-btn next" id="dest-carousel-next" aria-label="Next">&#8250;</button>
             <div class="dest-carousel-dots" id="dest-carousel-dots" role="tablist"></div>
+            <div class="dest-carousel-progress" id="dest-carousel-progress" aria-hidden="true"><span></span></div>
           </div>
           <div class="dest-detail-body">
             <span class="chip" id="dest-detail-tag"></span>
@@ -1617,40 +1637,137 @@ class Component extends DCLogic {
     this._destModalIndex = 0;
     this._destModalSlug = slug;
     this._destModalLen = (meta.images || []).length;
+    this._destModalAutoMs = 3800;
     track.style.transform = 'translateX(0)';
+    const carousel = host.querySelector('#dest-carousel');
+    if(carousel){
+      carousel.style.setProperty('--dest-auto-ms', this._destModalAutoMs + 'ms');
+      carousel.classList.remove('is-paused');
+    }
+    this._destModalSyncSlide(true);
     this._destModalReturnFocus = document.activeElement;
     back.hidden = false;
     back.setAttribute('data-open','true');
     document.body.classList.add('dest-modal-lock');
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    this._destModalStopAuto();
-    if(!reduce && this._destModalLen > 1){
-      this._destModalTimer = setInterval(()=>{
-        if(this._destModalPaused) return;
-        this._destModalGo((this._destModalIndex + 1) % this._destModalLen);
-      }, 5200);
-    }
+    this._destModalStartAuto();
     // focus dialog after paint
     setTimeout(()=>{ try{ (closeBtn || dialog).focus(); }catch(e){} }, 30);
   }
 
-  _destModalGo(i){
+  _destModalSyncSlide(resetKen){
     const host = document.getElementById('dest-detail-root');
     if(!host) return;
     const len = this._destModalLen || 0;
     if(!len) return;
-    this._destModalIndex = ((i % len) + len) % len;
+    const idx = this._destModalIndex;
     const track = host.querySelector('#dest-carousel-track');
     const dots = host.querySelectorAll('#dest-carousel-dots button');
-    if(track) track.style.transform = 'translateX(-' + (this._destModalIndex * 100) + '%)';
-    dots.forEach((d, idx)=>{
-      if(idx === this._destModalIndex) d.setAttribute('aria-current','true');
+    if(track) track.style.transform = 'translateX(-' + (idx * 100) + '%)';
+    dots.forEach((d, i)=>{
+      if(i === idx) d.setAttribute('aria-current','true');
       else d.removeAttribute('aria-current');
+    });
+    const imgs = track ? track.querySelectorAll('img') : [];
+    imgs.forEach((img, i)=>{
+      const on = i === idx;
+      if(resetKen){
+        img.classList.remove('is-active');
+        // force reflow so Ken Burns restarts
+        void img.offsetWidth;
+      }
+      img.classList.toggle('is-active', on);
     });
   }
 
+  _destModalPulseProgress(){
+    const host = document.getElementById('dest-detail-root');
+    if(!host) return;
+    const carousel = host.querySelector('#dest-carousel');
+    if(carousel) carousel.style.setProperty('--dest-auto-ms', (this._destModalAutoMs || 3800) + 'ms');
+    const barWrap = host.querySelector('#dest-carousel-progress');
+    if(barWrap) barWrap.innerHTML = '<span></span>';
+    // Retrigger ::after fill on the active pill-dot
+    const dots = host.querySelectorAll('#dest-carousel-dots button');
+    dots.forEach(d => d.removeAttribute('aria-current'));
+    void host.offsetWidth;
+    const active = dots[this._destModalIndex];
+    if(active) active.setAttribute('aria-current','true');
+  }
+
+  _destModalGo(i, opts){
+    const host = document.getElementById('dest-detail-root');
+    if(!host) return;
+    const len = this._destModalLen || 0;
+    if(!len) return;
+    const fromAuto = !!(opts && opts.fromAuto);
+    this._destModalIndex = ((i % len) + len) % len;
+    this._destModalSyncSlide(true);
+    if(fromAuto){
+      // ArmAuto (caller) restarts progress for the next cycle
+      return;
+    }
+    // Manual nav: restart timer so we don't double-advance
+    if(this._destModalWantAuto) this._destModalArmAuto();
+  }
+
   _destModalStopAuto(){
-    if(this._destModalTimer){ clearInterval(this._destModalTimer); this._destModalTimer = null; }
+    if(this._destModalTimer){ clearTimeout(this._destModalTimer); this._destModalTimer = null; }
+    this._destModalWantAuto = false;
+    this._destModalPaused = false;
+    const host = document.getElementById('dest-detail-root');
+    const carousel = host && host.querySelector('#dest-carousel');
+    if(carousel){
+      carousel.setAttribute('data-auto','off');
+      carousel.classList.remove('is-paused');
+    }
+  }
+
+  _destModalStartAuto(){
+    this._destModalStopAuto();
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(reduce || !(this._destModalLen > 1)) return;
+    this._destModalWantAuto = true;
+    this._destModalPaused = false;
+    this._destModalAutoMs = this._destModalAutoMs || 3800;
+    const host = document.getElementById('dest-detail-root');
+    const carousel = host && host.querySelector('#dest-carousel');
+    if(carousel){
+      carousel.setAttribute('data-auto','on');
+      carousel.classList.remove('is-paused');
+      carousel.style.setProperty('--dest-auto-ms', this._destModalAutoMs + 'ms');
+    }
+    this._destModalArmAuto();
+  }
+
+  _destModalArmAuto(){
+    if(this._destModalTimer){ clearTimeout(this._destModalTimer); this._destModalTimer = null; }
+    if(!this._destModalWantAuto || this._destModalPaused) return;
+    this._destModalPulseProgress();
+    const ms = this._destModalAutoMs || 3800;
+    this._destModalTimer = setTimeout(()=>{
+      this._destModalTimer = null;
+      if(!this._destModalWantAuto || this._destModalPaused) return;
+      this._destModalGo((this._destModalIndex + 1) % this._destModalLen, {fromAuto:true});
+      this._destModalArmAuto();
+    }, ms);
+  }
+
+  _destModalPauseAuto(){
+    if(!this._destModalWantAuto) return;
+    this._destModalPaused = true;
+    if(this._destModalTimer){ clearTimeout(this._destModalTimer); this._destModalTimer = null; }
+    const host = document.getElementById('dest-detail-root');
+    const carousel = host && host.querySelector('#dest-carousel');
+    if(carousel) carousel.classList.add('is-paused');
+  }
+
+  _destModalResumeAuto(){
+    if(!this._destModalWantAuto) return;
+    this._destModalPaused = false;
+    const host = document.getElementById('dest-detail-root');
+    const carousel = host && host.querySelector('#dest-carousel');
+    if(carousel) carousel.classList.remove('is-paused');
+    this._destModalArmAuto();
   }
 
   closeDestModal(){
@@ -1683,8 +1800,17 @@ class Component extends DCLogic {
       if(e.key === 'ArrowLeft'){ e.preventDefault(); onPrev(); }
       if(e.key === 'ArrowRight'){ e.preventDefault(); onNext(); }
     };
-    const pause = ()=>{ this._destModalPaused = true; };
-    const resume = ()=>{ this._destModalPaused = false; };
+    const pause = ()=> this._destModalPauseAuto();
+    const resume = ()=> this._destModalResumeAuto();
+    let touchResumeTimer = null;
+    const onTouchPause = ()=>{
+      if(touchResumeTimer){ clearTimeout(touchResumeTimer); touchResumeTimer = null; }
+      pause();
+    };
+    const onTouchResume = ()=>{
+      if(touchResumeTimer) clearTimeout(touchResumeTimer);
+      touchResumeTimer = setTimeout(()=>{ touchResumeTimer = null; resume(); }, 1400);
+    };
     back.addEventListener('click', onBackClick);
     host.querySelector('#dest-detail-close').addEventListener('click', ()=> this.closeDestModal());
     host.querySelector('#dest-carousel-prev').addEventListener('click', onPrev);
@@ -1693,7 +1819,19 @@ class Component extends DCLogic {
     carousel.addEventListener('mouseenter', pause);
     carousel.addEventListener('mouseleave', resume);
     carousel.addEventListener('focusin', pause);
-    carousel.addEventListener('focusout', resume);
+    carousel.addEventListener('focusout', (e)=>{
+      if(e.relatedTarget && carousel.contains(e.relatedTarget)) return;
+      resume();
+    });
+    carousel.addEventListener('pointerdown', (e)=>{
+      if(e.pointerType === 'touch' || e.pointerType === 'pen') onTouchPause();
+    });
+    carousel.addEventListener('pointerup', (e)=>{
+      if(e.pointerType === 'touch' || e.pointerType === 'pen') onTouchResume();
+    });
+    carousel.addEventListener('pointercancel', (e)=>{
+      if(e.pointerType === 'touch' || e.pointerType === 'pen') onTouchResume();
+    });
     document.addEventListener('keydown', onKey);
     host.dataset.wired = '1';
     return host;
