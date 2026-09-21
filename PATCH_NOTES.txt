@@ -160,3 +160,12 @@ Date: 2026-09-17 (America/Mexico_City)
    - Indicative / demo messaging retained on the section and count line.
 
 Ocean palette unchanged. Smoke: node --check karun-wizard.js; section ids unique.
+
+---
+2026-09-21 — Destinations sticky stack (America/Mexico_City)
+
+- Replaced #destinations horizontal .dest-rail carousel + arrow buttons with a vertical
+  sticky stack (#dest-stack / .dest-card), matching the Noook portfolio pin pattern.
+- Ocean palette (ink veil, sand section, teal chips); JS sets --in / --cover for pin scale
+  and cover fade. Remount-safe initDestStack; reduced-motion / short viewport → plain list.
+- i18n d_sub (all langs): destinations stack as you scroll (no swipe/arrow copy).
