@@ -776,7 +776,7 @@
     });
   }
 
-  if (D.readyState  if (D.readyState === "loading") D.addEventListener("DOMContentLoaded", boot);
+  if (D.readyState === "loading") D.addEventListener("DOMContentLoaded", boot);
   else boot();
 
   W.K23 = { refresh: refresh, setStep: setStep, zones: function (o, z) { zOrigin = o || zOrigin; if (z) zSel[zOrigin] = z; zonesRender(true); } };
