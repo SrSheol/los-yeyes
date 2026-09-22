@@ -1,9 +1,14 @@
-Figtree — Copyright 2022 The Figtree Project Authors (https://github.com/erikdkennedy/figtree)
+Copyright 2022 The Gloock Project Authors (https://github.com/duartp/gloock)
 
-Both are licensed under the SIL Open Font License, Version 1.1 (https://openfontlicense.org).
-Files were taken unmodified from the @fontsource-variable/fraunces and @fontsource-variable/figtree npm packages.
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+This license is copied below, and is also available with a FAQ at:
+http://scripts.sil.org/OFL
 
------ OFL 1.1 full text (as shipped with @fontsource-variable/fraunces) -----
+
+-----------------------------------------------------------
+SIL OPEN FONT LICENSE Version 1.1 - 26 February 2007
+-----------------------------------------------------------
+
 PREAMBLE
 The goals of the Open Font License (OFL) are to stimulate worldwide
 development of collaborative font projects, to support the font creation

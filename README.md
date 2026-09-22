@@ -50,13 +50,14 @@ karun-wizard.js         → lógica de la demo: tarifario, flota, wizard multi-t
 support.js              → motor de la landing principal (no tocar sin necesidad)
 image-slot.js            → utilidades de imágenes de la landing principal
 media/hero-starex-loop.mp4 → video hero (conservado del repo original)
-assets/rd-map.png        → mapa de zonas RD (conservado)
 assets/tarifario.json    → tarifario oficial PUJ + SDQ (249 hoteles, 4 clases de vehículo)
 assets/tarifario.data.js → mismo dato para carga sin fetch (generado)
 tools/build_tarifario.py → regenera ambos desde el .xlsm y verifica contra los PDFs
-assets/karun-beach.css   → capa visual playera (olas, sol, relieve, movimiento)
-assets/karun-fx.js       → destellos del hero y reflejos de tarjetas
-assets/fonts/            → Fraunces + Figtree (woff2 propios, OFL)
+assets/karun-beach.css   → base playera v22 (olas, relieve) — sin sol desde v23
+assets/karun-v23.css     → capa visual v23 (nav, hero, secciones, responsive, reduced-motion)
+assets/karun-v23.js      → motion e interacción v23 (sin dependencias, remount-safe)
+assets/story/            → fotos de historia (recibimiento, cabina, equipaje, terraza)
+assets/fonts/            → Gloock + Yellowtail + Figtree (woff2 propios, OFL / Apache 2.0)
 assets/fleet/            → fotos referenciales de las 5 unidades
 assets/CREDITS.md        → créditos de imágenes / gráficos usados en la demo
 ```

@@ -29,15 +29,24 @@ production. Attribution required for Wikimedia Commons (CC BY-SA).
   Starex+Techo Alto, PUJ Starex Hyundai+Hiace Toyota, SDQ Suburban+Cadillac,
   SDQ Starex Hyundai+Hiace Toyota). PUJ: 115 hotels / 10 zones · SDQ: 134 hotels / 13 zones.
 
-## Typefaces (`assets/fonts/`)
-- **Fraunces** (variable, display) — © The Fraunces Project Authors, SIL OFL 1.1.
-- **Figtree** (variable, text/UI) — © The Figtree Project Authors, SIL OFL 1.1.
-- woff2 files taken unmodified from the `@fontsource-variable/fraunces` and
-  `@fontsource-variable/figtree` npm packages. License text: `assets/fonts/OFL.txt`.
+## Typefaces (`assets/fonts/`) — v23
+- **Gloock** (display / titulares) — © The Gloock Project Authors, SIL OFL 1.1 → `Gloock-OFL.txt`.
+- **Yellowtail** (acento caligráfico) — Apache License 2.0 → `Yellowtail-LICENSE-Apache-2.0.txt`.
+- **Figtree** (variable, texto/UI/precios) — © The Figtree Project Authors, SIL OFL 1.1 → `OFL.txt`.
+- woff2 sin modificar de `@fontsource/gloock`, `@fontsource/yellowtail` y `@fontsource-variable/figtree`.
+  Fraunces se retiró en v23. Las fuentes de 1001fonts.com se usaron solo como referencia de estilo
+  (licencias comerciales no uniformes); se eligieron equivalentes OFL/Apache.
 
-## Generated visuals (v22)
-- Sun, waves, glints and caustic light are drawn in CSS/SVG/canvas
-  (`assets/karun-beach.css`, `assets/karun-fx.js`) — no third-party imagery.
+## Story & destination photos (v23)
+- `assets/story/*.jpg` y `assets/destinations/*/{aerial,coast,cove,shore,colonial}.jpg`: exportadas de las
+  imágenes ya cargadas en los image-slots del proyecto (`.image-slots.state.json`).
+- Retiradas en v23 por no ser de República Dominicana: galerías previas de Santo Domingo (Machu Picchu,
+  Oporto, Chichén Itzá, Madrid), PUJ (buzo, Dolomitas, islote) y Saona; y `rd-map.png` (reemplazado
+  por el mapa ilustrado en SVG).
+
+## Generated visuals (v23)
+- Olas, palmeras, espuma (canvas), luz cáustica, mapa del corredor, boleto y letrero: CSS/SVG/canvas
+  propios en `assets/karun-v23.css` / `assets/karun-v23.js`. Sin librerías de animación de terceros.
 
 ## Existing site media (unchanged)
 - `media/hero-starex-loop.mp4` — hero video, kept as-is.

@@ -85,16 +85,15 @@ html.dest-modal-lock,body.dest-modal-lock{overflow:hidden!important}
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=21" sizes="180x180">
 <link rel="shortcut icon" href="assets/favicon-32.png?v=21" type="image/png">
 <!-- v22 beach layer: self-hosted Fraunces + Figtree (OFL) and the sensory stylesheet -->
-<link rel="preload" as="font" type="font/woff2" href="assets/fonts/fraunces-latin-full-normal.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/gloock-latin-400-normal.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/yellowtail-latin-400-normal.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="assets/fonts/figtree-latin-wght-normal.woff2" crossorigin>
-<link rel="stylesheet" href="assets/fonts/karun-fonts.css?v=22">
-<link rel="stylesheet" href="assets/karun-beach.css?v=22">
+<link rel="stylesheet" href="assets/fonts/karun-fonts.css?v=23">
+<link rel="stylesheet" href="assets/karun-beach.css?v=23">
+<link rel="stylesheet" href="assets/karun-v23.css?v=23">
 <script src="./support.js"></script>
 </head>
 <body>
-<div class="lm" id="krn-banner-wrap" data-lang="es" style="display:block">
-  <div class="krn-banner" role="note"><span class="l-en">Public demo · simulated booking &amp; payments — <b>no real transaction is made</b></span><span class="l-es">Demo pública · reservas y pagos simulados — <b>no se realiza ningún cobro real</b></span></div>
-</div>
 <x-dc>
 <helmet>
 <script src="./image-slot.js?v=13"></script>
@@ -277,8 +276,6 @@ html.dest-modal-lock,body.dest-modal-lock{overflow:hidden!important}
       linear-gradient(93deg,rgba(5,22,24,.96) 0%,rgba(5,22,24,.86) 34%,rgba(5,22,24,.5) 60%,rgba(5,22,24,.4) 82%,rgba(5,22,24,.6) 100%),
       linear-gradient(180deg,rgba(5,22,24,.55) 0%,rgba(5,22,24,.12) 30%,rgba(5,22,24,.18) 60%,rgba(5,22,24,.82) 100%)}
   .sun-glow{position:absolute;border-radius:50%;filter:blur(60px);pointer-events:none}
-  .hero-sun{position:absolute;top:8%;right:6%;width:min(30vw,300px);z-index:3;opacity:.5;pointer-events:none;color:#ffe6a8}
-  .hero-sun svg{width:100%;height:auto;animation:ly-spin 90s linear infinite}
   .scrollcue{display:inline-flex;align-items:center;gap:9px;color:rgba(251,245,234,.9);font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase;text-shadow:0 1px 10px rgba(0,0,0,.4)}
   .scrollcue span.dot{width:26px;height:40px;border:2px solid rgba(251,245,234,.6);border-radius:100px;position:relative;flex:0 0 auto}
   .scrollcue span.dot::after{content:"";position:absolute;left:50%;top:7px;width:4px;height:8px;border-radius:2px;background:rgba(251,245,234,.9);transform:translateX(-50%);animation:ly-bob 1.6s ease-in-out infinite}
@@ -336,7 +333,7 @@ html.dest-modal-lock,body.dest-modal-lock{overflow:hidden!important}
   .xbtn{position:absolute;top:18px;right:18px;width:40px;height:40px;border-radius:50%;border:0;cursor:pointer;background:var(--surface);box-shadow:var(--raise);font-size:20px;color:var(--ink);display:grid;place-items:center}
 
   @media (prefers-reduced-motion:reduce){
-    .reveal,.para,.marq-track,.drive,.hero-vid,.pin-ring,.map-pin .ring,.hero-sun svg,.scrollcue span.dot::after,.ly-art{animation:none;opacity:1;transform:none}
+    .reveal,.para,.marq-track,.drive,.hero-vid,.pin-ring,.map-pin .ring,.scrollcue span.dot::after,.ly-art{animation:none;opacity:1;transform:none}
     .ly-line{animation:none;stroke-dashoffset:0}
     .ly-art{opacity:.28}
   }
@@ -360,8 +357,6 @@ html.dest-modal-lock,body.dest-modal-lock{overflow:hidden!important}
   @media (max-width:560px){ .lm .tl{grid-template-columns:1fr} .lm .foot-grid{grid-template-columns:1fr !important} }
 
   /* ===== Karún: demo banner, fleet, rate search, booking wizard ===== */
-  .krn-banner{background:var(--ink);color:var(--surface);text-align:center;font-size:12.5px;font-weight:700;letter-spacing:.03em;padding:8px 14px}
-  .krn-banner b{color:var(--sun)}
   .krn-fleet-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
   .krn-fleet-card{overflow:hidden;padding:0;display:flex;flex-direction:column}
   .krn-fleet-media{position:relative;aspect-ratio:16/9;background:var(--surface)}
@@ -394,7 +389,6 @@ html.dest-modal-lock,body.dest-modal-lock{overflow:hidden!important}
   #krn-confirm-card dd{margin:0;font-weight:600}
   @media (max-width:640px){ .krn-leg-grid{grid-template-columns:1fr} }
   #krn-lang-toggle{cursor:pointer}
-  #krn-demo-scope, #krn-banner-wrap{ -webkit-user-select:auto; user-select:auto }
 </style>
 </helmet>
 
@@ -402,45 +396,33 @@ html.dest-modal-lock,body.dest-modal-lock{overflow:hidden!important}
 
   <a href="#main" class="skip">{{ t.skip }}</a>
 
-  <!-- ===================== STICKY NAV ===================== -->
-  <nav aria-label="Primary" style="position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--surface) 88%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)">
+  <!-- ===================== NAV (v23: transparent over hero → floating sea-glass island) ===================== -->
+  <nav aria-label="Primary" class="k23-nav">
     <div class="ly-nav-inner">
-      <a class="ly-brand" href="#top" aria-label="Karún Travel Group home">
+      <a class="ly-brand" href="#top" aria-label="Karún Travel Group — inicio">
         <img class="ly-mark" src="assets/logo-mark.png?v=21" width="42" height="42" alt="" decoding="async">
-        <span style="display:flex;flex-direction:column;line-height:1.05">
-          <span class="disp" style="font-size:20px;letter-spacing:-.01em">Karún</span>
-          <span style="font-size:9.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);font-weight:700">Travel Group · RD</span>
+        <span class="k23-brandtx">
+          <span class="k23-brand-name">Karún</span>
+          <span class="k23-brand-sub">Travel Group · RD</span>
         </span>
       </a>
       <div class="navlinks">
-        <a class="nav-link" href="#services">{{ t.navServices }}</a>
-        <a class="nav-link" href="#fleet"><span class="l-en">Fleet</span><span class="l-es">Flota</span></a>
-        <a class="nav-link" href="#rates-search"><span class="l-en">Rates</span><span class="l-es">Tarifas</span></a>
-        <a class="nav-link" href="#reservar"><span class="l-en">Book</span><span class="l-es">Reservar</span></a>
-        <a class="nav-link" href="#map">{{ t.navZones }}</a>
-        <a class="nav-link" href="#destinations">{{ t.navDest }}</a>
-        <a class="nav-link" href="#faq">{{ t.navFaq }}</a>
+        <a class="nav-link" href="#services" data-k23-link="services"><span class="l-en">Services</span><span class="l-es">Servicios</span></a>
+        <a class="nav-link" href="#fleet" data-k23-link="fleet"><span class="l-en">Fleet</span><span class="l-es">Flota</span></a>
+        <a class="nav-link" href="#rates-search" data-k23-link="rates-search"><span class="l-en">Rates</span><span class="l-es">Tarifas</span></a>
+        <a class="nav-link" href="#map" data-k23-link="map"><span class="l-en">Zones</span><span class="l-es">Zonas</span></a>
+        <a class="nav-link" href="#destinations" data-k23-link="destinations"><span class="l-en">Routes</span><span class="l-es">Destinos</span></a>
+        <a class="nav-link" href="#faq" data-k23-link="faq">FAQ</a>
+        <span class="k23-nav-ink" aria-hidden="true"></span>
       </div>
       <div class="ly-nav-actions">
-
-        <div class="ly-menu-wrap">
-          <button class="nav-toggle" type="button" aria-label="Menu" aria-expanded="{{ navOpen }}" aria-controls="ly-nav-drawer" aria-haspopup="true" onClick="{{ toggleNav }}"><span></span></button>
-          <div class="nav-drawer" id="ly-nav-drawer" role="menu" data-open="{{ navOpen }}">
-            <a href="#services" class="nav-opt" role="menuitem" onClick="{{ closeNav }}">{{ t.navServices }}</a>
-            <a href="#fleet" class="nav-opt" role="menuitem" onClick="{{ closeNav }}"><span class="l-en">Fleet</span><span class="l-es">Flota</span></a>
-            <a href="#rates-search" class="nav-opt" role="menuitem" onClick="{{ closeNav }}"><span class="l-en">Rates</span><span class="l-es">Tarifas</span></a>
-            <a href="#reservar" class="nav-opt" role="menuitem" onClick="{{ closeNav }}"><span class="l-en">Book</span><span class="l-es">Reservar</span></a>
-            <a href="#map" class="nav-opt" role="menuitem" onClick="{{ closeNav }}">{{ t.navZones }}</a>
-            <a href="#destinations" class="nav-opt" role="menuitem" onClick="{{ closeNav }}">{{ t.navDest }}</a>
-            <a href="#faq" class="nav-opt" role="menuitem" onClick="{{ closeNav }}">{{ t.navFaq }}</a>
-            <a href="#book" class="nav-opt nav-opt-cta" role="menuitem" onClick="{{ closeNav }}">{{ t.book }}</a>
-          </div>
-        </div>
         <div style="position:relative">
-          <button class="langbtn chip" onClick="{{ toggleLang }}" aria-haspopup="true" aria-expanded="{{ langOpen }}" style="cursor:pointer;border:0">
-            <span style="font-size:13px">🌐</span><span>{{ langCode }}</span><span style="font-size:9px">▾</span>
+          <button class="langbtn chip" onClick="{{ toggleLang }}" aria-haspopup="true" aria-expanded="{{ langOpen }}" aria-label="Idioma / Language">
+            <svg class="k23-globe" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.8 3.8 5.8 3.8 9s-1.2 6.2-3.8 9c-2.6-2.8-3.8-5.8-3.8-9S9.4 5.8 12 3z"/></svg>
+            <span>{{ langCode }}</span>
           </button>
           <div class="langmenu" role="menu" style="display:{{ langMenuDisplay }}">
+            <div class="k23-langhead"><span class="l-en">Choose your language</span><span class="l-es">Elige tu idioma</span></div>
             <sc-for list="{{ langs }}" as="lg" hint-placeholder-count="10">
               <button class="lang-opt" onClick="{{ lg.pick }}" data-active="{{ lg.active }}" role="menuitem">
                 <span class="code">{{ lg.code }}</span><span>{{ lg.native }}</span>
@@ -448,555 +430,892 @@ html.dest-modal-lock,body.dest-modal-lock{overflow:hidden!important}
             </sc-for>
           </div>
         </div>
-        <a class="btn" href="#book" style="padding:12px 22px">{{ t.book }}</a>
+        <a class="btn k23-nav-cta" href="#reservar" data-magnetic="1"><span class="l-en">Book</span><span class="l-es">Reservar</span><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <div class="ly-menu-wrap">
+          <button class="nav-toggle" type="button" aria-label="Menú" aria-expanded="{{ navOpen }}" aria-controls="ly-nav-drawer" aria-haspopup="true" onClick="{{ toggleNav }}"><span></span></button>
+          <div class="nav-drawer" id="ly-nav-drawer" role="menu" data-open="{{ navOpen }}">
+            <div class="k23-drawer-sea" aria-hidden="true">
+              <svg viewBox="0 0 400 120" preserveAspectRatio="none"><path d="M0 60 Q50 30 100 60 T200 60 T300 60 T400 60 V120 H0Z" fill="rgba(122,212,224,.28)"/><path d="M0 78 Q60 52 120 78 T240 78 T360 78 T480 78 V120 H0Z" fill="rgba(14,143,160,.35)"/></svg>
+            </div>
+            <div class="k23-drawer-kicker"><span class="l-en">Karún · private transfers</span><span class="l-es">Karún · traslados privados</span></div>
+            <a href="#services" class="nav-opt" role="menuitem" onClick="{{ closeNav }}"><i>01</i><span class="l-en">Services</span><span class="l-es">Servicios</span></a>
+            <a href="#fleet" class="nav-opt" role="menuitem" onClick="{{ closeNav }}"><i>02</i><span class="l-en">Fleet</span><span class="l-es">Flota</span></a>
+            <a href="#rates-search" class="nav-opt" role="menuitem" onClick="{{ closeNav }}"><i>03</i><span class="l-en">Rates</span><span class="l-es">Tarifas</span></a>
+            <a href="#reservar" class="nav-opt" role="menuitem" onClick="{{ closeNav }}"><i>04</i><span class="l-en">Book</span><span class="l-es">Reservar</span></a>
+            <a href="#map" class="nav-opt" role="menuitem" onClick="{{ closeNav }}"><i>05</i><span class="l-en">Zones</span><span class="l-es">Zonas</span></a>
+            <a href="#destinations" class="nav-opt" role="menuitem" onClick="{{ closeNav }}"><i>06</i><span class="l-en">Routes</span><span class="l-es">Destinos</span></a>
+            <a href="#faq" class="nav-opt" role="menuitem" onClick="{{ closeNav }}"><i>07</i>FAQ</a>
+            <a href="#reservar" class="nav-opt nav-opt-cta" role="menuitem" onClick="{{ closeNav }}"><span class="l-en">Book my transfer</span><span class="l-es">Reservar mi traslado</span> →</a>
+            <button class="nav-opt k23-drawer-wa" role="menuitem" onClick="{{ bookWhats }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15l-1.3 4.8 4.9-1.3A10 10 0 1012 2zm0 2a8 8 0 11-4.2 14.8l-.3-.2-2.9.8.8-2.8-.2-.3A8 8 0 0112 4zm4.5 10.2c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1l-.7.9c-.1.1-.3.2-.5 0a6.5 6.5 0 01-3.2-2.8c-.2-.4.2-.4.6-1.2.1-.1 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4 0-.6.3-.9 1-.9 2.3-.1 3.5a9 9 0 003.9 3.4c1.6.6 1.9.5 2.3.5s1.4-.6 1.6-1.1.2-1 .1-1.1z"/></svg>WhatsApp</button>
+          </div>
+        </div>
       </div>
     </div>
-
+    <div class="k23-nav-tide" aria-hidden="true"><span></span></div>
   </nav>
 
   <main id="main">
 
-  <!-- ===================== HERO (video, headline only above the fold) ===================== -->
-  <header id="top" style="position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;background:var(--ink)">
+  <!-- ===================== HERO — cinematic arrival (no sun, no top banner) ===================== -->
+  <header id="top" class="k23-hero">
     <div class="hero-media">
-      <image-slot id="lm-hero-poster" shape="rect" placeholder="HERO VIDEO POSTER — first frame of the cinematic Starex montage (also the reduced-motion fallback still)"></image-slot>
-      <video class="hero-vid" autoplay muted loop playsinline webkit-playsinline disableRemotePlayback preload="auto" aria-hidden="true">
+      <video class="hero-vid" autoplay muted loop playsinline webkit-playsinline disableRemotePlayback preload="auto" aria-hidden="true" poster="assets/destinations/bavaro/coast.jpg">
         <source src="media/hero-starex-loop.mp4" type="video/mp4">
       </video>
-      <canvas class="krn-glint" aria-hidden="true"></canvas>
+      <div class="k23-caustics" aria-hidden="true"></div>
+      <canvas class="k23-foam" data-k23-foam="hero" aria-hidden="true"></canvas>
       <div class="hero-vig"></div>
     </div>
-    <div class="hero-sun" aria-hidden="true">
-      <svg viewBox="0 0 120 120"><g stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round"><circle cx="60" cy="60" r="20"/><path d="M60 8v16M60 96v16M8 60h16M96 60h16M23 23l11 11M86 86l11 11M97 23L86 34M34 86 23 97"/></g></svg>
+
+    <svg class="k23-palm k23-palm-l" viewBox="0 0 300 420" aria-hidden="true"><g class="k23-sway"><path class="trunk" d="M78 420 C96 330 110 250 150 176" fill="none" stroke-width="11" stroke-linecap="round"/><path d="M150 176 C112 150 64 150 14 176 C70 160 110 168 150 182Z"/><path d="M150 176 C124 128 84 104 34 96 C86 118 120 144 150 182Z"/><path d="M150 176 C160 124 150 80 118 40 C140 92 146 134 148 180Z"/><path d="M150 176 C186 136 228 120 282 124 C230 136 190 156 152 182Z"/><path d="M150 176 C194 172 236 190 270 230 C228 200 190 188 150 184Z"/><path d="M150 176 C128 196 112 226 106 268 C122 228 138 204 152 184Z"/></g></svg>
+    <svg class="k23-palm k23-palm-r" viewBox="0 0 300 420" aria-hidden="true"><g class="k23-sway"><path class="trunk" d="M230 420 C214 320 196 240 150 170" fill="none" stroke-width="10" stroke-linecap="round"/><path d="M150 170 C190 144 240 146 290 172 C232 156 192 164 150 178Z"/><path d="M150 170 C176 122 216 100 266 92 C214 114 180 140 150 178Z"/><path d="M150 170 C140 118 150 74 184 36 C160 88 154 130 152 176Z"/><path d="M150 170 C112 130 70 116 16 120 C68 132 108 152 148 178Z"/><path d="M150 170 C106 166 64 184 30 224 C72 194 110 182 150 180Z"/></g></svg>
+
+    <div class="k23-hero-grid">
+      <div class="k23-hero-copy">
+        <p class="k23-eyebrow k23-rise" style="--d:0"><span class="k23-dot"></span><span class="l-en">Private transfers · Punta Cana · Bávaro · Cap Cana · Santo Domingo</span><span class="l-es">Traslados privados · Punta Cana · Bávaro · Cap Cana · Santo Domingo</span></p>
+        <h1 class="disp k23-h1">
+          <span class="l-es"><span class="w" style="--i:0">Aterrizas.</span> <span class="w" style="--i:1">Respiras.</span> <span class="w" style="--i:2">Tu</span> <span class="w" style="--i:3">chofer</span> <span class="w" style="--i:4">ya</span> <span class="w" style="--i:5">te</span> <span class="w" style="--i:6">está</span> <span class="w k23-script" style="--i:7">esperando.</span></span>
+          <span class="l-en"><span class="w" style="--i:0">You land.</span> <span class="w" style="--i:1">You breathe.</span> <span class="w" style="--i:2">Your</span> <span class="w" style="--i:3">driver</span> <span class="w" style="--i:4">is</span> <span class="w" style="--i:5">already</span> <span class="w k23-script" style="--i:6">waiting.</span></span>
+        </h1>
+        <p class="k23-lead k23-rise" style="--d:5"><span class="l-en">Private airport-to-resort transfers from PUJ and SDQ: your name on a sign at arrivals, your flight tracked, your luggage loaded — and a published fixed fare for every hotel.</span><span class="l-es">Traslados privados del aeropuerto a tu resort desde PUJ y SDQ: tu nombre en un letrero al salir, tu vuelo monitoreado, tu equipaje cargado — y una tarifa fija publicada para cada hotel.</span></p>
+        <div class="k23-hero-ctas k23-rise" style="--d:6">
+          <a class="btn k23-btn-xl" href="#reservar" data-magnetic="1"><span class="l-en">Book my transfer</span><span class="l-es">Reservar mi traslado</span><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="btn ghost k23-btn-glass" href="#rates-search"><span class="l-en">Find my hotel's fare</span><span class="l-es">Ver la tarifa de mi hotel</span></a>
+          <button class="k23-wa-round" onClick="{{ bookWhats }}" aria-label="WhatsApp"><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15l-1.3 4.8 4.9-1.3A10 10 0 1012 2zm0 2a8 8 0 11-4.2 14.8l-.3-.2-2.9.8.8-2.8-.2-.3A8 8 0 0112 4zm4.5 10.2c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1l-.7.9c-.1.1-.3.2-.5 0a6.5 6.5 0 01-3.2-2.8c-.2-.4.2-.4.6-1.2.1-.1 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4 0-.6.3-.9 1-.9 2.3-.1 3.5a9 9 0 003.9 3.4c1.6.6 1.9.5 2.3.5s1.4-.6 1.6-1.1.2-1 .1-1.1z"/></svg></button>
+        </div>
+        <ul class="k23-hero-facts k23-rise" style="--d:7">
+          <li><b data-k23-stat="hotels">249</b><span class="l-en">hotels with a published fare</span><span class="l-es">hoteles con tarifa publicada</span></li>
+          <li><b>PUJ · SDQ</b><span class="l-en">two airports covered</span><span class="l-es">dos aeropuertos</span></li>
+          <li><b data-k23-stat="classes">4</b><span class="l-en">vehicle classes</span><span class="l-es">clases de vehículo</span></li>
+          <li><b>24/7</b><span class="l-en">night arrivals too</span><span class="l-es">también de madrugada</span></li>
+        </ul>
+      </div>
+
+      <aside class="k23-pass k23-rise" style="--d:4" aria-label="Así funciona tu llegada">
+        <div class="k23-pass-top">
+          <span class="k23-pass-k"><span class="l-en">Your arrival</span><span class="l-es">Tu llegada</span></span>
+          <span class="k23-pass-live"><i></i><span class="l-en">flight tracked</span><span class="l-es">vuelo monitoreado</span></span>
+        </div>
+        <div class="k23-pass-route">
+          <div><b>PUJ</b><small>Punta Cana</small></div>
+          <svg viewBox="0 0 200 60" aria-hidden="true"><path class="k23-pass-arc" d="M8 50 Q100 -14 192 50" fill="none"/><g class="k23-pass-plane"><path d="M0 -6 L14 0 L0 6 L3 0Z"/></g></svg>
+          <div class="r"><b><span class="l-en">HOTEL</span><span class="l-es">HOTEL</span></b><small><span class="l-en">your resort</span><span class="l-es">tu resort</span></small></div>
+        </div>
+        <div class="k23-pass-sign" aria-hidden="true">
+          <span class="k23-pass-sign-k">KARÚN</span>
+          <span class="k23-pass-sign-n"><span class="l-en">YOUR NAME</span><span class="l-es">TU NOMBRE</span></span>
+        </div>
+        <ul class="k23-pass-list">
+          <li><span class="l-en">Driver waiting at the arrivals exit</span><span class="l-es">Chofer esperando en la salida de llegadas</span></li>
+          <li><span class="l-en">60–90 min wait included after landing</span><span class="l-es">60–90 min de espera incluidos al aterrizar</span></li>
+          <li><span class="l-en">Fixed fare · tolls &amp; taxes included</span><span class="l-es">Tarifa fija · peajes e impuestos incluidos</span></li>
+        </ul>
+        <div class="k23-pass-stub"><span class="l-en">Ready in 3 steps</span><span class="l-es">Listo en 3 pasos</span><a href="#reservar"><span class="l-en">Start</span><span class="l-es">Empezar</span> →</a></div>
+      </aside>
     </div>
 
-    <div style="position:relative;z-index:5;width:100%;max-width:1320px;margin:0 auto;padding:clamp(96px,13vh,150px) clamp(16px,4vw,44px) clamp(48px,7vh,90px)">
-      <div class="reveal" style="max-width:720px">
-        <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin-bottom:22px;color:rgba(251,245,234,.94);font-weight:700;font-size:13px;text-shadow:0 1px 10px rgba(0,0,0,.5)">
-          <span style="color:var(--sun)">★★★★★ <span style="color:inherit">4.9</span></span>
-          <span>· {{ t.h_countries }}</span>
-          <span>· {{ t.h_transfers }}</span>
-        </div>
-        <span class="chip" style="margin-bottom:22px">📍 Punta Cana · Bávaro · Cap Cana · Santo Domingo</span>
-        <h1 class="disp" style="font-size:clamp(42px,6.6vw,84px);margin:0 0 22px;color:#fff;text-shadow:0 2px 26px rgba(0,0,0,.45);max-width:15ch">{{ t.h1 }} <span class="hl-sun">{{ t.h1hi }}</span></h1>
-        <p style="font-size:clamp(17px,1.9vw,21px);color:rgba(251,245,234,.92);max-width:560px;margin:0 0 32px;font-weight:500;text-shadow:0 1px 14px rgba(0,0,0,.5)">{{ t.h_sub }}</p>
-        <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
-          <a class="btn" href="#book" style="font-size:16px;padding:17px 30px">{{ t.h_book }} →</a>
-          <a class="btn ghost" href="#reservar" style="font-size:16px;padding:17px 26px;background:rgba(255,255,255,.14);color:#fff;box-shadow:none"><span class="l-en">Book demo</span><span class="l-es">Reservar demo</span></a>
-          <button class="btn wa" onClick="{{ bookWhats }}" style="font-size:16px;padding:17px 26px"><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 00-8.6 15l-1.3 4.8 4.9-1.3A10 10 0 1012 2zm0 2a8 8 0 11-4.2 14.8l-.3-.2-2.9.8.8-2.8-.2-.3A8 8 0 0112 4zm4.5 10.2c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1l-.7.9c-.1.1-.3.2-.5 0a6.5 6.5 0 01-3.2-2.8c-.2-.4.2-.4.6-1.2.1-.1 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4 0-.6.3-.9 1-.9 2.3-.1 3.5a9 9 0 003.9 3.4c1.6.6 1.9.5 2.3.5s1.4-.6 1.6-1.1.2-1 .1-1.1z"/></svg>{{ t.h_price }}</button>
-        </div>
-        <div style="display:flex;gap:22px;margin-top:26px;flex-wrap:wrap;color:rgba(251,245,234,.92);font-weight:600;font-size:14px;text-shadow:0 1px 10px rgba(0,0,0,.5)">
-          <span>✓ {{ t.hf_cancel }}</span><span>✓ {{ t.hf_pay }}</span><span>✓ {{ t.hf_seats }}</span>
-        </div>
-      </div>
-    </div>
+    <a class="k23-scrollcue" href="#llegada" aria-label="Seguir"><span class="l-en">Scroll</span><span class="l-es">Desliza</span><i></i></a>
+
     <div class="krn-shore" aria-hidden="true">
       <svg class="w1" viewBox="0 0 2880 120" preserveAspectRatio="none"><path fill="rgba(255,255,255,.30)" d="M0,58 Q120,32 240,58 T480,58 T720,58 T960,58 T1200,58 T1440,58 T1680,58 T1920,58 T2160,58 T2400,58 T2640,58 T2880,58 V120 H0 Z"/></svg>
       <svg class="w2" viewBox="0 0 2880 120" preserveAspectRatio="none"><path fill="rgba(122,212,224,.42)" d="M0,70 Q180,36 360,70 T720,70 T1080,70 T1440,70 T1800,70 T2160,70 T2520,70 T2880,70 V120 H0 Z"/></svg>
-      <svg class="w3" viewBox="0 0 2880 120" preserveAspectRatio="none"><path fill="var(--surface-2)" d="M0,84 Q360,44 720,84 T1440,84 T2160,84 T2880,84 V120 H0 Z"/><path fill="none" stroke="rgba(255,255,255,.9)" stroke-width="2.2" stroke-linecap="round" d="M0,84 Q360,44 720,84 T1440,84 T2160,84 T2880,84 "/></svg>
+      <svg class="w3" viewBox="0 0 2880 120" preserveAspectRatio="none"><path fill="#f5f0e6" d="M0,84 Q360,44 720,84 T1440,84 T2160,84 T2880,84 V120 H0 Z"/><path fill="none" stroke="rgba(255,255,255,.9)" stroke-width="2.2" stroke-linecap="round" d="M0,84 Q360,44 720,84 T1440,84 T2160,84 T2880,84 "/></svg>
     </div>
   </header>
 
-  <!-- ===================== BOOKING (below the fold) ===================== -->
-  <section id="book" style="background:linear-gradient(180deg,var(--surface-2),var(--sand));padding:clamp(56px,8vw,110px) clamp(16px,4vw,44px);position:relative;overflow:hidden">
-    <div class="sun-glow" style="width:420px;height:420px;background:radial-gradient(circle,var(--teal),transparent 70%);opacity:.14;top:-140px;right:-90px"></div>
-    <div style="position:relative;max-width:1120px;margin:0 auto;display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(24px,4vw,56px);align-items:center" class="hero-grid">
-      <div class="reveal">
-        <span class="chip">{{ t.bk_kicker }}</span>
-        <h2 class="disp" style="font-size:clamp(32px,4.4vw,52px);margin:16px 0 12px">{{ t.bk_title }}</h2>
-        <p style="color:var(--muted);font-weight:500;font-size:clamp(16px,1.8vw,19px);max-width:420px">{{ t.bk_sub }}</p>
-      </div>
-      <div class="neu reveal" style="padding:24px">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:13px">
-          <div><label class="fldlbl" for="ly-pickup">{{ t.b_pickup }}</label>
-            <select id="ly-pickup" class="fld" aria-label="Pickup"><option>Punta Cana Airport (PUJ)</option><option>Bávaro Hotel Zone</option><option>Cap Cana</option><option>Uvero Alto</option><option>La Romana (LRM)</option><option>Santo Domingo (SDQ)</option></select></div>
-          <div><label class="fldlbl" for="ly-drop">{{ t.b_drop }}</label>
-            <select id="ly-drop" class="fld" aria-label="Drop-off"><option>Hotel / Resort</option><option>Punta Cana Airport (PUJ)</option><option>Cap Cana</option><option>Bávaro</option><option>Santo Domingo</option><option>Excursion / Day trip</option></select></div>
-          <div><label class="fldlbl" for="ly-date">{{ t.b_date }}</label><input id="ly-date" class="fld" type="date" aria-label="Date"/></div>
-          <div><label class="fldlbl" for="ly-time">{{ t.b_time }}</label><input id="ly-time" class="fld" type="time" aria-label="Time"/></div>
-          <div><label class="fldlbl" for="ly-pax">{{ t.b_pax }}</label><select id="ly-pax" class="fld" aria-label="Passengers"><option>1–2</option><option>3–4</option><option>5–6</option><option>7–8</option></select></div>
-          <div><label class="fldlbl" for="ly-lug">{{ t.b_lug }}</label><select id="ly-lug" class="fld" aria-label="Luggage"><option>1–2</option><option>3–5</option><option>6–8</option><option>9+</option></select></div>
-        </div>
-        <button class="btn wa" onClick="{{ bookWhats }}" style="margin-top:16px;width:100%;font-size:16px;padding:16px"><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 00-8.6 15l-1.3 4.8 4.9-1.3A10 10 0 1012 2zm0 2a8 8 0 11-4.2 14.8l-.3-.2-2.9.8.8-2.8-.2-.3A8 8 0 0112 4zm4.5 10.2c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1l-.7.9c-.1.1-.3.2-.5 0a6.5 6.5 0 01-3.2-2.8c-.2-.4.2-.4.6-1.2.1-.1 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4 0-.6.3-.9 1-.9 2.3-.1 3.5a9 9 0 003.9 3.4c1.6.6 1.9.5 2.3.5s1.4-.6 1.6-1.1.2-1 .1-1.1z"/></svg>{{ t.b_get }} →</button>
-        <a class="btn ghost sm" href="#reservar" style="margin-top:10px;width:100%"><span class="l-en">Or try the booking demo</span><span class="l-es">O prueba la reserva demo</span> →</a>
-        <p style="margin:12px 2px 0;font-size:12px;color:var(--muted);line-height:1.5">{{ t.b_consent }} <button class="lk" onClick="{{ openPrivacy }}" style="color:var(--teal-deep);font-weight:700;text-decoration:underline">{{ t.b_privacy }}</button>.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== TRUST STRIP ===================== -->
-  <section aria-hidden="true" style="background:var(--ink);color:var(--surface);overflow:hidden;padding:16px 0">
-    <div class="marq-track"><span class="trust-run"></span></div>
-  </section>
-
-  <!-- ===================== SERVICES ===================== -->
-  <section id="services" style="background:var(--sand);padding:clamp(64px,9vw,130px) clamp(16px,4vw,44px);position:relative;overflow:hidden">
-    <div class="ly-art" aria-hidden="true" style="top:24px;right:clamp(8px,4vw,40px);width:min(140px,22vw)"><svg viewBox="0 0 120 140" fill="none"><path d="M60 130 V55" stroke="var(--teal)" stroke-width="2.2" stroke-linecap="round"/><path d="M60 58 C40 40 18 48 12 58 M60 58 C80 40 102 48 108 58 M60 52 C36 28 22 22 14 28 M60 52 C84 28 98 22 106 28 M60 48 C48 20 38 10 28 12 M60 48 C72 20 82 10 92 12" stroke="var(--palm)" stroke-width="2.2" stroke-linecap="round"/><path d="M48 130 Q60 122 72 130" stroke="var(--coral)" stroke-width="1.8" stroke-linecap="round" opacity=".8"/></svg></div>
-    <div class="ly-art a2" aria-hidden="true" style="bottom:18px;left:clamp(8px,3vw,36px);width:min(220px,40vw)"><svg viewBox="0 0 220 60" fill="none"><path d="M4 30 Q24 10 44 30 T84 30 T124 30 T164 30 T204 30" stroke="var(--teal)" stroke-width="2.2" stroke-linecap="round"/><path d="M4 42 Q24 26 44 42 T84 42 T124 42 T164 42 T204 42" stroke="var(--coral)" stroke-width="1.8" stroke-linecap="round" opacity=".85"/></svg></div>
-    <div class="reveal" style="max-width:760px;margin-bottom:40px">
-      <span class="chip">{{ t.s_kicker }}</span>
-      <h2 class="disp" style="font-size:clamp(34px,5.5vw,66px);margin:16px 0 12px;max-width:16ch">{{ t.s_title }}</h2>
-      <p style="font-size:clamp(16px,1.8vw,20px);color:var(--muted);font-weight:500;max-width:600px">{{ t.s_sub }}</p>
-    </div>
-
-    <!-- featured airport card -->
-    <div class="neu svc-feat reveal">
-      <div class="txt">
-        <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
-          <div class="svc-ic">✈</div>
-          <span class="chip" style="color:var(--coral)">{{ t.svc_featTag }}</span>
-        </div>
-        <h3 class="disp" style="font-size:clamp(26px,3.2vw,38px);margin:0 0 10px">{{ t.svc_airport }}</h3>
-        <p style="color:var(--muted);font-weight:500;font-size:17px;max-width:440px;margin:0 0 18px"><span class="l-en">A driver waiting at PUJ arrivals with your name sign, luggage loaded, and a cold van straight to your resort door. Flights tracked automatically.</span><span class="l-es">Un chofer esperando en llegadas de PUJ con tu letrero, equipaje cargado y una van fría directo a la puerta de tu resort. Vuelos rastreados automáticamente.</span></p>
-        <div style="display:flex;flex-wrap:wrap;gap:9px;margin-bottom:22px">
-          <span class="chip" style="text-transform:none;letter-spacing:0">🪧 <span class="l-en">Meet &amp; greet</span><span class="l-es">Recibimiento</span></span>
-          <span class="chip" style="text-transform:none;letter-spacing:0">✈ <span class="l-en">Flight tracking</span><span class="l-es">Seguimiento de vuelo</span></span>
-          <span class="chip" style="text-transform:none;letter-spacing:0">🕓 24/7</span>
-        </div>
-        <a class="btn" href="#book">{{ t.h_book }} →</a>
-        <a class="btn ghost sm" href="#reservar" style="margin-left:10px"><span class="l-en">Book demo</span><span class="l-es">Reservar demo</span></a>
-      </div>
-      <div class="media">
-        <image-slot id="lm-svc-airport" shape="rect" placeholder="AIRPORT PICKUP PHOTO — driver at PUJ arrivals holding a name sign, guests with luggage"></image-slot>
-      </div>
-    </div>
-
-    <div class="svc-grid">
-      <div class="neu svc-card reveal"><div class="svc-ic">🏨</div><h3 class="disp" style="font-size:21px;margin:16px 0 8px">{{ t.svc_hotel }}</h3><p style="color:var(--muted);font-weight:500;font-size:15px"><span class="l-en">Move between resorts, Cap Cana villas or Santo Domingo comfortably.</span><span class="l-es">Muévete entre resorts, villas de Cap Cana o Santo Domingo con comodidad.</span></p></div>
-      <div class="neu svc-card reveal"><div class="svc-ic">↻</div><h3 class="disp" style="font-size:21px;margin:16px 0 8px">{{ t.svc_round }}</h3><p style="color:var(--muted);font-weight:500;font-size:15px"><span class="l-en">Book both ways and save. We track your return flight automatically.</span><span class="l-es">Reserva ida y vuelta y ahorra. Rastreamos tu vuelo de regreso.</span></p></div>
-      <div class="neu svc-card reveal"><div class="svc-ic">🌴</div><h3 class="disp" style="font-size:21px;margin:16px 0 8px">{{ t.svc_exc }}</h3><p style="color:var(--muted);font-weight:500;font-size:15px"><span class="l-en">Saona, Hoyo Azul, Los Haitises or a private driver by the hour.</span><span class="l-es">Saona, Hoyo Azul, Los Haitises o chofer privado por hora.</span></p></div>
-      <div class="neu svc-card reveal"><div class="svc-ic">👨‍👩‍👧</div><h3 class="disp" style="font-size:21px;margin:16px 0 8px">{{ t.svc_group }}</h3><p style="color:var(--muted);font-weight:500;font-size:15px"><span class="l-en">Up to 8 passengers with luggage. Free child seats on request.</span><span class="l-es">Hasta 8 pasajeros con equipaje. Sillas para niños gratis a solicitud.</span></p></div>
-      <div class="neu svc-card reveal" style="background:linear-gradient(150deg,var(--teal),var(--teal-deep));color:#fff;box-shadow:var(--raise-lg)"><div class="svc-ic" style="background:rgba(255,255,255,.16);box-shadow:none">💬</div><h3 class="disp" style="font-size:21px;margin:16px 0 8px">{{ t.svc_ask }}</h3><p style="color:rgba(255,255,255,.85);font-weight:500;font-size:15px"><span class="l-en">Tell us your flight and hotel on WhatsApp — we'll build the route.</span><span class="l-es">Cuéntanos tu vuelo y hotel por WhatsApp — armamos la ruta.</span></p><button class="btn wa sm" onClick="{{ bookWhats }}" style="margin-top:14px">WhatsApp</button></div>
-    </div>
-  </section>
-
-  <!-- ===================== FLEET (Karún) ===================== -->
-  <section id="fleet" style="background:var(--sand);padding:clamp(64px,9vw,130px) clamp(16px,4vw,44px);position:relative;overflow:hidden">
-    <div style="max-width:1320px;margin:0 auto">
-      <div class="reveal" style="max-width:760px;margin-bottom:40px">
-        <span class="chip"><span class="l-en">Our fleet</span><span class="l-es">Nuestra flota</span></span>
-        <h2 class="disp" style="font-size:clamp(34px,5.5vw,64px);margin:16px 0 12px;max-width:16ch"><span class="l-en">Five vehicles, one standard of care</span><span class="l-es">Cinco vehículos, un solo estándar</span></h2>
-        <p style="color:var(--muted);font-weight:500;font-size:clamp(16px,1.8vw,19px);max-width:640px"><span class="l-en">From a couple traveling light to a family with a full luggage cart — pick a unit and start your quote instantly.</span><span class="l-es">Desde una pareja viajando ligero hasta una familia con carrito lleno de equipaje — elige una unidad y cotiza al instante.</span></p>
-      </div>
-
-      <div class="krn-fleet-grid">
-
-        <div class="neu krn-fleet-card reveal" data-vehicle="Hyundai Grand Starex">
-          <div class="krn-fleet-media">
-            <img src="assets/fleet/starex.jpg" alt="Hyundai Grand Starex — exterior referencial" width="640" height="360" loading="lazy" decoding="async">
-            <span class="krn-fleet-badge"><span class="l-en">Referential · client photo pending</span><span class="l-es">Referencial · foto del cliente pendiente</span></span>
-          </div>
-          <div class="krn-fleet-body">
-            <h3 class="disp" style="font-size:21px;margin:0 0 4px">Hyundai Grand Starex</h3>
-            <div style="color:var(--muted);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">2018 · <span class="l-en">1–6 pax</span><span class="l-es">1–6 pax</span></div>
-            <div class="krn-from" data-krn-from="starex"></div>
-            <button class="btn sm" style="width:100%" data-krn-quote="Hyundai Grand Starex"><span class="l-en">Quote this vehicle</span><span class="l-es">Cotizar esta unidad</span> →</button>
-          </div>
-        </div>
-
-        <div class="neu krn-fleet-card reveal" data-vehicle="Cadillac Escalade 2020">
-          <div class="krn-fleet-media">
-            <img src="assets/fleet/escalade-2020.jpg" alt="Cadillac Escalade — exterior referencial" width="640" height="360" loading="lazy" decoding="async">
-            <span class="krn-fleet-badge"><span class="l-en">Referential · client photo pending</span><span class="l-es">Referencial · foto del cliente pendiente</span></span>
-          </div>
-          <div class="krn-fleet-body">
-            <h3 class="disp" style="font-size:21px;margin:0 0 4px">Cadillac Escalade</h3>
-            <div style="color:var(--muted);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">2020 · <span class="l-en">1–4 pax</span><span class="l-es">1–4 pax</span></div>
-            <div class="krn-from" data-krn-from="cadillac"></div>
-            <button class="btn sm" style="width:100%" data-krn-quote="Cadillac Escalade 2020"><span class="l-en">Quote this vehicle</span><span class="l-es">Cotizar esta unidad</span> →</button>
-          </div>
-        </div>
-
-        <div class="neu krn-fleet-card reveal" data-vehicle="Hyundai Solati 2014">
-          <div class="krn-fleet-media">
-            <img src="assets/fleet/solati-2014.jpg" alt="Hyundai Solati — exterior referencial" width="640" height="360" loading="lazy" decoding="async">
-            <span class="krn-fleet-badge"><span class="l-en">Referential · client photo pending</span><span class="l-es">Referencial · foto del cliente pendiente</span></span>
-          </div>
-          <div class="krn-fleet-body">
-            <h3 class="disp" style="font-size:21px;margin:0 0 4px">Hyundai Solati</h3>
-            <div style="color:var(--muted);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">2014 · <span class="l-en">7–10 pax</span><span class="l-es">7–10 pax</span></div>
-            <div class="krn-from" data-krn-from="hiace"></div>
-            <button class="btn sm" style="width:100%" data-krn-quote="Hyundai Solati 2014"><span class="l-en">Quote this vehicle</span><span class="l-es">Cotizar esta unidad</span> →</button>
-          </div>
-        </div>
-
-        <div class="neu krn-fleet-card reveal" data-vehicle="Toyota Hiace 2019">
-          <div class="krn-fleet-media">
-            <img src="assets/fleet/hiace-2019.jpg" alt="Toyota Hiace — exterior referencial" width="640" height="360" loading="lazy" decoding="async">
-            <span class="krn-fleet-badge"><span class="l-en">Referential · client photo pending</span><span class="l-es">Referencial · foto del cliente pendiente</span></span>
-          </div>
-          <div class="krn-fleet-body">
-            <h3 class="disp" style="font-size:21px;margin:0 0 4px">Toyota Hiace</h3>
-            <div style="color:var(--muted);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">2019 · <span class="l-en">7–10 pax</span><span class="l-es">7–10 pax</span></div>
-            <div class="krn-from" data-krn-from="hiace"></div>
-            <button class="btn sm" style="width:100%" data-krn-quote="Toyota Hiace 2019"><span class="l-en">Quote this vehicle</span><span class="l-es">Cotizar esta unidad</span> →</button>
-          </div>
-        </div>
-
-        <div class="neu krn-fleet-card reveal" data-vehicle="Chevrolet Suburban LWB 2020">
-          <div class="krn-fleet-media">
-            <img src="assets/fleet/suburban-lwb-2020.jpg" alt="Chevrolet Suburban LWB — exterior referencial" width="640" height="360" loading="lazy" decoding="async">
-            <span class="krn-fleet-badge"><span class="l-en">Referential · client photo pending</span><span class="l-es">Referencial · foto del cliente pendiente</span></span>
-          </div>
-          <div class="krn-fleet-body">
-            <h3 class="disp" style="font-size:21px;margin:0 0 4px">Chevrolet Suburban LWB</h3>
-            <div style="color:var(--muted);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">2020 · <span class="l-en">1–4 pax</span><span class="l-es">1–4 pax</span></div>
-            <div class="krn-from" data-krn-from="suburban"></div>
-            <button class="btn sm" style="width:100%" data-krn-quote="Chevrolet Suburban LWB 2020"><span class="l-en">Quote this vehicle</span><span class="l-es">Cotizar esta unidad</span> →</button>
-          </div>
-        </div>
-
-      </div>
-      <p class="reveal krn-note"><span class="l-en">Referential stock photos for this demo — final client vehicle photography is added in production. Fares follow the official sheet by vehicle class: Starex (1–6 pax), Hiace / Techo alto (7–10 pax), Suburban (1–4 pax) and Cadillac (1–4 pax). Hyundai Solati is quoted on the Hiace / Techo alto column.</span><span class="l-es">Fotos de referencia para esta demo — la fotografía real del cliente se agrega en producción. Las tarifas siguen la hoja oficial por clase de vehículo: Starex (1–6 pax), Hiace / Techo alto (7–10 pax), Suburban (1–4 pax) y Cadillac (1–4 pax). La Hyundai Solati se cotiza en la columna Hiace / Techo alto.</span></p>
-    </div>
-  </section>
-
-  <!-- ===================== RATE SHEET SEARCH (Karún — real tarifario) ===================== -->
-  <div class="krn-wave" aria-hidden="true" style="--from:var(--sand);--to:var(--surface-2)"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><path class="tint" d="M0,22 C240,2 440,4 660,22 S1060,62 1270,24 S1410,6 1440,12 V80 H0 Z"/><path class="foam" d="M0,30 C200,4 400,4 620,28 S1020,68 1240,30 S1400,8 1440,16 V80 H0 Z"/><path d="M0,42 C220,6 420,6 640,38 S1040,78 1250,38 S1410,18 1440,28 V80 H0 Z"/></svg></div>
-  <section id="rates-search" style="background:var(--surface-2);padding:clamp(56px,8vw,100px) clamp(16px,4vw,44px);border-block:1px solid var(--line);position:relative;overflow:hidden">
-    <div style="max-width:1160px;margin:0 auto">
-      <div class="reveal" style="display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:24px">
-        <div style="max-width:640px">
-          <span class="chip"><span class="l-en">Full hotel rate sheet</span><span class="l-es">Tarifario completo por hotel</span></span>
-          <h2 class="disp" style="font-size:clamp(30px,4.6vw,48px);margin:16px 0 10px"><span class="l-en">Search your hotel</span><span class="l-es">Busca tu hotel</span></h2>
-          <p style="color:var(--muted);font-weight:500;font-size:16px"><span class="l-en">Official one-way rates from Punta Cana (PUJ) and Santo Domingo (SDQ) airports, per vehicle, in USD.</span><span class="l-es">Tarifas oficiales por vía desde los aeropuertos de Punta Cana (PUJ) y Santo Domingo (SDQ), por vehículo, en USD.</span></p>
-        </div>
-        <span class="chip" style="color:var(--coral)"><span class="l-en">Indicative prices · demo</span><span class="l-es">Precios indicativos · demo</span></span>
-      </div>
-
-      <div class="neu reveal krn-ctl" style="padding:18px;margin-bottom:18px">
-        <div class="krn-ctl-row">
+  <!-- ===================== ARRIVAL STORY — plane → van → lobby (scroll-scrubbed) ===================== -->
+  <section id="llegada" class="k23-arrive">
+    <div class="k23-arrive-pin">
+      <div class="k23-wrap">
+        <div class="k23-head k23-head-split">
           <div>
-            <span class="krn-ctl-lbl"><span class="l-en">From airport</span><span class="l-es">Desde el aeropuerto</span></span>
-            <div id="krn-rate-origins" class="krn-segs" role="group" aria-label="Airport"></div>
+            <span class="k23-kicker"><span class="l-en">Before you land</span><span class="l-es">Antes de aterrizar</span></span>
+            <h2 class="disp k23-h2"><span class="l-en">From the jet bridge to the <em class="k23-script">lobby</em></span><span class="l-es">Del avión al <em class="k23-script">lobby</em> sin pensar en nada</span></h2>
           </div>
-          <div style="flex:1;min-width:260px">
-            <span class="krn-ctl-lbl"><span class="l-en">Vehicle</span><span class="l-es">Vehículo</span></span>
-            <div id="krn-rate-classes" class="krn-chips" role="group" aria-label="Vehicle"></div>
+          <p class="k23-sub"><span class="l-en">This is exactly what happens after you book. No queues, no bargaining at the curb, no guessing which van is yours.</span><span class="l-es">Esto es exactamente lo que pasa después de reservar. Sin filas, sin regatear en la acera, sin adivinar cuál van es la tuya.</span></p>
+        </div>
+
+        <div class="k23-journey" data-k23-journey="1">
+          <svg class="k23-journey-svg" viewBox="0 30 1200 200" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+            <defs>
+              <linearGradient id="k23jg" x1="0" x2="1"><stop offset="0" stop-color="#7ad4e0"/><stop offset=".55" stop-color="#0e8fa0"/><stop offset="1" stop-color="#f2864b"/></linearGradient>
+            </defs>
+            <path class="k23-journey-sea" d="M0 214 Q75 196 150 214 T300 214 T450 214 T600 214 T750 214 T900 214 T1050 214 T1200 214" fill="none"/>
+            <path class="k23-journey-base" d="M40 70 C180 70 220 170 360 170 S560 90 700 110 S900 190 1010 170 S1140 120 1170 130" fill="none"/>
+            <path class="k23-journey-line" d="M40 70 C180 70 220 170 360 170 S560 90 700 110 S900 190 1010 170 S1140 120 1170 130" fill="none" stroke="url(#k23jg)"/>
+            <g class="k23-traveler">
+              <circle r="24" class="k23-traveler-halo"/>
+              <g class="k23-tv k23-tv-plane"><path d="M-14 -2 L10 -2 L16 0 L10 2 L-14 2 Z M-4 -2 L2 -12 L6 -12 L3 -2 Z M-4 2 L2 12 L6 12 L3 2 Z M-14 -2 L-18 -7 L-15 -7 L-11 -2 Z M-14 2 L-18 7 L-15 7 L-11 2Z"/></g>
+              <g class="k23-tv k23-tv-van"><path d="M-17 -8 H6 L14 -1 V7 H-17 Z"/><circle cx="-9" cy="8" r="3.4" class="k23-wheel"/><circle cx="7" cy="8" r="3.4" class="k23-wheel"/><path d="M-13 -5 H-5 V-1 H-13Z M-3 -5 H4 L8 -1 H-3Z" class="k23-glass"/></g>
+              <g class="k23-tv k23-tv-bell"><path d="M-12 6 H12 M-9 4 A9 9 0 0 1 9 4 Z M0 -7 V-5"/></g>
+            </g>
+          </svg>
+          <ol class="k23-stops">
+            <li class="k23-stop" style="--x:3%"><span class="k23-stop-n">01</span><h3><span class="l-en">Clear immigration</span><span class="l-es">Pasa migración</span></h3><p><span class="l-en">Passport control and the e-ticket, at your pace — your wait window already started.</span><span class="l-es">Pasaporte y e-ticket a tu ritmo — tu ventana de espera ya está corriendo.</span></p></li>
+            <li class="k23-stop" style="--x:25%"><span class="k23-stop-n">02</span><h3><span class="l-en">Send "landed"</span><span class="l-es">Escribe "aterricé"</span></h3><p><span class="l-en">One WhatsApp message. Your driver is already watching your flight.</span><span class="l-es">Un mensaje de WhatsApp. Tu chofer ya está siguiendo tu vuelo.</span></p></li>
+            <li class="k23-stop" style="--x:47%"><span class="k23-stop-n">03</span><h3><span class="l-en">Find your name</span><span class="l-es">Busca tu nombre</span></h3><p><span class="l-en">Right after customs, at the arrivals exit, on a Karún sign.</span><span class="l-es">Justo después de la aduana, en la salida de llegadas, en un letrero Karún.</span></p></li>
+            <li class="k23-stop" style="--x:69%"><span class="k23-stop-n">04</span><h3><span class="l-en">Bags in, A/C on</span><span class="l-es">Maletas dentro, aire encendido</span></h3><p><span class="l-en">We load every case. Cold water, cold cabin, private ride.</span><span class="l-es">Cargamos cada maleta. Agua fría, cabina fría, viaje privado.</span></p></li>
+            <li class="k23-stop" style="--x:91%"><span class="k23-stop-n">05</span><h3><span class="l-en">Door to lobby</span><span class="l-es">Puerta a puerta</span></h3><p><span class="l-en">Straight to your resort entrance. Vacation officially started.</span><span class="l-es">Directo a la entrada de tu resort. Vacaciones oficialmente empezadas.</span></p></li>
+          </ol>
+        </div>
+
+        <div class="k23-delay">
+          <div class="k23-delay-ic" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="26" r="16"/><path d="M24 17v9l6 4M18 5h12"/></svg></div>
+          <div>
+            <h3 class="disp"><span class="l-en">Flight delayed? We wait.</span><span class="l-es">¿Vuelo retrasado? Te esperamos.</span></h3>
+            <p><span class="l-en">We follow your flight and adjust the pickup. Airport pickups include a free 60–90 min window after landing.</span><span class="l-es">Seguimos tu vuelo y ajustamos la recogida. Las recogidas en aeropuerto incluyen 60–90 min gratis tras aterrizar.</span></p>
           </div>
+          <button class="btn wa sm" onClick="{{ bookWhats }}">WhatsApp</button>
         </div>
-        <div class="krn-ctl-row">
-          <div style="flex:2;min-width:220px">
-            <label class="fldlbl" for="krn-hotel-search"><span class="l-en">Hotel name</span><span class="l-es">Nombre del hotel</span></label>
-            <input id="krn-hotel-search" class="fld" type="search" placeholder="Ej. Hard Rock, Barceló, Casa de Campo…" autocomplete="off">
-          </div>
-          <div style="flex:1;min-width:200px">
-            <label class="fldlbl" for="krn-zone-filter"><span class="l-en">Zone</span><span class="l-es">Zona</span></label>
-            <select id="krn-zone-filter" class="fld">
-              <option value="">Todas las zonas</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <div class="neu reveal" style="padding:0;overflow:hidden">
-        <div style="overflow-x:auto">
-          <table class="krn-rate-table" id="krn-rate-table">
-            <thead id="krn-rate-thead"></thead>
-            <tbody id="krn-rate-tbody"></tbody>
-          </table>
-        </div>
-        <p id="krn-rate-meta" class="krn-rate-meta" style="padding:0 18px"></p>
-        <p id="krn-rate-empty" style="display:none;padding:26px;text-align:center;color:var(--muted)"><span class="l-en">No hotel matches your search.</span><span class="l-es">Ningún hotel coincide con tu búsqueda.</span></p>
-        <div id="krn-rates-more-wrap" style="padding:18px 16px;text-align:center;border-top:1px solid var(--line)">
-          <button type="button" id="krn-rates-more" class="btn ghost sm" data-krn-action="rates-more">
-            <span class="l-en">Show more rates</span><span class="l-es">Ver más tarifas</span>
-          </button>
-          <button type="button" id="krn-rates-less" class="btn ghost sm" data-krn-action="rates-less" style="display:none;margin-left:8px">
-            <span class="l-en">Show less</span><span class="l-es">Ver menos</span>
-          </button>
-          <p id="krn-rates-count" style="margin:12px 0 0;font-size:12.5px;color:var(--muted);font-weight:500"></p>
-        </div>
-      </div>
-      <p class="reveal krn-note"><span class="l-en">Tarifario de traslados regular — official Karún Travel Group rates, one-way (1 vía), per vehicle. The base fare covers the seats of the class (Starex 1–6, Hiace / Techo alto 7–10, Suburban 1–4, Cadillac 1–4); each additional passenger is charged the “pax adicional por vía” shown. Demo prices; the exact unit is confirmed before the trip.</span><span class="l-es">Tarifario de traslados regular — tarifas oficiales de Karún Travel Group, por vía (1 vía), por vehículo. La tarifa base cubre los asientos de la clase (Starex 1–6, Hiace / Techo alto 7–10, Suburban 1–4, Cadillac 1–4); cada pasajero adicional paga el “pax adicional por vía” indicado. Precios de demostración; la unidad exacta se confirma antes del viaje.</span></p>
-    </div>
-  </section>
-
-  <!-- ===================== BOOKING DEMO WIZARD (Karún) ===================== -->
-  <div class="krn-wave" aria-hidden="true" style="--from:var(--surface-2);--to:var(--sand)"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><path class="tint" d="M0,22 C240,2 440,4 660,22 S1060,62 1270,24 S1410,6 1440,12 V80 H0 Z"/><path class="foam" d="M0,30 C200,4 400,4 620,28 S1020,68 1240,30 S1400,8 1440,16 V80 H0 Z"/><path d="M0,42 C220,6 420,6 640,38 S1040,78 1250,38 S1410,18 1440,28 V80 H0 Z"/></svg></div>
-  <section id="reservar" style="background:var(--sand);padding:clamp(64px,9vw,120px) clamp(16px,4vw,44px);position:relative;overflow:hidden">
-    <div style="max-width:960px;margin:0 auto">
-      <div class="reveal" style="max-width:720px;margin-bottom:30px">
-        <span class="chip"><span class="l-en">Demo booking flow</span><span class="l-es">Flujo de reserva demo</span></span>
-        <h2 class="disp" style="font-size:clamp(32px,4.8vw,52px);margin:16px 0 12px"><span class="l-en">Build your trip</span><span class="l-es">Arma tu viaje</span></h2>
-        <p style="color:var(--muted);font-weight:500;font-size:16px;max-width:600px"><span class="l-en">Pick your airport (PUJ or SDQ), hotel and vehicle for each leg — add a return leg with one tap — and "pay" in demo mode. Nothing is charged. Prices come straight from the official rate sheet.</span><span class="l-es">Elige aeropuerto (PUJ o SDQ), hotel y vehículo para cada tramo — agrega el regreso con un toque — y "paga" en modo demo. No se cobra nada. Los precios salen directo del tarifario oficial.</span></p>
-      </div>
-
-      <!-- ---- FORM VIEW ---- -->
-      <form id="krn-wizard-form" class="neu reveal" style="padding:clamp(18px,3vw,30px)">
-
-        <div id="krn-legs"></div>
-
-        <button type="button" class="btn ghost sm" data-krn-action="add-leg" style="margin-bottom:8px">+ <span class="l-en">Add leg (return trip)</span><span class="l-es">Agregar tramo (regreso)</span></button>
-        <p class="krn-note" style="margin:0 0 22px"><span class="l-en">Demo: each extra leg is quoted as one more one-way at the published fare — the rate sheets list no round-trip discount.</span><span class="l-es">Demo: cada tramo extra se cotiza como una vía más a la tarifa publicada — las hojas del tarifario no incluyen descuento por ida y vuelta.</span></p>
-
-        <div class="krn-divider"></div>
-
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-bottom:18px">
-          <div><label class="fldlbl" for="krn-name"><span class="l-en">Passenger name</span><span class="l-es">Nombre del pasajero</span></label><input id="krn-name" class="fld" type="text" required placeholder="Ej. Antonio Camino"></div>
-          <div><label class="fldlbl" for="krn-email">Email</label><input id="krn-email" class="fld" type="email" placeholder="tu@correo.com"></div>
-          <div><label class="fldlbl" for="krn-whatsapp">WhatsApp</label><input id="krn-whatsapp" class="fld" type="tel" placeholder="+1 809 000 0000"></div>
-          <div><label class="fldlbl" for="krn-notes"><span class="l-en">Notes (optional)</span><span class="l-es">Notas (opcional)</span></label><input id="krn-notes" class="fld" type="text" placeholder="Ej. silla para bebé"></div>
-        </div>
-
-        <div class="krn-divider"></div>
-
-        <div style="margin-bottom:18px">
-          <div class="fldlbl" style="margin-bottom:8px"><span class="l-en">Payment (demo — no real charge)</span><span class="l-es">Pago (demo — sin cobro real)</span></div>
-          <div class="krn-pay-opts">
-            <label class="krn-pay-opt"><input type="radio" name="krn-pay" value="card" checked><span>💳 <span class="l-en">Card</span><span class="l-es">Tarjeta</span></span></label>
-            <label class="krn-pay-opt"><input type="radio" name="krn-pay" value="paypal"><span>🅿️ PayPal</span></label>
-            <label class="krn-pay-opt"><input type="radio" name="krn-pay" value="cash"><span>💵 <span class="l-en">Cash to driver</span><span class="l-es">Efectivo al chofer</span></span></label>
-          </div>
-        </div>
-
-        <div class="neu" style="background:var(--surface);padding:16px 18px;margin-bottom:20px">
-          <div id="krn-legs-summary" style="font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:8px"></div>
-          <div style="display:flex;justify-content:space-between;align-items:baseline">
-            <span style="font-weight:700"><span class="l-en">Total</span><span class="l-es">Total</span></span>
-            <span class="disp" id="krn-total" style="font-size:28px;color:var(--teal)">US$ 0.00</span>
-          </div>
-        </div>
-
-        <p id="krn-form-msg" role="alert"></p>
-        <button type="submit" class="btn" style="width:100%;font-size:16px;padding:16px"><span class="l-en">Confirm demo booking</span><span class="l-es">Confirmar reserva demo</span> →</button>
-        <p style="margin:12px 2px 0;font-size:12px;color:var(--muted);line-height:1.5"><span class="l-en">This is a public demo. No real charge, email or WhatsApp message is sent.</span><span class="l-es">Esta es una demo pública. No se realiza ningún cobro, correo o mensaje de WhatsApp real.</span></p>
-      </form>
-
-      <!-- ---- SUCCESS VIEW ---- -->
-      <div id="krn-wizard-success" class="neu reveal" style="display:none;padding:clamp(18px,3vw,30px)">
-        <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px">
-          <span style="font-size:26px">✅</span>
-          <h3 class="disp" style="font-size:24px;margin:0"><span class="l-en">Your demo reservation is confirmed!</span><span class="l-es">¡Tu reserva demo está confirmada!</span></h3>
-        </div>
-        <span class="chip" style="color:var(--coral);margin:10px 0 18px;display:inline-flex"><span class="l-en">DEMO — no real charge</span><span class="l-es">DEMO — sin cobro real</span></span>
-
-        <div class="neu" style="background:var(--surface);padding:18px;margin-bottom:20px" id="krn-confirm-card"></div>
-
-        <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px">
-          <button type="button" class="btn sm" data-krn-action="download-sign">🪧 <span class="l-en">Download pickup sign</span><span class="l-es">Descargar letrero</span></button>
-          <button type="button" class="btn ghost sm" data-krn-action="copy-summary">📋 <span class="l-en">Copy summary</span><span class="l-es">Copiar resumen</span></button>
-          <button type="button" class="btn ghost sm" data-krn-action="edit-booking">✎ <span class="l-en">Edit booking</span><span class="l-es">Editar reserva</span></button>
-        </div>
-
-        <div class="krn-sign-preview">
-          <canvas id="krn-sign-canvas" width="900" height="600"></canvas>
-        </div>
-
-        <p style="margin:18px 2px 0;font-size:12.5px;color:var(--muted);line-height:1.6"><span class="l-en">In production, a WhatsApp confirmation and a 24-hour reminder before pickup are sent automatically. This demo only shows what that message will look like.</span><span class="l-es">En producción, se envía automáticamente una confirmación por WhatsApp y un recordatorio 24 horas antes del pickup. Esta demo solo muestra cómo se verá ese mensaje.</span></p>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ===================== ZONES MAP (real RD map + pins) ===================== -->
-  <div class="krn-wave" aria-hidden="true" style="--from:var(--sand);--to:var(--surface-2)"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><path class="tint" d="M0,22 C240,2 440,4 660,22 S1060,62 1270,24 S1410,6 1440,12 V80 H0 Z"/><path class="foam" d="M0,30 C200,4 400,4 620,28 S1020,68 1240,30 S1400,8 1440,16 V80 H0 Z"/><path d="M0,42 C220,6 420,6 640,38 S1040,78 1250,38 S1410,18 1440,28 V80 H0 Z"/></svg></div>
-  <section id="map" style="background:var(--surface-2);padding:clamp(64px,9vw,130px) clamp(16px,4vw,44px);border-block:1px solid var(--line);position:relative;overflow:hidden">
-    <div class="ly-art a3" aria-hidden="true" style="bottom:24px;right:clamp(10px,4vw,40px);width:min(100px,18vw)"><svg viewBox="0 0 90 110" fill="none"><path d="M45 100 V42" stroke="var(--teal)" stroke-width="2" stroke-linecap="round"/><path d="M45 44 C30 30 14 34 10 42 M45 44 C60 30 76 34 80 42 M45 40 C32 20 22 14 14 16 M45 40 C58 20 68 14 76 16" stroke="var(--palm)" stroke-width="2" stroke-linecap="round"/></svg></div>
-    <svg class="ly-line" aria-hidden="true" viewBox="0 0 200 40" style="position:absolute;top:40px;right:24px;width:min(30vw,220px);color:var(--teal);opacity:.4"><path stroke="currentColor" stroke-width="2.4" d="M2 20 Q14 6 26 20 T50 20 T74 20 T98 20"/><path stroke="var(--coral)" stroke-width="2.4" d="M110 26 q10 -12 20 0 q10 12 20 0 M150 14 l8 6 -8 6" fill="none"/></svg>
-    <div style="max-width:1160px;margin:0 auto;position:relative">
-      <div class="reveal" style="max-width:720px;margin-bottom:36px">
-        <span class="chip">{{ t.m_kicker }}</span>
-        <h2 class="disp" style="font-size:clamp(34px,5.5vw,64px);margin:16px 0 12px;max-width:14ch">{{ t.m_title }}</h2>
-        <p style="color:var(--muted);font-weight:500;font-size:clamp(16px,1.8vw,19px)">{{ t.m_sub }}</p>
-      </div>
-      <div class="mapwrap reveal">
-        <div class="map-stage">
-          <img src="assets/rd-map.png" alt="Provincial map of the Dominican Republic with Karún Travel Group service zones marked"/>
-          <sc-for list="{{ pins }}" as="p" hint-placeholder-count="6">
-            <button class="map-pin" data-hub="{{ p.hub }}" style="left:{{ p.x }};top:{{ p.y }}" aria-label="{{ p.name }}"><span class="ring"></span><span class="tip">{{ p.name }}</span></button>
-          </sc-for>
-        </div>
-        <div style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:22px 0 4px">{{ t.m_legend }}</div>
-        <div class="map-legend">
-          <sc-for list="{{ pins }}" as="p" hint-placeholder-count="6">
-            <span class="leg-chip"><span class="leg-dot" style="background:{{ p.color }}"></span>{{ p.name }}</span>
-          </sc-for>
-        </div>
-        <p style="margin:16px 2px 0;font-size:13px;color:var(--muted)">{{ t.m_foot }}</p>
       </div>
     </div>
   </section>
 
-  <!-- ===================== DESTINATIONS (sticky stack) ===================== -->
-  <div class="krn-wave" aria-hidden="true" style="--from:var(--surface-2);--to:var(--sand)"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><path class="tint" d="M0,22 C240,2 440,4 660,22 S1060,62 1270,24 S1410,6 1440,12 V80 H0 Z"/><path class="foam" d="M0,30 C200,4 400,4 620,28 S1020,68 1240,30 S1400,8 1440,16 V80 H0 Z"/><path d="M0,42 C220,6 420,6 640,38 S1040,78 1250,38 S1410,18 1440,28 V80 H0 Z"/></svg></div>
-  <section id="destinations" style="background:var(--sand);padding-top:clamp(56px,8vw,110px)">
-    <div class="reveal" style="max-width:900px;margin:0 auto 8px;padding:0 clamp(16px,4vw,44px)">
-      <span class="chip">{{ t.d_kicker }}</span>
-      <h2 class="disp" style="font-size:clamp(34px,5.5vw,66px);margin:16px 0 12px;max-width:16ch">{{ t.d_title }}</h2>
-      <p style="color:var(--muted);font-weight:500;font-size:clamp(16px,1.8vw,20px)">{{ t.d_sub }}</p>
+  <div class="k23-sep k23-sep-palm" aria-hidden="true" style="--from:#f5f0e6;--to:#0a3340">
+    <svg viewBox="0 0 1440 120" preserveAspectRatio="none"><path class="a" d="M0,40 C180,90 360,10 540,50 S900,100 1080,46 S1320,20 1440,60 V120 H0Z"/><path class="b" d="M0,64 C200,104 380,34 560,72 S920,116 1100,70 S1330,44 1440,80 V120 H0Z"/><path class="foam" d="M0,64 C200,104 380,34 560,72 S920,116 1100,70 S1330,44 1440,80" fill="none"/></svg>
+  </div>
+
+  <!-- ===================== SERVICES — "¿todo esto ofrecen?" horizontal chapters ===================== -->
+  <section id="services" class="k23-svc">
+    <div class="k23-svc-pin">
+      <div class="k23-svc-head k23-wrap">
+        <div>
+          <span class="k23-kicker k23-kicker-lt"><span class="l-en">What's included</span><span class="l-es">Qué incluye</span></span>
+          <h2 class="disp k23-h2 k23-lt"><span class="l-en">Everything a good arrival needs, <em class="k23-script">already inside</em></span><span class="l-es">Todo lo que una buena llegada necesita, <em class="k23-script">ya incluido</em></span></h2>
+        </div>
+        <div class="k23-svc-meter" aria-hidden="true"><span class="k23-svc-count"><b data-k23-svc-now>01</b> / 09</span><span class="k23-svc-bar"><i></i></span></div>
+      </div>
+
+      <div class="k23-svc-viewport">
+        <div class="k23-svc-track">
+
+          <article class="k23-ch k23-ch-photo" data-ch="1">
+            <div class="k23-ch-media"><img src="assets/story/meet-greet.jpg" alt="Chofer de Karún esperando con un letrero en la salida de llegadas" loading="lazy" decoding="async" width="1078" height="724"></div>
+            <div class="k23-ch-body">
+              <span class="k23-ch-n">01</span>
+              <svg class="k23-ch-ic" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="8" width="34" height="20" rx="3"/><path d="M14 16h20M14 21h12M24 28v12M17 40h14"/></svg>
+              <h3 class="disp"><span class="l-en">Meet &amp; greet with your name</span><span class="l-es">Recibimiento con tu nombre</span></h3>
+              <p><span class="l-en">Your driver waits at the arrivals exit holding a sign with your name. No hunting for taxis, no negotiating at the curb.</span><span class="l-es">Tu chofer te espera en la salida de llegadas con un letrero con tu nombre. Sin buscar taxis, sin negociar en la acera.</span></p>
+              <ul class="k23-ch-tags"><li><span class="l-en">Name sign</span><span class="l-es">Letrero personal</span></li><li><span class="l-en">Help with bags</span><span class="l-es">Ayuda con maletas</span></li><li><span class="l-en">Clear meeting point</span><span class="l-es">Punto de encuentro claro</span></li></ul>
+            </div>
+          </article>
+
+          <article class="k23-ch" data-ch="2">
+            <div class="k23-ch-body">
+              <span class="k23-ch-n">02</span>
+              <svg class="k23-ch-ic" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="24" cy="24" r="17"/><circle cx="24" cy="24" r="10" stroke-dasharray="3 4"/><path d="M24 24 36 12"/><path d="M33 9l6 0 0 6"/></svg>
+              <h3 class="disp"><span class="l-en">Live flight tracking</span><span class="l-es">Seguimiento de vuelo</span></h3>
+              <p><span class="l-en">Give us your flight number and we time the pickup to your real landing — early or late, we adjust.</span><span class="l-es">Danos tu número de vuelo y ajustamos la recogida a tu aterrizaje real — si llegas antes o después, nos adaptamos.</span></p>
+              <div class="k23-ch-radar" aria-hidden="true"><span></span><span></span><span></span><i></i></div>
+              <ul class="k23-ch-tags"><li><span class="l-en">Pickup follows your flight</span><span class="l-es">Recogida según tu vuelo</span></li><li><span class="l-en">Any airline</span><span class="l-es">Cualquier aerolínea</span></li></ul>
+            </div>
+          </article>
+
+          <article class="k23-ch k23-ch-teal" data-ch="3">
+            <div class="k23-ch-body">
+              <span class="k23-ch-n">03</span>
+              <svg class="k23-ch-ic" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 6h16M16 42h16M18 6c0 9 12 11 12 18s-12 9-12 18M30 6c0 9-12 11-12 18s12 9 12 18"/></svg>
+              <h3 class="disp"><span class="l-en">Waiting time included</span><span class="l-es">Espera incluida</span></h3>
+              <div class="k23-ch-big"><b>60–90</b><span>min</span></div>
+              <p><span class="l-en">Free after landing for immigration, customs and bags. Take your time — the clock is on us.</span><span class="l-es">Gratis tras aterrizar para migración, aduana y equipaje. Tómate tu tiempo — el reloj corre por nuestra cuenta.</span></p>
+            </div>
+          </article>
+
+          <article class="k23-ch k23-ch-night" data-ch="4">
+            <div class="k23-ch-body">
+              <span class="k23-ch-n">04</span>
+              <svg class="k23-ch-ic" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M31 7a15 15 0 1 0 10 25A13 13 0 0 1 31 7z"/><path d="M12 10v4M10 12h4M38 38v3M36.5 39.5h3"/></svg>
+              <h3 class="disp"><span class="l-en">Night arrivals, 24/7</span><span class="l-es">Llegadas de madrugada, 24/7</span></h3>
+              <p><span class="l-en">A 1 a.m. landing is met exactly like a noon one: same sign, same driver standard, same fixed fare.</span><span class="l-es">Un aterrizaje a la 1 a.m. se recibe igual que uno al mediodía: mismo letrero, mismo estándar, misma tarifa fija.</span></p>
+              <ul class="k23-ch-tags"><li><span class="l-en">24/7 dispatch</span><span class="l-es">Despacho 24/7</span></li><li><span class="l-en">Same published fare</span><span class="l-es">Misma tarifa publicada</span></li></ul>
+            </div>
+          </article>
+
+          <article class="k23-ch k23-ch-photo" data-ch="5">
+            <div class="k23-ch-media"><img src="assets/story/luggage.jpg" alt="Maletero amplio de una van Karún" loading="lazy" decoding="async" width="616" height="413"></div>
+            <div class="k23-ch-body">
+              <span class="k23-ch-n">05</span>
+              <svg class="k23-ch-ic" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="14" width="30" height="26" rx="4"/><path d="M18 14V9h12v5M17 22v10M31 22v10M14 44h4M30 44h4"/></svg>
+              <h3 class="disp"><span class="l-en">Luggage handled</span><span class="l-es">Equipaje sin estrés</span></h3>
+              <p><span class="l-en">We load every case. Golf bags, dive gear or a stroller? Tell us and we assign a high-roof unit.</span><span class="l-es">Cargamos cada maleta. ¿Palos de golf, equipo de buceo o coche de bebé? Avísanos y asignamos una unidad de techo alto.</span></p>
+              <ul class="k23-ch-tags"><li><span class="l-en">Loaded for you</span><span class="l-es">Te lo cargamos</span></li><li><span class="l-en">High-roof option</span><span class="l-es">Opción techo alto</span></li></ul>
+            </div>
+          </article>
+
+          <article class="k23-ch k23-ch-photo" data-ch="6">
+            <div class="k23-ch-media"><img src="assets/story/cabin.jpg" alt="Cabina limpia y amplia de una van Karún" loading="lazy" decoding="async" width="616" height="462"></div>
+            <div class="k23-ch-body">
+              <span class="k23-ch-n">06</span>
+              <svg class="k23-ch-ic" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 8c0 0 3 18 3 22h14l3 8H18"/><path d="M13 30h19M22 20h10"/><circle cx="30" cy="10" r="3"/></svg>
+              <h3 class="disp"><span class="l-en">Child seats on request</span><span class="l-es">Sillas para niños</span></h3>
+              <p><span class="l-en">Infant seats and boosters at no cost when requested. Just tell us the children's ages when you book.</span><span class="l-es">Sillas para bebé y elevadores sin costo a solicitud. Solo indícanos las edades de los niños al reservar.</span></p>
+              <ul class="k23-ch-tags"><li><span class="l-en">Infant</span><span class="l-es">Bebé</span></li><li><span class="l-en">Booster</span><span class="l-es">Elevador</span></li><li><span class="l-en">Installed before pickup</span><span class="l-es">Instalada antes de recogerte</span></li></ul>
+            </div>
+          </article>
+
+          <article class="k23-ch" data-ch="7">
+            <div class="k23-ch-body">
+              <span class="k23-ch-n">07</span>
+              <svg class="k23-ch-ic" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 10h22v14H16l-6 5v-5H6z"/><path d="M32 18h10v14h-4v5l-6-5h-8v-4"/></svg>
+              <h3 class="disp"><span class="l-en">Hosts who speak your language</span><span class="l-es">Anfitriones que hablan tu idioma</span></h3>
+              <p><span class="l-en">Spanish and English on WhatsApp and phone, with French and German support for planning your trip.</span><span class="l-es">Español e inglés por WhatsApp y teléfono, con apoyo en francés y alemán para planear tu viaje.</span></p>
+              <div class="k23-ch-langs" aria-hidden="true"><span>Hola</span><span>Hello</span><span>Bonjour</span><span>Hallo</span></div>
+            </div>
+          </article>
+
+          <article class="k23-ch k23-ch-route" data-ch="8">
+            <div class="k23-ch-body">
+              <span class="k23-ch-n">08</span>
+              <svg class="k23-ch-ic" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="36" r="4"/><circle cx="38" cy="12" r="4"/><path d="M14 36c10 0 6-12 14-12s6-12 6-12" stroke-dasharray="3 4"/></svg>
+              <h3 class="disp"><span class="l-en">Round trips &amp; multi-leg</span><span class="l-es">Ida, vuelta y multi-tramo</span></h3>
+              <p><span class="l-en">Arrival, departure and hotel changes in one booking. The return leg pre-fills itself from your arrival.</span><span class="l-es">Llegada, salida y cambio de hotel en una sola reserva. El tramo de regreso se llena solo a partir de tu llegada.</span></p>
+              <div class="k23-ch-legs" aria-hidden="true"><span>PUJ → Hotel</span><span>Hotel → Hotel</span><span>Hotel → PUJ</span></div>
+            </div>
+          </article>
+
+          <article class="k23-ch k23-ch-photo k23-ch-last" data-ch="9">
+            <div class="k23-ch-media"><img src="assets/destinations/saona/shore.jpg" alt="Playa de arena blanca y agua turquesa" loading="lazy" decoding="async" width="920" height="618"></div>
+            <div class="k23-ch-body">
+              <span class="k23-ch-n">09</span>
+              <svg class="k23-ch-ic" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 42c1-10 3-17 8-24"/><path d="M30 18c-5-4-12-4-18 0 6-1 12 0 18 2zM30 18c1-6 6-10 13-10-5 3-8 7-10 12zM30 18c6-1 11 2 13 8-4-4-8-5-13-6z"/><path d="M6 42c6-3 12-3 18 0s12 3 18 0"/></svg>
+              <h3 class="disp"><span class="l-en">Hotel-to-hotel &amp; day trips</span><span class="l-es">Hotel a hotel y excursiones</span></h3>
+              <p><span class="l-en">Switching resorts mid-trip, a day in Santo Domingo's Colonial Zone or the boat to Saona — ask and we build the route.</span><span class="l-es">Cambio de resort a mitad del viaje, un día en la Zona Colonial o la lancha a Saona — pregúntanos y armamos la ruta.</span></p>
+              <button class="btn wa sm" onClick="{{ bookWhats }}"><span class="l-en">Ask on WhatsApp</span><span class="l-es">Pregunta por WhatsApp</span></button>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="k23-sep k23-sep-foam" aria-hidden="true" style="--from:#0a3340;--to:#f3efe4">
+    <svg viewBox="0 0 1440 120" preserveAspectRatio="none"><path class="a" d="M0,70 C240,20 480,110 720,64 S1200,20 1440,70 V120 H0Z"/><path class="b" d="M0,86 C260,44 500,120 740,82 S1210,44 1440,90 V120 H0Z"/><path class="foam" d="M0,86 C260,44 500,120 740,82 S1210,44 1440,90" fill="none"/></svg>
+  </div>
+
+  <!-- ===================== FLEET — showroom: purpose, capacity, when to choose ===================== -->
+  <section id="fleet" class="k23-fleet">
+    <div class="k23-wrap">
+      <div class="k23-head k23-head-split">
+        <div>
+          <span class="k23-kicker"><span class="l-en">The fleet</span><span class="l-es">La flota</span></span>
+          <h2 class="disp k23-h2"><span class="l-en">Pick the vehicle by <em class="k23-script">how you travel</em></span><span class="l-es">Elige tu vehículo por <em class="k23-script">cómo viajas</em></span></h2>
+        </div>
+        <p class="k23-sub"><span class="l-en">Five units in four fare classes. Tell us how many you are and what the trip is for — the right one lights up.</span><span class="l-es">Cinco unidades en cuatro clases de tarifa. Dinos cuántos son y para qué es el viaje — la indicada se ilumina.</span></p>
+      </div>
+
+      <div class="k23-showroom" data-sel="starex">
+        <div class="k23-unit-tabs" role="tablist" aria-label="Vehículos">
+          <button type="button" class="k23-tab" role="tab" data-k23-unit="starex" aria-controls="k23-unit-starex"><span class="k23-tab-img"><img src="assets/fleet/starex.jpg" alt="" loading="lazy" decoding="async"></span><span class="k23-tab-tx"><b>Grand Starex</b><small>1–6 pax · 2018</small></span><span class="k23-tab-cls" data-cls="starex">Starex</span></button><button type="button" class="k23-tab" role="tab" data-k23-unit="hiace" aria-controls="k23-unit-hiace"><span class="k23-tab-img"><img src="assets/fleet/hiace-2019.jpg" alt="" loading="lazy" decoding="async"></span><span class="k23-tab-tx"><b>Toyota Hiace</b><small>7–10 pax · 2019</small></span><span class="k23-tab-cls" data-cls="hiace">Hiace</span></button><button type="button" class="k23-tab" role="tab" data-k23-unit="solati" aria-controls="k23-unit-solati"><span class="k23-tab-img"><img src="assets/fleet/solati-2014.jpg" alt="" loading="lazy" decoding="async"></span><span class="k23-tab-tx"><b>Hyundai Solati</b><small>7–10 pax · 2014</small></span><span class="k23-tab-cls" data-cls="hiace">Hiace</span></button><button type="button" class="k23-tab" role="tab" data-k23-unit="suburban" aria-controls="k23-unit-suburban"><span class="k23-tab-img"><img src="assets/fleet/suburban-lwb-2020.jpg" alt="" loading="lazy" decoding="async"></span><span class="k23-tab-tx"><b>Suburban LWB</b><small>1–4 pax · 2020</small></span><span class="k23-tab-cls" data-cls="suburban">Suburban</span></button><button type="button" class="k23-tab" role="tab" data-k23-unit="cadillac" aria-controls="k23-unit-cadillac"><span class="k23-tab-img"><img src="assets/fleet/escalade-2020.jpg" alt="" loading="lazy" decoding="async"></span><span class="k23-tab-tx"><b>Escalade</b><small>1–4 pax · 2020</small></span><span class="k23-tab-cls" data-cls="cadillac">Cadillac</span></button>
+        </div>
+        <div class="k23-stage">
+          <article class="k23-unit" data-unit="starex" id="k23-unit-starex" role="tabpanel" data-vehicle="Hyundai Grand Starex">
+            <div class="k23-unit-photo">
+              <img src="assets/fleet/starex.jpg" alt="Hyundai Grand Starex — foto referencial" width="1280" height="828" loading="lazy" decoding="async">
+              <span class="k23-unit-year">2018</span>
+              <span class="krn-fleet-badge"><span class="l-en">Referential photo · client photo pending</span><span class="l-es">Foto referencial · foto del cliente pendiente</span></span>
+            </div>
+            <div class="k23-unit-info">
+              <div class="k23-unit-top"><span class="k23-unit-tag"><span class="l-en">Most booked</span><span class="l-es">La más reservada</span></span><span class="k23-unit-cls" data-cls="starex"><span class="l-en">Class</span><span class="l-es">Clase</span> Starex</span></div>
+              <h3 class="disp">Hyundai Grand Starex</h3>
+              <p class="k23-unit-ideal"><em class="k23-script"><span class="l-en">for</span><span class="l-es">para</span></em> <span class="l-en">families and groups up to 6</span><span class="l-es">familias y grupos de hasta 6</span></p>
+              <div class="k23-seats" aria-label="1–6 pasajeros"><span class="k23-seats-k"><b>1–6</b> pax</span><span class="k23-seats-row"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></span></div>
+              <div class="k23-unit-cols">
+                <div><h4><span class="l-en">Choose it if…</span><span class="l-es">Elígela si…</span></h4><ul class="l-en"><li>You are 3 to 6 travelers</li><li>You want the lowest fare per vehicle</li><li>You carry full-size suitcases and carry-ons</li></ul><ul class="l-es"><li>Viajan de 3 a 6 personas</li><li>Buscas la tarifa más económica por vehículo</li><li>Llevas maletas grandes y bolsos de mano</li></ul></div>
+                <div><h4><span class="l-en">On board</span><span class="l-es">A bordo</span></h4><ul class="l-en"><li>Sliding doors, easy boarding</li><li>Strong air conditioning</li><li>Roomy rows to unwind</li></ul><ul class="l-es"><li>Puertas corredizas, acceso fácil</li><li>Aire acondicionado potente</li><li>Filas amplias para descansar</li></ul></div>
+              </div>
+              <div class="k23-unit-foot">
+                <div class="krn-from" data-krn-from="starex"></div>
+                <button class="btn" data-krn-quote="Hyundai Grand Starex" data-magnetic="1"><span class="l-en">Quote this vehicle</span><span class="l-es">Cotizar esta unidad</span> →</button>
+              </div>
+            </div>
+          </article>
+          <article class="k23-unit" data-unit="hiace" id="k23-unit-hiace" role="tabpanel" data-vehicle="Toyota Hiace">
+            <div class="k23-unit-photo">
+              <img src="assets/fleet/hiace-2019.jpg" alt="Toyota Hiace — foto referencial" width="1280" height="960" loading="lazy" decoding="async">
+              <span class="k23-unit-year">2019</span>
+              <span class="krn-fleet-badge"><span class="l-en">Referential photo · client photo pending</span><span class="l-es">Foto referencial · foto del cliente pendiente</span></span>
+            </div>
+            <div class="k23-unit-info">
+              <div class="k23-unit-top"><span class="k23-unit-tag"><span class="l-en">High roof</span><span class="l-es">Techo alto</span></span><span class="k23-unit-cls" data-cls="hiace"><span class="l-en">Class</span><span class="l-es">Clase</span> Hiace · Techo alto</span></div>
+              <h3 class="disp">Toyota Hiace</h3>
+              <p class="k23-unit-ideal"><em class="k23-script"><span class="l-en">for</span><span class="l-es">para</span></em> <span class="l-en">big groups, weddings and teams</span><span class="l-es">grupos grandes, bodas y equipos</span></p>
+              <div class="k23-seats" aria-label="7–10 pasajeros"><span class="k23-seats-k"><b>7–10</b> pax</span><span class="k23-seats-row"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div>
+              <div class="k23-unit-cols">
+                <div><h4><span class="l-en">Choose it if…</span><span class="l-es">Elígela si…</span></h4><ul class="l-en"><li>You are 7 to 10 travelers</li><li>You want everyone in one vehicle</li><li>There is bulky luggage or sports gear</li></ul><ul class="l-es"><li>Viajan de 7 a 10 personas</li><li>Prefieren ir todos juntos en un solo vehículo</li><li>Hay equipaje voluminoso o equipo deportivo</li></ul></div>
+                <div><h4><span class="l-en">On board</span><span class="l-es">A bordo</span></h4><ul class="l-en"><li>High roof: nearly stand-up cabin</li><li>Rear space for luggage</li><li>Row-by-row air conditioning</li></ul><ul class="l-es"><li>Techo alto: se camina casi de pie</li><li>Espacio posterior para equipaje</li><li>Aire acondicionado por filas</li></ul></div>
+              </div>
+              <div class="k23-unit-foot">
+                <div class="krn-from" data-krn-from="hiace"></div>
+                <button class="btn" data-krn-quote="Toyota Hiace 2019" data-magnetic="1"><span class="l-en">Quote this vehicle</span><span class="l-es">Cotizar esta unidad</span> →</button>
+              </div>
+            </div>
+          </article>
+          <article class="k23-unit" data-unit="solati" id="k23-unit-solati" role="tabpanel" data-vehicle="Hyundai Solati">
+            <div class="k23-unit-photo">
+              <img src="assets/fleet/solati-2014.jpg" alt="Hyundai Solati — foto referencial" width="1280" height="853" loading="lazy" decoding="async">
+              <span class="k23-unit-year">2014</span>
+              <span class="krn-fleet-badge"><span class="l-en">Referential photo · client photo pending</span><span class="l-es">Foto referencial · foto del cliente pendiente</span></span>
+            </div>
+            <div class="k23-unit-info">
+              <div class="k23-unit-top"><span class="k23-unit-tag"><span class="l-en">Hiace fare</span><span class="l-es">Tarifa Hiace</span></span><span class="k23-unit-cls" data-cls="hiace"><span class="l-en">Class</span><span class="l-es">Clase</span> Hiace · Techo alto</span></div>
+              <h3 class="disp">Hyundai Solati</h3>
+              <p class="k23-unit-ideal"><em class="k23-script"><span class="l-en">for</span><span class="l-es">para</span></em> <span class="l-en">groups traveling with lots of luggage</span><span class="l-es">grupos que viajan con mucho equipaje</span></p>
+              <div class="k23-seats" aria-label="7–10 pasajeros"><span class="k23-seats-k"><b>7–10</b> pax</span><span class="k23-seats-row"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div>
+              <div class="k23-unit-cols">
+                <div><h4><span class="l-en">Choose it if…</span><span class="l-es">Elígela si…</span></h4><ul class="l-en"><li>7 to 10 travelers with plenty of luggage</li><li>You want the high-roof class fare</li><li>You like high seats and good visibility</li></ul><ul class="l-es"><li>Son 7 a 10 personas con bastante equipaje</li><li>Quieren la tarifa de la clase techo alto</li><li>Buscan asientos altos y buena visibilidad</li></ul></div>
+                <div><h4><span class="l-en">On board</span><span class="l-es">A bordo</span></h4><ul class="l-en"><li>Priced on the Hiace / high-roof column</li><li>Tall, bright cabin</li><li>Easy side-door boarding</li></ul><ul class="l-es"><li>Cotiza en la columna Hiace / Techo alto</li><li>Cabina alta y luminosa</li><li>Acceso cómodo por puerta lateral</li></ul></div>
+              </div>
+              <div class="k23-unit-foot">
+                <div class="krn-from" data-krn-from="hiace"></div>
+                <button class="btn" data-krn-quote="Hyundai Solati 2014" data-magnetic="1"><span class="l-en">Quote this vehicle</span><span class="l-es">Cotizar esta unidad</span> →</button>
+              </div>
+            </div>
+          </article>
+          <article class="k23-unit" data-unit="suburban" id="k23-unit-suburban" role="tabpanel" data-vehicle="Chevrolet Suburban LWB">
+            <div class="k23-unit-photo">
+              <img src="assets/fleet/suburban-lwb-2020.jpg" alt="Chevrolet Suburban LWB — foto referencial" width="1280" height="960" loading="lazy" decoding="async">
+              <span class="k23-unit-year">2020</span>
+              <span class="krn-fleet-badge"><span class="l-en">Referential photo · client photo pending</span><span class="l-es">Foto referencial · foto del cliente pendiente</span></span>
+            </div>
+            <div class="k23-unit-info">
+              <div class="k23-unit-top"><span class="k23-unit-tag"><span class="l-en">Executive SUV</span><span class="l-es">SUV ejecutiva</span></span><span class="k23-unit-cls" data-cls="suburban"><span class="l-en">Class</span><span class="l-es">Clase</span> Suburban</span></div>
+              <h3 class="disp">Chevrolet Suburban LWB</h3>
+              <p class="k23-unit-ideal"><em class="k23-script"><span class="l-en">for</span><span class="l-es">para</span></em> <span class="l-en">executive trips and couples</span><span class="l-es">viajes ejecutivos y parejas</span></p>
+              <div class="k23-seats" aria-label="1–4 pasajeros"><span class="k23-seats-k"><b>1–4</b> pax</span><span class="k23-seats-row"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></span></div>
+              <div class="k23-unit-cols">
+                <div><h4><span class="l-en">Choose it if…</span><span class="l-es">Elígela si…</span></h4><ul class="l-en"><li>Up to 4 travelers</li><li>You want a discreet, elegant SUV</li><li>You travel for business or an event</li></ul><ul class="l-es"><li>Son hasta 4 personas</li><li>Quieres una SUV discreta y elegante</li><li>Viajas por trabajo o a un evento</li></ul></div>
+                <div><h4><span class="l-en">On board</span><span class="l-es">A bordo</span></h4><ul class="l-en"><li>Long wheelbase: more rear room</li><li>Captain-style seating</li><li>Generous trunk for 4</li></ul><ul class="l-es"><li>Chasis largo: más espacio atrás</li><li>Asientos tipo capitán</li><li>Maletero amplio para 4</li></ul></div>
+              </div>
+              <div class="k23-unit-foot">
+                <div class="krn-from" data-krn-from="suburban"></div>
+                <button class="btn" data-krn-quote="Chevrolet Suburban LWB 2020" data-magnetic="1"><span class="l-en">Quote this vehicle</span><span class="l-es">Cotizar esta unidad</span> →</button>
+              </div>
+            </div>
+          </article>
+          <article class="k23-unit" data-unit="cadillac" id="k23-unit-cadillac" role="tabpanel" data-vehicle="Cadillac Escalade 2020">
+            <div class="k23-unit-photo">
+              <img src="assets/fleet/escalade-2020.jpg" alt="Cadillac Escalade — foto referencial" width="1600" height="1069" loading="lazy" decoding="async">
+              <span class="k23-unit-year">2020</span>
+              <span class="krn-fleet-badge"><span class="l-en">Referential photo · client photo pending</span><span class="l-es">Foto referencial · foto del cliente pendiente</span></span>
+            </div>
+            <div class="k23-unit-info">
+              <div class="k23-unit-top"><span class="k23-unit-tag"><span class="l-en">Luxury</span><span class="l-es">Lujo</span></span><span class="k23-unit-cls" data-cls="cadillac"><span class="l-en">Class</span><span class="l-es">Clase</span> Cadillac</span></div>
+              <h3 class="disp">Cadillac Escalade</h3>
+              <p class="k23-unit-ideal"><em class="k23-script"><span class="l-en">for</span><span class="l-es">para</span></em> <span class="l-en">honeymoons and VIP arrivals</span><span class="l-es">lunas de miel y llegadas VIP</span></p>
+              <div class="k23-seats" aria-label="1–4 pasajeros"><span class="k23-seats-k"><b>1–4</b> pax</span><span class="k23-seats-row"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></span></div>
+              <div class="k23-unit-cols">
+                <div><h4><span class="l-en">Choose it if…</span><span class="l-es">Elígela si…</span></h4><ul class="l-en"><li>It is a special occasion</li><li>Up to 4 travelers</li><li>You want the most comfortable arrival possible</li></ul><ul class="l-es"><li>Es una ocasión especial</li><li>Son hasta 4 personas</li><li>Quieres la llegada más cómoda posible</li></ul></div>
+                <div><h4><span class="l-en">On board</span><span class="l-es">A bordo</span></h4><ul class="l-en"><li>Premium interior</li><li>Whisper-quiet ride</li><li>Top class on the rate sheet</li></ul><ul class="l-es"><li>Interior premium</li><li>Marcha silenciosa</li><li>La clase más alta del tarifario</li></ul></div>
+              </div>
+              <div class="k23-unit-foot">
+                <div class="krn-from" data-krn-from="cadillac"></div>
+                <button class="btn" data-krn-quote="Cadillac Escalade 2020" data-magnetic="1"><span class="l-en">Quote this vehicle</span><span class="l-es">Cotizar esta unidad</span> →</button>
+              </div>
+            </div>
+          </article>
+        </div>
+        <aside class="k23-chooser" aria-label="¿Cuál me conviene?">
+          <h3 class="disp"><span class="l-en">Which one suits me?</span><span class="l-es">¿Cuál me conviene?</span></h3>
+          <div class="k23-chooser-row">
+            <span class="k23-chooser-k"><span class="l-en">Travelers</span><span class="l-es">Pasajeros</span></span>
+            <div class="k23-stepper"><button type="button" data-k23-pax="-1" aria-label="Menos">−</button><output data-k23-pax-out="1">2</output><button type="button" data-k23-pax="1" aria-label="Más">+</button></div>
+          </div>
+          <div class="k23-chooser-row">
+            <span class="k23-chooser-k"><span class="l-en">Priority</span><span class="l-es">Prioridad</span></span>
+            <div class="k23-pills" role="group">
+              <button type="button" data-k23-style="value" aria-pressed="true"><span class="l-en">Best fare</span><span class="l-es">Mejor tarifa</span></button>
+              <button type="button" data-k23-style="exec" aria-pressed="false"><span class="l-en">Executive</span><span class="l-es">Ejecutivo</span></button>
+              <button type="button" data-k23-style="lux" aria-pressed="false"><span class="l-en">Luxury</span><span class="l-es">Lujo</span></button>
+            </div>
+          </div>
+          <p class="k23-chooser-out" data-k23-rec="1" aria-live="polite"></p>
+        </aside>
+      </div>
+
+      <div class="k23-glance">
+        <h3 class="k23-glance-t"><span class="l-en">Capacity at a glance</span><span class="l-es">Capacidad de un vistazo</span></h3>
+        <div class="k23-glance-row" style="--a:0;--b:.4"><span>Suburban · Cadillac</span><i></i><b>1–4</b></div>
+        <div class="k23-glance-row" style="--a:0;--b:.6"><span>Starex</span><i></i><b>1–6</b></div>
+        <div class="k23-glance-row" style="--a:.6;--b:1"><span>Hiace · Solati</span><i></i><b>7–10</b></div>
+      </div>
+      <p class="krn-note"><span class="l-en">Referential photos for this demo — the client's own fleet photography is added in production. Fares follow the official sheet by class: Starex (1–6), Hiace / Techo alto (7–10), Suburban (1–4), Cadillac (1–4). Hyundai Solati is quoted on the Hiace / Techo alto column.</span><span class="l-es">Fotos referenciales para esta demo — la fotografía real de la flota se agrega en producción. Las tarifas siguen la hoja oficial por clase: Starex (1–6), Hiace / Techo alto (7–10), Suburban (1–4), Cadillac (1–4). La Hyundai Solati se cotiza en la columna Hiace / Techo alto.</span></p>
+    </div>
+  </section>
+
+  <div class="k23-sep k23-sep-dune" aria-hidden="true" style="--from:#f3efe4;--to:#eaf4f1">
+    <svg viewBox="0 0 1440 100" preserveAspectRatio="none"><path class="a" d="M0,30 C160,60 320,10 520,34 S900,70 1100,36 S1340,14 1440,30 V100 H0Z"/><path class="b" d="M0,52 C200,80 400,30 620,56 S1000,86 1200,54 S1380,40 1440,50 V100 H0Z"/><path class="foam" d="M0,52 C200,80 400,30 620,56 S1000,86 1200,54 S1380,40 1440,50" fill="none"/></svg>
+  </div>
+
+  <!-- ===================== RATES — official tarifario, searchable ===================== -->
+  <section id="rates-search" class="k23-rates">
+    <div class="k23-wrap">
+      <div class="k23-head k23-head-split">
+        <div>
+          <span class="k23-kicker"><span class="l-en">Official rate sheet</span><span class="l-es">Tarifario oficial</span></span>
+          <h2 class="disp k23-h2"><span class="l-en">Your hotel, your fare, <em class="k23-script">before</em> you write to us</span><span class="l-es">Tu hotel, tu tarifa, <em class="k23-script">antes</em> de escribirnos</span></h2>
+        </div>
+        <div class="k23-rates-stats">
+          <div><b data-k23-stat="hotels">249</b><span class="l-en">hotels</span><span class="l-es">hoteles</span></div>
+          <div><b data-k23-stat="zones">23</b><span class="l-en">zones</span><span class="l-es">zonas</span></div>
+          <div><b>2</b><span class="l-en">airports</span><span class="l-es">aeropuertos</span></div>
+          <div><b>USD</b><span class="l-en">per vehicle</span><span class="l-es">por vehículo</span></div>
+        </div>
+      </div>
+
+      <div class="k23-rates-shell">
+        <div class="neu krn-ctl k23-rates-ctl">
+          <div class="krn-ctl-row">
+            <div>
+              <span class="krn-ctl-lbl"><span class="l-en">1 · From airport</span><span class="l-es">1 · Desde el aeropuerto</span></span>
+              <div id="krn-rate-origins" class="krn-segs" role="group" aria-label="Airport"></div>
+            </div>
+            <div style="flex:1;min-width:260px">
+              <span class="krn-ctl-lbl"><span class="l-en">2 · Vehicle class</span><span class="l-es">2 · Clase de vehículo</span></span>
+              <div id="krn-rate-classes" class="krn-chips" role="group" aria-label="Vehicle"></div>
+            </div>
+          </div>
+          <div class="krn-ctl-row">
+            <div style="flex:2;min-width:220px" class="k23-search">
+              <label class="fldlbl" for="krn-hotel-search"><span class="l-en">3 · Hotel name</span><span class="l-es">3 · Nombre del hotel</span></label>
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+              <input id="krn-hotel-search" class="fld" type="search" placeholder="Ej. Hard Rock, Barceló, Casa de Campo…" autocomplete="off">
+            </div>
+            <div style="flex:1;min-width:200px">
+              <label class="fldlbl" for="krn-zone-filter"><span class="l-en">Zone</span><span class="l-es">Zona</span></label>
+              <select id="krn-zone-filter" class="fld">
+                <option value="">Todas las zonas</option>
+              </select>
+            </div>
+          </div>
+          <div class="k23-zonechips" data-k23-zonechips="1" aria-label="Zonas"></div>
+        </div>
+
+        <div class="neu k23-rates-table">
+          <div class="k23-rates-legend"><span><i class="k23-lg-price"></i><span class="l-en">One-way fare per vehicle</span><span class="l-es">Tarifa por vía, por vehículo</span></span><span><i class="k23-lg-extra"></i><span class="l-en">Each extra passenger above the class</span><span class="l-es">Cada pasajero adicional sobre la clase</span></span></div>
+          <div class="k23-table-scroll">
+            <table class="krn-rate-table" id="krn-rate-table">
+              <thead id="krn-rate-thead"></thead>
+              <tbody id="krn-rate-tbody"></tbody>
+            </table>
+          </div>
+          <p id="krn-rate-meta" class="krn-rate-meta" style="padding:0 18px"></p>
+          <p id="krn-rate-empty" style="display:none;padding:26px;text-align:center;color:var(--muted)"><span class="l-en">No hotel matches your search — ask us on WhatsApp for a custom quote.</span><span class="l-es">Ningún hotel coincide — pídenos una cotización a medida por WhatsApp.</span></p>
+          <div id="krn-rates-more-wrap" style="padding:18px 16px;text-align:center;border-top:1px solid var(--line)">
+            <button type="button" id="krn-rates-more" class="btn ghost sm" data-krn-action="rates-more">
+              <span class="l-en">Show more rates</span><span class="l-es">Ver más tarifas</span>
+            </button>
+            <button type="button" id="krn-rates-less" class="btn ghost sm" data-krn-action="rates-less" style="display:none;margin-left:8px">
+              <span class="l-en">Show less</span><span class="l-es">Ver menos</span>
+            </button>
+            <p id="krn-rates-count" style="margin:12px 0 0;font-size:12.5px;color:var(--muted);font-weight:500"></p>
+          </div>
+        </div>
+      </div>
+      <p class="krn-note"><span class="l-en">Karún Travel Group regular transfer rates — official sheet, one-way (1 vía), per vehicle. The base fare covers the seats of the class (Starex 1–6, Hiace / Techo alto 7–10, Suburban 1–4, Cadillac 1–4); each additional passenger is charged the “pax adicional por vía” shown. Demo prices; the exact unit is confirmed before the trip.</span><span class="l-es">Tarifario de traslados regular de Karún Travel Group — hoja oficial, por vía (1 vía), por vehículo. La tarifa base cubre los asientos de la clase (Starex 1–6, Hiace / Techo alto 7–10, Suburban 1–4, Cadillac 1–4); cada pasajero adicional paga el “pax adicional por vía” indicado. Precios de demo; la unidad exacta se confirma antes del viaje.</span></p>
+    </div>
+  </section>
+
+  <!-- ===================== BOOKING — calm 3-step flow (demo payments, honesty lives here) ===================== -->
+  <section id="reservar" class="k23-book-sec">
+    <div class="k23-wrap">
+      <div class="k23-head k23-head-split">
+        <div>
+          <span class="k23-kicker"><span class="l-en">Book</span><span class="l-es">Reservar</span></span>
+          <h2 class="disp k23-h2"><span class="l-en">Your transfer in <em class="k23-script">three calm steps</em></span><span class="l-es">Tu traslado en <em class="k23-script">tres pasos tranquilos</em></span></h2>
+        </div>
+        <div class="k23-demo-note" role="note">
+          <span class="k23-demo-chip">DEMO</span>
+          <p><span class="l-en">Public demo: bookings and payments are simulated — <b>no real charge</b>, email or WhatsApp is sent. Fares come from the official sheet.</span><span class="l-es">Demo pública: reservas y pagos simulados — <b>no se realiza ningún cobro real</b> ni se envía correo o WhatsApp. Las tarifas salen del tarifario oficial.</span></p>
+        </div>
+      </div>
+
+      <div class="k23-book">
+        <form id="krn-wizard-form" class="k23-book-form" data-k23-step="1" novalidate>
+          <ol class="k23-steps" aria-label="Pasos">
+            <li><button type="button" data-k23-go="1"><i>1</i><span><b><span class="l-en">Route</span><span class="l-es">Tu ruta</span></b><small><span class="l-en">airport, hotel, vehicle</span><span class="l-es">aeropuerto, hotel, vehículo</span></small></span></button></li>
+            <li><button type="button" data-k23-go="2"><i>2</i><span><b><span class="l-en">Travelers</span><span class="l-es">Tus datos</span></b><small><span class="l-en">name &amp; contact</span><span class="l-es">nombre y contacto</span></small></span></button></li>
+            <li><button type="button" data-k23-go="3"><i>3</i><span><b><span class="l-en">Payment</span><span class="l-es">Pago</span></b><small><span class="l-en">simulated</span><span class="l-es">simulado</span></small></span></button></li>
+          </ol>
+          <div class="k23-steps-bar" aria-hidden="true"><i></i></div>
+
+          <p id="krn-form-msg" role="alert"></p>
+
+          <fieldset class="k23-panel" data-panel="1">
+            <legend class="k23-panel-t"><span class="l-en">Where are we picking you up?</span><span class="l-es">¿Dónde te recogemos?</span></legend>
+            <p class="k23-panel-hint"><span class="l-en">One leg per trip. Arriving and leaving? Add the return — it fills itself in.</span><span class="l-es">Un tramo por viaje. ¿Llegas y te vas? Agrega el regreso — se llena solo.</span></p>
+            <div id="krn-legs"></div>
+            <button type="button" class="k23-addleg" data-krn-action="add-leg"><span class="k23-addleg-ic">+</span><span><b><span class="l-en">Add return or another leg</span><span class="l-es">Agregar regreso u otro tramo</span></b><small><span class="l-en">Each extra leg is one more one-way at the published fare (the sheets list no round-trip discount).</span><span class="l-es">Cada tramo extra es una vía más a la tarifa publicada (el tarifario no trae descuento de ida y vuelta).</span></small></span></button>
+            <div class="k23-panel-nav"><span></span><button type="button" class="btn" data-k23-next="2"><span class="l-en">Continue</span><span class="l-es">Continuar</span> →</button></div>
+          </fieldset>
+
+          <fieldset class="k23-panel" data-panel="2">
+            <legend class="k23-panel-t"><span class="l-en">Who's traveling?</span><span class="l-es">¿Quién viaja?</span></legend>
+            <p class="k23-panel-hint"><span class="l-en">This name goes on your pickup sign.</span><span class="l-es">Este nombre va en tu letrero de recogida.</span></p>
+            <div class="k23-fields">
+              <div class="k23-f-wide"><label class="fldlbl" for="krn-name"><span class="l-en">Passenger name (for the sign)</span><span class="l-es">Nombre del pasajero (para el letrero)</span></label><input id="krn-name" class="fld" type="text" autocomplete="name" placeholder="Ej. Antonio Camino"></div>
+              <div><label class="fldlbl" for="krn-email">Email</label><input id="krn-email" class="fld" type="email" autocomplete="email" placeholder="tu@correo.com"></div>
+              <div><label class="fldlbl" for="krn-whatsapp">WhatsApp</label><input id="krn-whatsapp" class="fld" type="tel" autocomplete="tel" placeholder="+1 809 000 0000"></div>
+              <div class="k23-f-wide"><label class="fldlbl" for="krn-notes"><span class="l-en">Notes (optional)</span><span class="l-es">Notas (opcional)</span></label><input id="krn-notes" class="fld" type="text" placeholder="Ej. silla para bebé, palos de golf"></div>
+            </div>
+            <div class="k23-panel-nav"><button type="button" class="btn ghost" data-k23-next="1">← <span class="l-en">Back</span><span class="l-es">Atrás</span></button><button type="button" class="btn" data-k23-next="3"><span class="l-en">Continue</span><span class="l-es">Continuar</span> →</button></div>
+          </fieldset>
+
+          <fieldset class="k23-panel" data-panel="3">
+            <legend class="k23-panel-t"><span class="l-en">How would you like to pay?</span><span class="l-es">¿Cómo quieres pagar?</span></legend>
+            <p class="k23-panel-hint"><span class="l-en">Demo mode — nothing is charged, whatever you pick.</span><span class="l-es">Modo demo — no se cobra nada, elijas lo que elijas.</span></p>
+            <div class="krn-pay-opts k23-pay">
+              <label class="krn-pay-opt"><input type="radio" name="krn-pay" value="card" checked><span><i aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M7 15h4"/></svg></i><b><span class="l-en">Card</span><span class="l-es">Tarjeta</span></b><small><span class="l-en">simulated</span><span class="l-es">simulado</span></small></span></label>
+              <label class="krn-pay-opt"><input type="radio" name="krn-pay" value="paypal"><span><i aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 20l2-14h6a4 4 0 010 8h-4l-1 6z"/></svg></i><b>PayPal</b><small><span class="l-en">simulated</span><span class="l-es">simulado</span></small></span></label>
+              <label class="krn-pay-opt"><input type="radio" name="krn-pay" value="cash"><span><i aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="7" width="18" height="11" rx="2"/><circle cx="12" cy="12.5" r="2.5"/></svg></i><b><span class="l-en">Cash to driver</span><span class="l-es">Efectivo al chofer</span></b><small><span class="l-en">on arrival</span><span class="l-es">al llegar</span></small></span></label>
+            </div>
+            <button type="submit" class="btn k23-btn-xl k23-confirm" data-magnetic="1"><span class="l-en">Confirm demo booking</span><span class="l-es">Confirmar reserva demo</span> →</button>
+            <p class="k23-fine"><span class="l-en">This is a public demo. No real charge, email or WhatsApp message is sent.</span><span class="l-es">Esta es una demo pública. No se realiza ningún cobro, correo ni mensaje de WhatsApp real.</span></p>
+            <div class="k23-panel-nav"><button type="button" class="btn ghost" data-k23-next="2">← <span class="l-en">Back</span><span class="l-es">Atrás</span></button><span></span></div>
+          </fieldset>
+        </form>
+
+        <aside class="k23-book-sum" aria-label="Resumen">
+          <div class="k23-sum-card">
+            <div class="k23-sum-k"><span class="l-en">Your trip</span><span class="l-es">Tu viaje</span></div>
+            <div id="krn-legs-summary" class="k23-sum-legs"></div>
+            <div class="k23-sum-total">
+              <span><span class="l-en">Total</span><span class="l-es">Total</span><small><span class="l-en">USD · all legs</span><span class="l-es">USD · todos los tramos</span></small></span>
+              <span class="disp" id="krn-total">US$ 0.00</span>
+            </div>
+            <ul class="k23-sum-trust">
+              <li><span class="l-en">Official fare, tolls &amp; taxes included</span><span class="l-es">Tarifa oficial, peajes e impuestos incluidos</span></li>
+              <li><span class="l-en">Free cancellation up to 24 h before</span><span class="l-es">Cancelación gratis hasta 24 h antes</span></li>
+              <li><span class="l-en">Pickup sign generated at the end</span><span class="l-es">Letrero de recogida generado al final</span></li>
+            </ul>
+          </div>
+        </aside>
+
+        <!-- ---- SUCCESS VIEW ---- -->
+        <div id="krn-wizard-success" class="k23-success" style="display:none">
+          <div class="k23-success-head">
+            <span class="k23-success-ic" aria-hidden="true"><svg viewBox="0 0 48 48" width="34" height="34" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 25l8 8 16-18"/></svg></span>
+            <div>
+              <h3 class="disp"><span class="l-en">Your demo reservation is confirmed</span><span class="l-es">Tu reserva demo está confirmada</span></h3>
+              <span class="k23-demo-chip"><span class="l-en">DEMO — no real charge</span><span class="l-es">DEMO — sin cobro real</span></span>
+            </div>
+          </div>
+          <div class="k23-success-grid">
+            <div>
+              <div class="k23-sum-card" id="krn-confirm-card"></div>
+              <div class="k23-success-acts">
+                <button type="button" class="btn sm" data-krn-action="download-sign"><span class="l-en">Download pickup sign</span><span class="l-es">Descargar letrero</span></button>
+                <button type="button" class="btn ghost sm" data-krn-action="copy-summary"><span class="l-en">Copy summary</span><span class="l-es">Copiar resumen</span></button>
+                <button type="button" class="btn ghost sm" data-krn-action="edit-booking"><span class="l-en">Edit booking</span><span class="l-es">Editar reserva</span></button>
+              </div>
+              <p class="k23-fine"><span class="l-en">In production, a WhatsApp confirmation and a reminder 24 hours before pickup are sent automatically. This demo only shows what that looks like.</span><span class="l-es">En producción se envía automáticamente una confirmación por WhatsApp y un recordatorio 24 horas antes del pickup. Esta demo solo muestra cómo se verá.</span></p>
+            </div>
+            <div class="krn-sign-preview k23-sign-frame">
+              <canvas id="krn-sign-canvas" width="900" height="600"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="k23-sep k23-sep-foam" aria-hidden="true" style="--from:#f3efe4;--to:#0b4552">
+    <svg viewBox="0 0 1440 120" preserveAspectRatio="none"><path class="a" d="M0,60 C220,20 420,100 700,60 S1180,20 1440,64 V120 H0Z"/><path class="b" d="M0,80 C240,40 460,116 720,78 S1200,40 1440,84 V120 H0Z"/><path class="foam" d="M0,80 C240,40 460,116 720,78 S1200,40 1440,84" fill="none"/></svg>
+  </div>
+
+  <!-- ===================== ZONES — the east-coast corridor (illustrated, data-driven) ===================== -->
+  <section id="map" class="k23-zones-sec">
+    <div class="k23-wrap">
+      <div class="k23-head k23-head-split">
+        <div>
+          <span class="k23-kicker k23-kicker-lt"><span class="l-en">Where we drive</span><span class="l-es">Dónde manejamos</span></span>
+          <h2 class="disp k23-h2 k23-lt"><span class="l-en">One coast, <em class="k23-script">two airports</em>, every resort zone</span><span class="l-es">Una costa, <em class="k23-script">dos aeropuertos</em>, cada zona hotelera</span></h2>
+        </div>
+        <p class="k23-sub k23-lt"><span class="l-en">Pick your airport, then tap a zone: hotel count, starting fare and the hotels we already have on the sheet.</span><span class="l-es">Elige tu aeropuerto y toca una zona: cuántos hoteles, desde cuánto y cuáles ya están en el tarifario.</span></p>
+      </div>
+
+      <div class="k23-zones" data-origin="PUJ">
+        <div class="k23-zones-map">
+          <div class="k23-zones-toggle" role="group" aria-label="Aeropuerto">
+            <button type="button" data-k23-origin="PUJ" aria-pressed="true"><b>PUJ</b><small>Punta Cana</small></button>
+            <button type="button" data-k23-origin="SDQ" aria-pressed="false"><b>SDQ</b><small>Santo Domingo</small></button>
+          </div>
+          <svg class="k23-map-svg" viewBox="60 100 1010 440" role="img" aria-label="Mapa ilustrativo de la costa este de República Dominicana">
+            <defs>
+              <radialGradient id="k23sea" cx="70%" cy="70%" r="80%"><stop offset="0" stop-color="#12a7b8" stop-opacity=".55"/><stop offset="1" stop-color="#0a3340" stop-opacity="0"/></radialGradient>
+              <linearGradient id="k23land" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6efdf"/><stop offset="1" stop-color="#e6dcc3"/></linearGradient>
+              <pattern id="k23hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><path d="M0 0V8" stroke="rgba(47,143,107,.12)" stroke-width="3"/></pattern>
+            </defs>
+            <rect x="0" y="0" width="1100" height="560" fill="url(#k23sea)"/>
+            <g class="k23-map-ripples"><path d="M60 500 Q120 488 180 500 T300 500"/><path d="M640 520 Q700 508 760 520 T880 520"/><path d="M880 470 Q920 460 960 470"/><path d="M930 200 Q960 190 990 200"/></g>
+            <path class="k23-land-shadow" d="M0 0 H790 C800 70 790 120 812 150 C836 176 852 196 866 220 C880 244 890 262 900 292 C912 322 922 344 914 368 C906 392 884 404 846 414 C790 428 720 432 660 440 C610 446 580 452 548 448 C512 442 488 428 458 424 C420 420 392 418 360 418 C320 418 296 416 262 418 C232 420 210 424 180 418 C150 412 120 410 80 414 C50 417 24 420 0 420 Z"/>
+            <path class="k23-land" d="M0 0 H790 C800 70 790 120 812 150 C836 176 852 196 866 220 C880 244 890 262 900 292 C912 322 922 344 914 368 C906 392 884 404 846 414 C790 428 720 432 660 440 C610 446 580 452 548 448 C512 442 488 428 458 424 C420 420 392 418 360 418 C320 418 296 416 262 418 C232 420 210 424 180 418 C150 412 120 410 80 414 C50 417 24 420 0 420 Z"/>
+            <path class="k23-land-hatch" d="M0 0 H790 C800 70 790 120 812 150 C836 176 852 196 866 220 C880 244 890 262 900 292 C912 322 922 344 914 368 C906 392 884 404 846 414 C790 428 720 432 660 440 C610 446 580 452 548 448 C512 442 488 428 458 424 C420 420 392 418 360 418 C320 418 296 416 262 418 C232 420 210 424 180 418 C150 412 120 410 80 414 C50 417 24 420 0 420 Z" fill="url(#k23hatch)"/>
+            <path class="k23-shoreline" d="M790 0 C800 70 790 120 812 150 C836 176 852 196 866 220 C880 244 890 262 900 292 C912 322 922 344 914 368 C906 392 884 404 846 414 C790 428 720 432 660 440 C610 446 580 452 548 448 C512 442 488 428 458 424 C420 420 392 418 360 418 C320 418 296 416 262 418 C232 420 210 424 180 418 C150 412 120 410 80 414 C50 417 24 420 0 420" fill="none"/>
+            <path class="k23-land" d="M560 486 C590 474 640 474 676 482 C700 488 704 500 684 506 C648 516 600 514 568 506 C548 500 544 492 560 486 Z"/>
+            <path class="k23-land" d="M430 460 C440 454 456 454 462 460 C466 466 456 470 446 470 C436 470 428 466 430 460 Z"/>
+            <text class="k23-map-sea-t" x="560" y="540">Mar Caribe</text>
+            <text class="k23-map-sea-t" x="905" y="120" text-anchor="middle">Océano</text><text class="k23-map-sea-t" x="905" y="140" text-anchor="middle">Atlántico</text>
+            <text class="k23-map-isl" x="620" y="530" text-anchor="middle">Isla Saona</text>
+            <g class="k23-map-deco">
+              <text class="k23-map-country" x="330" y="230">REPÚBLICA DOMINICANA</text>
+              <text class="k23-map-prov" x="640" y="300">La Altagracia</text>
+              <path class="k23-map-hills" d="M150 180 l24 -26 l24 26 M190 190 l20 -20 l20 20 M520 170 l24 -28 l24 28 M556 180 l18 -18 l18 18 M680 200 l20 -22 l20 22"/>
+              <g class="k23-map-palms"><path d="M735 385 v-18 M735 367 c-8 -6 -16 -4 -20 2 M735 367 c8 -6 16 -4 20 2 M735 367 c-4 -9 -10 -12 -16 -12 M735 367 c4 -9 10 -12 16 -12"/><path d="M320 385 v-16 M320 369 c-7 -5 -14 -3 -18 2 M320 369 c7 -5 14 -3 18 2 M320 369 c-3 -8 -9 -11 -14 -11 M320 369 c3 -8 9 -11 14 -11"/><path d="M610 395 v-14 M610 381 c-6 -5 -12 -3 -15 2 M610 381 c6 -5 12 -3 15 2"/></g>
+            </g>
+            <path class="k23-road" d="M150 400 C200 404 240 404 290 404 C360 402 420 408 470 410 C530 414 580 430 640 424 C720 416 800 410 850 392 C880 380 890 352 884 330 C876 300 866 270 856 246 C846 222 832 200 818 180"/>
+            <path class="k23-route" data-route="PUJ" d="M846 324 C868 310 866 270 856 246 C846 222 832 200 818 180 M846 324 C880 336 884 362 872 380 C850 400 800 412 720 418 C650 426 590 432 540 428 C500 424 470 414 440 412"/>
+            <path class="k23-route" data-route="SDQ" d="M196 402 C240 404 280 404 330 404 C400 404 440 410 480 412 C540 418 590 430 650 424 C730 416 810 408 852 390 C882 374 888 346 880 320 C872 292 862 264 852 240 C842 216 830 196 818 180"/>
+            <g class="k23-zone-nodes" data-k23-nodes="1"></g>
+            <g class="k23-airports">
+              <g class="k23-ap" data-ap="PUJ" transform="translate(846 324)"><circle r="15"/><path d="M-7 0 L6 0 M0 -6 L3 0 L0 6" /></g>
+              <g class="k23-ap" data-ap="SDQ" transform="translate(196 402)"><circle r="15"/><path d="M-7 0 L6 0 M0 -6 L3 0 L0 6" /></g>
+            </g>
+          </svg>
+          <div class="k23-times">
+            <div><small><span class="l-en">PUJ → Bávaro</span><span class="l-es">PUJ → Bávaro</span></small><b>20–35 min</b></div>
+            <div><small>PUJ → Cap Cana</small><b>15–30 min</b></div>
+            <div><small>PUJ → Santo Domingo</small><b>2.5–3 h</b></div>
+          </div>
+          <p class="k23-map-note"><span class="l-en">Illustrative map, not to scale. Circle size = hotels on the official sheet for the selected airport.</span><span class="l-es">Mapa ilustrativo, no a escala. Tamaño del círculo = hoteles en el tarifario oficial para el aeropuerto elegido.</span></p>
+        </div>
+
+        <div class="k23-zones-panel">
+          <div class="k23-zp-card" data-k23-zpanel="1" aria-live="polite">
+            <span class="k23-zp-k"><span class="l-en">Tap a zone on the map</span><span class="l-es">Toca una zona en el mapa</span></span>
+            <h3 class="disp k23-zp-name">Bávaro</h3>
+            <div class="k23-zp-stats"><div><b class="k23-zp-count">—</b><span class="l-en">hotels on the sheet</span><span class="l-es">hoteles en el tarifario</span></div><div><b class="k23-zp-from">—</b><span class="l-en">from · one way</span><span class="l-es">desde · por vía</span></div></div>
+            <ul class="k23-zp-hotels"></ul>
+            <button type="button" class="btn k23-zp-go" data-k23-zone-rates="1"><span class="l-en">See all fares in this zone</span><span class="l-es">Ver todas las tarifas de esta zona</span> →</button>
+          </div>
+          <ol class="k23-zp-list" data-k23-zlist="1"></ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="k23-sep k23-sep-foam" aria-hidden="true" style="--from:#0b4552;--to:#f3efe4">
+    <svg viewBox="0 0 1440 120" preserveAspectRatio="none"><path class="a" d="M0,56 C260,96 520,20 760,58 S1220,100 1440,50 V120 H0Z"/><path class="b" d="M0,78 C280,112 540,42 780,80 S1240,116 1440,74 V120 H0Z"/><path class="foam" d="M0,78 C280,112 540,42 780,80 S1240,116 1440,74" fill="none"/></svg>
+  </div>
+
+  <!-- ===================== DESTINATIONS — sticky stack (behaviour unchanged) ===================== -->
+  <section id="destinations" class="k23-dest">
+    <div class="k23-wrap">
+      <div class="k23-head k23-head-split k23-dest-head">
+        <div>
+          <span class="k23-kicker"><span class="l-en">Routes &amp; day trips</span><span class="l-es">Rutas y excursiones</span></span>
+          <h2 class="disp k23-h2"><span class="l-en">Five places, <em class="k23-script">one driver</em> who knows the way</span><span class="l-es">Cinco lugares, <em class="k23-script">un chofer</em> que conoce el camino</span></h2>
+        </div>
+        <div class="k23-dest-index" aria-hidden="true">
+          <div class="k23-dest-counter"><b data-k23-dest-now>01</b><span>/ 05</span></div>
+          <ol>
+            <li data-k23-dest="0">Punta Cana (PUJ)<small>20–40 min</small></li>
+            <li data-k23-dest="1">Bávaro<small>20–35 min</small></li>
+            <li data-k23-dest="2">Cap Cana<small>15–30 min</small></li>
+            <li data-k23-dest="3">Isla Saona<small><span class="l-en">day trip</span><span class="l-es">excursión</span></small></li>
+            <li data-k23-dest="4">Santo Domingo<small>2.5–3 h</small></li>
+          </ol>
+          <p><span class="l-en">Scroll — the cards stack. Tap one for photos and details.</span><span class="l-es">Desliza — las tarjetas se apilan. Toca una para ver fotos y detalles.</span></p>
+        </div>
+      </div>
     </div>
     <div class="dest-wrap">
+      <div class="k23-dest-float" aria-hidden="true"><div class="k23-dest-rail"><b data-k23-dest-now>01</b><span>/ 05</span><i><em></em></i><small data-k23-dest-name>Punta Cana (PUJ)</small></div></div>
       <div class="dest-stack" id="dest-stack">
           <article class="dest-card" data-dest="puj" role="button" tabindex="0" aria-haspopup="dialog" aria-label="Punta Cana (PUJ)">
             <div class="dest-img"><image-slot id="lm-dest-puj" shape="rect" placeholder="PUJ airport / arrivals photo"></image-slot></div>
             <span class="dest-more" aria-hidden="true"><span class="l-es">Ver más</span><span class="l-en">See more</span></span>
+            <span class="k23-dest-num" aria-hidden="true">01</span>
             <div class="dest-cap"><span class="chip" style="margin-bottom:10px">20–40 min</span><h3 class="disp" style="font-size:28px;margin:0 0 6px">Punta Cana (PUJ)</h3><p style="margin:0;color:var(--muted);font-weight:500"><span class="l-en">Airport ⇄ Bávaro &amp; Cap Cana resorts</span><span class="l-es">Aeropuerto ⇄ resorts de Bávaro y Cap Cana</span></p></div>
           </article>
           <article class="dest-card" data-dest="bavaro" role="button" tabindex="0" aria-haspopup="dialog" aria-label="Bávaro">
             <div class="dest-img"><image-slot id="lm-dest-bavaro" shape="rect" placeholder="Bávaro beach / resort strip photo"></image-slot></div>
             <span class="dest-more" aria-hidden="true"><span class="l-es">Ver más</span><span class="l-en">See more</span></span>
+            <span class="k23-dest-num" aria-hidden="true">02</span>
             <div class="dest-cap"><span class="chip" style="margin-bottom:10px">20–35 min</span><h3 class="disp" style="font-size:28px;margin:0 0 6px">Bávaro</h3><p style="margin:0;color:var(--muted);font-weight:500"><span class="l-en">Beachfront all-inclusive resort strip</span><span class="l-es">Franja de resorts todo incluido frente al mar</span></p></div>
           </article>
           <article class="dest-card" data-dest="cap-cana" role="button" tabindex="0" aria-haspopup="dialog" aria-label="Cap Cana">
             <div class="dest-img"><image-slot id="lm-dest-cap" shape="rect" placeholder="Cap Cana marina photo"></image-slot></div>
             <span class="dest-more" aria-hidden="true"><span class="l-es">Ver más</span><span class="l-en">See more</span></span>
+            <span class="k23-dest-num" aria-hidden="true">03</span>
             <div class="dest-cap"><span class="chip" style="margin-bottom:10px">15–30 min</span><h3 class="disp" style="font-size:28px;margin:0 0 6px">Cap Cana</h3><p style="margin:0;color:var(--muted);font-weight:500"><span class="l-en">Marina, golf villas &amp; luxury resorts</span><span class="l-es">Marina, villas de golf y resorts de lujo</span></p></div>
           </article>
           <article class="dest-card" data-dest="saona" role="button" tabindex="0" aria-haspopup="dialog" aria-label="Isla Saona">
             <div class="dest-img"><image-slot id="lm-dest-saona" shape="rect" placeholder="Saona Island beach photo"></image-slot></div>
             <span class="dest-more" aria-hidden="true"><span class="l-es">Ver más</span><span class="l-en">See more</span></span>
+            <span class="k23-dest-num" aria-hidden="true">04</span>
             <div class="dest-cap"><span class="chip" style="margin-bottom:10px"><span class="l-en">Day trip</span><span class="l-es">Excursión</span></span><h3 class="disp" style="font-size:28px;margin:0 0 6px">Isla Saona</h3><p style="margin:0;color:var(--muted);font-weight:500"><span class="l-en">Full-day beach &amp; natural pool tour</span><span class="l-es">Playa todo el día y piscina natural</span></p></div>
           </article>
           <article class="dest-card" data-dest="santo-domingo" role="button" tabindex="0" aria-haspopup="dialog" aria-label="Santo Domingo">
             <div class="dest-img"><image-slot id="lm-dest-sdq" shape="rect" placeholder="Santo Domingo colonial photo"></image-slot></div>
             <span class="dest-more" aria-hidden="true"><span class="l-es">Ver más</span><span class="l-en">See more</span></span>
+            <span class="k23-dest-num" aria-hidden="true">05</span>
             <div class="dest-cap"><span class="chip" style="margin-bottom:10px">2.5–3 h</span><h3 class="disp" style="font-size:28px;margin:0 0 6px">Santo Domingo</h3><p style="margin:0;color:var(--muted);font-weight:500"><span class="l-en">Colonial Zone &amp; SDQ airport runs</span><span class="l-es">Zona Colonial y viajes al aeropuerto SDQ</span></p></div>
           </article>
       </div>
     </div>
-  </section>
-
-  <!-- ===================== BEFORE YOU LAND (timeline) ===================== -->
-  <section style="background:var(--surface-2);padding:clamp(64px,9vw,130px) clamp(16px,4vw,44px);border-block:1px solid var(--line);position:relative;overflow:hidden">
-    <div class="ly-art a3" aria-hidden="true" style="top:20px;left:clamp(8px,3vw,28px);width:min(110px,18vw)"><svg viewBox="0 0 100 100" fill="none"><circle cx="50" cy="50" r="16" stroke="var(--sun)" stroke-width="2.2"/><path d="M50 8v12M50 80v12M8 50h12M80 50h12M20 20l9 9M71 71l9 9M80 20l-9 9M29 71l-9 9" stroke="var(--sun)" stroke-width="2" stroke-linecap="round"/><circle cx="50" cy="50" r="28" stroke="var(--coral)" stroke-width="1.4" stroke-dasharray="4 6" opacity=".7"/></svg></div>
-    <div class="ly-art a2" aria-hidden="true" style="bottom:18px;left:clamp(8px,3vw,28px);width:min(160px,28vw)"><svg viewBox="0 0 160 80" fill="none"><path d="M8 60 C40 10 70 70 100 30 S140 20 152 40" stroke="var(--teal)" stroke-width="2" stroke-dasharray="6 7" stroke-linecap="round"/><circle cx="8" cy="60" r="4" fill="var(--coral)"/><circle cx="152" cy="40" r="4" fill="var(--sun)"/></svg></div>
-    <div style="max-width:1160px;margin:0 auto;position:relative;z-index:1">
-      <div class="reveal" style="max-width:720px;margin-bottom:52px">
-        <span class="chip">{{ t.tl_kicker }}</span>
-        <h2 class="disp" style="font-size:clamp(34px,5.5vw,64px);margin:16px 0;max-width:15ch">{{ t.tl_title }}</h2>
-      </div>
-      <div class="tl reveal">
-        <div class="tl-step"><div class="tl-num">1</div><h3 class="disp" style="font-size:18px;margin:0 0 6px"><span class="l-en">Clear immigration</span><span class="l-es">Pasa migración</span></h3><p style="color:var(--muted);font-weight:500;font-size:14px;margin:0"><span class="l-en">Passport control &amp; the e-ticket. No rush — waiting is free.</span><span class="l-es">Control de pasaportes y e-ticket. Sin prisa — la espera es gratis.</span></p></div>
-        <div class="tl-step"><div class="tl-num">2</div><h3 class="disp" style="font-size:18px;margin:0 0 6px"><span class="l-en">Ping us on WhatsApp</span><span class="l-es">Escríbenos por WhatsApp</span></h3><p style="color:var(--muted);font-weight:500;font-size:14px;margin:0"><span class="l-en">Send "landed" — your driver is already tracking your flight.</span><span class="l-es">Envía "aterricé" — tu chofer ya rastrea tu vuelo.</span></p></div>
-        <div class="tl-step"><div class="tl-num">3</div><h3 class="disp" style="font-size:18px;margin:0 0 6px"><span class="l-en">Meet at the sign</span><span class="l-es">Nos vemos en el letrero</span></h3><p style="color:var(--muted);font-weight:500;font-size:14px;margin:0"><span class="l-en">Look for your name at the PUJ exit doors, right after customs.</span><span class="l-es">Busca tu nombre en las puertas de salida de PUJ, tras la aduana.</span></p></div>
-        <div class="tl-step"><div class="tl-num">4</div><h3 class="disp" style="font-size:18px;margin:0 0 6px"><span class="l-en">Grab your luggage</span><span class="l-es">Toma tu equipaje</span></h3><p style="color:var(--muted);font-weight:500;font-size:14px;margin:0"><span class="l-en">We load every case — the Starex swallows 8+ suitcases.</span><span class="l-es">Cargamos cada maleta — la Starex traga 8+ maletas.</span></p></div>
-        <div class="tl-step"><div class="tl-num">5</div><h3 class="disp" style="font-size:18px;margin:0 0 6px"><span class="l-en">Ride to your resort</span><span class="l-es">Viaja a tu resort</span></h3><p style="color:var(--muted);font-weight:500;font-size:14px;margin:0"><span class="l-en">Cold A/C, cold water, door-to-door. Relax — you've arrived.</span><span class="l-es">Aire frío, agua fría, puerta a puerta. Relájate — ya llegaste.</span></p></div>
-      </div>
+    <div class="k23-dest-out k23-wrap">
+      <p><span class="l-en">Every route is private and door to door.</span><span class="l-es">Cada ruta es privada y puerta a puerta.</span></p>
+      <a class="btn" href="#reservar" data-magnetic="1"><span class="l-en">Book a route</span><span class="l-es">Reservar una ruta</span> →</a>
     </div>
   </section>
 
-  <!-- ===================== WHY US + support langs + delay policy ===================== -->
-  <section style="background:var(--sand);padding:clamp(64px,9vw,130px) clamp(16px,4vw,44px);overflow:hidden">
-    <div style="max-width:1320px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4vw,56px);align-items:center" class="hero-grid">
-      <div class="reveal">
-        <span class="chip">{{ t.w_kicker }}</span>
-        <h2 class="disp" style="font-size:clamp(34px,5.5vw,62px);margin:16px 0 26px;max-width:14ch">{{ t.w_title }}</h2>
-        <div style="display:grid;gap:16px">
-          <div style="display:flex;gap:16px;align-items:flex-start"><div class="why-dot">✓</div><div><b style="font-size:17px"><span class="l-en">Fixed price, no meter</span><span class="l-es">Precio fijo, sin taxímetro</span></b><p style="margin:2px 0 0;color:var(--muted);font-weight:500"><span class="l-en">The price you see is the price you pay — tolls and taxes included.</span><span class="l-es">El precio que ves es el que pagas — peajes e impuestos incluidos.</span></p></div></div>
-          <div style="display:flex;gap:16px;align-items:flex-start"><div class="why-dot">✓</div><div><b style="font-size:17px"><span class="l-en">On time, every flight</span><span class="l-es">Puntual en cada vuelo</span></b><p style="margin:2px 0 0;color:var(--muted);font-weight:500"><span class="l-en">Live flight tracking means we're there when you walk out — day or night.</span><span class="l-es">Con seguimiento de vuelo estamos ahí cuando sales — de día o de noche.</span></p></div></div>
-          <div style="display:flex;gap:16px;align-items:flex-start"><div class="why-dot">✓</div><div><b style="font-size:17px"><span class="l-en">Drivers who know the island</span><span class="l-es">Choferes que conocen la isla</span></b><p style="margin:2px 0 0;color:var(--muted);font-weight:500"><span class="l-en">Vetted, insured, English-friendly local drivers with tourism plates.</span><span class="l-es">Choferes locales verificados, asegurados y con placa turística.</span></p></div></div>
-        </div>
-        <div style="margin-top:26px">
-          <div style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px">{{ t.w_speak }}</div>
-          <div style="display:flex;flex-wrap:wrap;gap:8px">
-            <span class="chip" style="text-transform:none;letter-spacing:0">🇩🇴 Español</span><span class="chip" style="text-transform:none;letter-spacing:0">🇬🇧 English</span><span class="chip" style="text-transform:none;letter-spacing:0">🇫🇷 Français</span><span class="chip" style="text-transform:none;letter-spacing:0">🇩🇪 Deutsch</span>
-          </div>
-        </div>
-      </div>
-      <div class="reveal" style="display:grid;gap:20px">
-        <div style="position:relative;min-height:220px;display:grid;place-items:center">
-          <div class="sun-glow" style="width:300px;height:300px;background:radial-gradient(circle,var(--sun),transparent 68%);opacity:.4"></div>
-          <div class="drive" style="width:100%;max-width:460px" data-codevan="1"></div>
-        </div>
-        <div class="neu" style="padding:26px;background:linear-gradient(150deg,var(--teal),var(--teal-deep));color:#fff;box-shadow:var(--raise-lg)">
-          <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px"><span style="font-size:26px">🛬</span><h3 class="disp" style="font-size:22px;margin:0">{{ t.dl_title }}</h3></div>
-          <p style="margin:0 0 12px;color:rgba(255,255,255,.9);font-weight:500;line-height:1.55">{{ t.dl_body }}</p>
-          <button class="btn wa" onClick="{{ bookWhats }}">WhatsApp</button>
-        </div>
+  <!-- ===================== PROMISES — authentic trust devices (no fake reviews / stats) ===================== -->
+  <section id="promesas" class="k23-trust">
+    <div class="k23-trust-band">
+      <img src="assets/story/terrace.jpg" alt="" loading="lazy" decoding="async" width="1168" height="784">
+      <div class="k23-trust-quote k23-wrap">
+        <p class="disp"><span class="l-en">Hospitality is our island's <em class="k23-script">first language</em> — and it starts the second you land.</span><span class="l-es">La hospitalidad es el <em class="k23-script">primer idioma</em> de nuestra isla — y empieza en cuanto aterrizas.</span></p>
+        <span class="k23-trust-sig"><img class="ly-mark" src="assets/logo-mark.png?v=21" width="34" height="34" alt="" decoding="async">Karún Travel Group</span>
       </div>
     </div>
-  </section>
-
-  <!-- ===================== EDITORIAL BAND (frosted quote panel) ===================== -->
-  <section style="position:relative;min-height:clamp(340px,44vw,500px);display:flex;align-items:center;overflow:hidden">
-    <div style="position:absolute;inset:0;z-index:0"><image-slot id="lm-editorial" shape="rect" placeholder="EDITORIAL BAND — wide Dominican hospitality moment (driver greeting guests, palm coastline, golden hour)"></image-slot></div>
-    <div style="position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(6,26,28,.5),rgba(6,26,28,.15))"></div>
-    <div class="reveal" style="position:relative;z-index:2;max-width:1160px;margin:0 auto;width:100%;padding:clamp(28px,5vw,60px) clamp(16px,4vw,44px)">
-      <div style="max-width:680px;background:color-mix(in srgb,var(--card) 82%,transparent);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.5);box-shadow:var(--raise-lg);border-radius:24px;padding:clamp(28px,3.6vw,44px)">
-        <div style="font-size:44px;line-height:.4;color:var(--teal);font-family:var(--f-disp);height:26px">“</div>
-        <h2 class="disp" style="font-size:clamp(24px,3.2vw,40px);color:var(--ink);margin:0">{{ t.ed_quote }}</h2>
-        <div style="margin-top:18px;display:flex;align-items:center;gap:12px"><img class="ly-mark" src="assets/logo-mark.png?v=21" width="34" height="34" alt="" decoding="async" style="width:34px;height:34px;flex:0 0 34px"><span style="font-weight:700;color:var(--teal-deep)">Karún Travel Group</span></div>
+    <div class="k23-wrap">
+      <div class="k23-head k23-head-split">
+        <div>
+          <span class="k23-kicker"><span class="l-en">Our word, in writing</span><span class="l-es">Nuestra palabra, por escrito</span></span>
+          <h2 class="disp k23-h2"><span class="l-en">What we can <em class="k23-script">promise</em> you</span><span class="l-es">Lo que sí podemos <em class="k23-script">prometerte</em></span></h2>
+        </div>
+        <p class="k23-sub"><span class="l-en">No star ratings pulled from nowhere. These are the conditions you book under — the same ones written in our terms.</span><span class="l-es">Sin estrellas sacadas de la nada. Estas son las condiciones con las que reservas — las mismas que están en nuestros términos.</span></p>
       </div>
-    </div>
-  </section>
-
-  <!-- ===================== REVIEWS ===================== -->
-  <section style="background:var(--surface-2);padding:clamp(64px,9vw,130px) clamp(16px,4vw,44px);border-block:1px solid var(--line);position:relative;overflow:hidden">
-    <div class="sun-glow" style="width:420px;height:420px;background:radial-gradient(circle,var(--teal),transparent 72%);opacity:.12;bottom:-160px;right:-80px"></div>
-    <div class="reveal" style="position:relative;max-width:760px;margin-bottom:44px">
-      <span class="chip">★★★★★ {{ t.rv_kicker }}</span>
-      <h2 class="disp" style="font-size:clamp(34px,5.5vw,62px);margin:16px 0;max-width:15ch">{{ t.rv_title }}</h2>
-    </div>
-    <div style="position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:22px">
-      <div class="neu reveal" style="padding:30px;display:flex;flex-direction:column;gap:14px"><div style="color:var(--sun);font-size:17px">★★★★★</div><p style="font-weight:500;line-height:1.55"><span class="l-en">"Our driver was waiting with a sign right as we cleared customs at PUJ. Ice-cold van, car seat ready for our toddler. Booked the return too."</span><span class="l-es">"Nuestro chofer esperaba con un letrero apenas salimos de aduana en PUJ. Van heladita y silla lista para el bebé. Reservamos también el regreso."</span></p><div style="display:flex;align-items:center;gap:10px;margin-top:auto"><div class="rv-av">🇨🇦</div><div><b>Sarah M.</b><div style="color:var(--muted);font-size:13px">Toronto, Canada</div></div></div></div>
-      <div class="neu reveal" style="padding:30px;display:flex;flex-direction:column;gap:14px"><div style="color:var(--sun);font-size:17px">★★★★★</div><p style="font-weight:500;line-height:1.55"><span class="l-en">"No airport chaos, no haggling. Price agreed on WhatsApp in English and paid in cash. The Starex fit six of us plus golf bags easily."</span><span class="l-es">"Sin caos en el aeropuerto ni regateo. Precio acordado por WhatsApp y pagado en efectivo. La Starex nos llevó a seis con palos de golf sin problema."</span></p><div style="display:flex;align-items:center;gap:10px;margin-top:auto"><div class="rv-av">🇺🇸</div><div><b>James R.</b><div style="color:var(--muted);font-size:13px">Chicago, USA</div></div></div></div>
-      <div class="neu reveal" style="padding:30px;display:flex;flex-direction:column;gap:14px"><div style="color:var(--sun);font-size:17px">★★★★★</div><p style="font-weight:500;line-height:1.55"><span class="l-en">"Flight landed at 1am and they were still there, smiling. Safe, clean, professional. This is the only transfer we'll use in Punta Cana."</span><span class="l-es">"El vuelo llegó a la 1am y ahí estaban, sonriendo. Seguro, limpio, profesional. Es el único traslado que usaremos en Punta Cana."</span></p><div style="display:flex;align-items:center;gap:10px;margin-top:auto"><div class="rv-av">🇩🇪</div><div><b>Lena K.</b><div style="color:var(--muted);font-size:13px">Munich, Germany</div></div></div></div>
-      <div class="neu reveal" style="padding:30px;display:flex;flex-direction:column;gap:14px"><div style="color:var(--sun);font-size:17px">★★★★★</div><p style="font-weight:500;line-height:1.55"><span class="l-en">"Booked from Paris, replied in French within minutes. Spotless van, friendly driver, and the round-trip pickup was right on time."</span><span class="l-es">"Reservé desde París y respondieron en francés en minutos. Van impecable, chofer amable, y la recogida de regreso puntual."</span></p><div style="display:flex;align-items:center;gap:10px;margin-top:auto"><div class="rv-av">🇫🇷</div><div><b>Camille D.</b><div style="color:var(--muted);font-size:13px">Paris, France</div></div></div></div>
+      <div class="k23-promises">
+        <div class="k23-promise k23-p-wide">
+          <span class="k23-promise-n">01</span>
+          <h3 class="disp"><span class="l-en">A published price per hotel</span><span class="l-es">Un precio publicado por hotel</span></h3>
+          <p><span class="l-en">Every fare comes from the official sheet, by vehicle and airport. Tolls and taxes included. What you see is what you pay.</span><span class="l-es">Cada tarifa sale de la hoja oficial, por vehículo y aeropuerto. Peajes e impuestos incluidos. Lo que ves es lo que pagas.</span></p>
+          <a href="#rates-search" class="k23-link"><span class="l-en">Check your hotel</span><span class="l-es">Consulta tu hotel</span> →</a>
+        </div>
+        <div class="k23-promise">
+          <span class="k23-promise-n">02</span>
+          <h3 class="disp"><span class="l-en">Free cancellation · 24 h</span><span class="l-es">Cancelación gratis · 24 h</span></h3>
+          <p><span class="l-en">Cancel up to 24 hours before pickup with a full refund of any deposit.</span><span class="l-es">Cancela hasta 24 horas antes con reembolso total de cualquier depósito.</span></p>
+          <button class="k23-link" onClick="{{ openCancel }}"><span class="l-en">Cancellation policy</span><span class="l-es">Política de cancelación</span> →</button>
+        </div>
+        <div class="k23-promise">
+          <span class="k23-promise-n">03</span>
+          <h3 class="disp"><span class="l-en">60–90 min waiting included</span><span class="l-es">60–90 min de espera incluidos</span></h3>
+          <p><span class="l-en">After landing, for immigration, customs and bags — with your flight tracked.</span><span class="l-es">Tras aterrizar, para migración, aduana y maletas — con tu vuelo monitoreado.</span></p>
+          <button class="k23-link" onClick="{{ openTerms }}"><span class="l-en">Terms</span><span class="l-es">Términos</span> →</button>
+        </div>
+        <div class="k23-promise">
+          <span class="k23-promise-n">04</span>
+          <h3 class="disp"><span class="l-en">Pay how you prefer</span><span class="l-es">Paga como prefieras</span></h3>
+          <p><span class="l-en">Card, PayPal or cash to the driver (USD, EUR or DOP).</span><span class="l-es">Tarjeta, PayPal o efectivo al chofer (USD, EUR o DOP).</span></p>
+        </div>
+        <div class="k23-promise">
+          <span class="k23-promise-n">05</span>
+          <h3 class="disp"><span class="l-en">A private vehicle, always</span><span class="l-es">Siempre vehículo privado</span></h3>
+          <p><span class="l-en">Only your group on board. No shared shuttles, no stops at other hotels.</span><span class="l-es">Solo tu grupo a bordo. Sin transporte compartido ni paradas en otros hoteles.</span></p>
+        </div>
+        <div class="k23-promise k23-p-teal">
+          <span class="k23-promise-n">06</span>
+          <h3 class="disp"><span class="l-en">A human on WhatsApp</span><span class="l-es">Una persona en WhatsApp</span></h3>
+          <p><span class="l-en">Questions before, during or after your ride — in Spanish or English.</span><span class="l-es">Preguntas antes, durante o después del viaje — en español o inglés.</span></p>
+          <button class="btn wa sm" onClick="{{ bookWhats }}">WhatsApp</button>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- ===================== FAQ ===================== -->
-  <section id="faq" style="background:var(--sand);padding:clamp(64px,9vw,130px) clamp(16px,4vw,44px);position:relative;overflow:hidden">
-    <div class="ly-art a2" aria-hidden="true" style="bottom:18px;left:clamp(8px,3vw,36px);width:min(220px,40vw)"><svg viewBox="0 0 220 60" fill="none"><path d="M4 30 Q24 10 44 30 T84 30 T124 30 T164 30 T204 30" stroke="var(--teal)" stroke-width="2.2" stroke-linecap="round"/><path d="M4 42 Q24 26 44 42 T84 42 T124 42 T164 42 T204 42" stroke="var(--coral)" stroke-width="1.8" stroke-linecap="round" opacity=".85"/></svg></div>
-    <div class="ly-art a2" aria-hidden="true" style="top:20px;left:clamp(10px,4vw,40px);width:min(100px,18vw)"><svg viewBox="0 0 90 110" fill="none"><path d="M45 100 V42" stroke="var(--teal)" stroke-width="2" stroke-linecap="round"/><path d="M45 44 C30 30 14 34 10 42 M45 44 C60 30 76 34 80 42 M45 40 C32 20 22 14 14 16 M45 40 C58 20 68 14 76 16" stroke="var(--palm)" stroke-width="2" stroke-linecap="round"/></svg></div>
-    <div style="max-width:860px;margin:0 auto;position:relative;z-index:1">
-      <div class="reveal" style="margin-bottom:36px">
-        <span class="chip">FAQ</span>
-        <h2 class="disp" style="font-size:clamp(34px,5.5vw,62px);margin:16px 0;max-width:15ch">{{ t.f_title }}</h2>
+  <section id="faq" class="k23-faq">
+    <div class="k23-wrap k23-faq-grid">
+      <div class="k23-faq-side">
+        <span class="k23-kicker">FAQ</span>
+        <h2 class="disp k23-h2"><span class="l-en">Good to know <em class="k23-script">before</em> you book</span><span class="l-es">Bueno saberlo <em class="k23-script">antes</em> de reservar</span></h2>
+        <div class="k23-faq-help">
+          <p><span class="l-en">Something else? We answer on WhatsApp.</span><span class="l-es">¿Otra duda? Respondemos por WhatsApp.</span></p>
+          <button class="btn wa sm" onClick="{{ bookWhats }}">WhatsApp</button>
+        </div>
       </div>
-      <div class="reveal">
+      <div class="k23-faq-list">
         <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="7">
           <div class="faq-item" data-open="{{ f.open }}">
             <button class="faq-q" onClick="{{ f.toggle }}" aria-expanded="{{ f.open }}">
               <span><span class="l-en">{{ f.qEn }}</span><span class="l-es">{{ f.qEs }}</span></span>
-              <span class="faq-ic">+</span>
+              <span class="faq-ic" aria-hidden="true"></span>
             </button>
-            <div class="faq-a"><span class="l-en">{{ f.aEn }}</span><span class="l-es">{{ f.aEs }}</span></div>
+            <div class="faq-a"><div class="faq-a-in"><span class="l-en">{{ f.aEn }}</span><span class="l-es">{{ f.aEs }}</span></div></div>
           </div>
         </sc-for>
       </div>
     </div>
   </section>
 
-  <!-- ===================== FINAL CTA ===================== -->
-  <section class="krn-cta" style="background:linear-gradient(160deg,var(--teal) 0%,var(--teal-deep) 100%);color:#fff;padding:clamp(64px,9vw,140px) clamp(16px,4vw,44px);position:relative;overflow:hidden">
-    <div class="sun-glow" style="width:520px;height:520px;background:radial-gradient(circle,var(--sun),transparent 66%);opacity:.4;top:-160px;left:-80px"></div>
-    <div class="cta-grid" style="position:relative;max-width:1160px;margin:0 auto;display:grid;grid-template-columns:1.2fr .8fr;gap:44px;align-items:center">
-      <div class="reveal">
-        <h2 class="disp" style="font-size:clamp(38px,6vw,78px);margin:0 0 18px;max-width:14ch">{{ t.c_title }}</h2>
-        <p style="font-size:clamp(17px,2vw,22px);color:rgba(255,255,255,.85);font-weight:500;max-width:520px">{{ t.c_sub }}</p>
-      </div>
-      <div class="reveal" style="display:flex;flex-direction:column;gap:14px">
-        <a class="btn" href="#book" style="background:#fff;color:var(--teal-deep);font-size:17px;padding:18px 28px">{{ t.c_book }} →</a>
-        <a class="btn ghost" href="#reservar" style="background:rgba(255,255,255,.14);color:#fff;box-shadow:none;font-size:16px;padding:16px 26px"><span class="l-en">Book demo</span><span class="l-es">Reservar demo</span> →</a>
-        <button class="btn wa" onClick="{{ bookWhats }}" style="font-size:17px;padding:18px 28px">WhatsApp +1 809 000 0000</button>
-        <p style="text-align:center;color:rgba(255,255,255,.72);font-size:13px;margin:4px 0 0;line-height:1.5">{{ t.c_waNote }}</p>
-      </div>
-    </div>
-  </section>
-
   </main>
 
-  <!-- ===================== FOOTER ===================== -->
-  <footer style="background:var(--ink);color:var(--surface);padding:0 clamp(16px,4vw,44px) 32px;position:relative">
-    <svg class="ly-line" aria-hidden="true" viewBox="0 0 1440 60" preserveAspectRatio="none" style="display:block;width:100%;height:46px;color:var(--teal);opacity:.5"><path stroke="currentColor" stroke-width="2.5" d="M0 40 Q60 14 120 40 T240 40 T360 40 T480 40 T600 40 T720 40 T840 40 T960 40 T1080 40 T1200 40 T1320 40 T1440 40"/></svg>
-    <div class="foot-grid" style="max-width:1320px;margin:8px auto 0;display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr 1.1fr;gap:32px">
-      <div>
-        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px"><img class="ly-mark" src="assets/logo-mark.png?v=21" width="42" height="42" alt="" decoding="async"><span class="disp" style="font-size:22px">Karún Travel Group</span></div>
-        <p style="color:rgba(251,245,234,.6);max-width:340px;line-height:1.55;font-weight:500;font-size:14px">{{ t.ft_tagline }}</p>
-        <div class="lic-badge" style="margin-top:18px"><span style="font-size:17px">🏅</span><div><div style="font-weight:700;font-size:12px;letter-spacing:.02em">{{ t.ft_license }}</div><div style="font-size:12px;color:rgba(251,245,234,.6)">#RD-XXXX</div></div></div>
-        <div style="display:flex;gap:10px;margin-top:18px"><span class="soc">f</span><span class="soc">◎</span><span class="soc">✆</span></div>
-      </div>
-      <div><div class="ftitle">{{ t.ft_companyT }}</div><div class="fcol"><span>Karún Travel Group S.R.L.</span><span>Punta Cana, La Altagracia</span><span><span class="l-en">Dominican Republic</span><span class="l-es">República Dominicana</span></span><span><span class="l-en">Daily · 24/7 dispatch</span><span class="l-es">Diario · despacho 24/7</span></span></div></div>
-      <div><div class="ftitle">{{ t.ft_servicesT }}</div><div class="fcol"><span>{{ t.svc_airport }}</span><span>{{ t.svc_exc }}</span><span>Punta Cana (PUJ) · Bávaro</span><span>Cap Cana · La Romana</span><span>Santo Domingo (SDQ)</span></div></div>
-      <div><div class="ftitle">{{ t.ft_legalT }}</div><div class="fcol"><button class="lk flink" onClick="{{ openPrivacy }}">{{ t.ft_privacy }}</button><button class="lk flink" onClick="{{ openCookies }}">{{ t.ft_cookie }}</button><button class="lk flink" onClick="{{ openTerms }}">{{ t.ft_terms }}</button><button class="lk flink" onClick="{{ openCancel }}">{{ t.ft_cancel }}</button><button class="lk flink" onClick="{{ openCancel }}">{{ t.ft_complaints }}</button></div></div>
-      <div><div class="ftitle">{{ t.ft_contactT }}</div><div class="fcol"><span>hola@losyeyes.do</span><span>WhatsApp +1 809 000 0000</span><span>{{ t.ft_langs }}</span><button class="lk flink" onClick="{{ openCookies }}">{{ t.ft_cookiePrefs }}</button></div></div>
+  <!-- ===================== CLOSING + FOOTER — the last beat ===================== -->
+  <footer class="k23-end">
+    <div class="k23-end-scene" aria-hidden="true">
+      <div class="k23-end-sky"></div>
+      <canvas class="k23-foam" data-k23-foam="end"></canvas>
+      <svg class="k23-end-sea s1" viewBox="0 0 2880 200" preserveAspectRatio="none"><path d="M0 90 Q180 50 360 90 T720 90 T1080 90 T1440 90 T1800 90 T2160 90 T2520 90 T2880 90 V200 H0Z"/></svg>
+      <svg class="k23-end-sea s2" viewBox="0 0 2880 200" preserveAspectRatio="none"><path d="M0 110 Q240 70 480 110 T960 110 T1440 110 T1920 110 T2400 110 T2880 110 V200 H0Z"/></svg>
+      <svg class="k23-end-sea s3" viewBox="0 0 2880 200" preserveAspectRatio="none"><path d="M0 132 Q360 96 720 132 T1440 132 T2160 132 T2880 132 V200 H0Z"/></svg>
+      <svg class="k23-palm k23-palm-end" viewBox="0 0 300 420"><g class="k23-sway"><path class="trunk" d="M78 420 C96 330 110 250 150 176" fill="none" stroke-width="11" stroke-linecap="round"/><path d="M150 176 C112 150 64 150 14 176 C70 160 110 168 150 182Z"/><path d="M150 176 C124 128 84 104 34 96 C86 118 120 144 150 182Z"/><path d="M150 176 C160 124 150 80 118 40 C140 92 146 134 148 180Z"/><path d="M150 176 C186 136 228 120 282 124 C230 136 190 156 152 182Z"/><path d="M150 176 C194 172 236 190 270 230 C228 200 190 188 150 184Z"/></g></svg>
     </div>
-    <div style="max-width:1320px;margin:34px auto 0;padding-top:22px;border-top:1px solid rgba(251,245,234,.15);display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;color:rgba(251,245,234,.5);font-weight:500;font-size:13px">
-      <span>© 2026 Karún Travel Group · {{ t.ft_license }} #RD-XXXX</span>
+
+    <div class="k23-end-main k23-wrap">
+      <div class="k23-end-copy">
+        <p class="k23-end-script k23-script"><span class="l-en">Ready to land?</span><span class="l-es">¿Listo para aterrizar?</span></p>
+        <h2 class="disp k23-end-h"><span class="l-en">Your name on the sign. Your fare on the sheet. Your vacation from the first minute.</span><span class="l-es">Tu nombre en el letrero. Tu tarifa en el tarifario. Tus vacaciones desde el primer minuto.</span></h2>
+        <div class="k23-end-ctas">
+          <a class="btn k23-btn-xl k23-btn-sand" href="#reservar" data-magnetic="1"><span class="l-en">Book my transfer</span><span class="l-es">Reservar mi traslado</span> →</a>
+          <button class="btn wa k23-btn-xl" onClick="{{ bookWhats }}" data-magnetic="1">WhatsApp +1 809 000 0000</button>
+        </div>
+        <p class="k23-end-note">{{ t.c_waNote }}</p>
+      </div>
+
+      <a class="k23-ticket" href="#reservar" data-k23-tilt="1" aria-label="Reservar traslado">
+        <span class="k23-ticket-main">
+          <span class="k23-ticket-k"><span class="l-en">Boarding pass · transfer</span><span class="l-es">Pase de abordar · traslado</span></span>
+          <span class="k23-ticket-route"><b>PUJ</b><i aria-hidden="true"></i><b><span class="l-en">HOTEL</span><span class="l-es">HOTEL</span></b></span>
+          <span class="k23-ticket-row"><span><small><span class="l-en">Passenger</span><span class="l-es">Pasajero</span></small><span class="l-en">You</span><span class="l-es">Tú</span></span><span><small><span class="l-en">Vehicle</span><span class="l-es">Vehículo</span></small>Starex · Hiace · SUV</span><span><small><span class="l-en">Wait</span><span class="l-es">Espera</span></small>60–90′</span></span>
+        </span>
+        <span class="k23-ticket-stub"><span class="k23-ticket-bar" aria-hidden="true"></span><b><span class="l-en">Book</span><span class="l-es">Reservar</span> →</b></span>
+      </a>
+    </div>
+
+    <div class="k23-end-grid k23-wrap">
+      <div class="k23-end-brand">
+        <div class="k23-end-logo"><img class="ly-mark" src="assets/logo-mark.png?v=21" width="46" height="46" alt="" decoding="async"><span><b class="disp">Karún</b><small>Travel Group · RD</small></span></div>
+        <p>{{ t.ft_tagline }}</p>
+        <div class="lic-badge"><div><div style="font-weight:700;font-size:12px;letter-spacing:.02em">{{ t.ft_license }}</div><div style="font-size:12px;opacity:.65">#RD-XXXX</div></div></div>
+      </div>
+      <nav class="k23-end-nav" aria-label="Pie de página">
+        <div class="ftitle"><span class="l-en">Explore</span><span class="l-es">Explora</span></div>
+        <a href="#llegada"><span class="l-en">Your arrival</span><span class="l-es">Tu llegada</span></a>
+        <a href="#services"><span class="l-en">Services</span><span class="l-es">Servicios</span></a>
+        <a href="#fleet"><span class="l-en">Fleet</span><span class="l-es">Flota</span></a>
+        <a href="#rates-search"><span class="l-en">Rates</span><span class="l-es">Tarifas</span></a>
+        <a href="#reservar"><span class="l-en">Book</span><span class="l-es">Reservar</span></a>
+        <a href="#map"><span class="l-en">Zones</span><span class="l-es">Zonas</span></a>
+        <a href="#destinations"><span class="l-en">Routes</span><span class="l-es">Destinos</span></a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <div class="k23-end-contact">
+        <div class="ftitle">{{ t.ft_contactT }}</div>
+        <button class="k23-contact" onClick="{{ bookWhats }}"><i aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-8.6 15l-1.3 4.8 4.9-1.3A10 10 0 1012 2zm0 2a8 8 0 11-4.2 14.8l-.3-.2-2.9.8.8-2.8-.2-.3A8 8 0 0112 4zm4.5 10.2c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1l-.7.9c-.1.1-.3.2-.5 0a6.5 6.5 0 01-3.2-2.8c-.2-.4.2-.4.6-1.2.1-.1 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4 0-.6.3-.9 1-.9 2.3-.1 3.5a9 9 0 003.9 3.4c1.6.6 1.9.5 2.3.5s1.4-.6 1.6-1.1.2-1 .1-1.1z"/></svg></i><span><small>WhatsApp</small>+1 809 000 0000</span></button>
+        <a class="k23-contact" href="mailto:hola@losyeyes.do"><i aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></i><span><small>Email</small>hola@losyeyes.do</span></a>
+        <div class="k23-contact k23-contact-static"><i aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0112 2.5a7 7 0 017 7C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></i><span><small><span class="l-en">Base</span><span class="l-es">Base</span></small>Punta Cana, La Altagracia · <span class="l-en">24/7 dispatch</span><span class="l-es">despacho 24/7</span></span></div>
+      </div>
+      <div class="k23-end-legal">
+        <div class="ftitle">{{ t.ft_legalT }}</div>
+        <button class="lk flink" onClick="{{ openPrivacy }}">{{ t.ft_privacy }}</button>
+        <button class="lk flink" onClick="{{ openCookies }}">{{ t.ft_cookie }}</button>
+        <button class="lk flink" onClick="{{ openTerms }}">{{ t.ft_terms }}</button>
+        <button class="lk flink" onClick="{{ openCancel }}">{{ t.ft_cancel }}</button>
+        <button class="lk flink" onClick="{{ openCancel }}">{{ t.ft_complaints }}</button>
+        <button class="lk flink" onClick="{{ openCookies }}">{{ t.ft_cookiePrefs }}</button>
+      </div>
+    </div>
+
+    <div class="k23-end-word" aria-hidden="true"><span>Karún</span></div>
+
+    <div class="k23-end-bottom k23-wrap">
+      <span>© 2026 Karún Travel Group S.R.L. · {{ t.ft_license }} #RD-XXXX</span>
       <span>{{ t.ft_rights }}</span>
-      <span>{{ t.ft_made }} 🇩🇴</span>
+      <span>{{ t.ft_made }}</span>
+      <a href="#top" class="k23-totop"><span class="l-en">Back to top</span><span class="l-es">Volver arriba</span> ↑</a>
     </div>
   </footer>
 
@@ -1110,7 +1429,6 @@ class Component extends DCLogic {
 
   i18n = {
     en:{skip:'Skip to content',navServices:'Services',navPrices:'Prices',navZones:'Zones',navDest:'Destinations',navFaq:'FAQ',book:'Book transfer',
-      h_countries:'Travelers from 30+ countries',h_transfers:'12,000+ transfers',
       h1:'Land in Punta Cana. Your private van is',h1hi:'already waiting.',
       h_sub:'Airport to resort in a private, air-conditioned Hyundai Grand Starex — no queues, no shared shuttles, no surprises. Fixed price, flight tracking, meet & greet.',
       h_book:'Book transfer',h_price:'Price on WhatsApp',scroll:'Scroll to book',
@@ -1130,7 +1448,7 @@ class Component extends DCLogic {
       w_kicker:'Why Karún',w_title:'Locals who make arrival the easy part',w_speak:'Our team speaks (on WhatsApp & phone)',
       dl_title:'Flight delayed? We wait.',dl_body:'We track your flight live and adjust automatically. Airport pickups include a free wait window of 60–90 min after landing — just message us on WhatsApp if you are held up.',
       ed_quote:"Hospitality is our island's first language — and it starts the second you land.",
-      rv_kicker:'4.9 · 2,300+ rides',rv_title:'Tourists from everywhere, home safe',
+      
       f_title:'Good to know before you book',
       c_title:'Your ride is waiting when you land',c_sub:'Lock in your private Starex transfer in under two minutes. Free cancellation up to 24 hours before pickup.',c_book:'Book my transfer',c_waNote:'Reply in minutes · English & Español · By messaging you agree to be contacted about this transfer.',
       ft_tagline:'Private tourist transportation across the Dominican Republic. Based in Punta Cana, serving the whole east coast and Santo Domingo.',
@@ -1141,7 +1459,6 @@ class Component extends DCLogic {
       md_privacy:'Privacy Policy',md_cookies:'Cookie preferences',md_terms:'Terms & booking conditions',md_cancel:'Cancellation & complaints'},
 
     es:{skip:'Saltar al contenido',navServices:'Servicios',navPrices:'Precios',navZones:'Zonas',navDest:'Destinos',navFaq:'FAQ',book:'Reservar',
-      h_countries:'Viajeros de 30+ países',h_transfers:'12,000+ traslados',
       h1:'Llega a Punta Cana. Tu van privada ya',h1hi:'te está esperando.',
       h_sub:'Del aeropuerto a tu resort en una Hyundai Grand Starex privada con aire acondicionado — sin filas, sin transporte compartido, sin sorpresas. Precio fijo, seguimiento de vuelo y recibimiento personal.',
       h_book:'Reservar',h_price:'Precio por WhatsApp',scroll:'Desliza para reservar',
@@ -1161,7 +1478,7 @@ class Component extends DCLogic {
       w_kicker:'Por qué Karún',w_title:'Locales que hacen fácil tu llegada',w_speak:'Nuestro equipo habla (por WhatsApp y teléfono)',
       dl_title:'¿Vuelo retrasado? Esperamos.',dl_body:'Rastreamos tu vuelo en vivo y ajustamos solos. Las recogidas incluyen una espera gratis de 60–90 min tras aterrizar — solo escríbenos por WhatsApp si te demoras.',
       ed_quote:'La hospitalidad es el primer idioma de nuestra isla — y empieza apenas aterrizas.',
-      rv_kicker:'4.9 · 2,300+ viajes',rv_title:'Turistas de todo el mundo, seguros',
+      
       f_title:'Bueno saber antes de reservar',
       c_title:'Tu viaje te espera cuando aterrizas',c_sub:'Aparta tu traslado privado en Starex en menos de dos minutos. Cancelación gratis hasta 24 horas antes.',c_book:'Reservar mi traslado',c_waNote:'Respuesta en minutos · English & Español · Al escribir aceptas ser contactado sobre este traslado.',
       ft_tagline:'Transporte turístico privado en toda la República Dominicana. Con base en Punta Cana, cubriendo la costa este y Santo Domingo.',
@@ -1172,7 +1489,6 @@ class Component extends DCLogic {
       md_privacy:'Política de Privacidad',md_cookies:'Preferencias de cookies',md_terms:'Términos y condiciones de reserva',md_cancel:'Cancelación y reclamos'},
 
     fr:{skip:'Aller au contenu',navServices:'Services',navPrices:'Tarifs',navZones:'Zones',navDest:'Destinations',navFaq:'FAQ',book:'Réserver',
-      h_countries:'Voyageurs de 30+ pays',h_transfers:'12 000+ transferts',
       h1:'Atterrissez à Punta Cana. Votre van privé',h1hi:'vous attend déjà.',
       h_sub:"De l'aéroport au resort dans un Hyundai Grand Starex privé et climatisé — sans files, sans navette partagée, sans surprises. Prix fixe, suivi de vol et accueil personnalisé.",
       h_book:'Réserver',h_price:'Prix sur WhatsApp',scroll:'Défiler pour réserver',
@@ -1192,7 +1508,7 @@ class Component extends DCLogic {
       w_kicker:'Pourquoi Karún',w_title:'Des locaux qui simplifient votre arrivée',w_speak:'Notre équipe parle (WhatsApp & téléphone)',
       dl_title:'Vol retardé ? On attend.',dl_body:'Nous suivons votre vol en direct et ajustons automatiquement. Les prises en charge à l\u2019aéroport incluent une attente gratuite de 60–90 min après l\u2019atterrissage — écrivez-nous sur WhatsApp en cas de retard.',
       ed_quote:'L\u2019hospitalité est la première langue de notre île — et elle commence dès votre atterrissage.',
-      rv_kicker:'4.9 · 2 300+ trajets',rv_title:'Des touristes du monde entier, bien arrivés',
+      
       f_title:'Bon à savoir avant de réserver',
       c_title:'Votre transfert vous attend à l\u2019atterrissage',c_sub:'Réservez votre transfert privé en Starex en moins de deux minutes. Annulation gratuite jusqu\u2019à 24 heures avant.',c_book:'Réserver mon transfert',c_waNote:'Réponse en minutes · English & Español · En écrivant, vous acceptez d\u2019être contacté à propos de ce transfert.',
       ft_tagline:'Transport touristique privé dans toute la République dominicaine. Basés à Punta Cana, nous couvrons toute la côte est et Saint-Domingue.',
@@ -1203,7 +1519,6 @@ class Component extends DCLogic {
       md_privacy:'Politique de confidentialité',md_cookies:'Préférences cookies',md_terms:'Conditions de réservation',md_cancel:'Annulation & réclamations'},
 
     de:{skip:'Zum Inhalt springen',navServices:'Leistungen',navPrices:'Preise',navZones:'Zonen',navDest:'Ziele',navFaq:'FAQ',book:'Buchen',
-      h_countries:'Reisende aus 30+ Ländern',h_transfers:'12.000+ Transfers',
       h1:'Ankommen in Punta Cana. Ihr privater Van',h1hi:'wartet schon.',
       h_sub:'Vom Flughafen zum Resort in einem privaten, klimatisierten Hyundai Grand Starex — keine Schlangen, keine Sammeltransfers, keine Überraschungen. Festpreis, Flugverfolgung und persönlicher Empfang.',
       h_book:'Buchen',h_price:'Preis per WhatsApp',scroll:'Zum Buchen scrollen',
@@ -1223,7 +1538,7 @@ class Component extends DCLogic {
       w_kicker:'Warum Karún',w_title:'Einheimische, die die Ankunft leicht machen',w_speak:'Unser Team spricht (WhatsApp & Telefon)',
       dl_title:'Flug verspätet? Wir warten.',dl_body:'Wir verfolgen Ihren Flug live und passen automatisch an. Flughafenabholungen enthalten ein kostenloses Wartefenster von 60–90 Min nach der Landung — schreiben Sie uns bei Verzögerung einfach auf WhatsApp.',
       ed_quote:'Gastfreundschaft ist die erste Sprache unserer Insel — und sie beginnt in der Sekunde Ihrer Landung.',
-      rv_kicker:'4.9 · 2.300+ Fahrten',rv_title:'Touristen von überall, sicher zu Hause',
+      
       f_title:'Gut zu wissen vor der Buchung',
       c_title:'Ihre Fahrt wartet bei der Landung',c_sub:'Sichern Sie Ihren privaten Starex-Transfer in unter zwei Minuten. Kostenlose Stornierung bis 24 Stunden vor Abholung.',c_book:'Meinen Transfer buchen',c_waNote:'Antwort in Minuten · English & Español · Mit dem Schreiben stimmen Sie zu, zu diesem Transfer kontaktiert zu werden.',
       ft_tagline:'Privater Touristentransport in der gesamten Dominikanischen Republik. Ansässig in Punta Cana, für die ganze Ostküste und Santo Domingo.',
@@ -1234,7 +1549,6 @@ class Component extends DCLogic {
       md_privacy:'Datenschutzerklärung',md_cookies:'Cookie-Einstellungen',md_terms:'Buchungsbedingungen',md_cancel:'Stornierung & Beschwerden'},
 
     pt:{skip:'Ir para o conteúdo',navServices:'Serviços',navPrices:'Preços',navZones:'Zonas',navDest:'Destinos',navFaq:'FAQ',book:'Reservar',
-      h_countries:'Viajantes de 30+ países',h_transfers:'12.000+ traslados',
       h1:'Chegue a Punta Cana. Sua van privativa já',h1hi:'está esperando.',
       h_sub:'Do aeroporto ao resort numa Hyundai Grand Starex privativa com ar-condicionado — sem filas, sem transporte compartilhado, sem surpresas. Preço fixo, rastreamento de voo e recepção pessoal.',
       h_book:'Reservar',h_price:'Preço no WhatsApp',scroll:'Role para reservar',
@@ -1254,7 +1568,7 @@ class Component extends DCLogic {
       w_kicker:'Por que Karún',w_title:'Locais que tornam a chegada fácil',w_speak:'Nossa equipe fala (WhatsApp e telefone)',
       dl_title:'Voo atrasado? Nós esperamos.',dl_body:'Rastreamos seu voo ao vivo e ajustamos automaticamente. As recolhas no aeroporto incluem uma espera grátis de 60–90 min após o pouso — é só falar no WhatsApp se atrasar.',
       ed_quote:'A hospitalidade é a primeira língua da nossa ilha — e começa no segundo em que você pousa.',
-      rv_kicker:'4.9 · 2.300+ viagens',rv_title:'Turistas de toda parte, em casa em segurança',
+      
       f_title:'Bom saber antes de reservar',
       c_title:'Sua viagem espera quando você pousa',c_sub:'Garanta seu traslado privativo em Starex em menos de dois minutos. Cancelamento grátis até 24 horas antes.',c_book:'Reservar meu traslado',c_waNote:'Resposta em minutos · English & Español · Ao escrever você concorda em ser contatado sobre este traslado.',
       ft_tagline:'Transporte turístico privativo em toda a República Dominicana. Sediado em Punta Cana, atendendo toda a costa leste e Santo Domingo.',
@@ -1265,7 +1579,6 @@ class Component extends DCLogic {
       md_privacy:'Política de Privacidade',md_cookies:'Preferências de cookies',md_terms:'Termos e condições de reserva',md_cancel:'Cancelamento e reclamações'},
 
     it:{skip:'Vai al contenuto',navServices:'Servizi',navPrices:'Prezzi',navZones:'Zone',navDest:'Destinazioni',navFaq:'FAQ',book:'Prenota',
-      h_countries:'Viaggiatori da 30+ paesi',h_transfers:'12.000+ transfer',
       h1:'Atterri a Punta Cana. Il tuo van privato',h1hi:'ti aspetta già.',
       h_sub:"Dall'aeroporto al resort in un Hyundai Grand Starex privato e climatizzato — niente code, niente navette condivise, niente sorprese. Prezzo fisso, monitoraggio del volo e accoglienza personale.",
       h_book:'Prenota',h_price:'Prezzo su WhatsApp',scroll:'Scorri per prenotare',
@@ -1285,7 +1598,7 @@ class Component extends DCLogic {
       w_kicker:'Perché Karún',w_title:"Gente del posto che rende facile l'arrivo",w_speak:'Il nostro team parla (WhatsApp e telefono)',
       dl_title:'Volo in ritardo? Aspettiamo.',dl_body:"Monitoriamo il tuo volo in tempo reale e ci adattiamo in automatico. I ritiri in aeroporto includono un'attesa gratuita di 60–90 min dopo l'atterraggio — scrivici su WhatsApp se sei in ritardo.",
       ed_quote:"L'ospitalità è la prima lingua della nostra isola — e inizia nell'istante in cui atterri.",
-      rv_kicker:'4.9 · 2.300+ viaggi',rv_title:'Turisti da ogni dove, arrivati sicuri',
+      
       f_title:'Buono a sapersi prima di prenotare',
       c_title:'Il tuo transfer ti aspetta quando atterri',c_sub:'Blocca il tuo transfer privato in Starex in meno di due minuti. Cancellazione gratuita fino a 24 ore prima.',c_book:'Prenota il mio transfer',c_waNote:'Risposta in minuti · English & Español · Scrivendo accetti di essere contattato su questo transfer.',
       ft_tagline:'Trasporto turistico privato in tutta la Repubblica Dominicana. Con base a Punta Cana, copriamo tutta la costa est e Santo Domingo.',
@@ -1296,7 +1609,6 @@ class Component extends DCLogic {
       md_privacy:'Informativa sulla privacy',md_cookies:'Preferenze cookie',md_terms:'Condizioni di prenotazione',md_cancel:'Cancellazione e reclami'},
 
     ru:{skip:'Перейти к содержимому',navServices:'Услуги',navPrices:'Цены',navZones:'Зоны',navDest:'Направления',navFaq:'ЧаВо',book:'Забронировать',
-      h_countries:'Путешественники из 30+ стран',h_transfers:'12 000+ трансферов',
       h1:'Прилетайте в Пунта-Кану. Ваш личный вэн',h1hi:'уже ждёт вас.',
       h_sub:'От аэропорта до отеля в приватном Hyundai Grand Starex с кондиционером — без очередей, без общих шаттлов, без сюрпризов. Фиксированная цена, отслеживание рейса и личная встреча.',
       h_book:'Забронировать',h_price:'Цена в WhatsApp',scroll:'Прокрутите, чтобы забронировать',
@@ -1316,7 +1628,7 @@ class Component extends DCLogic {
       w_kicker:'Почему Karún',w_title:'Местные, с которыми прибытие — самое лёгкое',w_speak:'Наша команда говорит (WhatsApp и телефон)',
       dl_title:'Рейс задержан? Мы ждём.',dl_body:'Мы отслеживаем ваш рейс в реальном времени и подстраиваемся автоматически. Встреча в аэропорту включает бесплатное ожидание 60–90 мин после посадки — просто напишите в WhatsApp, если задерживаетесь.',
       ed_quote:'Гостеприимство — первый язык нашего острова, и оно начинается в ту секунду, когда вы приземляетесь.',
-      rv_kicker:'4.9 · 2 300+ поездок',rv_title:'Туристы отовсюду, доставлены безопасно',
+      
       f_title:'Полезно знать до бронирования',
       c_title:'Ваша машина ждёт вас при посадке',c_sub:'Забронируйте приватный трансфер на Starex менее чем за две минуты. Бесплатная отмена за 24 часа до подачи.',c_book:'Забронировать трансфер',c_waNote:'Ответ за минуты · English & Español · Написав нам, вы соглашаетесь на связь по этому трансферу.',
       ft_tagline:'Частные туристические перевозки по всей Доминиканской Республике. База в Пунта-Кане, обслуживаем всё восточное побережье и Санто-Доминго.',
@@ -1327,7 +1639,6 @@ class Component extends DCLogic {
       md_privacy:'Политика конфиденциальности',md_cookies:'Настройки cookie',md_terms:'Условия бронирования',md_cancel:'Отмена и жалобы'},
 
     zh:{skip:'跳到内容',navServices:'服务',navPrices:'价格',navZones:'区域',navDest:'目的地',navFaq:'常见问题',book:'预订接送',
-      h_countries:'来自30多个国家的旅客',h_transfers:'12,000+次接送',
       h1:'抵达蓬塔卡纳。您的专属商务车',h1hi:'已在恭候。',
       h_sub:'乘坐私人空调现代 Grand Starex，从机场直达度假村——无需排队、不拼车、无隐藏费用。固定价格、航班追踪、专人接机。',
       h_book:'预订接送',h_price:'WhatsApp 报价',scroll:'向下滚动预订',
@@ -1347,7 +1658,7 @@ class Component extends DCLogic {
       w_kicker:'为什么选 Karún',w_title:'让抵达变轻松的本地人',w_speak:'我们的团队会说（WhatsApp 和电话）',
       dl_title:'航班延误？我们等您。',dl_body:'我们实时追踪您的航班并自动调整。机场接机含落地后60–90分钟免费等待——若延误，只需在 WhatsApp 告知我们。',
       ed_quote:'好客是我们岛屿的第一语言——从您落地的那一刻起。',
-      rv_kicker:'4.9 · 2,300+次乘车',rv_title:'来自各地的游客，平安抵达',
+      
       f_title:'预订前须知',
       c_title:'落地即有专车等候',c_sub:'两分钟内锁定您的私人 Starex 接送。接车前24小时内可免费取消。',c_book:'预订我的接送',c_waNote:'几分钟内回复 · English & Español · 发送信息即表示您同意就本次接送与您联系。',
       ft_tagline:'覆盖整个多米尼加共和国的私人旅游交通。总部位于蓬塔卡纳，服务整个东海岸及圣多明各。',
@@ -1358,7 +1669,6 @@ class Component extends DCLogic {
       md_privacy:'隐私政策',md_cookies:'Cookie 偏好',md_terms:'预订条款与条件',md_cancel:'取消与投诉'},
 
     nl:{skip:'Naar inhoud',navServices:'Diensten',navPrices:'Prijzen',navZones:'Zones',navDest:'Bestemmingen',navFaq:'FAQ',book:'Boeken',
-      h_countries:'Reizigers uit 30+ landen',h_transfers:'12.000+ transfers',
       h1:'Land in Punta Cana. Je privébusje',h1hi:'staat al klaar.',
       h_sub:'Van luchthaven naar resort in een privé, airconditioned Hyundai Grand Starex — geen rijen, geen gedeelde shuttles, geen verrassingen. Vaste prijs, vluchtvolging en persoonlijke ontvangst.',
       h_book:'Boeken',h_price:'Prijs via WhatsApp',scroll:'Scroll om te boeken',
@@ -1378,7 +1688,7 @@ class Component extends DCLogic {
       w_kicker:'Waarom Karún',w_title:'Locals die aankomen het makkelijke deel maken',w_speak:'Ons team spreekt (WhatsApp & telefoon)',
       dl_title:'Vlucht vertraagd? We wachten.',dl_body:'We volgen je vlucht live en passen automatisch aan. Ophalen op de luchthaven bevat een gratis wachttijd van 60–90 min na de landing — stuur ons een bericht op WhatsApp als je vertraging hebt.',
       ed_quote:'Gastvrijheid is de eerste taal van ons eiland — en die begint zodra je landt.',
-      rv_kicker:'4.9 · 2.300+ ritten',rv_title:'Toeristen van overal, veilig thuis',
+      
       f_title:'Goed om te weten voor je boekt',
       c_title:'Je rit wacht als je landt',c_sub:'Regel je privé Starex-transfer in minder dan twee minuten. Gratis annuleren tot 24 uur voor ophalen.',c_book:'Boek mijn transfer',c_waNote:'Antwoord in minuten · English & Español · Door te berichten ga je akkoord met contact over deze transfer.',
       ft_tagline:'Privé toeristisch vervoer door de hele Dominicaanse Republiek. Gevestigd in Punta Cana, voor de hele oostkust en Santo Domingo.',
@@ -1389,7 +1699,6 @@ class Component extends DCLogic {
       md_privacy:'Privacybeleid',md_cookies:'Cookievoorkeuren',md_terms:'Boekingsvoorwaarden',md_cancel:'Annulering & klachten'},
 
     pl:{skip:'Przejdź do treści',navServices:'Usługi',navPrices:'Ceny',navZones:'Strefy',navDest:'Kierunki',navFaq:'FAQ',book:'Rezerwuj',
-      h_countries:'Podróżni z 30+ krajów',h_transfers:'12 000+ transferów',
       h1:'Ląduj w Punta Cana. Twój prywatny van',h1hi:'już czeka.',
       h_sub:'Z lotniska do resortu prywatnym, klimatyzowanym Hyundaiem Grand Starex — bez kolejek, bez współdzielonych busów, bez niespodzianek. Stała cena, śledzenie lotu i osobiste powitanie.',
       h_book:'Rezerwuj',h_price:'Cena na WhatsApp',scroll:'Przewiń, aby zarezerwować',
@@ -1409,7 +1718,7 @@ class Component extends DCLogic {
       w_kicker:'Dlaczego Karún',w_title:'Miejscowi, dzięki którym przylot jest łatwy',w_speak:'Nasz zespół mówi (WhatsApp i telefon)',
       dl_title:'Lot opóźniony? Czekamy.',dl_body:'Śledzimy Twój lot na żywo i dostosowujemy się automatycznie. Odbiór z lotniska obejmuje darmowe okno oczekiwania 60–90 min po lądowaniu — napisz na WhatsApp, jeśli się spóźnisz.',
       ed_quote:'Gościnność to pierwszy język naszej wyspy — i zaczyna się w chwili, gdy lądujesz.',
-      rv_kicker:'4.9 · 2 300+ przejazdów',rv_title:'Turyści zewsząd, bezpiecznie na miejscu',
+      
       f_title:'Warto wiedzieć przed rezerwacją',
       c_title:'Twój przejazd czeka, gdy lądujesz',c_sub:'Zarezerwuj prywatny transfer Starex w niecałe dwie minuty. Darmowe anulowanie do 24 godzin przed odbiorem.',c_book:'Zarezerwuj transfer',c_waNote:'Odpowiedź w kilka minut · English & Español · Pisząc, zgadzasz się na kontakt w sprawie tego transferu.',
       ft_tagline:'Prywatny transport turystyczny w całej Dominikanie. Z siedzibą w Punta Cana, obsługujemy całe wschodnie wybrzeże i Santo Domingo.',
@@ -1443,14 +1752,14 @@ class Component extends DCLogic {
 
   faqDefs = [
     {qEn:'How do I pay?', qEs:'¿Cómo pago?',
-     aEn:'Pay the driver in cash (USD, EUR or DOP) or by card. No prepayment required — you confirm the fixed price on WhatsApp before your trip.',
-     aEs:'Paga al chofer en efectivo (USD, EUR o DOP) o con tarjeta. No se requiere pago anticipado — confirmas el precio fijo por WhatsApp antes del viaje.'},
+     aEn:'Card, PayPal or cash to the driver (USD, EUR or DOP). The fare is the one on the official sheet for your hotel and vehicle — confirmed with you before the trip. (Payments on this demo site are simulated.)',
+     aEs:'Tarjeta, PayPal o efectivo al chofer (USD, EUR o DOP). La tarifa es la del tarifario oficial para tu hotel y vehículo — confirmada contigo antes del viaje. (En esta demo los pagos son simulados.)'},
     {qEn:'What if my flight is delayed?', qEs:'¿Y si mi vuelo se retrasa?',
      aEn:'We track your flight in real time and adjust pickup automatically. Airport pickups include a free wait window of 60–90 minutes after landing — just message us on WhatsApp if you are held up.',
      aEs:'Rastreamos tu vuelo en tiempo real y ajustamos la recogida automáticamente. Las recogidas incluyen una espera gratis de 60–90 minutos tras aterrizar — solo escríbenos por WhatsApp si te demoras.'},
-    {qEn:'Are the prices per person or per van?', qEs:'¿Los precios son por persona o por van?',
-     aEn:'Per private van (up to 8 passengers), not per person. Tolls and taxes are included. Fares shown are indicative — the final price is confirmed on WhatsApp.',
-     aEs:'Por van privada (hasta 8 pasajeros), no por persona. Peajes e impuestos incluidos. Las tarifas mostradas son indicativas — el precio final se confirma por WhatsApp.'},
+    {qEn:'Are the prices per person or per vehicle?', qEs:'¿Los precios son por persona o por vehículo?',
+     aEn:'Per private vehicle, not per person. Each class covers a group size (Starex 1–6, Hiace / high roof 7–10, Suburban and Cadillac 1–4); extra passengers above the class pay the small per-person amount on the sheet. Tolls and taxes included.',
+     aEs:'Por vehículo privado, no por persona. Cada clase cubre un tamaño de grupo (Starex 1–6, Hiace / techo alto 7–10, Suburban y Cadillac 1–4); los pasajeros adicionales pagan el pequeño monto por persona del tarifario. Peajes e impuestos incluidos.'},
     {qEn:'Do you have child seats?', qEs:'¿Tienen sillas para niños?',
      aEn:'Yes — infant and booster seats are free on request. Just tell us your children\u2019s ages when you book.',
      aEs:'Sí — sillas para bebé y elevadores gratis a solicitud. Solo dinos las edades de tus niños al reservar.'},
@@ -1458,8 +1767,8 @@ class Component extends DCLogic {
      aEn:'We operate 24/7. Night arrivals are met exactly like any other flight, with a driver holding your name sign at arrivals.',
      aEs:'Operamos 24/7. Las llegadas nocturnas se reciben igual que cualquier vuelo, con un chofer sosteniendo tu letrero en llegadas.'},
     {qEn:'How much luggage fits?', qEs:'¿Cuánto equipaje cabe?',
-     aEn:'The Grand Starex comfortably fits 8 passengers with 8+ large suitcases. Traveling with sports or dive gear? Let us know in advance.',
-     aEs:'La Grand Starex lleva cómodamente 8 pasajeros con 8+ maletas grandes. ¿Viajas con equipo deportivo o de buceo? Avísanos con antelación.'},
+     aEn:'Each vehicle carries its full group with standard luggage. Traveling with golf bags, dive gear or a stroller? Tell us when you book and we assign a high-roof unit (Hiace / Solati).',
+     aEs:'Cada vehículo lleva a su grupo completo con equipaje estándar. ¿Viajas con palos de golf, equipo de buceo o coche de bebé? Dínoslo al reservar y asignamos una unidad de techo alto (Hiace / Solati).'},
     {qEn:'Can I cancel, and what if something goes wrong?', qEs:'¿Puedo cancelar, y si algo sale mal?',
      aEn:'Cancel free up to 24 hours before pickup for a full refund of any deposit. If there is ever a problem with your ride, message us on WhatsApp or email hola@losyeyes.do within 30 days — we will make it right.',
      aEs:'Cancela gratis hasta 24 horas antes con reembolso total. Si alguna vez hay un problema con tu viaje, escríbenos por WhatsApp o a hola@losyeyes.do dentro de 30 días — lo resolveremos.'},
@@ -1484,11 +1793,12 @@ class Component extends DCLogic {
 
 
   destModalMeta = {
-    puj: { images:['assets/destinations/puj/01.jpg','assets/destinations/puj/02.jpg','assets/destinations/puj/03.jpg','assets/destinations/puj/04.jpg'] },
-    bavaro: { images:['assets/destinations/bavaro/01.jpg','assets/destinations/bavaro/02.jpg','assets/destinations/bavaro/03.jpg','assets/destinations/bavaro/04.jpg'] },
-    'cap-cana': { images:['assets/destinations/cap-cana/01.jpg','assets/destinations/cap-cana/02.jpg','assets/destinations/cap-cana/03.jpg','assets/destinations/cap-cana/04.jpg'] },
-    saona: { images:['assets/destinations/saona/01.jpg','assets/destinations/saona/02.jpg','assets/destinations/saona/03.jpg','assets/destinations/saona/04.jpg'] },
-    'santo-domingo': { images:['assets/destinations/santo-domingo/01.jpg','assets/destinations/santo-domingo/02.jpg','assets/destinations/santo-domingo/03.jpg','assets/destinations/santo-domingo/04.jpg'] },
+    // v23: galleries rebuilt from on-brand DR imagery only (v22 SDQ/PUJ/Saona sets contained non-DR stock photos)
+    puj: { images:['assets/destinations/puj/aerial.jpg','assets/story/meet-greet.jpg','assets/story/starex-road.jpg','assets/destinations/bavaro/02.jpg'] },
+    bavaro: { images:['assets/destinations/bavaro/coast.jpg','assets/destinations/bavaro/01.jpg','assets/destinations/bavaro/02.jpg','assets/destinations/bavaro/03.jpg'] },
+    'cap-cana': { images:['assets/destinations/cap-cana/cove.jpg','assets/destinations/cap-cana/01.jpg','assets/destinations/cap-cana/02.jpg','assets/destinations/cap-cana/03.jpg'] },
+    saona: { images:['assets/destinations/saona/shore.jpg','assets/destinations/saona/04.jpg','assets/destinations/saona/02.jpg','assets/destinations/bavaro/04.jpg'] },
+    'santo-domingo': { images:['assets/destinations/santo-domingo/colonial.jpg','assets/story/starex-road.jpg','assets/story/cabin.jpg'] },
   };
 
   destModalCopy = {
@@ -2153,14 +2463,11 @@ class Component extends DCLogic {
   openWa(msg){ window.open('https://wa.me/'+this.waNumber+'?text='+encodeURIComponent(msg), '_blank', 'noopener'); }
   bookWhats = (e)=>{
     if(e&&e.preventDefault) e.preventDefault();
-    const g = id => { const el = document.getElementById(id); return el ? el.value : ''; };
     const es = this.state.lang==='es';
-    const msg = (es ? '¡Hola Karún Travel Group! Quiero reservar un traslado privado.' : "Hi Karún Travel Group! I'd like to book a private transfer.")
-      + `\n\n${es?'Recogida':'Pickup'}: ${g('ly-pickup')}`
-      + `\n${es?'Destino':'Drop-off'}: ${g('ly-drop')}`
-      + `\n${es?'Fecha':'Date'}: ${g('ly-date')} ${g('ly-time')}`
-      + `\n${es?'Pasajeros':'Passengers'}: ${g('ly-pax')}`
-      + `\n${es?'Equipaje':'Luggage'}: ${g('ly-lug')}`;
+    // v23: single booking path — WhatsApp opens a short, friendly first message
+    const msg = es
+      ? '¡Hola Karún Travel Group! Quiero cotizar un traslado privado.\n\nAeropuerto (PUJ / SDQ): \nHotel: \nFecha y vuelo: \nPasajeros: '
+      : "Hi Karún Travel Group! I'd like a quote for a private transfer.\n\nAirport (PUJ / SDQ): \nHotel: \nDate & flight: \nPassengers: ";
     this.openWa(msg);
   };
 
@@ -2206,8 +2513,8 @@ class Component extends DCLogic {
   componentDidUpdate(){ this.injectVan(); this.initDestStack(); this.initDestModal(); }
 }
 </script>
-<script src="./assets/tarifario.data.js?v=22" defer></script>
-<script src="./karun-wizard.js?v=22" defer></script>
-<script src="./assets/karun-fx.js?v=22" defer></script>
+<script src="./assets/tarifario.data.js?v=23" defer></script>
+<script src="./karun-wizard.js?v=23" defer></script>
+<script src="./assets/karun-v23.js?v=23" defer></script>
 </body>
 </html>

@@ -1,3 +1,96 @@
+KARÚN v23 — "otra liga" (rediseño completo sobre v22) — 2026-09-21 (America/Mexico_City)
+
+0) Pedidos explícitos del cliente
+   - Eliminada la barra superior "Demo pública…". La honestidad de demo vive solo dentro de #reservar
+     (nota con chip DEMO + textos en pago y confirmación).
+   - Eliminado el sol del hero (markup .hero-sun, CSS en index/karun-beach.css y assets/karun-fx.js).
+   - Sin prueba social falsa: fuera ★4.9, "12,000+ traslados", "30+ países", "2,300+ viajes" (claves i18n
+     borradas en los 10 idiomas) y las 4 reseñas inventadas. Las cifras visibles salen del tarifario real
+     (249 hoteles, 23 zonas, 4 clases) y se calculan en vivo desde KRN_TARIFARIO.
+
+1) Arquitectura de información (embudo nuevo)
+   Hero → Tu llegada (#llegada) → Servicios → Flota → Tarifas → Reservar → Zonas → Destinos →
+   Promesas (#promesas) → FAQ → Cierre/Footer.
+   - #book (formulario rápido de WhatsApp) eliminado: una sola ruta de reserva (#reservar). WhatsApp queda
+     como vía secundaria (bookWhats ahora abre un mensaje-plantilla corto).
+   - "Por qué Karún", banda editorial, franja de marquesina y Reseñas → absorbidos en "Lo que sí podemos
+     prometerte" (condiciones reales de los términos: precio publicado, cancelación 24 h, espera 60–90 min,
+     formas de pago, vehículo privado, atención humana) + banda de foto con frase de marca.
+   - "Antes de aterrizar" sube como historia de llegada, justo después del hero.
+
+2) Tipografía
+   - Gloock (display, OFL) + Yellowtail (acento caligráfico de playa, Apache 2.0) + Figtree (texto, OFL).
+     Self-hosted woff2 + licencias en assets/fonts/. Fraunces retirada. Tildes, ñ, ¿ ¡ verificadas.
+   - 1001fonts sirvió de referencia de estilo; no se usaron sus archivos (licencias comerciales dispares).
+
+3) Secciones
+   - Nav: transparente sobre el hero → isla de vidrio arena al salir; subrayado de sección activa, marea de
+     progreso, se esconde al bajar rápido (escritorio). Menú de idioma en hoja de vidrio. Móvil: drawer
+     tipo isla a pantalla casi completa, numerado, con CTA y WhatsApp.
+   - Hero: video + gradación teal, luz cáustica, espuma en canvas, palmeras con balanceo, titular palabra a
+     palabra, tarjeta "pase de abordar" con letrero, 3 CTA (reservar / tarifa de mi hotel / WhatsApp),
+     póster de respaldo con foto de Bávaro.
+   - Tu llegada: recorrido scroll-scrubbed avión → van → lobby sobre una ruta SVG; 5 pasos que se encienden;
+     tarjeta "¿Vuelo retrasado? Te esperamos". Móvil: línea vertical que se llena.
+   - Servicios: 9 capítulos horizontales guiados por el scroll vertical (sticky, sin secuestrar la rueda):
+     recibimiento, seguimiento de vuelo, espera incluida, madrugada 24/7, equipaje, sillas, idiomas,
+     multi-tramo, hotel a hotel/excursiones. Móvil y reduced-motion: tarjetas apiladas.
+   - Flota: showroom (pestañas + escenario foto/ficha: "ideal para", asientos animados, "elígela si…",
+     "a bordo", desde US$ PUJ/SDQ, cotizar) + "¿Cuál me conviene?" (pasajeros + prioridad → recomienda
+     unidad y muestra el mínimo real de la clase desde PUJ) + barra de capacidad por clase.
+   - Tarifas: mismos IDs/lógica; cabecera con cifras reales, pasos 1-2-3, chips de zona que espejean el
+     <select>, leyenda, tabla y tarjetas móviles con relieve.
+   - Reservar: 3 pasos (Ruta / Tus datos / Pago) sobre el wizard existente, validación por paso, Enter no
+     envía antes del paso 3, resumen oscuro lateral (barra fija en móvil) con total animado; confirmación y
+     letrero de pickup en rejilla nueva. Pagos siguen simulados.
+   - Zonas: mapa ilustrado (SVG propio, no a escala) de la costa este con toggle PUJ/SDQ, rutas animadas,
+     nodos por zona con tamaño = hoteles en el tarifario, panel con conteo, "desde" y hoteles reales, botón
+     que filtra el tarifario por esa zona y aeropuerto; franja de tiempos de viaje.
+   - Destinos: stack sticky + modal SIN cambios de comportamiento (pin, autoplay, sin flechas, hoja móvil,
+     bloqueo de scroll, Escape). Nuevo: cabecera con índice, numeración grande, contador flotante con
+     progreso, fondo que oscurece a "atardecer" durante el stack, CTA de cierre y, en el modal,
+     "Reservar esta ruta / Ver tarifas" (cierra el modal y lleva a la sección).
+   - FAQ: dos columnas, acordeón con grid-rows, ayuda por WhatsApp.
+   - Cierre + footer: escena de atardecer con mar animado, palmera y espuma; titular final, CTAs magnéticos,
+     boleto interactivo (inclinación con el puntero), navegación eco, contacto en tarjetas, legales,
+     wordmark "Karún" gigante.
+   - Separadores: sistema de olas/espuma/duna (.k23-sep) con trazo de espuma animado.
+
+4) Correcciones de contenido
+   - Galerías del modal de Destinos: se retiraron fotos que no eran de RD (SDQ mostraba Machu Picchu, Oporto,
+     Chichén Itzá y Madrid; PUJ un buzo y los Dolomitas). Ahora solo imágenes del proyecto (image-slots).
+   - FAQ alineada con el tarifario: "por vehículo", capacidades por clase (ya no "van de 8 pasajeros"),
+     pago con tarjeta/PayPal/efectivo, equipaje voluminoso → techo alto.
+   - Idiomas: cualquier idioma distinto de ES muestra el copy EN de los bloques bilingües (antes RU/ZH/NL/PL
+     caían al español). ES/EN completos; FR/DE/PT/IT/RU/ZH/NL/PL no se rompen.
+
+5) Técnica
+   - Nuevos: assets/karun-v23.css (capa visual), assets/karun-v23.js (motion/interacción).
+   - Sin GSAP ni Lenis: un solo loop rAF de scroll nativo. Motivo: el stack sticky de Destinos y el bloqueo
+     de scroll del modal dependen del scroll nativo; el motion propio cubre todo sin 100 KB extra.
+   - Remount-safe: nada reescribe markup de React; estado en atributos de <html>, variables CSS o
+     contenedores propios (chips, nodos del mapa, CTA del modal); MutationObserver re-vincula.
+   - prefers-reduced-motion: sin canvases, sin scroll-scrub (llegada/servicios en flujo normal), sin
+     animaciones infinitas (verificado: 0 animaciones infinitas activas).
+   - karun-wizard.js, support.js, image-slot.js, tarifario.json/.data.js y tools/ NO se modificaron.
+
+6) Pruebas (Chromium headless, React/Babel servidos localmente)
+   - 1440×900: wizard paso 1 (bloquea sin hotel) → 2 (bloquea sin nombre) → 3 → confirmar → letrero →
+     editar; W Punta Cana / Starex / 2 pax = US$50 (coincide con la hoja). Cotizar desde flota (Cadillac) y
+     desde fila del tarifario; chips de zona; mapa SDQ → Santo Domingo (14 hoteles, desde US$60) → tarifario
+     filtrado SDQ/santo-domingo. Modal de Destinos: abre, bloquea scroll, CTA cierra y navega.
+     ES → EN → DE → ES sin textos cruzados; sin scroll horizontal; 0 errores de consola.
+   - 390×844 móvil: drawer, capítulos apilados, tarjetas de tarifas, resumen fijo, mapa; sin desbordes.
+   - Nota: el MP4 del hero (H.264) no reproduce en Chromium open-source; se ve el póster. En Chrome/Safari
+     reales se reproduce.
+
+7) Pendiente de confirmar con el cliente (se mantiene de v22)
+   - Whala Urban (Suburban 45/55 vs 50/60 de sus vecinos), Royalton Bavaro (Starex 40/50 vs 25/35 de su zona),
+     Solati → columna Hiace / Techo alto, regreso = 2 × una vía (el tarifario no trae descuento ida y vuelta).
+   - Datos placeholder: WhatsApp +1 809 000 0000, hola@losyeyes.do, licencia #RD-XXXX, fotos referenciales
+     de flota. Idiomas de atención FR/DE (heredado de v22) — confirmar.
+
+---
 Beach / sensory redesign + tarifario refresh (v22) — 2026-09-21 (America/Mexico_City)
 
 1) Tarifario oficial (PUJ + SDQ, 4 clases de vehículo)

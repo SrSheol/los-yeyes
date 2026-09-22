@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Karún Travel Group — beach / sensory layer (v22)
+   Karún Travel Group — beach / sensory layer (v22 base, trimmed in v23: sun + glints removed)
    Loaded from the real <head>, after the Design runtime styles are declared
    in index.html. Overrides therefore use `html .lm …` (higher specificity) so
    they win regardless of stylesheet order. Brand core stays the teal / ocean
@@ -8,7 +8,8 @@
    ========================================================================== */
 
 :root{
-  --f-disp:"Fraunces","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  --f-disp:"Gloock","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  --f-script:"Yellowtail","Brush Script MT",cursive;
   --f-body:"Figtree",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
   --aqua:#7ad4e0;            /* shallow-water highlight */
   --lagoon:#12a7b8;          /* lighter teal, near the beach bands */
@@ -21,8 +22,7 @@
 /* ---------- Typography ---------- */
 html .lm{font-family:var(--f-body);font-optical-sizing:auto;font-feature-settings:"ss01" 1}
 html .lm .disp{
-  font-family:var(--f-disp);font-weight:600;letter-spacing:-.022em;line-height:1.03;
-  font-variation-settings:"SOFT" 100,"WONK" 0;text-wrap:balance
+  font-family:var(--f-disp);font-weight:400;letter-spacing:-.018em;line-height:1.04;text-wrap:balance
 }
 html .lm .chip{font-weight:800;letter-spacing:.09em}
 html .lm .btn{font-weight:800;letter-spacing:.005em}
@@ -70,7 +70,7 @@ html .lm nav[aria-label="Primary"]::after{
   @keyframes krn-progress{to{transform:scaleX(1)}}
 }
 
-/* ---------- HERO: sun, sea, shoreline ---------- */
+/* ---------- HERO: sea + shoreline (v23: sun removed) ---------- */
 html .lm .hero-vid{background:transparent}
 #top .hero-media::before{        /* sea/dusk backdrop — also the fallback if the video is slow or blocked */
   content:"";position:absolute;inset:0;z-index:0;
@@ -83,17 +83,6 @@ html .lm .hero-vig{
     radial-gradient(120% 90% at 6% 32%,rgba(7,42,52,.90) 0%,rgba(7,42,52,.66) 36%,rgba(7,42,52,.20) 72%,transparent 100%),
     linear-gradient(180deg,rgba(6,38,48,.60) 0%,rgba(6,38,48,.04) 32%,rgba(6,38,48,.10) 60%,rgba(8,58,72,.86) 100%)
 }
-html .lm .hero-sun{top:8%;right:7%;width:min(34vw,380px);aspect-ratio:1/1;opacity:1;color:transparent;z-index:3}
-html .lm .hero-sun svg{display:none}
-html .lm .hero-sun::before{
-  content:"";position:absolute;inset:0;border-radius:50%;
-  background:radial-gradient(circle at 50% 50%,rgba(255,240,196,.98) 0 8%,rgba(255,214,120,.62) 15%,rgba(255,176,88,.24) 34%,rgba(255,150,80,0) 68%);
-  animation:krn-sun 9s ease-in-out infinite
-}
-@keyframes krn-sun{0%,100%{transform:scale(1);opacity:.88}50%{transform:scale(1.07);opacity:1}}
-
-.krn-glint{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-events:none;mix-blend-mode:screen}
-
 .krn-shore{position:absolute;left:0;right:0;bottom:-1px;height:clamp(64px,9vw,132px);z-index:4;pointer-events:none;overflow:hidden}
 .krn-shore svg{position:absolute;left:0;bottom:0;width:200%;height:100%;display:block}
 .krn-shore .w1{animation:krn-wave 34s linear infinite;opacity:.55}
@@ -235,11 +224,10 @@ html .lm a:focus-visible,html .lm summary:focus-visible{outline:3px solid var(--
 
 /* ---------- Reduced motion: everything ambient off, content visible ---------- */
 @media (prefers-reduced-motion:reduce){
-  .krn-shore .w1,.krn-shore .w2,.krn-shore .w3,.krn-wave svg,html .lm .hero-sun::before,html .lm .krn-cta::before,.krn-swap tr{animation:none!important}
+  .krn-shore .w1,.krn-shore .w2,.krn-shore .w3,.krn-wave svg,html .lm .krn-cta::before,.krn-swap tr{animation:none!important}
   #top .hero-media,html .lm nav[aria-label="Primary"]::after{animation:none!important}
   html .lm nav[aria-label="Primary"]::after{transform:scaleX(var(--krn-prog,0))}
   html .lm .btn::after{display:none}
   html .lm .neu.svc-card:hover,html .lm .krn-fleet-card:hover{translate:none}
   html .lm .krn-fleet-media img{transform:none!important;transition:none}
-  .krn-glint{display:none}
 }
