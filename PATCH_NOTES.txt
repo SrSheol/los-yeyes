@@ -1,3 +1,11 @@
+v25.1 — Fix blank page / removeChild on load (2026-09-21)
+
+- Root cause: fleet chooser filled a <p data-k23-rec> with <button>/<span>; browsers hoist
+  <button> out of <p>, then Design/React removeChild crashes and the page stays blank.
+- Changed host to <div class="k23-chooser-out">.
+- MutationObserver no longer watches childList on body (was racing React mount); only
+  re-binds on data-lang after settle. First refresh waits for .lm to exist.
+
 KARÚN v25 — fix React removeChild crash (DOM mutations) — 2026-09-21
 
 - Boarding-pass sample names: 3 static spans in markup; cycle via class/hidden/aria-hidden only (no innerHTML).

@@ -746,25 +746,37 @@
     W.addEventListener("resize", onResize);
     W.addEventListener("load", function () { svcMeasure(); req(); });
     if (D.fonts && D.fonts.ready) D.fonts.ready.then(function () { svcMeasure(); paintInk(); req(); });
+    // Do NOT observe the whole body: filling React-owned empty hosts during Design's
+    // first mount causes removeChild crashes (invalid <p><button> also hoisted by the browser).
+    // Only re-bind after language changes, once React has settled.
     try {
       mo = new MutationObserver(function (list) {
         if (refreshing) return;
-        var relevant = list.some(function (m) {
-          return !isOwnedNode(m.target);
+        var langChanged = list.some(function (m) {
+          return m.type === "attributes" && m.attributeName === "data-lang";
         });
-        if (!relevant) return;
+        if (!langChanged) return;
         clearTimeout(moT);
-        moT = setTimeout(function () { refresh(); }, 80);
+        moT = setTimeout(function () { refresh(); }, 320);
       });
-      moReconnect();
+      mo.observe(D.body, { subtree: true, attributes: true, attributeFilter: ["data-lang"] });
     } catch (e) {}
-    refresh();
-    setTimeout(refresh, 400);
-    setTimeout(refresh, 1500);
-    setTimeout(refresh, 3500);
+    // Wait until Design has painted .lm before mutating empty hosts
+    function whenReady(cb) {
+      var n = 0;
+      (function tick() {
+        if ($("x-dc .lm") || $(".lm #top") || n > 80) return cb();
+        n++;
+        setTimeout(tick, 50);
+      })();
+    }
+    whenReady(function () {
+      setTimeout(function () { refresh(); }, 200);
+      setTimeout(function () { refresh(); }, 1200);
+    });
   }
 
-  if (D.readyState === "loading") D.addEventListener("DOMContentLoaded", boot);
+  if (D.readyState  if (D.readyState === "loading") D.addEventListener("DOMContentLoaded", boot);
   else boot();
 
   W.K23 = { refresh: refresh, setStep: setStep, zones: function (o, z) { zOrigin = o || zOrigin; if (z) zSel[zOrigin] = z; zonesRender(true); } };
