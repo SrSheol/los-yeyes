@@ -1,3 +1,65 @@
+KARÚN v24 — pulido dirigido sobre v23 — 2026-09-21
+
+1) Selector de idioma (rediseño)
+   - Botón tipo píldora con "orbe" de vidrio + código + chevron; estado claro en hero, arena en la isla.
+   - Menú: isla de vidrio teal anclada bajo el botón (con flecha), saludo caligráfico "Hola · Hello ·
+     Bonjour", 10 idiomas en 2 columnas con código en sello redondo, idioma activo en arena con ✓.
+     role=menu / menuitemradio + aria-checked; foco al idioma activo al abrir; flechas, Home/End,
+     Escape (cierra y devuelve el foco). En teléfono se mantiene dentro de la pantalla.
+   - Drawer móvil: tira "Idioma" con los 10 códigos (44 px) — cambiar idioma sin salir del menú.
+   - Español sigue por defecto; misma lógica de estado (langs / lg.pick) — sin cambios en la i18n.
+
+2) Pase de abordar del hero
+   - El letrero muestra nombres de ejemplo creíbles (Antonio Camino → Familia Rodríguez → Sarah & Tom
+     Miller, relevo suave cada ~4 s; estático con prefers-reduced-motion) y "KARÚN · BIENVENIDOS".
+   - Caption caligráfico con flecha: "Así te espera tu letrero en llegadas" / "Your sign, waiting for you
+     at arrivals". El letrero real (canvas en #reservar) no cambia.
+
+3) Navbar
+   - Fuera del hero la isla queda fija arriba siempre (se eliminó data-k23-nav-hide). Sobre el hero sigue
+     transparente. Aplica igual en móvil.
+
+4) Flota
+   - Sin sello de recomendado en las pestañas (se quitó el badge data-rec).
+   - "¿Cuál me conviene?" ahora responde en tono de ficha: "Para 2 pasajeros · Hyundai Grand Starex ·
+     clase 1–6 pax · desde US$20 por vía · PUJ" + "Ver ficha →" (botón contorno, no CTA de venta).
+
+5) Zonas (rediseño "El corredor del Este")
+   - Barra superior: toggle PUJ/SDQ tipo etiqueta de equipaje + 3 cifras vivas del tarifario
+     (zonas · hoteles · desde).
+   - Mapa: mar con profundidad y olas animadas, halo de espuma y orilla punteada, tierra con relieve
+     (sombra) y duna, rosa de los vientos, etiquetas en Gloock, nodos con el conteo real dentro,
+     aeropuertos como etiquetas, ruta coral y un punto "van" que recorre el corredor del aeropuerto
+     elegido (solo en pantalla; apagado con reduced-motion). En móvil PUJ se encuadra la costa este.
+   - Panel en vidrio como el pase del hero: nombre, conteo, "desde" en acento caligráfico, hoteles con
+     filas punteadas y botón arena que filtra el tarifario. Chips de zona en tira deslizable, tiempos de
+     viaje en tarjetas. Olas de orilla al pie de la sección. Datos 100 % del tarifario.
+
+6) Móvil (≈390 px)
+   - Nav del hero: márgenes y safe-area, botones de 44 px alineados, sin barra de progreso, marca visible
+     también con el drawer abierto (antes quedaba tapada) y el botón de idioma se oculta ahí.
+   - Cierre/footer: CTAs a ancho completo, boleto centrado, orden Marca → Contacto → Explora (rejilla de
+     2 columnas con blancos táctiles) → Legal → wordmark → "Volver arriba" como botón → créditos apilados.
+
+7) Legal
+   - Footer: tarjeta "Legal" con 4 accesos descriptivos (Privacidad · Términos · Cancelaciones y
+     reclamos · Cookies y preferencias) en lugar de 6 enlaces sueltos (los duplicados abrían el mismo
+     documento).
+   - Documentos: cabecera teal con ola, título en Gloock, línea "versión demo · septiembre 2026",
+     secciones numeradas, barra "Otros documentos" para saltar entre ellos; en móvil se abren como hoja
+     inferior con scroll propio.
+   - Términos: se corrigió "hasta 8 pasajeros con 8+ maletas" → capacidades reales por clase.
+
+Sin cambios: tarifario (JSON/.data.js), karun-wizard.js, support.js, image-slot.js, tools/, stack y modal
+de Destinos. Sin banner demo arriba, sin sol, sin reseñas/cifras inventadas.
+
+Pruebas (Chromium headless, 1440×900 y 390×844): idioma por menú (teclado incl.) y por drawer; nav fija
+tras el hero al bajar; wizard 1→3, confirmación, letrero, editar; cotizar desde flota y tarifario; mapa
+SDQ → Santo Domingo (14 hoteles, desde US$60) → tarifario filtrado; modal de Destinos + CTA; documentos
+legales y cambio entre ellos; ES/EN/DE sin textos cruzados; sin scroll horizontal; 0 errores de consola;
+0 animaciones infinitas con reduced-motion.
+
+---
 KARÚN v23 — "otra liga" (rediseño completo sobre v22) — 2026-09-21 (America/Mexico_City)
 
 0) Pedidos explícitos del cliente

@@ -49,13 +49,10 @@
     var heroEnd = hero ? hero.offsetHeight - nh - 10 : 400;
     var st = y > heroEnd ? "sea" : "hero";
     if (st !== navState) { navState = st; HTML.setAttribute("data-k23-nav", st); paintInk(); setTimeout(paintInk, 560); }
-    // hide on fast scroll down (desktop only, never with menus open)
-    var down = y > lastY + 4, up = y < lastY - 4;
-    var drawerOpen = HTML.getAttribute("data-k23-drawer") === "1";
-    var langOpen = !!$(".langmenu[style*='grid'], .langmenu[style*='block']");
-    if (!RM && wide() && y > heroEnd + 400 && down && !drawerOpen && !langOpen) HTML.setAttribute("data-k23-nav-hide", "1");
-    else if (up || y <= heroEnd + 400) HTML.removeAttribute("data-k23-nav-hide");
+    // v24: once past the hero the island stays pinned — never hides on scroll
+    if (HTML.hasAttribute("data-k23-nav-hide")) HTML.removeAttribute("data-k23-nav-hide");
     lastY = y;
+    if (langIsOpen()) langPlace();
     var max = Math.max(1, HTML.scrollHeight - vh());
     HTML.style.setProperty("--k23-prog", clamp(y / max, 0, 1).toFixed(4));
     // active section
@@ -220,11 +217,13 @@
       if (n > 10) note = tt("More than 10? We combine two vehicles — each extra traveler above a class pays the sheet's per-person amount.", "¿Más de 10? Combinamos dos unidades — cada pasajero sobre la clase paga el monto por persona del tarifario.");
     }
     var cls = UNIT_CLASS[rec], from = minFare(cls, "PUJ");
-    $$(".k23-tab").forEach(function (b) { b.setAttribute("data-rec", b.getAttribute("data-k23-unit") === rec ? "1" : "0"); });
-    out.innerHTML = "<b>" + escH(UNIT_NAME[rec]) + "</b> — " +
-      escH(note || (tt("the right fit for ", "la indicada para ") + n + (n === 1 ? tt(" traveler", " pasajero") : tt(" travelers", " pasajeros")) + ".")) +
-      (from != null ? " " + escH(tt("From ", "Desde ")) + "<b>" + usd(from) + "</b>" + escH(tt(" one-way from PUJ.", " por vía desde PUJ.")) : "") +
-      '<br><button type="button" data-k23-show="' + rec + '">' + escH(tt("Show me this one →", "Ver esta unidad →")) + "</button>";
+    $$(".k23-tab[data-rec]").forEach(function (b) { b.removeAttribute("data-rec"); });
+    var band = { starex: "1–6", hiace: "7–10", suburban: "1–4", cadillac: "1–4" }[cls];
+    out.innerHTML = '<span class="k24-fit-k">' + escH(tt("For ", "Para ")) + n + (n === 1 ? escH(tt(" traveler", " pasajero")) : escH(tt(" travelers", " pasajeros"))) + "</span>" +
+      '<span class="k24-fit-v"><b>' + escH(UNIT_NAME[rec]) + "</b> <small>" + escH(tt("class ", "clase ")) + band + " pax</small></span>" +
+      (note ? '<span class="k24-fit-n">' + escH(note) + "</span>" : "") +
+      (from != null ? '<span class="k24-fit-p">' + escH(tt("from ", "desde ")) + "<b>" + usd(from) + "</b> " + escH(tt("one way · PUJ", "por vía · PUJ")) + "</span>" : "") +
+      '<button type="button" data-k23-show="' + rec + '">' + escH(tt("See details →", "Ver ficha →")) + "</button>";
   }
 
   /* ------------------------------------------------------------------
@@ -308,6 +307,11 @@
     var sig = zOrigin + "|" + zSel[zOrigin] + "|" + lang() + "|" + g.childElementCount;
     if (!force && sig === zSig && g.childElementCount) return;
     root.setAttribute("data-origin", zOrigin);
+    var svg = $(".k24-map-svg", root);
+    if (svg) {
+      var vb = (vw() <= 640 && zOrigin === "PUJ") ? "400 110 670 400" : "60 100 1010 440";
+      if (svg.getAttribute("viewBox") !== vb) svg.setAttribute("viewBox", vb);
+    }
     $$("[data-k23-origin]", root).forEach(function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-k23-origin") === zOrigin ? "true" : "false"); });
     var html = "", lis = "";
     o.zones.forEach(function (z) {
@@ -320,12 +324,16 @@
       html += '<g class="k23-zn" data-zone="' + z.id + '" data-on="' + (on ? 1 : 0) + '" tabindex="0" role="button" aria-label="' + escH(z.name + " · " + n + " hoteles") + '">' +
         '<circle class="k23-zn-halo" cx="' + p[0] + '" cy="' + p[1] + '" r="' + r.toFixed(1) + '"/>' +
         (RM ? "" : '<circle class="k23-zn-pulse" cx="' + p[0] + '" cy="' + p[1] + '" r="' + r.toFixed(1) + '"/>') +
-        '<circle class="k23-zn-core" cx="' + p[0] + '" cy="' + p[1] + '" r="6"/>' +
-        '<text class="k23-zn-label" x="' + lx.toFixed(0) + '" y="' + ly.toFixed(0) + '" text-anchor="' + anchor + '">' + escH(z.name.replace("Bávaro · Zona ", "Bávaro ")) + "</text></g>";
+        '<circle class="k23-zn-core" cx="' + p[0] + '" cy="' + p[1] + '" r="11"/>' +
+        '<text class="k23-zn-label" x="' + lx.toFixed(0) + '" y="' + ly.toFixed(0) + '" text-anchor="' + anchor + '">' + escH(z.name.replace("Bávaro · Zona ", "Bávaro ")) + '</text><text class="k24-zn-count" x="' + p[0] + '" y="' + (p[1] + 3.6) + '" text-anchor="middle">' + (n > 99 ? "99+" : n) + "</text></g>";
       lis += '<li><button type="button" data-k23-zbtn="' + z.id + '" data-on="' + (on ? 1 : 0) + '">' + escH(z.name) + "<small>" + n + "</small></button></li>";
     });
     g.innerHTML = html;
     if (list) list.innerHTML = lis;
+    var tot = 0, mn = null;
+    o.zones.forEach(function (z) { tot += z.hotels.length; z.hotels.forEach(function (h) { var m = zMin(h); if (m != null && (mn == null || m < mn)) mn = m; }); });
+    var zs = { zones: String(o.zones.length), hotels: String(tot), from: mn != null ? usd(mn) : "—" };
+    $$("[data-k24-zs]").forEach(function (d) { var v = zs[d.getAttribute("data-k24-zs")]; if (v != null && d.textContent !== v) d.textContent = v; });
     zSig = zOrigin + "|" + zSel[zOrigin] + "|" + lang() + "|" + g.childElementCount;
     zonePanel();
   }
@@ -557,6 +565,7 @@
     }
   }
   function onKey(e) {
+    if (langKeys(e)) return;
     var t = e.target;
     if ((e.key === "Enter" || e.key === " ") && t && t.classList && t.classList.contains("k23-zn")) {
       e.preventDefault(); zSel[zOrigin] = t.getAttribute("data-zone"); zonesRender(true);
@@ -575,6 +584,99 @@
     }, 40);
   }
 
+
+  /* ------------------------------------------------------------------
+     v24 · language island: anchored under its button, keyboard support
+     ------------------------------------------------------------------ */
+  function langIsOpen() { var b = $(".k24-langbtn"); return !!(b && b.getAttribute("aria-expanded") === "true"); }
+  function langPlace() {
+    var b = $(".k24-langbtn"); if (!b) return;
+    var r = b.getBoundingClientRect(), W0 = vw();
+    var mw = Math.min(400, W0 - 24);
+    var right = Math.round(W0 - r.right - 8);
+    if (right + mw > W0 - 12) right = 12;                      // keep the island on screen (phones)
+    HTML.style.setProperty("--k24-lang-top", Math.round(r.bottom + 12) + "px");
+    HTML.style.setProperty("--k24-lang-right", right + "px");
+    HTML.style.setProperty("--k24-lang-arrow", Math.round(clamp(W0 - right - (r.left + r.width / 2) - 7, 18, mw - 30)) + "px");
+  }
+  var langWas = false;
+  function langSync() {
+    var open = langIsOpen();
+    if (open) HTML.setAttribute("data-k24-lang", "1"); else HTML.removeAttribute("data-k24-lang");
+    if (open) langPlace();
+    if (open && !langWas) {
+      var act = $('.k24-langmenu .lang-opt[data-active="true"]') || $(".k24-langmenu .lang-opt");
+      if (act) setTimeout(function () { try { act.focus({ preventScroll: true }); } catch (e) {} }, 40);
+    }
+    if (!open && langWas) { var bb = $(".k24-langbtn"); if (bb && D.activeElement && D.activeElement.closest && D.activeElement.closest(".k24-langmenu")) bb.focus(); }
+    langWas = open;
+  }
+  function langKeys(e) {
+    if (!langIsOpen()) return false;
+    var opts = $$(".k24-langmenu .lang-opt"); if (!opts.length) return false;
+    var i = opts.indexOf(D.activeElement);
+    if (e.key === "Escape") { e.preventDefault(); var b = $(".k24-langbtn"); if (b) { b.click(); b.focus(); } return true; }
+    var cols = vw() > 520 ? 2 : 1, n = -1;
+    if (e.key === "ArrowDown") n = i < 0 ? 0 : Math.min(opts.length - 1, i + cols);
+    else if (e.key === "ArrowUp") n = i < 0 ? 0 : Math.max(0, i - cols);
+    else if (e.key === "ArrowRight") n = i < 0 ? 0 : Math.min(opts.length - 1, i + 1);
+    else if (e.key === "ArrowLeft") n = i < 0 ? 0 : Math.max(0, i - 1);
+    else if (e.key === "Home") n = 0; else if (e.key === "End") n = opts.length - 1;
+    if (n < 0) return false;
+    e.preventDefault(); opts[n].focus(); return true;
+  }
+
+  /* ------------------------------------------------------------------
+     v24 · boarding-pass sign: soft cycle of sample guest names
+     ------------------------------------------------------------------ */
+  var SIGN_NAMES = ["Antonio Camino", "Familia Rodríguez", "Sarah &amp; Tom Miller"];
+  var signI = 0, signT = 0;
+  function signCycle() {
+    if (RM || signT) return;
+    signT = setInterval(function () {
+      var el = $("[data-k24-signname]"); if (!el) return;
+      var sec = $("#top"); if (sec && sec.getBoundingClientRect().bottom < 0) return;
+      el.classList.add("is-out");
+      setTimeout(function () {
+        signI = (signI + 1) % SIGN_NAMES.length;
+        el.innerHTML = SIGN_NAMES[signI];
+        el.classList.remove("is-out");
+      }, 420);
+    }, 4200);
+  }
+
+  /* ------------------------------------------------------------------
+     v24 · zones: a van dot travels the active corridor
+     ------------------------------------------------------------------ */
+  var vanT = 0, vanOn = false, vanIO = null;
+  function vanBind() {
+    var map = $(".k24-zmap"); if (!map || RM || map._k24) return;
+    map._k24 = 1;
+    if ("IntersectionObserver" in W) {
+      vanIO = new IntersectionObserver(function (en) { vanOn = en[0].isIntersecting; if (vanOn) vanLoop(); }, { threshold: .1 });
+      vanIO.observe(map);
+    }
+  }
+  function vanLoop() {
+    if (vanT) return;
+    var t0 = null;
+    function f(ts) {
+      vanT = 0;
+      if (!vanOn) return;
+      var root = $(".k24-zones"), van = $(".k24-van");
+      var tr = root && $('.k24-trace[data-trace="' + (root.getAttribute("data-origin") || "PUJ") + '"]', root);
+      if (tr && van) {
+        if (t0 == null) t0 = ts;
+        var L = tr.getTotalLength(), per = 9000, k = ((ts - t0) % (per * 2)) / per;
+        var q = k <= 1 ? k : 2 - k; q = q < .5 ? 2 * q * q : 1 - Math.pow(-2 * q + 2, 2) / 2;
+        var pt = tr.getPointAtLength(L * q);
+        van.setAttribute("transform", "translate(" + pt.x.toFixed(1) + " " + pt.y.toFixed(1) + ")");
+      }
+      vanT = requestAnimationFrame(f);
+    }
+    vanT = requestAnimationFrame(f);
+  }
+
   /* ------------------------------------------------------------------
      Loop + lifecycle
      ------------------------------------------------------------------ */
@@ -588,13 +690,13 @@
   var rsT = 0;
   function onResize() {
     clearTimeout(rsT);
-    rsT = setTimeout(function () { jPathRef = null; svcMeasure(); foams.forEach(function (f) { f.size(); }); paintInk(); req(); }, 120);
+    rsT = setTimeout(function () { if (langIsOpen()) langPlace(); zonesRender(true); jPathRef = null; svcMeasure(); foams.forEach(function (f) { f.size(); }); paintInk(); req(); }, 120);
   }
 
   var lastLang = null;
   function refresh() {
     // (re)bind everything that may have been re-created by a remount
-    drawerSync(); paintStats(); fleetApply(); chooserRender(); zoneChips(); zonesRender(false);
+    drawerSync(); langSync(); signCycle(); vanBind(); paintStats(); fleetApply(); chooserRender(); zoneChips(); zonesRender(false);
     var f = formEl(); if (f && f.getAttribute("data-k23-step") !== String(step)) setStep(step, false);
     bindFoams(); bindReveals(); destModalCta(); svcMeasure(); paintInk();
     var l = lang(); if (l !== lastLang) { lastLang = l; chooserRender(); zonesRender(true); zoneChips(); }
@@ -618,13 +720,13 @@
         var relevant = list.some(function (m) {
           if (m.type === "attributes") return true;
           var n = m.target;
-          return !(n && n.closest && (n.closest("[data-k23-dest-name]") || n.closest("[data-k23-nodes]") || n.closest("[data-k23-zonechips]") || n.closest("[data-k23-zlist]") || n.closest("[data-k23-rec]") || n.closest(".k23-zp-card") || n.closest("[data-k23-svc-now]") || n.closest("[data-k23-dest-now]") || n.closest("[data-k23-stat]")));
+          return !(n && n.closest && (n.closest("[data-k24-signname]") || n.closest("[data-k24-zs]") || n.closest("[data-k23-dest-name]") || n.closest("[data-k23-nodes]") || n.closest("[data-k23-zonechips]") || n.closest("[data-k23-zlist]") || n.closest("[data-k23-rec]") || n.closest(".k23-zp-card") || n.closest("[data-k23-svc-now]") || n.closest("[data-k23-dest-now]") || n.closest("[data-k23-stat]")));
         });
         if (!relevant) return;
         clearTimeout(moT);
         moT = setTimeout(function () { mutating = true; try { refresh(); } finally { setTimeout(function () { mutating = false; }, 0); } }, 80);
       });
-      mo.observe(D.body, { childList: true, subtree: true, attributes: true, attributeFilter: ["data-lang", "data-open"] });
+      mo.observe(D.body, { childList: true, subtree: true, attributes: true, attributeFilter: ["data-lang", "data-open", "aria-expanded"] });
     } catch (e) {}
     refresh();
     setTimeout(refresh, 400);

@@ -90,7 +90,7 @@ html.dest-modal-lock,body.dest-modal-lock{overflow:hidden!important}
 <link rel="preload" as="font" type="font/woff2" href="assets/fonts/figtree-latin-wght-normal.woff2" crossorigin>
 <link rel="stylesheet" href="assets/fonts/karun-fonts.css?v=23">
 <link rel="stylesheet" href="assets/karun-beach.css?v=23">
-<link rel="stylesheet" href="assets/karun-v23.css?v=23">
+<link rel="stylesheet" href="assets/karun-v23.css?v=24">
 <script src="./support.js"></script>
 </head>
 <body>
@@ -417,17 +417,24 @@ html.dest-modal-lock,body.dest-modal-lock{overflow:hidden!important}
       </div>
       <div class="ly-nav-actions">
         <div style="position:relative">
-          <button class="langbtn chip" onClick="{{ toggleLang }}" aria-haspopup="true" aria-expanded="{{ langOpen }}" aria-label="Idioma / Language">
-            <svg class="k23-globe" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.8 3.8 5.8 3.8 9s-1.2 6.2-3.8 9c-2.6-2.8-3.8-5.8-3.8-9S9.4 5.8 12 3z"/></svg>
-            <span>{{ langCode }}</span>
+          <button class="langbtn chip k24-langbtn" onClick="{{ toggleLang }}" aria-haspopup="menu" aria-expanded="{{ langOpen }}" aria-controls="k24-langmenu" aria-label="Idioma / Language">
+            <span class="k24-lang-orb" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.8 3.8 5.8 3.8 9s-1.2 6.2-3.8 9c-2.6-2.8-3.8-5.8-3.8-9S9.4 5.8 12 3z"/></svg></span>
+            <span class="k24-lang-code">{{ langCode }}</span>
+            <svg class="k24-lang-chev" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
           </button>
-          <div class="langmenu" role="menu" style="display:{{ langMenuDisplay }}">
-            <div class="k23-langhead"><span class="l-en">Choose your language</span><span class="l-es">Elige tu idioma</span></div>
-            <sc-for list="{{ langs }}" as="lg" hint-placeholder-count="10">
-              <button class="lang-opt" onClick="{{ lg.pick }}" data-active="{{ lg.active }}" role="menuitem">
-                <span class="code">{{ lg.code }}</span><span>{{ lg.native }}</span>
-              </button>
-            </sc-for>
+          <div class="langmenu k24-langmenu" id="k24-langmenu" role="menu" aria-label="Idioma / Language" style="display:{{ langMenuDisplay }}">
+            <div class="k24-langhead">
+              <span class="k24-langhead-s k23-script" aria-hidden="true">Hola · Hello · Bonjour</span>
+              <span class="k24-langhead-t"><span class="l-en">Choose your language</span><span class="l-es">Elige tu idioma</span></span>
+            </div>
+            <div class="k24-langgrid">
+              <sc-for list="{{ langs }}" as="lg" hint-placeholder-count="10">
+                <button class="lang-opt" onClick="{{ lg.pick }}" data-active="{{ lg.active }}" role="menuitemradio" aria-checked="{{ lg.active }}">
+                  <span class="code">{{ lg.code }}</span><span class="k24-lang-nm">{{ lg.native }}</span><span class="k24-lang-tick" aria-hidden="true"></span>
+                </button>
+              </sc-for>
+            </div>
+            <p class="k24-langfoot"><span class="l-en">Human support on WhatsApp in Spanish &amp; English.</span><span class="l-es">Atención humana por WhatsApp en español e inglés.</span></p>
           </div>
         </div>
         <a class="btn k23-nav-cta" href="#reservar" data-magnetic="1"><span class="l-en">Book</span><span class="l-es">Reservar</span><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
@@ -445,6 +452,14 @@ html.dest-modal-lock,body.dest-modal-lock{overflow:hidden!important}
             <a href="#map" class="nav-opt" role="menuitem" onClick="{{ closeNav }}"><i>05</i><span class="l-en">Zones</span><span class="l-es">Zonas</span></a>
             <a href="#destinations" class="nav-opt" role="menuitem" onClick="{{ closeNav }}"><i>06</i><span class="l-en">Routes</span><span class="l-es">Destinos</span></a>
             <a href="#faq" class="nav-opt" role="menuitem" onClick="{{ closeNav }}"><i>07</i>FAQ</a>
+            <div class="k24-drawer-langs" role="group" aria-label="Idioma / Language">
+              <span class="k24-drawer-langs-k"><span class="l-en">Language</span><span class="l-es">Idioma</span></span>
+              <div class="k24-drawer-langs-row">
+                <sc-for list="{{ langs }}" as="lg" hint-placeholder-count="10">
+                  <button type="button" class="k24-dl" onClick="{{ lg.pick }}" data-active="{{ lg.active }}" aria-pressed="{{ lg.active }}">{{ lg.code }}</button>
+                </sc-for>
+              </div>
+            </div>
             <a href="#reservar" class="nav-opt nav-opt-cta" role="menuitem" onClick="{{ closeNav }}"><span class="l-en">Book my transfer</span><span class="l-es">Reservar mi traslado</span> →</a>
             <button class="nav-opt k23-drawer-wa" role="menuitem" onClick="{{ bookWhats }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15l-1.3 4.8 4.9-1.3A10 10 0 1012 2zm0 2a8 8 0 11-4.2 14.8l-.3-.2-2.9.8.8-2.8-.2-.3A8 8 0 0112 4zm4.5 10.2c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1l-.7.9c-.1.1-.3.2-.5 0a6.5 6.5 0 01-3.2-2.8c-.2-.4.2-.4.6-1.2.1-.1 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4 0-.6.3-.9 1-.9 2.3-.1 3.5a9 9 0 003.9 3.4c1.6.6 1.9.5 2.3.5s1.4-.6 1.6-1.1.2-1 .1-1.1z"/></svg>WhatsApp</button>
           </div>
@@ -501,10 +516,13 @@ html.dest-modal-lock,body.dest-modal-lock{overflow:hidden!important}
           <svg viewBox="0 0 200 60" aria-hidden="true"><path class="k23-pass-arc" d="M8 50 Q100 -14 192 50" fill="none"/><g class="k23-pass-plane"><path d="M0 -6 L14 0 L0 6 L3 0Z"/></g></svg>
           <div class="r"><b><span class="l-en">HOTEL</span><span class="l-es">HOTEL</span></b><small><span class="l-en">your resort</span><span class="l-es">tu resort</span></small></div>
         </div>
-        <div class="k23-pass-sign" aria-hidden="true">
-          <span class="k23-pass-sign-k">KARÚN</span>
-          <span class="k23-pass-sign-n"><span class="l-en">YOUR NAME</span><span class="l-es">TU NOMBRE</span></span>
-        </div>
+        <figure class="k24-signfig">
+          <div class="k23-pass-sign" aria-hidden="true">
+            <span class="k23-pass-sign-k">KARÚN · <span class="l-en">WELCOME</span><span class="l-es">BIENVENIDOS</span></span>
+            <span class="k23-pass-sign-n" data-k24-signname="1">Antonio Camino</span>
+          </div>
+          <figcaption class="k24-signcap"><svg viewBox="0 0 40 24" width="28" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M36 20 C26 21 14 16 8 5 M8 5 l-1 7 M8 5 l7 1"/></svg><span class="l-en">Your sign, waiting for you at arrivals</span><span class="l-es">Así te espera tu letrero en llegadas</span></figcaption>
+        </figure>
         <ul class="k23-pass-list">
           <li><span class="l-en">Driver waiting at the arrivals exit</span><span class="l-es">Chofer esperando en la salida de llegadas</span></li>
           <li><span class="l-en">60–90 min wait included after landing</span><span class="l-es">60–90 min de espera incluidos al aterrizar</span></li>
@@ -1023,74 +1041,110 @@ html.dest-modal-lock,body.dest-modal-lock{overflow:hidden!important}
     <svg viewBox="0 0 1440 120" preserveAspectRatio="none"><path class="a" d="M0,60 C220,20 420,100 700,60 S1180,20 1440,64 V120 H0Z"/><path class="b" d="M0,80 C240,40 460,116 720,78 S1200,40 1440,84 V120 H0Z"/><path class="foam" d="M0,80 C240,40 460,116 720,78 S1200,40 1440,84" fill="none"/></svg>
   </div>
 
-  <!-- ===================== ZONES — the east-coast corridor (illustrated, data-driven) ===================== -->
-  <section id="map" class="k23-zones-sec">
+  <!-- ===================== ZONES v24 — "El corredor del Este" (tide-table map, data-driven) ===================== -->
+  <section id="map" class="k24-zones-sec">
+    <div class="k23-caustics k24-zones-caustics" aria-hidden="true"></div>
     <div class="k23-wrap">
       <div class="k23-head k23-head-split">
         <div>
           <span class="k23-kicker k23-kicker-lt"><span class="l-en">Where we drive</span><span class="l-es">Dónde manejamos</span></span>
           <h2 class="disp k23-h2 k23-lt"><span class="l-en">One coast, <em class="k23-script">two airports</em>, every resort zone</span><span class="l-es">Una costa, <em class="k23-script">dos aeropuertos</em>, cada zona hotelera</span></h2>
         </div>
-        <p class="k23-sub k23-lt"><span class="l-en">Pick your airport, then tap a zone: hotel count, starting fare and the hotels we already have on the sheet.</span><span class="l-es">Elige tu aeropuerto y toca una zona: cuántos hoteles, desde cuánto y cuáles ya están en el tarifario.</span></p>
+        <p class="k23-sub k23-lt"><span class="l-en">Choose your airport and tap a zone to see how many hotels are on the official sheet, the starting fare and a few names.</span><span class="l-es">Elige tu aeropuerto y toca una zona: cuántos hoteles hay en el tarifario oficial, desde cuánto y algunos nombres.</span></p>
       </div>
 
-      <div class="k23-zones" data-origin="PUJ">
-        <div class="k23-zones-map">
-          <div class="k23-zones-toggle" role="group" aria-label="Aeropuerto">
-            <button type="button" data-k23-origin="PUJ" aria-pressed="true"><b>PUJ</b><small>Punta Cana</small></button>
-            <button type="button" data-k23-origin="SDQ" aria-pressed="false"><b>SDQ</b><small>Santo Domingo</small></button>
+      <div class="k23-zones k24-zones" data-origin="PUJ">
+        <div class="k24-zbar">
+          <div class="k23-zones-toggle k24-ztoggle" role="group" aria-label="Aeropuerto">
+            <button type="button" data-k23-origin="PUJ" aria-pressed="true"><i aria-hidden="true">✈</i><b>PUJ</b><small>Punta Cana</small></button>
+            <button type="button" data-k23-origin="SDQ" aria-pressed="false"><i aria-hidden="true">✈</i><b>SDQ</b><small>Santo Domingo</small></button>
           </div>
-          <svg class="k23-map-svg" viewBox="60 100 1010 440" role="img" aria-label="Mapa ilustrativo de la costa este de República Dominicana">
+          <dl class="k24-zstats" aria-live="polite">
+            <div><dt><span class="l-en">zones</span><span class="l-es">zonas</span></dt><dd data-k24-zs="zones">10</dd></div>
+            <div><dt><span class="l-en">hotels</span><span class="l-es">hoteles</span></dt><dd data-k24-zs="hotels">115</dd></div>
+            <div><dt><span class="l-en">from · one way</span><span class="l-es">desde · por vía</span></dt><dd data-k24-zs="from">US$20</dd></div>
+          </dl>
+        </div>
+
+        <div class="k23-zones-map k24-zmap">
+          <svg class="k23-map-svg k24-map-svg" viewBox="60 100 1010 440" role="img" aria-label="Mapa ilustrativo de la costa este de República Dominicana">
             <defs>
-              <radialGradient id="k23sea" cx="70%" cy="70%" r="80%"><stop offset="0" stop-color="#12a7b8" stop-opacity=".55"/><stop offset="1" stop-color="#0a3340" stop-opacity="0"/></radialGradient>
-              <linearGradient id="k23land" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6efdf"/><stop offset="1" stop-color="#e6dcc3"/></linearGradient>
-              <pattern id="k23hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><path d="M0 0V8" stroke="rgba(47,143,107,.12)" stroke-width="3"/></pattern>
+              <linearGradient id="k24sea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0f7d8f"/><stop offset=".55" stop-color="#0b5a6a"/><stop offset="1" stop-color="#073b48"/></linearGradient>
+              <radialGradient id="k24shallow" cx="80%" cy="55%" r="45%"><stop offset="0" stop-color="#5fd0dc" stop-opacity=".55"/><stop offset="1" stop-color="#5fd0dc" stop-opacity="0"/></radialGradient>
+              <linearGradient id="k24sand" x1="0" y1="0" x2=".3" y2="1"><stop offset="0" stop-color="#f7f0df"/><stop offset=".7" stop-color="#efe3c8"/><stop offset="1" stop-color="#e3d2ad"/></linearGradient>
+              <radialGradient id="k24dune" cx="30%" cy="35%" r="60%"><stop offset="0" stop-color="#ffffff" stop-opacity=".55"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></radialGradient>
+              <filter id="k24relief" x="-5%" y="-5%" width="110%" height="120%"><feDropShadow dx="0" dy="10" stdDeviation="9" flood-color="#021c24" flood-opacity=".55"/></filter>
+              <filter id="k24blur"><feGaussianBlur stdDeviation="3"/></filter>
             </defs>
-            <rect x="0" y="0" width="1100" height="560" fill="url(#k23sea)"/>
-            <g class="k23-map-ripples"><path d="M60 500 Q120 488 180 500 T300 500"/><path d="M640 520 Q700 508 760 520 T880 520"/><path d="M880 470 Q920 460 960 470"/><path d="M930 200 Q960 190 990 200"/></g>
-            <path class="k23-land-shadow" d="M0 0 H790 C800 70 790 120 812 150 C836 176 852 196 866 220 C880 244 890 262 900 292 C912 322 922 344 914 368 C906 392 884 404 846 414 C790 428 720 432 660 440 C610 446 580 452 548 448 C512 442 488 428 458 424 C420 420 392 418 360 418 C320 418 296 416 262 418 C232 420 210 424 180 418 C150 412 120 410 80 414 C50 417 24 420 0 420 Z"/>
-            <path class="k23-land" d="M0 0 H790 C800 70 790 120 812 150 C836 176 852 196 866 220 C880 244 890 262 900 292 C912 322 922 344 914 368 C906 392 884 404 846 414 C790 428 720 432 660 440 C610 446 580 452 548 448 C512 442 488 428 458 424 C420 420 392 418 360 418 C320 418 296 416 262 418 C232 420 210 424 180 418 C150 412 120 410 80 414 C50 417 24 420 0 420 Z"/>
-            <path class="k23-land-hatch" d="M0 0 H790 C800 70 790 120 812 150 C836 176 852 196 866 220 C880 244 890 262 900 292 C912 322 922 344 914 368 C906 392 884 404 846 414 C790 428 720 432 660 440 C610 446 580 452 548 448 C512 442 488 428 458 424 C420 420 392 418 360 418 C320 418 296 416 262 418 C232 420 210 424 180 418 C150 412 120 410 80 414 C50 417 24 420 0 420 Z" fill="url(#k23hatch)"/>
-            <path class="k23-shoreline" d="M790 0 C800 70 790 120 812 150 C836 176 852 196 866 220 C880 244 890 262 900 292 C912 322 922 344 914 368 C906 392 884 404 846 414 C790 428 720 432 660 440 C610 446 580 452 548 448 C512 442 488 428 458 424 C420 420 392 418 360 418 C320 418 296 416 262 418 C232 420 210 424 180 418 C150 412 120 410 80 414 C50 417 24 420 0 420" fill="none"/>
-            <path class="k23-land" d="M560 486 C590 474 640 474 676 482 C700 488 704 500 684 506 C648 516 600 514 568 506 C548 500 544 492 560 486 Z"/>
-            <path class="k23-land" d="M430 460 C440 454 456 454 462 460 C466 466 456 470 446 470 C436 470 428 466 430 460 Z"/>
-            <text class="k23-map-sea-t" x="560" y="540">Mar Caribe</text>
-            <text class="k23-map-sea-t" x="905" y="120" text-anchor="middle">Océano</text><text class="k23-map-sea-t" x="905" y="140" text-anchor="middle">Atlántico</text>
-            <text class="k23-map-isl" x="620" y="530" text-anchor="middle">Isla Saona</text>
-            <g class="k23-map-deco">
-              <text class="k23-map-country" x="330" y="230">REPÚBLICA DOMINICANA</text>
-              <text class="k23-map-prov" x="640" y="300">La Altagracia</text>
-              <path class="k23-map-hills" d="M150 180 l24 -26 l24 26 M190 190 l20 -20 l20 20 M520 170 l24 -28 l24 28 M556 180 l18 -18 l18 18 M680 200 l20 -22 l20 22"/>
-              <g class="k23-map-palms"><path d="M735 385 v-18 M735 367 c-8 -6 -16 -4 -20 2 M735 367 c8 -6 16 -4 20 2 M735 367 c-4 -9 -10 -12 -16 -12 M735 367 c4 -9 10 -12 16 -12"/><path d="M320 385 v-16 M320 369 c-7 -5 -14 -3 -18 2 M320 369 c7 -5 14 -3 18 2 M320 369 c-3 -8 -9 -11 -14 -11 M320 369 c3 -8 9 -11 14 -11"/><path d="M610 395 v-14 M610 381 c-6 -5 -12 -3 -15 2 M610 381 c6 -5 12 -3 15 2"/></g>
+            <rect x="0" y="0" width="1100" height="560" fill="url(#k24sea)"/>
+            <rect x="0" y="0" width="1100" height="560" fill="url(#k24shallow)"/>
+            <g class="k24-sea-waves">
+              <path d="M-40 470 Q20 458 80 470 T200 470 T320 470 T440 470 T560 470 T680 470 T800 470 T920 470 T1040 470 T1160 470"/>
+              <path d="M-40 500 Q30 486 100 500 T240 500 T380 500 T520 500 T660 500 T800 500 T940 500 T1080 500 T1220 500"/>
+              <path d="M-40 530 Q40 516 120 530 T280 530 T440 530 T600 530 T760 530 T920 530 T1080 530 T1240 530"/>
+              <path d="M940 150 Q970 140 1000 150 T1060 150 T1120 150"/>
+              <path d="M960 210 Q990 200 1020 210 T1080 210 T1140 210"/>
+              <path d="M950 270 Q980 260 1010 270 T1070 270 T1130 270"/>
             </g>
-            <path class="k23-road" d="M150 400 C200 404 240 404 290 404 C360 402 420 408 470 410 C530 414 580 430 640 424 C720 416 800 410 850 392 C880 380 890 352 884 330 C876 300 866 270 856 246 C846 222 832 200 818 180"/>
-            <path class="k23-route" data-route="PUJ" d="M846 324 C868 310 866 270 856 246 C846 222 832 200 818 180 M846 324 C880 336 884 362 872 380 C850 400 800 412 720 418 C650 426 590 432 540 428 C500 424 470 414 440 412"/>
-            <path class="k23-route" data-route="SDQ" d="M196 402 C240 404 280 404 330 404 C400 404 440 410 480 412 C540 418 590 430 650 424 C730 416 810 408 852 390 C882 374 888 346 880 320 C872 292 862 264 852 240 C842 216 830 196 818 180"/>
+            <path class="k24-foam-halo" d="M790 0 C800 70 790 120 812 150 C836 176 852 196 866 220 C880 244 890 262 900 292 C912 322 922 344 914 368 C906 392 884 404 846 414 C790 428 720 432 660 440 C610 446 580 452 548 448 C512 442 488 428 458 424 C420 420 392 418 360 418 C320 418 296 416 262 418 C232 420 210 424 180 418 C150 412 120 410 80 414 C50 417 24 420 0 420" fill="none" filter="url(#k24blur)"/>
+            <g filter="url(#k24relief)">
+              <path class="k24-land" d="M0 0 H790 C800 70 790 120 812 150 C836 176 852 196 866 220 C880 244 890 262 900 292 C912 322 922 344 914 368 C906 392 884 404 846 414 C790 428 720 432 660 440 C610 446 580 452 548 448 C512 442 488 428 458 424 C420 420 392 418 360 418 C320 418 296 416 262 418 C232 420 210 424 180 418 C150 412 120 410 80 414 C50 417 24 420 0 420 Z"/>
+              <path class="k24-land" d="M560 486 C590 474 640 474 676 482 C700 488 704 500 684 506 C648 516 600 514 568 506 C548 500 544 492 560 486 Z"/>
+              <path class="k24-land" d="M430 460 C440 454 456 454 462 460 C466 466 456 470 446 470 C436 470 428 466 430 460 Z"/>
+            </g>
+            <path d="M0 0 H790 C800 70 790 120 812 150 C836 176 852 196 866 220 C880 244 890 262 900 292 C912 322 922 344 914 368 C906 392 884 404 846 414 C790 428 720 432 660 440 C610 446 580 452 548 448 C512 442 488 428 458 424 C420 420 392 418 360 418 C320 418 296 416 262 418 C232 420 210 424 180 418 C150 412 120 410 80 414 C50 417 24 420 0 420 Z" fill="url(#k24dune)"/>
+            <path class="k24-shoreline" d="M790 0 C800 70 790 120 812 150 C836 176 852 196 866 220 C880 244 890 262 900 292 C912 322 922 344 914 368 C906 392 884 404 846 414 C790 428 720 432 660 440 C610 446 580 452 548 448 C512 442 488 428 458 424 C420 420 392 418 360 418 C320 418 296 416 262 418 C232 420 210 424 180 418 C150 412 120 410 80 414 C50 417 24 420 0 420" fill="none"/>
+            <path class="k24-shoreline k24-shore-isl" d="M560 486 C590 474 640 474 676 482 C700 488 704 500 684 506 C648 516 600 514 568 506 C548 500 544 492 560 486 Z" fill="none"/>
+            <g class="k24-map-deco">
+              <text class="k24-map-country" x="300" y="222">REPÚBLICA DOMINICANA</text>
+              <text class="k24-map-prov" x="640" y="300">La Altagracia</text>
+              <path class="k24-map-hills" d="M150 190 q24 -30 48 0 M190 200 q20 -24 40 0 M520 175 q24 -32 48 0 M556 186 q18 -22 36 0 M690 210 q20 -26 40 0"/>
+              <g class="k24-map-palms"><path d="M735 385 v-18 M735 367 c-8 -6 -16 -4 -20 2 M735 367 c8 -6 16 -4 20 2 M735 367 c-4 -9 -10 -12 -16 -12 M735 367 c4 -9 10 -12 16 -12"/><path d="M320 385 v-16 M320 369 c-7 -5 -14 -3 -18 2 M320 369 c7 -5 14 -3 18 2 M320 369 c-3 -8 -9 -11 -14 -11 M320 369 c3 -8 9 -11 14 -11"/><path d="M610 395 v-14 M610 381 c-6 -5 -12 -3 -15 2 M610 381 c6 -5 12 -3 15 2"/></g>
+              <text class="k24-map-sea-t" x="470" y="520">Mar Caribe</text>
+              <text class="k24-map-sea-t" x="1000" y="138" text-anchor="middle">Atlántico</text>
+              <text class="k24-map-isl" x="622" y="527" text-anchor="middle">ISLA SAONA</text>
+              <g class="k24-compass" transform="translate(1020 470)"><circle r="22"/><path d="M0 -16 L5 0 L0 16 L-5 0Z"/><text y="-26" text-anchor="middle">N</text></g>
+            </g>
+            <path class="k24-road" d="M150 400 C200 404 240 404 290 404 C360 402 420 408 470 410 C530 414 580 430 640 424 C720 416 800 410 850 392 C880 380 890 352 884 330 C876 300 866 270 856 246 C846 222 832 200 818 180"/>
+            <path class="k23-route k24-route" data-route="PUJ" d="M846 324 C868 310 866 270 856 246 C846 222 832 200 818 180 M846 324 C880 336 884 362 872 380 C850 400 800 412 720 418 C650 426 590 432 540 428 C500 424 470 414 440 412"/>
+            <path class="k23-route k24-route" data-route="SDQ" d="M196 402 C240 404 280 404 330 404 C400 404 440 410 480 412 C540 418 590 430 650 424 C730 416 810 408 852 390 C882 374 888 346 880 320 C872 292 862 264 852 240 C842 216 830 196 818 180"/>
+            <path class="k24-trace" data-trace="PUJ" d="M818 180 C832 200 846 222 856 246 C866 270 868 310 846 324 C880 336 884 362 872 380 C850 400 800 412 720 418 C650 426 590 432 540 428 C500 424 470 414 440 412" fill="none" stroke="none"/>
+            <path class="k24-trace" data-trace="SDQ" d="M196 402 C240 404 280 404 330 404 C400 404 440 410 480 412 C540 418 590 430 650 424 C730 416 810 408 852 390 C882 374 888 346 880 320 C872 292 862 264 852 240 C842 216 830 196 818 180" fill="none" stroke="none"/>
             <g class="k23-zone-nodes" data-k23-nodes="1"></g>
+            <g class="k24-van" aria-hidden="true"><circle class="k24-van-halo" r="13"/><circle class="k24-van-core" r="6"/></g>
             <g class="k23-airports">
-              <g class="k23-ap" data-ap="PUJ" transform="translate(846 324)"><circle r="15"/><path d="M-7 0 L6 0 M0 -6 L3 0 L0 6" /></g>
-              <g class="k23-ap" data-ap="SDQ" transform="translate(196 402)"><circle r="15"/><path d="M-7 0 L6 0 M0 -6 L3 0 L0 6" /></g>
+              <g class="k23-ap k24-ap" data-ap="PUJ" transform="translate(846 324)"><rect x="-26" y="-15" width="52" height="30" rx="15"/><text y="5" text-anchor="middle">PUJ</text></g>
+              <g class="k23-ap k24-ap" data-ap="SDQ" transform="translate(196 402)"><rect x="-26" y="-15" width="52" height="30" rx="15"/><text y="5" text-anchor="middle">SDQ</text></g>
             </g>
           </svg>
-          <div class="k23-times">
-            <div><small><span class="l-en">PUJ → Bávaro</span><span class="l-es">PUJ → Bávaro</span></small><b>20–35 min</b></div>
-            <div><small>PUJ → Cap Cana</small><b>15–30 min</b></div>
-            <div><small>PUJ → Santo Domingo</small><b>2.5–3 h</b></div>
-          </div>
-          <p class="k23-map-note"><span class="l-en">Illustrative map, not to scale. Circle size = hotels on the official sheet for the selected airport.</span><span class="l-es">Mapa ilustrativo, no a escala. Tamaño del círculo = hoteles en el tarifario oficial para el aeropuerto elegido.</span></p>
+          <p class="k23-map-note"><span class="l-en">Illustrative map, not to scale · circle size = hotels on the official sheet for the chosen airport.</span><span class="l-es">Mapa ilustrativo, no a escala · tamaño del círculo = hoteles en el tarifario oficial del aeropuerto elegido.</span></p>
         </div>
 
-        <div class="k23-zones-panel">
-          <div class="k23-zp-card" data-k23-zpanel="1" aria-live="polite">
-            <span class="k23-zp-k"><span class="l-en">Tap a zone on the map</span><span class="l-es">Toca una zona en el mapa</span></span>
+        <aside class="k23-zones-panel k24-zpanel">
+          <div class="k23-zp-card k24-zcard" data-k23-zpanel="1" aria-live="polite">
+            <div class="k24-zcard-top"><span class="k23-zp-k">Zona</span><span class="k24-zcard-dot" aria-hidden="true"></span></div>
             <h3 class="disp k23-zp-name">Bávaro</h3>
-            <div class="k23-zp-stats"><div><b class="k23-zp-count">—</b><span class="l-en">hotels on the sheet</span><span class="l-es">hoteles en el tarifario</span></div><div><b class="k23-zp-from">—</b><span class="l-en">from · one way</span><span class="l-es">desde · por vía</span></div></div>
+            <div class="k23-zp-stats k24-zcard-stats">
+              <div><b class="k23-zp-count">—</b><span class="l-en">hotels on the sheet</span><span class="l-es">hoteles en el tarifario</span></div>
+              <div><em class="k23-script"><span class="l-en">from</span><span class="l-es">desde</span></em><b class="k23-zp-from">—</b><span class="l-en">per vehicle · one way</span><span class="l-es">por vehículo · por vía</span></div>
+            </div>
             <ul class="k23-zp-hotels"></ul>
-            <button type="button" class="btn k23-zp-go" data-k23-zone-rates="1"><span class="l-en">See all fares in this zone</span><span class="l-es">Ver todas las tarifas de esta zona</span> →</button>
+            <button type="button" class="btn k23-btn-sand k23-zp-go" data-k23-zone-rates="1"><span class="l-en">See every fare in this zone</span><span class="l-es">Ver todas las tarifas de esta zona</span> →</button>
           </div>
-          <ol class="k23-zp-list" data-k23-zlist="1"></ol>
+        </aside>
+
+        <ol class="k23-zp-list k24-ztide" data-k23-zlist="1" aria-label="Zonas"></ol>
+
+        <div class="k23-times k24-times">
+          <div><i aria-hidden="true">✈ → ⌂</i><small>PUJ → Bávaro</small><b>20–35 min</b></div>
+          <div><i aria-hidden="true">✈ → ⌂</i><small>PUJ → Cap Cana</small><b>15–30 min</b></div>
+          <div><i aria-hidden="true">✈ → ⌂</i><small>PUJ → Santo Domingo</small><b>2.5–3 h</b></div>
         </div>
       </div>
+    </div>
+    <div class="krn-shore k24-zones-shore" aria-hidden="true">
+      <svg class="w1" viewBox="0 0 2880 120" preserveAspectRatio="none"><path fill="rgba(122,212,224,.18)" d="M0,58 Q120,32 240,58 T480,58 T720,58 T960,58 T1200,58 T1440,58 T1680,58 T1920,58 T2160,58 T2400,58 T2640,58 T2880,58 V120 H0 Z"/></svg>
+      <svg class="w2" viewBox="0 0 2880 120" preserveAspectRatio="none"><path fill="rgba(14,143,160,.35)" d="M0,70 Q180,36 360,70 T720,70 T1080,70 T1440,70 T1800,70 T2160,70 T2520,70 T2880,70 V120 H0 Z"/></svg>
     </div>
   </section>
 
@@ -1298,14 +1352,17 @@ html.dest-modal-lock,body.dest-modal-lock{overflow:hidden!important}
         <a class="k23-contact" href="mailto:hola@losyeyes.do"><i aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></i><span><small>Email</small>hola@losyeyes.do</span></a>
         <div class="k23-contact k23-contact-static"><i aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0112 2.5a7 7 0 017 7C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></i><span><small><span class="l-en">Base</span><span class="l-es">Base</span></small>Punta Cana, La Altagracia · <span class="l-en">24/7 dispatch</span><span class="l-es">despacho 24/7</span></span></div>
       </div>
-      <div class="k23-end-legal">
-        <div class="ftitle">{{ t.ft_legalT }}</div>
-        <button class="lk flink" onClick="{{ openPrivacy }}">{{ t.ft_privacy }}</button>
-        <button class="lk flink" onClick="{{ openCookies }}">{{ t.ft_cookie }}</button>
-        <button class="lk flink" onClick="{{ openTerms }}">{{ t.ft_terms }}</button>
-        <button class="lk flink" onClick="{{ openCancel }}">{{ t.ft_cancel }}</button>
-        <button class="lk flink" onClick="{{ openCancel }}">{{ t.ft_complaints }}</button>
-        <button class="lk flink" onClick="{{ openCookies }}">{{ t.ft_cookiePrefs }}</button>
+      <div class="k24-legal">
+        <div class="k24-legal-head">
+          <div class="ftitle">{{ t.ft_legalT }}</div>
+          <p><span class="l-en">Short, plain-language documents. Open any of them — nothing to download.</span><span class="l-es">Documentos cortos y en lenguaje claro. Ábrelos aquí mismo, sin descargar nada.</span></p>
+        </div>
+        <div class="k24-legal-grid">
+          <button type="button" class="k24-lg" onClick="{{ openPrivacy }}"><i aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.4-3 7.6-7 9-4-1.4-7-4.6-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></i><span class="k24-lg-tx"><b>{{ t.ft_privacy }}</b><small><span class="l-en">What we collect &amp; why</span><span class="l-es">Qué datos usamos y para qué</span></small></span><span class="k24-lg-go" aria-hidden="true">→</span></button>
+          <button type="button" class="k24-lg" onClick="{{ openTerms }}"><i aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4M10 12h5M10 16h5"/></svg></i><span class="k24-lg-tx"><b>{{ t.ft_terms }}</b><small><span class="l-en">What your fare includes</span><span class="l-es">Qué incluye tu tarifa</span></small></span><span class="k24-lg-go" aria-hidden="true">→</span></button>
+          <button type="button" class="k24-lg" onClick="{{ openCancel }}"><i aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></i><span class="k24-lg-tx"><b><span class="l-en">Cancellations &amp; complaints</span><span class="l-es">Cancelaciones y reclamos</span></b><small><span class="l-en">Free up to 24 h · we answer fast</span><span class="l-es">Gratis hasta 24 h · respondemos rápido</span></small></span><span class="k24-lg-go" aria-hidden="true">→</span></button>
+          <button type="button" class="k24-lg" onClick="{{ openCookies }}"><i aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 1 1-8-8 3 3 0 0 0 3 3 3 3 0 0 0 3 3 2 2 0 0 0 2 2z"/><circle cx="9" cy="10" r="1"/><circle cx="14" cy="15" r="1"/><circle cx="9" cy="15" r=".8"/></svg></i><span class="k24-lg-tx"><b><span class="l-en">Cookies &amp; preferences</span><span class="l-es">Cookies y preferencias</span></b><small><span class="l-en">Change your choice anytime</span><span class="l-es">Cambia tu elección cuando quieras</span></small></span><span class="k24-lg-go" aria-hidden="true">→</span></button>
+        </div>
       </div>
     </div>
 
@@ -1331,10 +1388,12 @@ html.dest-modal-lock,body.dest-modal-lock{overflow:hidden!important}
 
   <!-- ===================== LEGAL MODALS ===================== -->
   <div class="modal-back" style="display:{{ mPrivacy }}" onClick="{{ backClose }}">
-    <div class="modal" role="dialog" aria-modal="true" aria-label="Privacy Policy" onClick="{{ stop }}">
+    <div class="modal k24-doc" data-doc="privacy" role="dialog" aria-modal="true" aria-label="Privacy Policy" onClick="{{ stop }}">
       <button class="xbtn" onClick="{{ closeModal }}" aria-label="Close">✕</button>
       <span class="chip"><span class="l-en">Privacy</span><span class="l-es">Privacidad</span></span>
-      <h3 style="font-size:clamp(24px,3vw,32px);margin:14px 0 6px">{{ t.md_privacy }}</h3>
+      <h3 class="k24-doc-t">{{ t.md_privacy }}</h3>
+      <p class="k24-doc-meta"><span class="l-en">Karún Travel Group · demo version · September 2026</span><span class="l-es">Karún Travel Group · versión demo · septiembre 2026</span></p>
+
       <h4><span class="l-en">What we collect</span><span class="l-es">Qué recopilamos</span></h4>
       <p><span class="l-en">Booking form details (pickup, drop-off, date, passengers, luggage), your WhatsApp number and messages when you contact us, and basic analytics (pages viewed, device type) if you accept analytics cookies.</span><span class="l-es">Datos del formulario (recogida, destino, fecha, pasajeros, equipaje), tu número de WhatsApp y mensajes al contactarnos, y analítica básica (páginas vistas, tipo de dispositivo) si aceptas cookies de analítica.</span></p>
       <h4><span class="l-en">Why &amp; how long</span><span class="l-es">Por qué y cuánto tiempo</span></h4>
@@ -1343,28 +1402,46 @@ html.dest-modal-lock,body.dest-modal-lock{overflow:hidden!important}
       <p><span class="l-en">Shared only with the assigned driver and the payment and messaging providers (e.g. WhatsApp) needed to deliver the ride. Never sold.</span><span class="l-es">Se comparte solo con el chofer asignado y los proveedores de pago y mensajería (p. ej. WhatsApp) necesarios para el viaje. Nunca se vende.</span></p>
       <h4><span class="l-en">Your rights &amp; contact</span><span class="l-es">Tus derechos y contacto</span></h4>
       <p><span class="l-en">Access, correct or delete your data anytime by emailing privacy@losyeyes.do.</span><span class="l-es">Accede, corrige o elimina tus datos escribiendo a privacy@losyeyes.do.</span></p>
+      <nav class="k24-docnav" aria-label="Documentos legales">
+        <span class="k24-docnav-k"><span class="l-en">Other documents</span><span class="l-es">Otros documentos</span></span>
+        <button type="button" onClick="{{ openPrivacy }}" data-doc="privacy"><span class="l-en">Privacy</span><span class="l-es">Privacidad</span></button>
+        <button type="button" onClick="{{ openTerms }}" data-doc="terms"><span class="l-en">Terms</span><span class="l-es">Términos</span></button>
+        <button type="button" onClick="{{ openCancel }}" data-doc="cancel"><span class="l-en">Cancellations</span><span class="l-es">Cancelaciones</span></button>
+        <button type="button" onClick="{{ openCookies }}" data-doc="cookies">Cookies</button>
+      </nav>
     </div>
   </div>
 
   <div class="modal-back" style="display:{{ mCookies }}" onClick="{{ backClose }}">
-    <div class="modal" role="dialog" aria-modal="true" aria-label="Cookie preferences" onClick="{{ stop }}">
+    <div class="modal k24-doc" data-doc="cookies" role="dialog" aria-modal="true" aria-label="Cookie preferences" onClick="{{ stop }}">
       <button class="xbtn" onClick="{{ closeModal }}" aria-label="Close">✕</button>
       <span class="chip">Cookies</span>
-      <h3 style="font-size:clamp(24px,3vw,32px);margin:14px 0 6px">{{ t.md_cookies }}</h3>
+      <h3 class="k24-doc-t">{{ t.md_cookies }}</h3>
+      <p class="k24-doc-meta"><span class="l-en">Karún Travel Group · demo version · September 2026</span><span class="l-es">Karún Travel Group · versión demo · septiembre 2026</span></p>
+
       <div style="display:flex;justify-content:space-between;align-items:center;gap:14px;padding:16px 0;border-bottom:1px solid var(--line)"><div><b><span class="l-en">Essential</span><span class="l-es">Esenciales</span></b><p style="margin:2px 0 0"><span class="l-en">Required for the site to work. Always on.</span><span class="l-es">Necesarias para que el sitio funcione. Siempre activas.</span></p></div><span class="chip" style="color:var(--palm)"><span class="l-en">Always on</span><span class="l-es">Siempre</span></span></div>
       <div style="display:flex;justify-content:space-between;align-items:center;gap:14px;padding:16px 0"><div><b><span class="l-en">Analytics</span><span class="l-es">Analítica</span></b><p style="margin:2px 0 0"><span class="l-en">Anonymous usage stats to improve the site.</span><span class="l-es">Estadísticas anónimas para mejorar el sitio.</span></p></div><span class="chip"><span class="l-en">Optional</span><span class="l-es">Opcional</span></span></div>
       <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px">
         <button class="btn ghost" onClick="{{ cookieReject }}">{{ t.ck_reject }}</button>
         <button class="btn" onClick="{{ cookieAccept }}">{{ t.ck_accept }}</button>
       </div>
+      <nav class="k24-docnav" aria-label="Documentos legales">
+        <span class="k24-docnav-k"><span class="l-en">Other documents</span><span class="l-es">Otros documentos</span></span>
+        <button type="button" onClick="{{ openPrivacy }}" data-doc="privacy"><span class="l-en">Privacy</span><span class="l-es">Privacidad</span></button>
+        <button type="button" onClick="{{ openTerms }}" data-doc="terms"><span class="l-en">Terms</span><span class="l-es">Términos</span></button>
+        <button type="button" onClick="{{ openCancel }}" data-doc="cancel"><span class="l-en">Cancellations</span><span class="l-es">Cancelaciones</span></button>
+        <button type="button" onClick="{{ openCookies }}" data-doc="cookies">Cookies</button>
+      </nav>
     </div>
   </div>
 
   <div class="modal-back" style="display:{{ mTerms }}" onClick="{{ backClose }}">
-    <div class="modal" role="dialog" aria-modal="true" aria-label="Terms and booking conditions" onClick="{{ stop }}">
+    <div class="modal k24-doc" data-doc="terms" role="dialog" aria-modal="true" aria-label="Terms and booking conditions" onClick="{{ stop }}">
       <button class="xbtn" onClick="{{ closeModal }}" aria-label="Close">✕</button>
       <span class="chip"><span class="l-en">Terms</span><span class="l-es">Términos</span></span>
-      <h3 style="font-size:clamp(24px,3vw,32px);margin:14px 0 6px">{{ t.md_terms }}</h3>
+      <h3 class="k24-doc-t">{{ t.md_terms }}</h3>
+      <p class="k24-doc-meta"><span class="l-en">Karún Travel Group · demo version · September 2026</span><span class="l-es">Karún Travel Group · versión demo · septiembre 2026</span></p>
+
       <h4><span class="l-en">What's included</span><span class="l-es">Qué incluye</span></h4>
       <p><span class="l-en">Private vehicle, professional driver, fuel, tolls and taxes, meet &amp; greet, and one child seat on request. Gratuities are optional.</span><span class="l-es">Vehículo privado, chofer profesional, combustible, peajes e impuestos, recibimiento y una silla de niño a solicitud. Las propinas son opcionales.</span></p>
       <h4><span class="l-en">Waiting time &amp; delays</span><span class="l-es">Espera y retrasos</span></h4>
@@ -1372,21 +1449,37 @@ html.dest-modal-lock,body.dest-modal-lock{overflow:hidden!important}
       <h4><span class="l-en">Cancellation &amp; no-show</span><span class="l-es">Cancelación y no-show</span></h4>
       <p><span class="l-en">Free cancellation up to 24 hours before pickup. No-shows without notice may be charged the full fare.</span><span class="l-es">Cancelación gratis hasta 24 horas antes. Los no-show sin aviso pueden cobrarse la tarifa completa.</span></p>
       <h4><span class="l-en">Luggage, child seats &amp; liability</span><span class="l-es">Equipaje, sillas y responsabilidad</span></h4>
-      <p><span class="l-en">Up to 8 passengers with 8+ standard cases. Oversized gear must be declared. Service is insured per Dominican law; liability is limited to the value of the transfer except where law provides otherwise. Governing law: Dominican Republic.</span><span class="l-es">Hasta 8 pasajeros con 8+ maletas estándar. El equipo grande debe declararse. El servicio está asegurado según la ley dominicana; la responsabilidad se limita al valor del traslado salvo que la ley disponga otra cosa. Ley aplicable: República Dominicana.</span></p>
+      <p><span class="l-en">Each vehicle class carries its group with standard luggage (Starex 1–6, Hiace / high roof 7–10, Suburban and Cadillac 1–4). Oversized gear must be declared. Service is insured per Dominican law; liability is limited to the value of the transfer except where law provides otherwise. Governing law: Dominican Republic.</span><span class="l-es">Cada clase lleva a su grupo con equipaje estándar (Starex 1–6, Hiace / techo alto 7–10, Suburban y Cadillac 1–4). El equipo voluminoso debe declararse. El servicio está asegurado según la ley dominicana; la responsabilidad se limita al valor del traslado salvo que la ley disponga otra cosa. Ley aplicable: República Dominicana.</span></p>
+      <nav class="k24-docnav" aria-label="Documentos legales">
+        <span class="k24-docnav-k"><span class="l-en">Other documents</span><span class="l-es">Otros documentos</span></span>
+        <button type="button" onClick="{{ openPrivacy }}" data-doc="privacy"><span class="l-en">Privacy</span><span class="l-es">Privacidad</span></button>
+        <button type="button" onClick="{{ openTerms }}" data-doc="terms"><span class="l-en">Terms</span><span class="l-es">Términos</span></button>
+        <button type="button" onClick="{{ openCancel }}" data-doc="cancel"><span class="l-en">Cancellations</span><span class="l-es">Cancelaciones</span></button>
+        <button type="button" onClick="{{ openCookies }}" data-doc="cookies">Cookies</button>
+      </nav>
     </div>
   </div>
 
   <div class="modal-back" style="display:{{ mCancel }}" onClick="{{ backClose }}">
-    <div class="modal" role="dialog" aria-modal="true" aria-label="Cancellation and complaints" onClick="{{ stop }}">
+    <div class="modal k24-doc" data-doc="cancel" role="dialog" aria-modal="true" aria-label="Cancellation and complaints" onClick="{{ stop }}">
       <button class="xbtn" onClick="{{ closeModal }}" aria-label="Close">✕</button>
       <span class="chip"><span class="l-en">Cancellation</span><span class="l-es">Cancelación</span></span>
-      <h3 style="font-size:clamp(24px,3vw,32px);margin:14px 0 6px">{{ t.md_cancel }}</h3>
+      <h3 class="k24-doc-t">{{ t.md_cancel }}</h3>
+      <p class="k24-doc-meta"><span class="l-en">Karún Travel Group · demo version · September 2026</span><span class="l-es">Karún Travel Group · versión demo · septiembre 2026</span></p>
+
       <h4><span class="l-en">How to cancel</span><span class="l-es">Cómo cancelar</span></h4>
       <p><span class="l-en">Message us on WhatsApp with your booking name. Cancellations 24h or more before pickup are free with full refund of any deposit.</span><span class="l-es">Escríbenos por WhatsApp con el nombre de la reserva. Cancelaciones con 24h o más de anticipación son gratis con reembolso total.</span></p>
       <h4><span class="l-en">Refunds</span><span class="l-es">Reembolsos</span></h4>
       <p><span class="l-en">Deposits are refunded to the original payment method within a few business days.</span><span class="l-es">Los depósitos se reembolsan al método de pago original en pocos días hábiles.</span></p>
       <h4><span class="l-en">A problem with your ride?</span><span class="l-es">¿Un problema con tu viaje?</span></h4>
       <p><span class="l-en">We want to fix it. Email hola@losyeyes.do or message us on WhatsApp within 30 days and we'll respond promptly.</span><span class="l-es">Queremos resolverlo. Escribe a hola@losyeyes.do o por WhatsApp dentro de 30 días y responderemos pronto.</span></p>
+      <nav class="k24-docnav" aria-label="Documentos legales">
+        <span class="k24-docnav-k"><span class="l-en">Other documents</span><span class="l-es">Otros documentos</span></span>
+        <button type="button" onClick="{{ openPrivacy }}" data-doc="privacy"><span class="l-en">Privacy</span><span class="l-es">Privacidad</span></button>
+        <button type="button" onClick="{{ openTerms }}" data-doc="terms"><span class="l-en">Terms</span><span class="l-es">Términos</span></button>
+        <button type="button" onClick="{{ openCancel }}" data-doc="cancel"><span class="l-en">Cancellations</span><span class="l-es">Cancelaciones</span></button>
+        <button type="button" onClick="{{ openCookies }}" data-doc="cookies">Cookies</button>
+      </nav>
     </div>
   </div>
 
@@ -2515,6 +2608,6 @@ class Component extends DCLogic {
 </script>
 <script src="./assets/tarifario.data.js?v=23" defer></script>
 <script src="./karun-wizard.js?v=23" defer></script>
-<script src="./assets/karun-v23.js?v=23" defer></script>
+<script src="./assets/karun-v23.js?v=24" defer></script>
 </body>
 </html>
