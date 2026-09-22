@@ -349,7 +349,7 @@
     $(".k23-zp-from", card).textContent = min != null ? usd(min) : "—";
     var ul = $(".k23-zp-hotels", card);
     var show = hs.slice(0, 5);
-    ul.innerHTML = show.map(function (h) { return "<li>" + escH(h.n) + "<span>" + (h.m != null ? escH(tt("from ", "desde ")) + usd(h.m) : "") + "</span></li>"; }).join("") +
+    if (ul) ul.innerHTML = show.map(function (h) { return "<li>" + escH(h.n) + "<span>" + (h.m != null ? escH(tt("from ", "desde ")) + usd(h.m) : "") + "</span></li>"; }).join("") +
       (hs.length > show.length ? '<li class="more">+ ' + (hs.length - show.length) + " " + escH(tt("more on the sheet", "más en el tarifario")) + "</li>" : "");
     var k = $(".k23-zp-k", card);
     if (k) k.textContent = tt("Zone · from " + zOrigin, "Zona · desde " + zOrigin);
@@ -629,19 +629,34 @@
   /* ------------------------------------------------------------------
      v24 · boarding-pass sign: soft cycle of sample guest names
      ------------------------------------------------------------------ */
-  var SIGN_NAMES = ["Antonio Camino", "Familia Rodríguez", "Sarah &amp; Tom Miller"];
   var signI = 0, signT = 0;
+  function signShow(i) {
+    var host = $("[data-k24-signname]"); if (!host) return;
+    var names = $$(".k24-sign-name", host);
+    if (!names.length) return;
+    signI = ((i % names.length) + names.length) % names.length;
+    names.forEach(function (n, j) {
+      var on = j === signI;
+      n.classList.toggle("is-on", on);
+      n.classList.remove("is-out");
+      if (on) { n.removeAttribute("hidden"); n.setAttribute("aria-hidden", "false"); }
+      else { n.setAttribute("hidden", ""); n.setAttribute("aria-hidden", "true"); }
+    });
+  }
   function signCycle() {
-    if (RM || signT) return;
+    if (RM) return; // static first name in markup; no class churn
+    if (signT) return;
+    signShow(0);
     signT = setInterval(function () {
-      var el = $("[data-k24-signname]"); if (!el) return;
+      var host = $("[data-k24-signname]"); if (!host) return;
+      var names = $$(".k24-sign-name", host); if (names.length < 2) return;
       var sec = $("#top"); if (sec && sec.getBoundingClientRect().bottom < 0) return;
-      el.classList.add("is-out");
-      setTimeout(function () {
-        signI = (signI + 1) % SIGN_NAMES.length;
-        el.innerHTML = SIGN_NAMES[signI];
-        el.classList.remove("is-out");
-      }, 420);
+      // resync after React remounts (markup resets to first .is-on)
+      var on = names.filter(function (n) { return n.classList.contains("is-on"); })[0];
+      if (on) signI = names.indexOf(on);
+      var cur = names[signI]; if (!cur) return;
+      cur.classList.add("is-out");
+      setTimeout(function () { signShow(signI + 1); }, 420);
     }, 4200);
   }
 
@@ -695,15 +710,32 @@
 
   var lastLang = null;
   function refresh() {
-    // (re)bind everything that may have been re-created by a remount
-    drawerSync(); langSync(); signCycle(); vanBind(); paintStats(); fleetApply(); chooserRender(); zoneChips(); zonesRender(false);
-    var f = formEl(); if (f && f.getAttribute("data-k23-step") !== String(step)) setStep(step, false);
-    bindFoams(); bindReveals(); destModalCta(); svcMeasure(); paintInk();
-    var l = lang(); if (l !== lastLang) { lastLang = l; chooserRender(); zonesRender(true); zoneChips(); }
-    req();
+    if (refreshing) return;
+    refreshing = true;
+    if (mo) { try { mo.disconnect(); } catch (e) {} }
+    try {
+      // (re)bind everything that may have been re-created by a remount
+      drawerSync(); langSync(); signCycle(); vanBind(); paintStats(); fleetApply(); chooserRender(); zoneChips(); zonesRender(false);
+      var f = formEl(); if (f && f.getAttribute("data-k23-step") !== String(step)) setStep(step, false);
+      bindFoams(); bindReveals(); destModalCta(); svcMeasure(); paintInk();
+      var l = lang(); if (l !== lastLang) { lastLang = l; chooserRender(); zonesRender(true); zoneChips(); }
+      req();
+    } finally {
+      refreshing = false;
+      moReconnect();
+    }
   }
 
-  var moT = 0, mutating = false;
+  var mo = null, moT = 0, refreshing = false;
+  var MO_OPTS = { childList: true, subtree: true, attributes: true, attributeFilter: ["data-lang", "data-open", "aria-expanded"] };
+  var OWNED = "[data-k24-signname],[data-k23-rec],[data-k23-zonechips],[data-k23-nodes],[data-k23-zlist],.k23-zp-hotels,[data-k23-stat],[data-k23-dest-now],[data-k23-dest-name],[data-k23-svc-now],[data-k24-zs]";
+  function isOwnedNode(n) {
+    return !!(n && n.closest && n.closest(OWNED));
+  }
+  function moReconnect() {
+    if (!mo || !D.body) return;
+    try { mo.observe(D.body, MO_OPTS); } catch (e) {}
+  }
   function boot() {
     D.addEventListener("click", onClick);
     D.addEventListener("keydown", onKey);
@@ -715,18 +747,16 @@
     W.addEventListener("load", function () { svcMeasure(); req(); });
     if (D.fonts && D.fonts.ready) D.fonts.ready.then(function () { svcMeasure(); paintInk(); req(); });
     try {
-      var mo = new MutationObserver(function (list) {
-        if (mutating) return;
+      mo = new MutationObserver(function (list) {
+        if (refreshing) return;
         var relevant = list.some(function (m) {
-          if (m.type === "attributes") return true;
-          var n = m.target;
-          return !(n && n.closest && (n.closest("[data-k24-signname]") || n.closest("[data-k24-zs]") || n.closest("[data-k23-dest-name]") || n.closest("[data-k23-nodes]") || n.closest("[data-k23-zonechips]") || n.closest("[data-k23-zlist]") || n.closest("[data-k23-rec]") || n.closest(".k23-zp-card") || n.closest("[data-k23-svc-now]") || n.closest("[data-k23-dest-now]") || n.closest("[data-k23-stat]")));
+          return !isOwnedNode(m.target);
         });
         if (!relevant) return;
         clearTimeout(moT);
-        moT = setTimeout(function () { mutating = true; try { refresh(); } finally { setTimeout(function () { mutating = false; }, 0); } }, 80);
+        moT = setTimeout(function () { refresh(); }, 80);
       });
-      mo.observe(D.body, { childList: true, subtree: true, attributes: true, attributeFilter: ["data-lang", "data-open", "aria-expanded"] });
+      moReconnect();
     } catch (e) {}
     refresh();
     setTimeout(refresh, 400);

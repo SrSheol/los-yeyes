@@ -1,3 +1,10 @@
+KARÚN v25 — fix React removeChild crash (DOM mutations) — 2026-09-21
+
+- Boarding-pass sample names: 3 static spans in markup; cycle via class/hidden/aria-hidden only (no innerHTML).
+- MutationObserver disconnects for the duration of refresh(); ignores mutations under JS-owned hosts
+  ([data-k24-signname], [data-k23-rec], zone chips/nodes/list, .k23-zp-hotels, stats/dest/svc leaves).
+- Cache bump: karun-v23.css / karun-v23.js ?v=25.
+
 KARÚN v24 — pulido dirigido sobre v23 — 2026-09-21
 
 1) Selector de idioma (rediseño)
