@@ -55,11 +55,24 @@
     if (langIsOpen()) langPlace();
     var max = Math.max(1, HTML.scrollHeight - vh());
     HTML.style.setProperty("--k23-prog", clamp(y / max, 0, 1).toFixed(4));
-    // active section
+    // active section — last section whose top has crossed the nav activation line.
+    // Use a generous mark so click-scroll targets (esp. short FAQ after Destinos /
+    // Promesas) still activate when the browser parks them just under the island.
     var cur = "";
+    var mark = nh + 140;
     for (var i = 0; i < SECTIONS.length; i++) {
       var el = D.getElementById(SECTIONS[i]);
-      if (el && el.getBoundingClientRect().top <= nh + 80) cur = SECTIONS[i];
+      if (el && el.getBoundingClientRect().top <= mark) cur = SECTIONS[i];
+    }
+    // At max scroll the last section often cannot reach `mark` (tall footer).
+    // Force the last nav-linked section so FAQ keeps the underline.
+    if (y + vh() >= HTML.scrollHeight - 4) {
+      for (var j = SECTIONS.length - 1; j >= 0; j--) {
+        if (D.getElementById(SECTIONS[j]) && $('[data-k23-link="' + SECTIONS[j] + '"]')) {
+          cur = SECTIONS[j];
+          break;
+        }
+      }
     }
     if (cur !== activeId) { activeId = cur; paintInk(); }
   }
@@ -524,6 +537,20 @@
      ------------------------------------------------------------------ */
   function onClick(e) {
     var t = e.target; if (!t || !t.closest) return;
+    // Sticky nav: set active ink immediately on click so it matches the
+    // destination even when scroll-spy cannot park that section under `mark`.
+    var navLink = t.closest("[data-k23-link]");
+    if (navLink) {
+      var nid = navLink.getAttribute("data-k23-link");
+      if (nid) { activeId = nid; paintInk(); }
+    } else {
+      var navOpt = t.closest(".nav-drawer .nav-opt");
+      if (navOpt) {
+        var href = (navOpt.getAttribute("href") || "");
+        var hid = href.charAt(0) === "#" ? href.slice(1) : "";
+        if (hid && SECTIONS.indexOf(hid) >= 0) { activeId = hid; paintInk(); }
+      }
+    }
     var tab = t.closest("[data-k23-unit]");
     if (tab) { fleetSel = tab.getAttribute("data-k23-unit"); fleetApply(); return; }
     var show = t.closest("[data-k23-show]");
