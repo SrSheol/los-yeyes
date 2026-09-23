@@ -56,15 +56,92 @@ production. Attribution required for Wikimedia Commons (CC BY-SA).
 - Real unit photography for each fleet vehicle (exterior + interior).
 - Any trademark clearance if stock likenesses should not appear long-term.
 
-## Destination gallery (`assets/destinations/`)
-Royalty-free Unsplash stills used in the Destinos detail modal carousel
-(referential; not client photography). Files under:
+## Destinos v25 — «Postales del Este» (`assets/destinations/<slug>/k25-*.jpg`)
+Fotos reales de República Dominicana, descargadas de Flickr y Wikimedia Commons (solo licencias que
+permiten uso comercial: CC BY, CC BY-SA, CC0, dominio público). Redimensionadas a ≤1600 px (JPEG q78);
+`k25-card.jpg` es una copia a 720 px de la foto 1 para las postales. Único ajuste además del tamaño:
+recorte de bandas negras en `macao/k25-2.jpg`. El autor y la licencia se muestran sobre cada foto en la
+web (escenario y ficha) con enlace a la fuente. Reemplazar por fotografía propia de Karún cuando exista.
 
-- `puj/` — tropical coast / travel arrival mood for PUJ transfers
-- `bavaro/` — beach & resort-strip atmosphere
-- `cap-cana/` — marina / luxury resort mood
-- `saona/` — turquoise island / natural-pool day-trip mood
-- `santo-domingo/` — colonial city / capital travel mood
+### Punta Cana (PUJ) — `puj/`
+| Archivo | Autor | Licencia | Fuente |
+|---|---|---|---|
+| `k25-1.jpg` | Studio Sarah Lou | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) | https://www.flickr.com/photos/sackerman519/13969866971/ |
+| `k25-2.jpg` | Reg Natarajan | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) | https://www.flickr.com/photos/regnatarajan/24598751964/ |
+| `k25-3.jpg` | Anna Rubaylova | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) | https://www.flickr.com/photos/switch-twitch/8021199803/ |
+| `k25-4.jpg` | Studio Sarah Lou | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) | https://www.flickr.com/photos/sackerman519/4528607600/ |
 
-Sources: [Unsplash](https://unsplash.com) (Unsplash License — free to use).
-Replace with Karún’s own destination photography when available.
+### Bávaro — `bavaro/`
+| Archivo | Autor | Licencia | Fuente |
+|---|---|---|---|
+| `k25-1.jpg` | alyssaBLACK | [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0/) | https://www.flickr.com/photos/91997239@N08/15192131533 |
+| `k25-2.jpg` | Andrei-Daniel Nicolae | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) | https://www.flickr.com/photos/90733161@N05/8364235931 |
+| `k25-3.jpg` | Andreas Volkmer | [CC BY 2.5](https://creativecommons.org/licenses/by/2.5/) | https://commons.wikimedia.org/w/index.php?curid=615189 |
+
+### Cap Cana — `cap-cana/`
+| Archivo | Autor | Licencia | Fuente |
+|---|---|---|---|
+| `k25-1.jpg` | Mary Mark Ockerbloom | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) | https://commons.wikimedia.org/w/index.php?curid=146216573 |
+| `k25-2.jpg` | ashleigh w | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) | https://www.flickr.com/photos/124697123@N07/14007201177/ |
+| `k25-3.jpg` | ashleigh w | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) | https://www.flickr.com/photos/124697123@N07/14193517855/ |
+| `k25-4.jpg` | Sigurdur Josuason | [Public Domain Mark](https://creativecommons.org/publicdomain/mark/1.0/) | https://www.flickr.com/photos/josuason/30895580977/ |
+
+### Playa Macao — `macao/`
+| Archivo | Autor | Licencia | Fuente |
+|---|---|---|---|
+| `k25-1.jpg` | etireno | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) | https://www.flickr.com/photos/29933609@N00/1464742641 |
+| `k25-2.jpg` | bogdix | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) | https://www.flickr.com/photos/40391322@N00/3965529008 |
+| `k25-3.jpg` | etireno | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) | https://www.flickr.com/photos/29933609@N00/1464741061 |
+| `k25-4.jpg` | rmariuzzo | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) | https://www.flickr.com/photos/63027933@N00/9927435183 |
+
+### Uvero Alto — `uvero-alto/`
+| Archivo | Autor | Licencia | Fuente |
+|---|---|---|---|
+| `k25-1.jpg` | Ted Murphy | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) | https://www.flickr.com/photos/tedmurphy/3897251229/ |
+| `k25-2.jpg` | Ted Murphy | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) | https://www.flickr.com/photos/tedmurphy/3898072154/ |
+| `k25-3.jpg` | Ted Murphy | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) | https://www.flickr.com/photos/tedmurphy/3898046106/ |
+
+### La Romana · Altos de Chavón — `la-romana/`
+| Archivo | Autor | Licencia | Fuente |
+|---|---|---|---|
+| `k25-1.jpg` | puroticorico | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) | https://www.flickr.com/photos/10058483@N00/2128173624 |
+| `k25-2.jpg` | puroticorico | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) | https://www.flickr.com/photos/10058483@N00/2128179408 |
+| `k25-3.jpg` | puroticorico | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) | https://www.flickr.com/photos/10058483@N00/2127397017 |
+| `k25-4.jpg` | puroticorico | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) | https://www.flickr.com/photos/10058483@N00/2128174046 |
+
+### Bayahibe — `bayahibe/`
+| Archivo | Autor | Licencia | Fuente |
+|---|---|---|---|
+| `k25-1.jpg` | robertofaccenda.it | [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0/) | https://www.flickr.com/photos/14057446@N03/7014405797 |
+| `k25-2.jpg` | Traveller-Reini | [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0/) | https://www.flickr.com/photos/129472585@N03/16203165394 |
+| `k25-3.jpg` | Traveller-Reini | [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0/) | https://www.flickr.com/photos/129472585@N03/16205579493 |
+| `k25-4.jpg` | Traveller-Reini | [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0/) | https://www.flickr.com/photos/129472585@N03/16639402539 |
+
+### Isla Saona — `saona/`
+| Archivo | Autor | Licencia | Fuente |
+|---|---|---|---|
+| `k25-1.jpg` | bruce_bruce948 | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) | https://www.flickr.com/photos/9254698@N04/6659857715 |
+| `k25-2.jpg` | Danu Widjajanto | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) | https://commons.wikimedia.org/w/index.php?curid=103834701 |
+| `k25-3.jpg` | bruce_bruce948 | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) | https://www.flickr.com/photos/9254698@N04/6659832149 |
+| `k25-4.jpg` | bruce_bruce948 | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) | https://www.flickr.com/photos/9254698@N04/6659829523 |
+| `k25-5.jpg` | Andrei-Daniel Nicolae | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) | https://www.flickr.com/photos/90733161@N05/8364331885 |
+
+### Boca Chica — `boca-chica/`
+| Archivo | Autor | Licencia | Fuente |
+|---|---|---|---|
+| `k25-1.jpg` | David Stanley | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) | https://www.flickr.com/photos/davidstanleytravel/32686059893/ |
+| `k25-2.jpg` | David Stanley | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) | https://www.flickr.com/photos/davidstanleytravel/33347197412/ |
+| `k25-3.jpg` | PressureNet | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) | https://www.flickr.com/photos/pressurenet/14359949534/ |
+
+### Santo Domingo — `santo-domingo/`
+| Archivo | Autor | Licencia | Fuente |
+|---|---|---|---|
+| `k25-1.jpg` | Mario Duran-Ortiz | [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0/) | https://www.flickr.com/photos/30998987@N03/38257209181/ |
+| `k25-2.jpg` | Mario Duran-Ortiz | [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0/) | https://www.flickr.com/photos/30998987@N03/24386055548/ |
+| `k25-3.jpg` | Mario Duran-Ortiz | [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0/) | https://www.flickr.com/photos/30998987@N03/38202357756/ |
+| `k25-4.jpg` | Mario Duran-Ortiz | [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0/) | https://www.flickr.com/photos/30998987@N03/37547026934/ |
+
+Retiradas en v25 (no eran de RD o sin procedencia verificable): `bavaro/01–04.jpg`, `cap-cana/01–03.jpg`,
+`saona/02.jpg`, `saona/04.jpg`. Se conservan `bavaro/coast.jpg` (póster del hero) y `saona/shore.jpg`
+(Servicios), además de `puj/aerial.jpg`, `cap-cana/cove.jpg`, `santo-domingo/colonial.jpg` (ya no usadas en Destinos).
+Mapa miniatura del escenario: SVG propio proyectado de coordenadas lon/lat aproximadas (estilizado, no de navegación).

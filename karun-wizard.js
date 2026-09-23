@@ -848,6 +848,9 @@
     var tbody = document.getElementById("krn-rate-tbody");
     var form = document.getElementById("krn-wizard-form");
     if (!tbody || !form) return false;
+    // v25.2: never paint into the raw <x-dc> template (support.js reads it as innerHTML before React
+    // mounts; painted nodes would become React-owned and crash later reconciliation → blank page).
+    if (form.closest && (form.closest("x-dc") || !form.closest("#dc-root"))) return false;
     var already = form.getAttribute("data-krn-ready") === "1";
     var needsPaint = unpainted("krn-rate-tbody") || unpainted("krn-rate-thead") || unpainted("krn-rate-origins") ||
       unpainted("krn-rate-classes") || unpainted("krn-legs") ||
@@ -888,7 +891,8 @@
         }
       }, 60);
     }
-    var root = document.querySelector("x-dc") || document.body;
+    // v25.2: observe <body> (the raw <x-dc> is discarded once the runtime renders into #dc-root)
+    var root = document.body;
     try {
       var mo = new MutationObserver(kick);
       mo.observe(root, { childList: true, subtree: true, attributes: true, attributeFilter: ["data-lang"] });

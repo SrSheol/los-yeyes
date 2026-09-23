@@ -50,32 +50,6 @@ image-slot{touch-action:pan-x pan-y!important;-webkit-user-drag:none}
 image-slot::part(image){touch-action:pan-x pan-y!important;-webkit-user-drag:none!important}
 .lm img,.lm video,.lm svg,.lm .dest-card,.lm .dest-img,.lm .ph-frame,.lm .svc-feat .media{touch-action:pan-x pan-y!important;-webkit-user-drag:none}
 .ly-mark{width:42px;height:42px;object-fit:contain;display:block;flex:0 0 auto}
-/* Dest detail modal (host appended to body — keep chrome outside Design remounts) */
-.dest-detail-back{position:fixed;inset:0;z-index:1100;display:none;align-items:center;justify-content:center;padding:max(12px,env(safe-area-inset-top)) 12px max(12px,env(safe-area-inset-bottom));background:rgba(6,26,28,.58);backdrop-filter:blur(7px);overflow:hidden;overscroll-behavior:contain}
-.dest-detail-back[data-open="true"]{display:flex}
-.dest-detail{position:relative;width:min(760px,100%);max-height:min(92vh,920px);display:flex;flex-direction:column;overflow:hidden;background:#fffcf7;color:#0d3d4a;border-radius:24px;box-shadow:16px 16px 38px rgba(110,115,95,.28);outline:none}
-.dest-detail-x{position:absolute;top:max(10px,env(safe-area-inset-top,0px));right:max(10px,env(safe-area-inset-right,0px));z-index:5;width:42px;height:42px;border-radius:50%;border:0;cursor:pointer;background:#fbf8f1;box-shadow:7px 7px 18px rgba(120,120,100,.24);font-size:22px;color:#0d3d4a;display:grid;place-items:center}
-.dest-carousel{position:relative;aspect-ratio:16/10;background:#0d3d4a;overflow:hidden;border-radius:24px 24px 0 0;flex-shrink:0}
-.dest-carousel-track{display:flex;height:100%;width:100%;transition:transform .55s cubic-bezier(.22,1,.36,1)}
-.dest-carousel-track img{flex:0 0 100%;width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.001);transform-origin:center center}
-.dest-carousel-track img.is-active{animation:dest-kenburns var(--dest-kb-ms,8s) ease-out forwards}
-.dest-carousel-dots{position:absolute;left:0;right:0;bottom:14px;z-index:2;display:flex;justify-content:center;gap:8px}
-.dest-carousel-dots button{width:9px;height:9px;border-radius:50%;border:0;padding:0;cursor:pointer;background:rgba(255,255,255,.45);position:relative;overflow:hidden;transition:width .25s ease,border-radius .25s ease,background .2s}
-.dest-carousel-dots button[aria-current="true"]{width:22px;border-radius:999px;background:rgba(255,255,255,.35)}
-.dest-carousel-dots button[aria-current="true"]::after{content:"";position:absolute;inset:0;border-radius:inherit;background:#fff;transform:scaleX(0);transform-origin:left center;animation:dest-dot-fill var(--dest-auto-ms,3800ms) linear forwards}
-.dest-carousel-progress{position:absolute;left:0;right:0;bottom:0;z-index:3;height:3px;background:rgba(255,255,255,.18);pointer-events:none;overflow:hidden}
-.dest-carousel-progress>span{display:block;height:100%;width:100%;background:linear-gradient(90deg,#7ad4e0,#0e8fa0);transform:scaleX(0);transform-origin:left center;animation:dest-dot-fill var(--dest-auto-ms,3800ms) linear forwards}
-.dest-carousel.is-paused .dest-carousel-progress>span,.dest-carousel.is-paused .dest-carousel-dots button[aria-current="true"]::after,.dest-carousel.is-paused .dest-carousel-track img.is-active{animation-play-state:paused}
-.dest-carousel[data-auto="off"] .dest-carousel-progress,.dest-carousel[data-auto="off"] .dest-carousel-dots button[aria-current="true"]::after{display:none}
-@keyframes dest-dot-fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
-@keyframes dest-kenburns{from{transform:scale(1.001)}to{transform:scale(1.06)}}
-.dest-detail-body{padding:clamp(18px,3vw,28px) clamp(18px,3.5vw,32px) clamp(22px,3vw,34px);overflow-y:auto;flex:1 1 auto;min-height:0;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;touch-action:pan-y}
-.dest-detail-body h2{font-family:var(--f-disp);font-size:clamp(26px,4vw,36px);margin:0 0 12px;line-height:1.08}
-.dest-detail-body .dest-detail-copy{color:#5a7a80;font-size:15.5px;line-height:1.65;font-weight:500}
-.dest-detail-body .dest-detail-copy p{margin:0 0 12px}
-html.dest-modal-lock,body.dest-modal-lock{overflow:hidden!important}
-@media (max-width:640px){.dest-detail-back{padding:max(10px,env(safe-area-inset-top)) max(12px,env(safe-area-inset-right)) max(12px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left));align-items:center;justify-content:center}.dest-detail{width:100%;max-height:min(90dvh,920px);min-height:0;border-radius:22px}.dest-carousel{border-radius:22px 22px 0 0;aspect-ratio:16/11}.dest-detail-x{top:10px;right:10px}}
-@media (prefers-reduced-motion:reduce){.dest-carousel-track{transition:none}.dest-carousel-track img.is-active{animation:none}.dest-carousel-progress>span,.dest-carousel-dots button[aria-current="true"]::after{animation:none;transform:none}}
 </style>
 <script>
 (function(){try{function lyNav(){var n=(window.matchMedia&&window.matchMedia('(max-width:900px)').matches)||window.innerWidth<=900;document.documentElement.classList.toggle('ly-narrow',!!n);var nav=document.querySelector('nav[aria-label="Primary"]');if(nav){document.documentElement.style.setProperty('--ly-nav-h',Math.round(nav.getBoundingClientRect().bottom)+'px');}}lyNav();window.addEventListener('resize',lyNav);window.addEventListener('scroll',lyNav,{passive:true});}catch(e){}})();
@@ -91,6 +65,7 @@ html.dest-modal-lock,body.dest-modal-lock{overflow:hidden!important}
 <link rel="stylesheet" href="assets/fonts/karun-fonts.css?v=23">
 <link rel="stylesheet" href="assets/karun-beach.css?v=23">
 <link rel="stylesheet" href="assets/karun-v23.css?v=26">
+<link rel="stylesheet" href="assets/karun-v25-destinos.css?v=25">
 <script src="./support.js"></script>
 </head>
 <body>
@@ -163,71 +138,7 @@ html.dest-modal-lock,body.dest-modal-lock{overflow:hidden!important}
   .drive{animation:lm-drive linear both;animation-timeline:view();animation-range:cover}
   .ly-line{fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:900;stroke-dashoffset:900;animation:ly-draw linear both;animation-timeline:view();animation-range:entry 0% cover 40%}
 
-  /* destinations sticky stack (Noook portfolio pattern, ocean palette) */
   #expPin{display:none !important}
-  .dest-wrap{position:relative;padding:0 0 clamp(48px,8vw,96px)}
-  .dest-stack{--dest-h:clamp(380px,58vh,520px);--pin:max(88px,calc((100svh - var(--dest-h)) / 2));position:relative;display:flow-root;width:min(920px,calc(100% - 32px));margin-inline:auto}
-  .dest-card{--in:1;--cover:0;position:sticky;top:var(--pin);height:var(--dest-h);margin-bottom:36svh;isolation:isolate;overflow:hidden;border-radius:24px;background:var(--ink);box-shadow:0 28px 60px -28px rgba(13,61,74,.45),0 8px 20px -10px rgba(13,61,74,.22);display:flex;flex-direction:column;justify-content:flex-end;scale:calc(1 - var(--cover) * .07);translate:0 calc(var(--cover) * -14px);transition:box-shadow .4s}
-  .dest-card::before{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(to top,rgba(13,61,74,.55),rgba(13,61,74,.18) 42%,transparent 70%)}
-  .dest-card::after{content:'';position:absolute;inset:0;z-index:8;border-radius:inherit;background:var(--ink);opacity:calc(var(--cover) * .55);pointer-events:none}
-  .lm .dest-card .dest-img{position:absolute;inset:0;z-index:0;overflow:hidden;scale:calc(1.12 - var(--in) * .12)}
-  .lm .dest-card .dest-img > image-slot{position:absolute;inset:0;width:100%;height:100%}
-  .lm .dest-card .dest-cap{position:relative;z-index:2;margin:14px;padding:20px;border-radius:18px;background:color-mix(in srgb,var(--card) 92%,transparent);backdrop-filter:blur(8px);box-shadow:var(--raise);translate:0 calc((1 - var(--in)) * 36px);opacity:calc(.18 + var(--in) * .82)}
-  .lm .dest-card{cursor:pointer}
-  .lm .dest-card:focus-visible{outline:3px solid var(--teal);outline-offset:4px}
-  .lm .dest-card .dest-more{position:absolute;z-index:3;top:14px;right:14px;display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border-radius:999px;background:color-mix(in srgb,var(--card) 92%,transparent);backdrop-filter:blur(8px);box-shadow:var(--raise);font-size:12px;font-weight:700;letter-spacing:.02em;color:var(--teal-deep);pointer-events:none}
-  .lm .dest-card .dest-more::after{content:"";width:6px;height:6px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(-45deg);translate:0 -1px}
-  .dest-detail-back{position:fixed;inset:0;z-index:1100;display:none;align-items:center;justify-content:center;padding:max(12px,env(safe-area-inset-top)) max(12px,env(safe-area-inset-right)) max(12px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left));background:rgba(6,26,28,.58);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);overflow:hidden;overscroll-behavior:contain}
-  .dest-detail-back[data-open="true"]{display:flex}
-  .dest-detail{position:relative;width:min(760px,100%);max-height:min(92vh,920px);display:flex;flex-direction:column;overflow:hidden;background:var(--card,#fffcf7);color:var(--ink,#0d3d4a);border-radius:24px;box-shadow:var(--raise-lg,16px 16px 38px rgba(110,115,95,.28));padding:0;outline:none}
-  .dest-detail-x{position:absolute;top:max(10px,env(safe-area-inset-top,0px));right:max(10px,env(safe-area-inset-right,0px));z-index:5;width:42px;height:42px;border-radius:50%;border:0;cursor:pointer;background:var(--surface,#fbf8f1);box-shadow:var(--raise,7px 7px 18px rgba(120,120,100,.24));font-size:22px;line-height:1;color:var(--ink,#0d3d4a);display:grid;place-items:center}
-  .dest-detail-x:hover{background:#fff}
-  .dest-detail-x:focus-visible{outline:3px solid var(--teal,#0e8fa0);outline-offset:2px}
-  .dest-carousel{position:relative;aspect-ratio:16/10;background:var(--ink,#0d3d4a);overflow:hidden;border-radius:24px 24px 0 0;flex-shrink:0}
-  .dest-carousel-track{display:flex;height:100%;width:100%;transition:transform .55s cubic-bezier(.22,1,.36,1)}
-  .dest-carousel-track img{flex:0 0 100%;width:100%;height:100%;object-fit:cover;display:block;user-select:none;-webkit-user-drag:none;transform:scale(1.001);transform-origin:center center}
-  .dest-carousel-track img.is-active{animation:dest-kenburns var(--dest-kb-ms,8s) ease-out forwards}
-  .dest-carousel-dots{position:absolute;left:0;right:0;bottom:14px;z-index:2;display:flex;justify-content:center;gap:8px}
-  .dest-carousel-dots button{width:9px;height:9px;border-radius:50%;border:0;padding:0;cursor:pointer;background:rgba(255,255,255,.45);position:relative;overflow:hidden;transition:width .25s ease,border-radius .25s ease,background .2s}
-  .dest-carousel-dots button[aria-current="true"]{width:22px;border-radius:999px;background:rgba(255,255,255,.35)}
-  .dest-carousel-dots button[aria-current="true"]::after{content:"";position:absolute;inset:0;border-radius:inherit;background:#fff;transform:scaleX(0);transform-origin:left center;animation:dest-dot-fill var(--dest-auto-ms,3800ms) linear forwards}
-  .dest-carousel-dots button:focus-visible{outline:2px solid var(--teal,#0e8fa0);outline-offset:2px}
-  .dest-carousel-progress{position:absolute;left:0;right:0;bottom:0;z-index:3;height:3px;background:rgba(255,255,255,.18);pointer-events:none;overflow:hidden}
-  .dest-carousel-progress>span{display:block;height:100%;width:100%;background:linear-gradient(90deg,#7ad4e0,var(--teal,#0e8fa0));transform:scaleX(0);transform-origin:left center;animation:dest-dot-fill var(--dest-auto-ms,3800ms) linear forwards}
-  .dest-carousel.is-paused .dest-carousel-progress>span,.dest-carousel.is-paused .dest-carousel-dots button[aria-current="true"]::after,.dest-carousel.is-paused .dest-carousel-track img.is-active{animation-play-state:paused}
-  .dest-carousel[data-auto="off"] .dest-carousel-progress,.dest-carousel[data-auto="off"] .dest-carousel-dots button[aria-current="true"]::after{display:none}
-  @keyframes dest-dot-fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
-  @keyframes dest-kenburns{from{transform:scale(1.001)}to{transform:scale(1.06)}}
-  .dest-detail-body{padding:clamp(18px,3vw,28px) clamp(18px,3.5vw,32px) clamp(22px,3vw,34px);overflow-y:auto;flex:1 1 auto;min-height:0;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;touch-action:pan-y}
-  .dest-detail-body .chip{margin-bottom:10px}
-  .dest-detail-body h2{font-family:var(--f-disp);font-size:clamp(26px,4vw,36px);margin:0 0 12px;line-height:1.08;letter-spacing:-.02em}
-  .dest-detail-body .dest-detail-copy{color:var(--muted,#5a7a80);font-size:15.5px;line-height:1.65;font-weight:500}
-  .dest-detail-body .dest-detail-copy p{margin:0 0 12px}
-  .dest-detail-body .dest-detail-copy p:last-child{margin-bottom:0}
-  .dest-detail-body .dest-detail-copy ul{margin:0 0 12px;padding-left:1.15em}
-  .dest-detail-body .dest-detail-copy li{margin:0 0 6px}
-  html.dest-modal-lock,body.dest-modal-lock{overflow:hidden!important}
-  @media (max-width:640px){
-    .dest-detail-back{padding:max(10px,env(safe-area-inset-top)) max(12px,env(safe-area-inset-right)) max(14px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left));align-items:center;justify-content:center}
-    .dest-detail{width:100%;max-height:min(90dvh,920px);min-height:0;border-radius:22px}
-    .dest-carousel{border-radius:22px 22px 0 0;aspect-ratio:16/11}
-    .dest-detail-x{top:10px;right:10px}
-  }
-  @media (prefers-reduced-motion:reduce){
-    .dest-carousel-track{transition:none}
-    .dest-carousel-track img.is-active{animation:none}
-    .dest-carousel-progress>span,.dest-carousel-dots button[aria-current="true"]::after{animation:none;transform:none}
-  }
-  @media (max-width:640px){
-    .dest-stack{--dest-h:clamp(360px,62vh,480px);width:min(100% - 24px,920px)}
-    .dest-card{margin-bottom:30svh;border-radius:20px}
-  }
-  @media (max-height:560px),(prefers-reduced-motion:reduce){
-    .dest-card{position:relative;top:auto;height:auto;aspect-ratio:16/10;margin-bottom:1.1rem;scale:none;translate:none}
-    .dest-card::after{display:none}
-    .lm .dest-card .dest-img{scale:none}
-    .lm .dest-card .dest-cap{translate:none;opacity:1}
-  }
 
   /* mobile nav */
   .navlinks{display:flex;align-items:center;gap:24px}
@@ -1156,65 +1067,23 @@ html.dest-modal-lock,body.dest-modal-lock{overflow:hidden!important}
     <svg viewBox="0 0 1440 120" preserveAspectRatio="none"><path class="a" d="M0,56 C260,96 520,20 760,58 S1220,100 1440,50 V120 H0Z"/><path class="b" d="M0,78 C280,112 540,42 780,80 S1240,116 1440,74 V120 H0Z"/><path class="foam" d="M0,78 C280,112 540,42 780,80 S1240,116 1440,74" fill="none"/></svg>
   </div>
 
-  <!-- ===================== DESTINATIONS — sticky stack (behaviour unchanged) ===================== -->
-  <section id="destinations" class="k23-dest">
-    <div class="k23-wrap">
-      <div class="k23-head k23-head-split k23-dest-head">
-        <div>
-          <span class="k23-kicker"><span class="l-en">Routes &amp; day trips</span><span class="l-es">Rutas y excursiones</span></span>
-          <h2 class="disp k23-h2"><span class="l-en">Five places, <em class="k23-script">one driver</em> who knows the way</span><span class="l-es">Cinco lugares, <em class="k23-script">un chofer</em> que conoce el camino</span></h2>
-        </div>
-        <div class="k23-dest-index" aria-hidden="true">
-          <div class="k23-dest-counter"><b data-k23-dest-now>01</b><span>/ 05</span></div>
-          <ol>
-            <li data-k23-dest="0">Punta Cana (PUJ)<small>20–40 min</small></li>
-            <li data-k23-dest="1">Bávaro<small>20–35 min</small></li>
-            <li data-k23-dest="2">Cap Cana<small>15–30 min</small></li>
-            <li data-k23-dest="3">Isla Saona<small><span class="l-en">day trip</span><span class="l-es">excursión</span></small></li>
-            <li data-k23-dest="4">Santo Domingo<small>2.5–3 h</small></li>
-          </ol>
-          <p><span class="l-en">Scroll — the cards stack. Tap one for photos and details.</span><span class="l-es">Desliza — las tarjetas se apilan. Toca una para ver fotos y detalles.</span></p>
-        </div>
+  <!-- ===================== DESTINATIONS — v25 «Postales del Este» (stage + postcard rail + ficha) =====================
+       The stage, rail and ficha are rendered by assets/karun-v25-destinos.js inside the EMPTY host below
+       (keep it empty: React must never own children there). -->
+  <section id="destinations" class="k25-dest" aria-labelledby="k25-dest-h">
+    <svg class="k25-dest-palm" viewBox="0 0 200 220" aria-hidden="true" focusable="false"><path d="M120 216c-2-52 2-96 16-132"/><path d="M136 84c-22-26-58-34-96-22 30 2 56 12 76 30"/><path d="M136 84c8-34 36-54 70-56-26 12-44 30-54 52"/><path d="M136 84c34-4 60 14 70 44-18-18-40-28-64-30"/><path d="M136 84c-16-28-16-58 2-82-6 24-4 48 6 70"/><path d="M136 84c-30 2-56 20-66 50 18-20 40-32 62-36"/></svg>
+    <div class="k23-wrap k25-dest-head">
+      <div>
+        <span class="k23-kicker"><span class="l-en">Destinations · east &amp; south coast</span><span class="l-es">Destinos · costa este y sur</span></span>
+        <h2 id="k25-dest-h" class="disp k23-h2"><span class="l-en">Pick your <em class="k23-script">postcard</em>. We know the road.</span><span class="l-es">Elige tu <em class="k23-script">postal</em>. El camino es nuestro.</span></h2>
       </div>
+      <p class="k25-dest-lede"><span class="l-en">Ten places from the arrivals hall to the sand — the resort coast, the Caribbean south and the capital. Every one is a <b>private, door-to-door</b> Karún route with its real rate on the official sheet.</span><span class="l-es">Diez lugares, del área de llegadas a la arena — la costa de resorts, el sur caribeño y la capital. Cada uno es una ruta Karún <b>privada, puerta a puerta</b>, con su tarifa real en el tarifario oficial.</span></p>
     </div>
-    <div class="dest-wrap">
-      <div class="k23-dest-float" aria-hidden="true"><div class="k23-dest-rail"><b data-k23-dest-now>01</b><span>/ 05</span><i><em></em></i><small data-k23-dest-name>Punta Cana (PUJ)</small></div></div>
-      <div class="dest-stack" id="dest-stack">
-          <article class="dest-card" data-dest="puj" role="button" tabindex="0" aria-haspopup="dialog" aria-label="Punta Cana (PUJ)">
-            <div class="dest-img"><image-slot id="lm-dest-puj" shape="rect" placeholder="PUJ airport / arrivals photo"></image-slot></div>
-            <span class="dest-more" aria-hidden="true"><span class="l-es">Ver más</span><span class="l-en">See more</span></span>
-            <span class="k23-dest-num" aria-hidden="true">01</span>
-            <div class="dest-cap"><span class="chip" style="margin-bottom:10px">20–40 min</span><h3 class="disp" style="font-size:28px;margin:0 0 6px">Punta Cana (PUJ)</h3><p style="margin:0;color:var(--muted);font-weight:500"><span class="l-en">Airport ⇄ Bávaro &amp; Cap Cana resorts</span><span class="l-es">Aeropuerto ⇄ resorts de Bávaro y Cap Cana</span></p></div>
-          </article>
-          <article class="dest-card" data-dest="bavaro" role="button" tabindex="0" aria-haspopup="dialog" aria-label="Bávaro">
-            <div class="dest-img"><image-slot id="lm-dest-bavaro" shape="rect" placeholder="Bávaro beach / resort strip photo"></image-slot></div>
-            <span class="dest-more" aria-hidden="true"><span class="l-es">Ver más</span><span class="l-en">See more</span></span>
-            <span class="k23-dest-num" aria-hidden="true">02</span>
-            <div class="dest-cap"><span class="chip" style="margin-bottom:10px">20–35 min</span><h3 class="disp" style="font-size:28px;margin:0 0 6px">Bávaro</h3><p style="margin:0;color:var(--muted);font-weight:500"><span class="l-en">Beachfront all-inclusive resort strip</span><span class="l-es">Franja de resorts todo incluido frente al mar</span></p></div>
-          </article>
-          <article class="dest-card" data-dest="cap-cana" role="button" tabindex="0" aria-haspopup="dialog" aria-label="Cap Cana">
-            <div class="dest-img"><image-slot id="lm-dest-cap" shape="rect" placeholder="Cap Cana marina photo"></image-slot></div>
-            <span class="dest-more" aria-hidden="true"><span class="l-es">Ver más</span><span class="l-en">See more</span></span>
-            <span class="k23-dest-num" aria-hidden="true">03</span>
-            <div class="dest-cap"><span class="chip" style="margin-bottom:10px">15–30 min</span><h3 class="disp" style="font-size:28px;margin:0 0 6px">Cap Cana</h3><p style="margin:0;color:var(--muted);font-weight:500"><span class="l-en">Marina, golf villas &amp; luxury resorts</span><span class="l-es">Marina, villas de golf y resorts de lujo</span></p></div>
-          </article>
-          <article class="dest-card" data-dest="saona" role="button" tabindex="0" aria-haspopup="dialog" aria-label="Isla Saona">
-            <div class="dest-img"><image-slot id="lm-dest-saona" shape="rect" placeholder="Saona Island beach photo"></image-slot></div>
-            <span class="dest-more" aria-hidden="true"><span class="l-es">Ver más</span><span class="l-en">See more</span></span>
-            <span class="k23-dest-num" aria-hidden="true">04</span>
-            <div class="dest-cap"><span class="chip" style="margin-bottom:10px"><span class="l-en">Day trip</span><span class="l-es">Excursión</span></span><h3 class="disp" style="font-size:28px;margin:0 0 6px">Isla Saona</h3><p style="margin:0;color:var(--muted);font-weight:500"><span class="l-en">Full-day beach &amp; natural pool tour</span><span class="l-es">Playa todo el día y piscina natural</span></p></div>
-          </article>
-          <article class="dest-card" data-dest="santo-domingo" role="button" tabindex="0" aria-haspopup="dialog" aria-label="Santo Domingo">
-            <div class="dest-img"><image-slot id="lm-dest-sdq" shape="rect" placeholder="Santo Domingo colonial photo"></image-slot></div>
-            <span class="dest-more" aria-hidden="true"><span class="l-es">Ver más</span><span class="l-en">See more</span></span>
-            <span class="k23-dest-num" aria-hidden="true">05</span>
-            <div class="dest-cap"><span class="chip" style="margin-bottom:10px">2.5–3 h</span><h3 class="disp" style="font-size:28px;margin:0 0 6px">Santo Domingo</h3><p style="margin:0;color:var(--muted);font-weight:500"><span class="l-en">Colonial Zone &amp; SDQ airport runs</span><span class="l-es">Zona Colonial y viajes al aeropuerto SDQ</span></p></div>
-          </article>
-      </div>
-    </div>
-    <div class="k23-dest-out k23-wrap">
-      <p><span class="l-en">Every route is private and door to door.</span><span class="l-es">Cada ruta es privada y puerta a puerta.</span></p>
+    <div class="k25-dest-app" data-k25-dest></div>
+    <div class="k23-wrap k25-dest-foot">
+      <p><span class="l-en">Your place, <em>your</em> driver, one fixed price.</span><span class="l-es">Tu lugar, <em>tu</em> chofer, un precio fijo.</span></p>
       <a class="btn" href="#reservar" data-magnetic="1"><span class="l-en">Book a route</span><span class="l-es">Reservar una ruta</span> →</a>
+      <p class="k25-dest-credits"><span class="l-en">Photos: Flickr &amp; Wikimedia Commons contributors (CC BY / CC BY-SA / CC0 / public domain) — author and licence on every image.</span><span class="l-es">Fotos: autores de Flickr y Wikimedia Commons (CC BY / CC BY-SA / CC0 / dominio público) — autor y licencia en cada imagen.</span></p>
     </div>
   </section>
 
@@ -1540,7 +1409,7 @@ class Component extends DCLogic {
       p_kicker:'Indicative fares',p_title:'Know the price before you write',p_sub:'Per private van (up to 8 passengers), not per person. Tolls & taxes included.',
       p_curLabel:'Currency · rates update live',p_indicative:'Indicative',p_oneWay:'one way',p_roundTrip:'Round trip',p_confirm:'Confirm on WhatsApp',
       m_kicker:'Where we drive',m_title:'The east coast corridor',m_sub:'From Punta Cana airport out to every resort zone and across to Santo Domingo.',m_legend:'Service zones',m_foot:"Stylized coverage map. Don't see your hotel? Ask on WhatsApp.",
-      d_kicker:'Where we go',d_title:'Popular routes & day trips',d_sub:"Destinations stack as you scroll — from PUJ arrivals to the island's best days out.",dm_close:'Close',dm_gallery:'Photo gallery',
+      d_kicker:'Destinations',d_title:'Pick your postcard',d_sub:'Ten places on the east and south coast — tap a postcard for photos, what to do and your transfer.',dm_close:'Close',dm_gallery:'Photo gallery',
       tl_kicker:'Before you land',tl_title:'From the jet bridge to the back seat',
       w_kicker:'Why Karún',w_title:'Locals who make arrival the easy part',w_speak:'Our team speaks (on WhatsApp & phone)',
       dl_title:'Flight delayed? We wait.',dl_body:'We track your flight live and adjust automatically. Airport pickups include a free wait window of 60–90 min after landing — just message us on WhatsApp if you are held up.',
@@ -1570,7 +1439,7 @@ class Component extends DCLogic {
       p_kicker:'Tarifas indicativas',p_title:'Conoce el precio antes de escribir',p_sub:'Por van privada (hasta 8 pasajeros), no por persona. Peajes e impuestos incluidos.',
       p_curLabel:'Moneda · tasas en vivo',p_indicative:'Indicativo',p_oneWay:'solo ida',p_roundTrip:'Ida y vuelta',p_confirm:'Confirmar por WhatsApp',
       m_kicker:'Dónde manejamos',m_title:'El corredor de la costa este',m_sub:'Desde el aeropuerto de Punta Cana hacia cada zona de resorts y hasta Santo Domingo.',m_legend:'Zonas de servicio',m_foot:'Mapa de cobertura estilizado. ¿No ves tu hotel? Pregunta por WhatsApp.',
-      d_kicker:'A dónde vamos',d_title:'Rutas y excursiones favoritas',d_sub:'Los destinos se apilan al hacer scroll — desde llegadas en PUJ hasta las mejores excursiones.',dm_close:'Cerrar',dm_gallery:'Galería de fotos',
+      d_kicker:'Destinos',d_title:'Elige tu postal',d_sub:'Diez lugares de la costa este y sur — toca una postal para ver fotos, qué hacer y tu traslado.',dm_close:'Cerrar',dm_gallery:'Galería de fotos',
       tl_kicker:'Antes de aterrizar',tl_title:'Del avión al asiento trasero',
       w_kicker:'Por qué Karún',w_title:'Locales que hacen fácil tu llegada',w_speak:'Nuestro equipo habla (por WhatsApp y teléfono)',
       dl_title:'¿Vuelo retrasado? Esperamos.',dl_body:'Rastreamos tu vuelo en vivo y ajustamos solos. Las recogidas incluyen una espera gratis de 60–90 min tras aterrizar — solo escríbenos por WhatsApp si te demoras.',
@@ -1600,7 +1469,7 @@ class Component extends DCLogic {
       p_kicker:'Tarifs indicatifs',p_title:'Connaissez le prix avant d\u2019écrire',p_sub:'Par van privé (jusqu\u2019à 8 passagers), pas par personne. Péages et taxes inclus.',
       p_curLabel:'Devise · taux en direct',p_indicative:'Indicatif',p_oneWay:'aller simple',p_roundTrip:'Aller-retour',p_confirm:'Confirmer sur WhatsApp',
       m_kicker:'Où nous roulons',m_title:'Le corridor de la côte est',m_sub:'De l\u2019aéroport de Punta Cana vers chaque zone de resorts et jusqu\u2019à Saint-Domingue.',m_legend:'Zones desservies',m_foot:'Carte de couverture stylisée. Vous ne voyez pas votre hôtel ? Demandez sur WhatsApp.',
-      d_kicker:'Où nous allons',d_title:'Itinéraires & excursions populaires',d_sub:'Les destinations s\u2019empilent en défilant — des arrivées à PUJ aux meilleures sorties de l\u2019île.',dm_close:'Fermer',dm_gallery:'Galerie photos',
+      d_kicker:'Destinations',d_title:'Choisissez votre carte postale',d_sub:'Dix lieux sur les côtes est et sud — touchez une carte pour les photos, les activités et votre transfert.',dm_close:'Fermer',dm_gallery:'Galerie photos',
       tl_kicker:'Avant d\u2019atterrir',tl_title:'De la passerelle à la banquette arrière',
       w_kicker:'Pourquoi Karún',w_title:'Des locaux qui simplifient votre arrivée',w_speak:'Notre équipe parle (WhatsApp & téléphone)',
       dl_title:'Vol retardé ? On attend.',dl_body:'Nous suivons votre vol en direct et ajustons automatiquement. Les prises en charge à l\u2019aéroport incluent une attente gratuite de 60–90 min après l\u2019atterrissage — écrivez-nous sur WhatsApp en cas de retard.',
@@ -1630,7 +1499,7 @@ class Component extends DCLogic {
       p_kicker:'Richtpreise',p_title:'Preis kennen, bevor Sie schreiben',p_sub:'Pro privatem Van (bis 8 Passagiere), nicht pro Person. Maut und Steuern inklusive.',
       p_curLabel:'Währung · Kurse live',p_indicative:'Richtwert',p_oneWay:'einfach',p_roundTrip:'Hin & zurück',p_confirm:'Per WhatsApp bestätigen',
       m_kicker:'Wo wir fahren',m_title:'Der Ostküsten-Korridor',m_sub:'Vom Flughafen Punta Cana zu jeder Resortzone und bis nach Santo Domingo.',m_legend:'Servicezonen',m_foot:'Stilisierte Abdeckungskarte. Ihr Hotel fehlt? Fragen Sie per WhatsApp.',
-      d_kicker:'Wohin wir fahren',d_title:'Beliebte Routen & Tagesausflüge',d_sub:'Ziele stapeln sich beim Scrollen — von der Ankunft in PUJ bis zu den besten Ausflügen der Insel.',dm_close:'Schließen',dm_gallery:'Fotogalerie',
+      d_kicker:'Reiseziele',d_title:'Wählen Sie Ihre Postkarte',d_sub:'Zehn Orte an der Ost- und Südküste — Postkarte antippen für Fotos, Tipps und Ihren Transfer.',dm_close:'Schließen',dm_gallery:'Fotogalerie',
       tl_kicker:'Vor der Landung',tl_title:'Von der Gangway auf die Rückbank',
       w_kicker:'Warum Karún',w_title:'Einheimische, die die Ankunft leicht machen',w_speak:'Unser Team spricht (WhatsApp & Telefon)',
       dl_title:'Flug verspätet? Wir warten.',dl_body:'Wir verfolgen Ihren Flug live und passen automatisch an. Flughafenabholungen enthalten ein kostenloses Wartefenster von 60–90 Min nach der Landung — schreiben Sie uns bei Verzögerung einfach auf WhatsApp.',
@@ -1660,7 +1529,7 @@ class Component extends DCLogic {
       p_kicker:'Tarifas indicativas',p_title:'Saiba o preço antes de escrever',p_sub:'Por van privativa (até 8 passageiros), não por pessoa. Pedágios e impostos incluídos.',
       p_curLabel:'Moeda · taxas ao vivo',p_indicative:'Indicativo',p_oneWay:'só ida',p_roundTrip:'Ida e volta',p_confirm:'Confirmar no WhatsApp',
       m_kicker:'Onde dirigimos',m_title:'O corredor da costa leste',m_sub:'Do aeroporto de Punta Cana a cada zona de resorts e até Santo Domingo.',m_legend:'Zonas de serviço',m_foot:'Mapa de cobertura estilizado. Não vê seu hotel? Pergunte no WhatsApp.',
-      d_kicker:'Para onde vamos',d_title:'Rotas e passeios populares',d_sub:'Os destinos se empilham ao rolar — das chegadas em PUJ aos melhores passeios da ilha.',dm_close:'Fechar',dm_gallery:'Galeria de fotos',
+      d_kicker:'Destinos',d_title:'Escolha o seu postal',d_sub:'Dez lugares na costa leste e sul — toque num postal para ver fotos, o que fazer e o seu traslado.',dm_close:'Fechar',dm_gallery:'Galeria de fotos',
       tl_kicker:'Antes de pousar',tl_title:'Da ponte de embarque ao banco de trás',
       w_kicker:'Por que Karún',w_title:'Locais que tornam a chegada fácil',w_speak:'Nossa equipe fala (WhatsApp e telefone)',
       dl_title:'Voo atrasado? Nós esperamos.',dl_body:'Rastreamos seu voo ao vivo e ajustamos automaticamente. As recolhas no aeroporto incluem uma espera grátis de 60–90 min após o pouso — é só falar no WhatsApp se atrasar.',
@@ -1690,7 +1559,7 @@ class Component extends DCLogic {
       p_kicker:'Tariffe indicative',p_title:'Conosci il prezzo prima di scrivere',p_sub:'Per van privato (fino a 8 passeggeri), non a persona. Pedaggi e tasse inclusi.',
       p_curLabel:'Valuta · tassi in tempo reale',p_indicative:'Indicativo',p_oneWay:'sola andata',p_roundTrip:'A/R',p_confirm:'Conferma su WhatsApp',
       m_kicker:'Dove guidiamo',m_title:'Il corridoio della costa est',m_sub:"Dall'aeroporto di Punta Cana verso ogni zona di resort e fino a Santo Domingo.",m_legend:'Zone di servizio',m_foot:'Mappa di copertura stilizzata. Non vedi il tuo hotel? Chiedi su WhatsApp.',
-      d_kicker:'Dove andiamo',d_title:'Rotte ed escursioni popolari',d_sub:"Le destinazioni si impilano mentre scorri — dagli arrivi a PUJ alle migliori gite dell'isola.",dm_close:'Chiudi',dm_gallery:'Galleria foto',
+      d_kicker:'Destinazioni',d_title:'Scegli la tua cartolina',d_sub:'Dieci luoghi sulla costa est e sud — tocca una cartolina per foto, cosa fare e il tuo transfer.',dm_close:'Chiudi',dm_gallery:'Galleria foto',
       tl_kicker:'Prima di atterrare',tl_title:'Dal finger al sedile posteriore',
       w_kicker:'Perché Karún',w_title:"Gente del posto che rende facile l'arrivo",w_speak:'Il nostro team parla (WhatsApp e telefono)',
       dl_title:'Volo in ritardo? Aspettiamo.',dl_body:"Monitoriamo il tuo volo in tempo reale e ci adattiamo in automatico. I ritiri in aeroporto includono un'attesa gratuita di 60–90 min dopo l'atterraggio — scrivici su WhatsApp se sei in ritardo.",
@@ -1720,7 +1589,7 @@ class Component extends DCLogic {
       p_kicker:'Ориентировочные тарифы',p_title:'Узнайте цену до того, как напишете',p_sub:'За приватный вэн (до 8 пассажиров), не за человека. Платные дороги и налоги включены.',
       p_curLabel:'Валюта · курсы в реальном времени',p_indicative:'Ориентир',p_oneWay:'в одну сторону',p_roundTrip:'Туда-обратно',p_confirm:'Подтвердить в WhatsApp',
       m_kicker:'Где мы ездим',m_title:'Коридор восточного побережья',m_sub:'От аэропорта Пунта-Кана к каждой курортной зоне и до Санто-Доминго.',m_legend:'Зоны обслуживания',m_foot:'Стилизованная карта покрытия. Не видите свой отель? Спросите в WhatsApp.',
-      d_kicker:'Куда мы едем',d_title:'Популярные маршруты и поездки',d_sub:'Направления наслаиваются при прокрутке — от прилётов в PUJ до лучших экскурсий острова.',dm_close:'Закрыть',dm_gallery:'Фотогалерея',
+      d_kicker:'Направления',d_title:'Выберите свою открытку',d_sub:'Десять мест на восточном и южном побережье — нажмите на открытку: фото, чем заняться и ваш трансфер.',dm_close:'Закрыть',dm_gallery:'Фотогалерея',
       tl_kicker:'Перед посадкой',tl_title:'От трапа до заднего сиденья',
       w_kicker:'Почему Karún',w_title:'Местные, с которыми прибытие — самое лёгкое',w_speak:'Наша команда говорит (WhatsApp и телефон)',
       dl_title:'Рейс задержан? Мы ждём.',dl_body:'Мы отслеживаем ваш рейс в реальном времени и подстраиваемся автоматически. Встреча в аэропорту включает бесплатное ожидание 60–90 мин после посадки — просто напишите в WhatsApp, если задерживаетесь.',
@@ -1750,7 +1619,7 @@ class Component extends DCLogic {
       p_kicker:'参考价格',p_title:'联系前先知道价格',p_sub:'按私人车计价（最多8位乘客），非按人。含过路费和税费。',
       p_curLabel:'货币 · 实时汇率',p_indicative:'参考',p_oneWay:'单程',p_roundTrip:'往返',p_confirm:'在 WhatsApp 确认',
       m_kicker:'我们的行驶范围',m_title:'东海岸走廊',m_sub:'从蓬塔卡纳机场通往每个度假区，直至圣多明各。',m_legend:'服务区域',m_foot:'风格化覆盖地图。没看到您的酒店？在 WhatsApp 询问。',
-      d_kicker:'我们去哪里',d_title:'热门线路与一日游',d_sub:'滚动时目的地层层叠放——从 PUJ 到达到全岛最佳一日游。',dm_close:'关闭',dm_gallery:'图片集',
+      d_kicker:'目的地',d_title:'挑选你的明信片',d_sub:'东海岸与南海岸的十个地方——点击明信片查看照片、玩法和接送。',dm_close:'关闭',dm_gallery:'图片集',
       tl_kicker:'落地之前',tl_title:'从廊桥到后座',
       w_kicker:'为什么选 Karún',w_title:'让抵达变轻松的本地人',w_speak:'我们的团队会说（WhatsApp 和电话）',
       dl_title:'航班延误？我们等您。',dl_body:'我们实时追踪您的航班并自动调整。机场接机含落地后60–90分钟免费等待——若延误，只需在 WhatsApp 告知我们。',
@@ -1780,7 +1649,7 @@ class Component extends DCLogic {
       p_kicker:'Indicatieve tarieven',p_title:'Ken de prijs voordat je schrijft',p_sub:'Per privébusje (tot 8 passagiers), niet per persoon. Tol en belasting inbegrepen.',
       p_curLabel:'Valuta · koersen live',p_indicative:'Indicatief',p_oneWay:'enkele reis',p_roundTrip:'Retour',p_confirm:'Bevestig via WhatsApp',
       m_kicker:'Waar we rijden',m_title:'De oostkust-corridor',m_sub:'Van de luchthaven van Punta Cana naar elke resortzone en door naar Santo Domingo.',m_legend:'Servicezones',m_foot:'Gestileerde dekkingskaart. Zie je je hotel niet? Vraag het via WhatsApp.',
-      d_kicker:'Waar we heen gaan',d_title:'Populaire routes & dagtrips',d_sub:'Bestemmingen stapelen zich tijdens het scrollen — van aankomst in PUJ tot de beste uitstapjes van het eiland.',dm_close:'Sluiten',dm_gallery:'Fotogalerij',
+      d_kicker:'Bestemmingen',d_title:'Kies je ansichtkaart',d_sub:'Tien plekken aan de oost- en zuidkust — tik op een kaart voor foto’s, tips en je transfer.',dm_close:'Sluiten',dm_gallery:'Fotogalerij',
       tl_kicker:'Voor de landing',tl_title:'Van de slurf naar de achterbank',
       w_kicker:'Waarom Karún',w_title:'Locals die aankomen het makkelijke deel maken',w_speak:'Ons team spreekt (WhatsApp & telefoon)',
       dl_title:'Vlucht vertraagd? We wachten.',dl_body:'We volgen je vlucht live en passen automatisch aan. Ophalen op de luchthaven bevat een gratis wachttijd van 60–90 min na de landing — stuur ons een bericht op WhatsApp als je vertraging hebt.',
@@ -1810,7 +1679,7 @@ class Component extends DCLogic {
       p_kicker:'Ceny orientacyjne',p_title:'Poznaj cenę, zanim napiszesz',p_sub:'Za prywatnego vana (do 8 pasażerów), nie od osoby. Opłaty drogowe i podatki wliczone.',
       p_curLabel:'Waluta · kursy na żywo',p_indicative:'Orientacyjnie',p_oneWay:'w jedną stronę',p_roundTrip:'W obie strony',p_confirm:'Potwierdź na WhatsApp',
       m_kicker:'Gdzie jeździmy',m_title:'Korytarz wschodniego wybrzeża',m_sub:'Z lotniska Punta Cana do każdej strefy resortów i aż do Santo Domingo.',m_legend:'Strefy obsługi',m_foot:'Stylizowana mapa zasięgu. Nie widzisz swojego hotelu? Zapytaj na WhatsApp.',
-      d_kicker:'Dokąd jeździmy',d_title:'Popularne trasy i wycieczki',d_sub:'Destynacje układają się w stos podczas przewijania — od przylotów w PUJ po najlepsze wycieczki na wyspie.',dm_close:'Zamknij',dm_gallery:'Galeria zdjęć',
+      d_kicker:'Kierunki',d_title:'Wybierz swoją pocztówkę',d_sub:'Dziesięć miejsc na wschodnim i południowym wybrzeżu — dotknij pocztówki: zdjęcia, atrakcje i transfer.',dm_close:'Zamknij',dm_gallery:'Galeria zdjęć',
       tl_kicker:'Zanim wylądujesz',tl_title:'Od rękawa do tylnego siedzenia',
       w_kicker:'Dlaczego Karún',w_title:'Miejscowi, dzięki którym przylot jest łatwy',w_speak:'Nasz zespół mówi (WhatsApp i telefon)',
       dl_title:'Lot opóźniony? Czekamy.',dl_body:'Śledzimy Twój lot na żywo i dostosowujemy się automatycznie. Odbiór z lotniska obejmuje darmowe okno oczekiwania 60–90 min po lądowaniu — napisz na WhatsApp, jeśli się spóźnisz.',
@@ -1889,543 +1758,6 @@ class Component extends DCLogic {
   }
 
 
-  destModalMeta = {
-    // v23: galleries rebuilt from on-brand DR imagery only (v22 SDQ/PUJ/Saona sets contained non-DR stock photos)
-    puj: { images:['assets/destinations/puj/aerial.jpg','assets/story/meet-greet.jpg','assets/story/starex-road.jpg','assets/destinations/bavaro/02.jpg'] },
-    bavaro: { images:['assets/destinations/bavaro/coast.jpg','assets/destinations/bavaro/01.jpg','assets/destinations/bavaro/02.jpg','assets/destinations/bavaro/03.jpg'] },
-    'cap-cana': { images:['assets/destinations/cap-cana/cove.jpg','assets/destinations/cap-cana/01.jpg','assets/destinations/cap-cana/02.jpg','assets/destinations/cap-cana/03.jpg'] },
-    saona: { images:['assets/destinations/saona/shore.jpg','assets/destinations/saona/04.jpg','assets/destinations/saona/02.jpg','assets/destinations/bavaro/04.jpg'] },
-    'santo-domingo': { images:['assets/destinations/santo-domingo/colonial.jpg','assets/story/starex-road.jpg','assets/story/cabin.jpg'] },
-  };
-
-  destModalCopy = {
-    puj:{
-      en:{title:'Punta Cana (PUJ)',tag:'20–40 min',paras:['Punta Cana International Airport (PUJ) is the main gateway for travelers visiting the east coast of the Dominican Republic. Most resort stays begin and end here.','Karún meets you at arrivals with a name sign, helps with bags, and takes you privately to Bávaro, Cap Cana, Uvero Alto, and other hotel zones — no shared shuttles or roadside haggling.','Ideal for first-time visitors, families with luggage, late-night landings, and anyone who wants a fixed-price ride waiting when the flight doors open.']},
-      es:{title:'Punta Cana (PUJ)',tag:'20–40 min',paras:['El Aeropuerto Internacional de Punta Cana (PUJ) es la puerta principal a la costa este de República Dominicana. La mayoría de las estadías en resorts empiezan y terminan aquí.','Karún te recibe en llegadas con cartel con tu nombre, ayuda con el equipaje y te lleva en privado a Bávaro, Cap Cana, Uvero Alto y otras zonas hoteleras — sin shuttles compartidos ni regateos en la acera.','Ideal para quienes visitan por primera vez, familias con maletas, llegadas nocturnas y cualquiera que quiera un traslado a precio fijo esperando al aterrizar.']},
-      fr:{title:'Punta Cana (PUJ)',tag:'20–40 min',paras:['L’aéroport international de Punta Cana (PUJ) est la principale porte d’entrée de la côte est de la République dominicaine. La plupart des séjours en resort commencent et se terminent ici.','Karún vous accueille à l’arrivée avec une pancarte à votre nom, aide avec les bagages et vous conduit en privé vers Bávaro, Cap Cana, Uvero Alto et d’autres zones hôtelières — sans navette partagée ni marchandage.','Idéal pour les premières visites, les familles avec bagages, les arrivées tardives et quiconque veut un transfert à prix fixe qui attend à l’atterrissage.']},
-      de:{title:'Punta Cana (PUJ)',tag:'20–40 min',paras:['Der Flughafen Punta Cana (PUJ) ist das Haupttor zur Ostküste der Dominikanischen Republik. Die meisten Resort-Aufenthalte beginnen und enden hier.','Karún empfängt Sie an den Ankünften mit Namensschild, hilft mit dem Gepäck und fährt Sie privat nach Bávaro, Cap Cana, Uvero Alto und andere Hotelzonen — ohne Sammelshuttle oder Feilschen.','Ideal für Erstbesucher, Familien mit Gepäck, späte Ankünfte und alle, die einen Transfer zum Festpreis beim Landen erwarten.']},
-      pt:{title:'Punta Cana (PUJ)',tag:'20–40 min',paras:['O Aeroporto Internacional de Punta Cana (PUJ) é a principal porta de entrada da costa leste da República Dominicana. A maioria das estadias em resorts começa e termina aqui.','A Karún recebe você na chegada com placa com o seu nome, ajuda com as malas e leva em privado a Bávaro, Cap Cana, Uvero Alto e outras zonas hoteleiras — sem transfers partilhados nem negociação na calçada.','Ideal para primeira visita, famílias com bagagem, chegadas noturnas e quem quer um traslado a preço fixo à espera no desembarque.']},
-      it:{title:'Punta Cana (PUJ)',tag:'20–40 min',paras:['L’aeroporto internazionale di Punta Cana (PUJ) è la porta principale della costa est della Repubblica Dominicana. La maggior parte dei soggiorni in resort inizia e finisce qui.','Karún ti accoglie agli arrivi con cartello a nome tuo, aiuta con i bagagli e ti porta in privato a Bávaro, Cap Cana, Uvero Alto e altre zone alberghiere — senza shuttle condivisi né trattative.','Ideale per chi arriva la prima volta, famiglie con valigie, arrivi notturni e chi vuole un transfer a prezzo fisso ad aspettare all’atterraggio.']},
-      ru:{title:'Пунта-Кана (PUJ)',tag:'20–40 мин',paras:['Международный аэропорт Пунта-Каны (PUJ) — главный въезд на восточное побережье Доминиканской Республики. Большинство курортных поездок начинаются и заканчиваются здесь.','Karún встречает вас в зоне прилёта с табличкой, помогает с багажом и везёт частным трансфером в Баваро, Кап-Кану, Уверо-Альто и другие зоны отелей — без общих шаттлов и торга у выхода.','Удобно для первого визита, семей с чемоданами, ночных прилётов и всех, кто хочет фиксированную цену и машину сразу после посадки.']},
-      zh:{title:'蓬塔卡纳 (PUJ)',tag:'20–40 分钟',paras:['蓬塔卡纳国际机场（PUJ）是前往多米尼加共和国东海岸的主要门户。多数度假村行程都从这里开始和结束。','Karún 在到达厅举名牌迎接、协助行李，并专车送往巴瓦罗、卡普卡纳、乌韦罗阿尔托等酒店区——无拼车、无路边议价。','适合初次到访、带行李的家庭、夜间抵达，以及希望落地即有固定价格专车等候的旅客。']},
-      nl:{title:'Punta Cana (PUJ)',tag:'20–40 min',paras:['Punta Cana International Airport (PUJ) is de belangrijkste toegangspoort tot de oostkust van de Dominicaanse Republiek. De meeste resortverblijven beginnen en eindigen hier.','Karún ontvangt je bij aankomst met een naambord, helpt met bagage en brengt je privé naar Bávaro, Cap Cana, Uvero Alto en andere hotelzones — geen gedeelde shuttles of afdingen.','Ideaal voor eerste bezoekers, gezinnen met koffers, late landingen en iedereen die een vaste prijs en een wachtende rit wil.']},
-      pl:{title:'Punta Cana (PUJ)',tag:'20–40 min',paras:['Międzynarodowe lotnisko Punta Cana (PUJ) to główna brama na wschodnie wybrzeże Dominikany. Większość pobytów w resortach zaczyna się i kończy tutaj.','Karún wita Cię na przylotach z tabliczką, pomaga z bagażem i wiezie prywatnie do Bávaro, Cap Cana, Uvero Alto i innych stref hotelowych — bez wspólnych shuttle’i i targowania.','Idealne na pierwszą wizytę, rodziny z walizkami, nocne przyloty i każdego, kto chce stałą cenę i transfer czekający po lądowaniu.']},
-    },
-    bavaro:{
-      en:{title:'Bávaro',tag:'20–35 min',paras:['Bávaro is the long beachfront strip of all-inclusive resorts, beach clubs, and shopping plazas that most visitors picture when they say “Punta Cana.”','From PUJ it is a short private ride along the coastal corridor. We drop you at the lobby of your hotel and can also move you between properties for dinners, spas, or nightlife.','Expect white sand, warm Caribbean water, and a lively evening scene — with a cool van and room for the whole family’s bags on every hop.']},
-      es:{title:'Bávaro',tag:'20–35 min',paras:['Bávaro es la larga franja de resorts todo incluido, beach clubs y plazas comerciales que la mayoría imagina al decir “Punta Cana”.','Desde PUJ es un traslado privado corto por el corredor costero. Te dejamos en el lobby de tu hotel y también te movemos entre propiedades para cenas, spas o vida nocturna.','Arena blanca, mar cálido del Caribe y noches animadas — con una van fresca y espacio para el equipaje de toda la familia en cada tramo.']},
-      fr:{title:'Bávaro',tag:'20–35 min',paras:['Bávaro est la longue bande de resorts tout compris, beach clubs et centres commerciaux que la plupart des voyageurs imaginent en disant « Punta Cana ».','Depuis PUJ, c’est un court trajet privé le long du corridor côtier. Nous vous déposons au lobby de votre hôtel et pouvons aussi vous déplacer entre établissements pour dîners, spas ou sorties.','Sable blanc, mer chaude des Caraïbes et soirées animées — avec un van climatisé et de la place pour les bagages de toute la famille.']},
-      de:{title:'Bávaro',tag:'20–35 min',paras:['Bávaro ist der lange Strandstreifen aus All-inclusive-Resorts, Beach Clubs und Einkaufszentren, den die meisten mit „Punta Cana“ verbinden.','Von PUJ ist es eine kurze Privatfahrt entlang des Küstenkorridors. Wir bringen Sie zur Hotellobby und auch zwischen Häusern zu Abendessen, Spas oder Nightlife.','Weißer Sand, warmes Karibikwasser und lebendige Abende — mit kühlem Van und Platz für das Gepäck der ganzen Familie.']},
-      pt:{title:'Bávaro',tag:'20–35 min',paras:['Bávaro é a longa faixa de resorts all-inclusive, beach clubs e shoppings que a maioria imagina ao dizer “Punta Cana”.','Desde PUJ é um traslado privado curto pelo corredor costeiro. Deixamos você no lobby do hotel e também movemos entre propriedades para jantares, spas ou vida noturna.','Areia branca, mar quente do Caribe e noites animadas — com van fresca e espaço para as malas de toda a família.']},
-      it:{title:'Bávaro',tag:'20–35 min',paras:['Bávaro è la lunga fascia di resort all-inclusive, beach club e centri commerciali che la maggior parte immagina dicendo “Punta Cana”.','Da PUJ è un breve transfer privato lungo il corridoio costiero. Ti lasciamo in lobby e possiamo spostarti tra strutture per cene, spa o nightlife.','Sabbia bianca, mare caldo caraibico e serate vivaci — con van fresca e spazio per i bagagli di tutta la famiglia.']},
-      ru:{title:'Баваро',tag:'20–35 мин',paras:['Баваро — длинная береговая полоса all-inclusive курортов, бич-клубов и торговых площадок, которую чаще всего имеют в виду, говоря «Пунта-Кана».','От PUJ это короткий частный трансфер вдоль побережья. Мы довезём до лобби отеля и между объектами на ужин, в спа или на вечерние развлечения.','Белый песок, тёплое Карибское море и живая ночная жизнь — в прохладном минивэне с местом для багажа всей семьи.']},
-      zh:{title:'巴瓦罗',tag:'20–35 分钟',paras:['巴瓦罗是绵延的一线海滨全包度假村、海滩俱乐部和购物广场，多数人口中的“蓬塔卡纳”指的就是这里。','从 PUJ 沿海岸走廊专车很快抵达。我们送到酒店大堂，也可在各酒店间接送用餐、水疗或夜生活。','白沙、温暖的加勒比海水与热闹的夜晚——专车空调充足，放得下全家行李。']},
-      nl:{title:'Bávaro',tag:'20–35 min',paras:['Bávaro is de lange strandstrook van all-inclusive resorts, beachclubs en winkelpleinen die de meeste mensen bedoelen met “Punta Cana”.','Vanaf PUJ is het een korte privérit langs de kustcorridor. We zetten je af bij de hotellobby en rijden ook tussen locaties voor diner, spa of uitgaan.','Wit zand, warm Caribisch water en levendige avonden — met een koele van en ruimte voor de bagage van het hele gezin.']},
-      pl:{title:'Bávaro',tag:'20–35 min',paras:['Bávaro to długi pas all-inclusive resortów, beach clubów i galerii, który większość ma na myśli mówiąc „Punta Cana”.','Z PUJ to krótki prywatny transfer wzdłuż korytarza nadmorskiego. Podwozimy do lobby hotelu i między obiektami na kolacje, spa czy nocne wyjścia.','Biały piasek, ciepłe karaibskie morze i żywe wieczory — w chłodnym vanie z miejscem na bagaż całej rodziny.']},
-    },
-    'cap-cana':{
-      en:{title:'Cap Cana',tag:'15–30 min',paras:['Cap Cana sits just south of the airport: a gated enclave of marina slips, golf courses, luxury resorts, and private villas.','Transfers here are short and scenic. We navigate resort gates and villa addresses so you are not juggling taxis after a long flight.','Popular for couples, golf groups, and anyone staying at the marina or Punta Espada area who wants a calm, door-to-door arrival.']},
-      es:{title:'Cap Cana',tag:'15–30 min',paras:['Cap Cana queda justo al sur del aeropuerto: un enclave con marina, campos de golf, resorts de lujo y villas privadas.','Los traslados son cortos y panorámicos. Conocemos accesos de resorts y direcciones de villas para que no tengas que improvisar taxis tras un vuelo largo.','Popular entre parejas, grupos de golf y quienes se alojan en la marina o Punta Espada y quieren una llegada tranquila puerta a puerta.']},
-      fr:{title:'Cap Cana',tag:'15–30 min',paras:['Cap Cana se trouve juste au sud de l’aéroport : une enclave avec marina, golfs, resorts de luxe et villas privées.','Les transferts y sont courts et agréables. Nous connaissons les accès resorts et adresses de villas pour éviter les taxis après un long vol.','Apprécié des couples, groupes de golf et voyageurs à la marina ou à Punta Espada qui veulent une arrivée calme porte-à-porte.']},
-      de:{title:'Cap Cana',tag:'15–30 min',paras:['Cap Cana liegt direkt südlich vom Flughafen: ein Areal mit Marina, Golfplätzen, Luxusresorts und privaten Villen.','Transfers sind kurz und ruhig. Wir kennen Resort-Zufahrten und Villenadressen — kein Taxi-Stress nach dem Flug.','Beliebt bei Paaren, Golfgruppen und Gästen an der Marina oder Punta Espada, die eine ruhige Tür-zu-Tür-Ankunft wollen.']},
-      pt:{title:'Cap Cana',tag:'15–30 min',paras:['Cap Cana fica logo a sul do aeroporto: um enclave com marina, golfe, resorts de luxo e villas privadas.','Os traslados são curtos e agradáveis. Conhecemos acessos de resorts e endereços de villas para não improvisar táxis após um voo longo.','Popular entre casais, grupos de golfe e quem fica na marina ou em Punta Espada e quer uma chegada calma porta a porta.']},
-      it:{title:'Cap Cana',tag:'15–30 min',paras:['Cap Cana è subito a sud dell’aeroporto: un’enclave con marina, golf, resort di lusso e ville private.','I transfer sono brevi e panoramici. Conosciamo accessi ai resort e indirizzi delle ville così non cerchi taxi dopo un volo lungo.','Ammata da coppie, gruppi golf e chi soggiorna in marina o a Punta Espada e vuole un arrivo tranquillo porta a porta.']},
-      ru:{title:'Кап-Кана',tag:'15–30 мин',paras:['Кап-Кана — сразу к югу от аэропорта: закрытая зона с мариной, гольфом, люксовыми курортами и частными виллами.','Трансферы короткие и спокойные. Мы знаем въезды на курорты и адреса вилл — без поиска такси после долгого перелёта.','Популярно у пар, гольф-групп и гостей марины или Пунта-Эспады, которым нужна спокойная доставка «от двери до двери».']},
-      zh:{title:'卡普卡纳',tag:'15–30 分钟',paras:['卡普卡纳就在机场南侧：封闭社区，含码头、高尔夫、高端度假村与私人别墅。','车程短、风景好。我们熟悉度假村门禁与别墅地址，长途飞行后无需再找出租车。','适合情侣、高尔夫团体，以及住在码头或 Punta Espada 一带、希望安静门到门抵达的旅客。']},
-      nl:{title:'Cap Cana',tag:'15–30 min',paras:['Cap Cana ligt net ten zuiden van de luchthaven: een enclave met jachthaven, golfbanen, luxe resorts en privévilla’s.','Transfers zijn kort en rustig. We kennen resortpoorten en villa-adressen zodat je na een lange vlucht geen taxi’s hoeft te regelen.','Populair bij stellen, golfgroepen en gasten bij de marina of Punta Espada die een rustige deur-tot-deur aankomst willen.']},
-      pl:{title:'Cap Cana',tag:'15–30 min',paras:['Cap Cana leży tuż na południe od lotniska: enklawa z mariną, polem golfowym, luksusowymi resortami i prywatnymi willami.','Transfery są krótkie i spokojne. Znamy bramy resortów i adresy willi — bez szukania taksówek po długim locie.','Popularne wśród par, grup golfowych i gości mariny lub Punta Espada, którzy chcą spokojnego drzwi-do-drzwi.']},
-    },
-    saona:{
-      en:{title:'Isla Saona',tag:'Day trip',paras:['Isla Saona is the classic full-day escape from the Punta Cana area: powder beaches, palm shade, and the famous natural pool in turquoise shallows.','We handle the land transfer from your resort to the south-coast embarkation point (typically Bayahibe / nearby docks) so your day starts on time with the group or private boat you booked.','Bring reef-safe sunscreen, cash for snacks ashore, and expect a long sunny day — we coordinate pickup and return so you are not stranded after the boat.']},
-      es:{title:'Isla Saona',tag:'Excursión',paras:['Isla Saona es la escapada clásica de día completo desde la zona de Punta Cana: playas de arena fina, sombra de palmeras y la famosa piscina natural en aguas turquesa.','Nosotros hacemos el traslado terrestre desde tu resort hasta el punto de embarque en la costa sur (suele ser Bayahibe / muelles cercanos) para que el día arranque a tiempo con el barco grupal o privado que reservaste.','Lleva protector reef-safe, efectivo para snacks en tierra y prepárate para un día largo de sol — coordinamos ida y vuelta para que no quedes sin transporte después del barco.']},
-      fr:{title:'Isla Saona',tag:'Excursion',paras:['Isla Saona est l’escapade classique à la journée depuis Punta Cana : plages de sable fin, ombre des palmiers et la célèbre piscine naturelle en eaux turquoise.','Nous assurons le transfert terrestre de votre resort au point d’embarquement sur la côte sud (souvent Bayahibe / quais proches) pour que la journée commence à l’heure avec le bateau groupe ou privé réservé.','Prenez une crème reef-safe, un peu d’espèces pour les collations à terre, et prévoyez une longue journée au soleil — nous coordonnons aller-retour pour ne pas rester sans transport après le bateau.']},
-      de:{title:'Isla Saona',tag:'Tagesausflug',paras:['Isla Saona ist der klassische Tagesausflug aus der Region Punta Cana: feine Strände, Palmenschatten und der berühmte Naturpool im türkisen Flachwasser.','Wir übernehmen den Landtransfer vom Resort zum Einschiffungspunkt an der Südküste (meist Bayahibe / nahe Docks), damit Ihr Tag pünktlich mit dem gebuchten Gruppen- oder Privatboot startet.','Riffsichere Sonnencreme, Bargeld für Snacks an Land und ein langer Sonnentag — wir koordinieren Hin- und Rückfahrt, damit Sie nach dem Boot nicht ohne Transfer dastehen.']},
-      pt:{title:'Isla Saona',tag:'Passeio',paras:['Isla Saona é a escapada clássica de dia inteiro a partir da zona de Punta Cana: praias de areia fina, sombra de palmeiras e a famosa piscina natural em águas turquesa.','Cuidamos do traslado terrestre do resort até o ponto de embarque na costa sul (normalmente Bayahibe / cais próximos) para o dia começar a horas com o barco de grupo ou privado que reservou.','Leve protetor reef-safe, dinheiro para snacks em terra e prepare-se para um dia longo de sol — coordenamos ida e volta para não ficar sem transporte após o barco.']},
-      it:{title:'Isla Saona',tag:'Escursione',paras:['Isla Saona è la classica fuga di un giorno dall’area di Punta Cana: spiagge finissime, ombra di palme e la famosa piscina naturale in acque turchesi.','Gestiamo il transfer via terra dal resort al punto di imbarco sulla costa sud (di solito Bayahibe / moli vicini) così la giornata parte in orario con la barca di gruppo o privata prenotata.','Porta crema reef-safe, contanti per snack a terra e aspetta una lunga giornata di sole — coordiniamo andata e ritorno così non resti senza trasporto dopo la barca.']},
-      ru:{title:'Остров Саона',tag:'Экскурсия',paras:['Остров Саона — классический полный день из зоны Пунта-Каны: песок, пальмы и знаменитый природный бассейн в бирюзовой мели.','Мы делаем наземный трансфер от отеля до точки посадки на южном побережье (обычно Баяибе / ближайшие причалы), чтобы день начался вовремя с групповым или частным катером.','Возьмите reef-safe крем, наличные на перекусы на берегу и готовьтесь к длинному солнечному дню — согласуем туда и обратно, чтобы после катера не остаться без машины.']},
-      zh:{title:'萨奥纳岛',tag:'一日游',paras:['萨奥纳岛是蓬塔卡纳一带经典的全日行程：细沙滩、棕榈树荫，以及碧蓝浅水中的天然泳池。','我们负责从度假村到南岸登船点（通常是 Bayahibe / 附近码头）的陆路接送，让您按预订的拼船或包船准时出发。','请带珊瑚友好防晒、岸上零食现金，并预留充足日照时间——我们协调往返，避免下船后无车可乘。']},
-      nl:{title:'Isla Saona',tag:'Dagtrip',paras:['Isla Saona is de klassieke dagtrip vanuit de regio Punta Cana: fijne stranden, palmenschaduw en het beroemde natuurlijke zwembad in turquoise ondiep water.','Wij regelen de landtransfer van je resort naar het inschepingspunt aan de zuidkust (vaak Bayahibe / nabije steigers) zodat de dag op tijd start met de groeps- of privéboot die je boekte.','Neem reef-safe zonnebrand, cash voor snacks aan land en reken op een lange zonnige dag — we coördineren heen en terug zodat je na de boot niet zonder rit zit.']},
-      pl:{title:'Isla Saona',tag:'Wycieczka',paras:['Isla Saona to klasyczna całodniowa wycieczka z okolic Punta Cana: drobny piasek, cień palm i słynny naturalny basen w turkusowej mieliźnie.','Zapewniamy transfer lądowy z resortu do punktu zaokrętowania na południowym wybrzeżu (zwykle Bayahibe / pobliskie keje), by dzień zaczął się na czas z zarezerwowaną łodzią grupową lub prywatną.','Weź krem reef-safe, gotówkę na przekąski na lądzie i nastaw się na długi słoneczny dzień — koordynujemy dojazd i powrót, by po łodzi nie zostać bez transportu.']},
-    },
-    'santo-domingo':{
-      en:{title:'Santo Domingo',tag:'2.5–3 h',paras:['Santo Domingo is the capital: the Colonial Zone (a UNESCO old city), museums, dining, and Las Américas International Airport (SDQ).','From the Punta Cana / Bávaro corridor the drive is typically about 2½–3 hours on the highway. We run private point-to-point transfers for city hotels, cruise connections, and SDQ flights.','Comfortable for families and groups who prefer not to rent a car — cold A/C, space for luggage, and a driver who knows the capital approaches.']},
-      es:{title:'Santo Domingo',tag:'2.5–3 h',paras:['Santo Domingo es la capital: la Zona Colonial (ciudad antigua UNESCO), museos, gastronomía y el Aeropuerto Internacional Las Américas (SDQ).','Desde el corredor Punta Cana / Bávaro el viaje suele ser de unas 2½–3 horas por autopista. Hacemos traslados privados punto a punto a hoteles de la ciudad, conexiones de crucero y vuelos en SDQ.','Cómodo para familias y grupos que prefieren no alquilar auto — aire fuerte, espacio para maletas y un chofer que conoce los accesos a la capital.']},
-      fr:{title:'Saint-Domingue',tag:'2,5–3 h',paras:['Saint-Domingue est la capitale : la Zone coloniale (vieille ville UNESCO), musées, restaurants et l’aéroport international Las Américas (SDQ).','Depuis le corridor Punta Cana / Bávaro, le trajet dure en général 2½–3 heures sur autoroute. Nous proposons des transferts privés point à point vers hôtels en ville, correspondances cruise et vols à SDQ.','Confortable pour familles et groupes qui ne veulent pas louer de voiture — clim puissante, place pour les bagages et un chauffeur qui connaît les approches de la capitale.']},
-      de:{title:'Santo Domingo',tag:'2,5–3 h',paras:['Santo Domingo ist die Hauptstadt: die Kolonialzone (UNESCO-Altstadt), Museen, Restaurants und der Flughafen Las Américas (SDQ).','Vom Korridor Punta Cana / Bávaro dauert die Fahrt typisch 2½–3 Stunden auf der Autobahn. Wir fahren private Punkt-zu-Punkt-Transfers zu Stadthotels, Kreuzfahrtanschlüssen und SDQ-Flügen.','Bequem für Familien und Gruppen ohne Mietwagen — starke Klimaanlage, Gepäckraum und ein Fahrer, der die Zufahrten zur Hauptstadt kennt.']},
-      pt:{title:'Santo Domingo',tag:'2,5–3 h',paras:['Santo Domingo é a capital: a Zona Colonial (cidade antiga UNESCO), museus, gastronomia e o Aeroporto Internacional Las Américas (SDQ).','Do corredor Punta Cana / Bávaro a viagem costuma levar cerca de 2½–3 horas pela autoestrada. Fazemos traslados privados ponto a ponto para hotéis na cidade, conexões de cruzeiro e voos em SDQ.','Confortável para famílias e grupos que preferem não alugar carro — ar forte, espaço para malas e motorista que conhece os acessos à capital.']},
-      it:{title:'Santo Domingo',tag:'2,5–3 h',paras:['Santo Domingo è la capitale: la Zona Coloniale (città antica UNESCO), musei, ristoranti e l’aeroporto internazionale Las Américas (SDQ).','Dal corridoio Punta Cana / Bávaro il viaggio dura in genere 2½–3 ore in autostrada. Facciamo transfer privati punto a punto verso hotel in città, collegamenti crociera e voli a SDQ.','Comodo per famiglie e gruppi che non vogliono noleggiare auto — aria potente, spazio bagagli e un autista che conosce gli accessi alla capitale.']},
-      ru:{title:'Санто-Доминго',tag:'2,5–3 ч',paras:['Санто-Доминго — столица: Колониальная зона (старый город ЮНЕСКО), музеи, рестораны и аэропорт Лас-Америкас (SDQ).','От коридора Пунта-Кана / Баваро обычно 2½–3 часа по трассе. Мы делаем частные трансферы «точка–точка» к городским отелям, круизным стыковкам и рейсам SDQ.','Удобно семьям и группам без аренды авто — сильный кондиционер, место под багаж и водитель, знающий подъезды к столице.']},
-      zh:{title:'圣多明各',tag:'2.5–3 小时',paras:['圣多明各是首都：殖民区（联合国教科文组织古城）、博物馆、餐饮，以及拉斯阿梅里卡斯国际机场（SDQ）。','从蓬塔卡纳 / 巴瓦罗走廊沿高速通常约 2½–3 小时。我们提供到市区酒店、邮轮衔接和 SDQ 航班的点对点专车。','适合不想租车的家庭与团体——强劲空调、充足行李空间，司机熟悉首都进出路线。']},
-      nl:{title:'Santo Domingo',tag:'2,5–3 u',paras:['Santo Domingo is de hoofdstad: de Koloniale Zone (UNESCO-oude stad), musea, restaurants en Las Américas International Airport (SDQ).','Vanaf de corridor Punta Cana / Bávaro duurt de rit meestal zo’n 2½–3 uur over de snelweg. We rijden privé point-to-point naar stadshotels, cruise-aansluitingen en SDQ-vluchten.','Comfortabel voor gezinnen en groepen die geen auto willen huren — sterke airco, bagageruimte en een chauffeur die de toegangen tot de hoofdstad kent.']},
-      pl:{title:'Santo Domingo',tag:'2,5–3 h',paras:['Santo Domingo to stolica: Zona Colonial (starówka UNESCO), muzea, gastronomia i lotnisko Las Américas (SDQ).','Z korytarza Punta Cana / Bávaro dojazd zajmuje zwykle ok. 2½–3 godzin autostradą. Robimy prywatne transfery punkt–punkt do hoteli w mieście, połączeń wycieczkowców i lotów SDQ.','Wygodne dla rodzin i grup bez wynajmu auta — mocne A/C, miejsce na bagaż i kierowca, który zna dojazdy do stolicy.']},
-    },
-  };
-
-
-  ensureDestModalHost(){
-    let host = document.getElementById('dest-detail-root');
-    if(host) return host;
-    host = document.createElement('div');
-    host.id = 'dest-detail-root';
-    host.className = 'lm';
-    host.innerHTML = `
-      <div class="dest-detail-back" id="dest-detail-back" hidden data-open="false" role="presentation">
-        <div class="dest-detail" id="dest-detail-dialog" role="dialog" aria-modal="true" aria-labelledby="dest-detail-title" tabindex="-1">
-          <button type="button" class="dest-detail-x" id="dest-detail-close" aria-label="Close">&times;</button>
-          <div class="dest-carousel" id="dest-carousel" data-auto="off">
-            <div class="dest-carousel-track" id="dest-carousel-track"></div>
-            <div class="dest-carousel-dots" id="dest-carousel-dots" role="tablist"></div>
-            <div class="dest-carousel-progress" id="dest-carousel-progress" aria-hidden="true"><span></span></div>
-          </div>
-          <div class="dest-detail-body">
-            <span class="chip" id="dest-detail-tag"></span>
-            <h2 id="dest-detail-title" class="disp"></h2>
-            <div class="dest-detail-copy" id="dest-detail-copy"></div>
-          </div>
-        </div>
-      </div>`;
-    document.body.appendChild(host);
-    return host;
-  }
-
-  getDestLang(){
-    try{
-      const el = document.querySelector('x-dc .lm[data-lang], .lm[data-lang]:not(#krn-banner-wrap)');
-      const lang = (el && el.getAttribute('data-lang')) || this.state.lang || 'es';
-      return lang;
-    }catch(e){ return this.state.lang || 'es'; }
-  }
-
-  _destModalScrollArea(target){
-    const host = document.getElementById('dest-detail-root');
-    if(!host) return null;
-    const back = host.querySelector('#dest-detail-back');
-    if(!back || back.getAttribute('data-open') !== 'true') return null;
-    let el = target;
-    if(el && el.nodeType !== 1) el = el.parentElement;
-    if(!el || !el.closest) return null;
-    const matched = el.closest('.dest-detail-body, #dest-detail-copy');
-    if(!matched || !host.contains(matched)) return null;
-    const area = matched.closest('.dest-detail-body') || matched;
-    if(!area || !host.contains(area) || area.scrollHeight <= area.clientHeight + 1) return null;
-    return area;
-  }
-
-  _destModalLockScroll(){
-    if(this._destModalScrollLock) return;
-    const html = document.documentElement;
-    const body = document.body;
-    const savedY = Math.max(0, Number(window.scrollY || window.pageYOffset || 0));
-    const state = {
-      y: savedY,
-      htmlOverflow: html.style.overflow,
-      bodyOverflow: body.style.overflow,
-      bodyPosition: body.style.position,
-      bodyTop: body.style.top,
-      bodyWidth: body.style.width,
-      touch: null,
-      handlers: null
-    };
-    const listenerOptions = {capture:true, passive:false};
-    const onWheel = (e)=>{
-      const area = this._destModalScrollArea(e.target);
-      if(!area){ e.preventDefault(); return; }
-      const max = Math.max(0, area.scrollHeight - area.clientHeight);
-      const delta = e.deltaY || 0;
-      if((delta < 0 && area.scrollTop <= 0) || (delta > 0 && area.scrollTop >= max)) e.preventDefault();
-    };
-    const onTouchStart = (e)=>{
-      const area = this._destModalScrollArea(e.target);
-      const touch = e.touches && e.touches[0];
-      state.touch = area && touch ? {area, y:touch.clientY} : null;
-    };
-    const onTouchMove = (e)=>{
-      const area = this._destModalScrollArea(e.target);
-      if(!area){ e.preventDefault(); return; }
-      const touch = e.touches && e.touches[0];
-      const start = state.touch;
-      if(!touch || !start || start.area !== area){ e.preventDefault(); return; }
-      const max = Math.max(0, area.scrollHeight - area.clientHeight);
-      const delta = touch.clientY - start.y;
-      if((delta > 0 && area.scrollTop <= 0) || (delta < 0 && area.scrollTop >= max)) e.preventDefault();
-    };
-    const clearTouch = ()=>{ state.touch = null; };
-    this._destModalScrollLock = state;
-    html.classList.add('dest-modal-lock');
-    body.classList.add('dest-modal-lock');
-    html.style.overflow = 'hidden';
-    body.style.position = 'fixed';
-    body.style.top = '-' + savedY + 'px';
-    body.style.width = '100%';
-    body.style.overflow = 'hidden';
-    document.addEventListener('wheel', onWheel, listenerOptions);
-    document.addEventListener('touchstart', onTouchStart, {capture:true, passive:true});
-    document.addEventListener('touchmove', onTouchMove, listenerOptions);
-    document.addEventListener('touchend', clearTouch, {capture:true, passive:true});
-    document.addEventListener('touchcancel', clearTouch, {capture:true, passive:true});
-    state.handlers = {onWheel, onTouchStart, onTouchMove, clearTouch};
-  }
-
-  _destModalUnlockScroll(){
-    const state = this._destModalScrollLock;
-    if(!state) return;
-    const handlers = state.handlers;
-    if(handlers){
-      document.removeEventListener('wheel', handlers.onWheel, true);
-      document.removeEventListener('touchstart', handlers.onTouchStart, true);
-      document.removeEventListener('touchmove', handlers.onTouchMove, true);
-      document.removeEventListener('touchend', handlers.clearTouch, true);
-      document.removeEventListener('touchcancel', handlers.clearTouch, true);
-    }
-    state.touch = null;
-    const html = document.documentElement;
-    const body = document.body;
-    html.classList.remove('dest-modal-lock');
-    body.classList.remove('dest-modal-lock');
-    html.style.overflow = state.htmlOverflow;
-    body.style.overflow = state.bodyOverflow;
-    body.style.position = state.bodyPosition;
-    body.style.top = state.bodyTop;
-    body.style.width = state.bodyWidth;
-    this._destModalScrollLock = null;
-    window.scrollTo(0, state.y);
-  }
-
-  openDestModal(slug){
-    const meta = this.destModalMeta[slug];
-    const pack = this.destModalCopy[slug];
-    if(!meta || !pack) return;
-    const lang = this.getDestLang();
-    const copy = pack[lang] || pack.es || pack.en;
-    const t = (this.i18n[lang] || this.i18n.es || this.i18n.en);
-    const host = this.ensureDestModalHost();
-    // sync palette vars from live .lm
-    try{
-      const live = document.querySelector('x-dc .lm') || document.querySelector('.lm');
-      if(live){
-        host.setAttribute('data-lang', lang);
-        const cs = getComputedStyle(live);
-        ['--sand','--surface','--card','--ink','--muted','--teal','--teal-deep','--raise','--raise-lg'].forEach(k=>{
-          const v = cs.getPropertyValue(k); if(v) host.style.setProperty(k, v.trim());
-        });
-      }
-    }catch(e){}
-    const back = host.querySelector('#dest-detail-back');
-    const dialog = host.querySelector('#dest-detail-dialog');
-    const track = host.querySelector('#dest-carousel-track');
-    const dots = host.querySelector('#dest-carousel-dots');
-    const title = host.querySelector('#dest-detail-title');
-    const tag = host.querySelector('#dest-detail-tag');
-    const body = host.querySelector('#dest-detail-copy');
-    const closeBtn = host.querySelector('#dest-detail-close');
-    title.textContent = copy.title;
-    tag.textContent = copy.tag;
-    body.innerHTML = (copy.paras || []).map(p => '<p>'+p.replace(/</g,'&lt;')+'</p>').join('');
-    closeBtn.setAttribute('aria-label', (t && t.dm_close) || 'Cerrar');
-    track.innerHTML = '';
-    dots.innerHTML = '';
-    (meta.images || []).forEach((src, i)=>{
-      const img = document.createElement('img');
-      img.src = src; img.alt = copy.title + ' — ' + ((t && t.dm_gallery) || 'Galería') + ' ' + (i+1);
-      img.decoding = 'async'; img.draggable = false;
-      track.appendChild(img);
-      const dot = document.createElement('button');
-      dot.type = 'button';
-      dot.setAttribute('aria-label', ((t && t.dm_gallery) || 'Galería') + ' ' + (i+1));
-      if(i===0) dot.setAttribute('aria-current','true');
-      dot.addEventListener('click', ()=> this._destModalGo(i));
-      dots.appendChild(dot);
-    });
-    this._destModalIndex = 0;
-    this._destModalSlug = slug;
-    this._destModalLen = (meta.images || []).length;
-    this._destModalAutoMs = 3800;
-    track.style.transform = 'translateX(0)';
-    const carousel = host.querySelector('#dest-carousel');
-    if(carousel){
-      carousel.style.setProperty('--dest-auto-ms', this._destModalAutoMs + 'ms');
-      carousel.classList.remove('is-paused');
-    }
-    this._destModalSyncSlide(true);
-    this._destModalReturnFocus = document.activeElement;
-    back.hidden = false;
-    back.setAttribute('data-open','true');
-    this._destModalLockScroll();
-    this._destModalStartAuto();
-    // focus dialog after paint
-    setTimeout(()=>{ try{ (closeBtn || dialog).focus(); }catch(e){} }, 30);
-  }
-
-  _destModalSyncSlide(resetKen){
-    const host = document.getElementById('dest-detail-root');
-    if(!host) return;
-    const len = this._destModalLen || 0;
-    if(!len) return;
-    const idx = this._destModalIndex;
-    const track = host.querySelector('#dest-carousel-track');
-    const dots = host.querySelectorAll('#dest-carousel-dots button');
-    if(track) track.style.transform = 'translateX(-' + (idx * 100) + '%)';
-    dots.forEach((d, i)=>{
-      if(i === idx) d.setAttribute('aria-current','true');
-      else d.removeAttribute('aria-current');
-    });
-    const imgs = track ? track.querySelectorAll('img') : [];
-    imgs.forEach((img, i)=>{
-      const on = i === idx;
-      if(resetKen){
-        img.classList.remove('is-active');
-        // force reflow so Ken Burns restarts
-        void img.offsetWidth;
-      }
-      img.classList.toggle('is-active', on);
-    });
-  }
-
-  _destModalPulseProgress(){
-    const host = document.getElementById('dest-detail-root');
-    if(!host) return;
-    const carousel = host.querySelector('#dest-carousel');
-    if(carousel) carousel.style.setProperty('--dest-auto-ms', (this._destModalAutoMs || 3800) + 'ms');
-    const barWrap = host.querySelector('#dest-carousel-progress');
-    if(barWrap) barWrap.innerHTML = '<span></span>';
-    // Retrigger ::after fill on the active pill-dot
-    const dots = host.querySelectorAll('#dest-carousel-dots button');
-    dots.forEach(d => d.removeAttribute('aria-current'));
-    void host.offsetWidth;
-    const active = dots[this._destModalIndex];
-    if(active) active.setAttribute('aria-current','true');
-  }
-
-  _destModalGo(i, opts){
-    const host = document.getElementById('dest-detail-root');
-    if(!host) return;
-    const len = this._destModalLen || 0;
-    if(!len) return;
-    const fromAuto = !!(opts && opts.fromAuto);
-    this._destModalIndex = ((i % len) + len) % len;
-    this._destModalSyncSlide(true);
-    if(fromAuto){
-      // ArmAuto (caller) restarts progress for the next cycle
-      return;
-    }
-    // Manual nav: restart timer so we don't double-advance
-    if(this._destModalWantAuto) this._destModalArmAuto();
-  }
-
-  _destModalStopAuto(){
-    if(this._destModalTimer){ clearTimeout(this._destModalTimer); this._destModalTimer = null; }
-    this._destModalWantAuto = false;
-    this._destModalPaused = false;
-    const host = document.getElementById('dest-detail-root');
-    const carousel = host && host.querySelector('#dest-carousel');
-    if(carousel){
-      carousel.setAttribute('data-auto','off');
-      carousel.classList.remove('is-paused');
-    }
-  }
-
-  _destModalStartAuto(){
-    this._destModalStopAuto();
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if(reduce || !(this._destModalLen > 1)) return;
-    this._destModalWantAuto = true;
-    this._destModalPaused = false;
-    this._destModalAutoMs = this._destModalAutoMs || 3800;
-    const host = document.getElementById('dest-detail-root');
-    const carousel = host && host.querySelector('#dest-carousel');
-    if(carousel){
-      carousel.setAttribute('data-auto','on');
-      carousel.classList.remove('is-paused');
-      carousel.style.setProperty('--dest-auto-ms', this._destModalAutoMs + 'ms');
-    }
-    this._destModalArmAuto();
-  }
-
-  _destModalArmAuto(){
-    if(this._destModalTimer){ clearTimeout(this._destModalTimer); this._destModalTimer = null; }
-    if(!this._destModalWantAuto || this._destModalPaused) return;
-    this._destModalPulseProgress();
-    const ms = this._destModalAutoMs || 3800;
-    this._destModalTimer = setTimeout(()=>{
-      this._destModalTimer = null;
-      if(!this._destModalWantAuto || this._destModalPaused) return;
-      this._destModalGo((this._destModalIndex + 1) % this._destModalLen, {fromAuto:true});
-      this._destModalArmAuto();
-    }, ms);
-  }
-
-  _destModalPauseAuto(){
-    if(!this._destModalWantAuto) return;
-    this._destModalPaused = true;
-    if(this._destModalTimer){ clearTimeout(this._destModalTimer); this._destModalTimer = null; }
-    const host = document.getElementById('dest-detail-root');
-    const carousel = host && host.querySelector('#dest-carousel');
-    if(carousel) carousel.classList.add('is-paused');
-  }
-
-  _destModalResumeAuto(){
-    if(!this._destModalWantAuto) return;
-    this._destModalPaused = false;
-    const host = document.getElementById('dest-detail-root');
-    const carousel = host && host.querySelector('#dest-carousel');
-    if(carousel) carousel.classList.remove('is-paused');
-    this._destModalArmAuto();
-  }
-
-  closeDestModal(){
-    const host = document.getElementById('dest-detail-root');
-    const back = host && host.querySelector('#dest-detail-back');
-    if(back){ back.setAttribute('data-open','false'); back.hidden = true; }
-    this._destModalUnlockScroll();
-    this._destModalStopAuto();
-    this._destModalSlug = null;
-    const ret = this._destModalReturnFocus;
-    this._destModalReturnFocus = null;
-    if(ret && typeof ret.focus === 'function'){
-      try{ ret.focus(); }catch(e){}
-    }
-  }
-
-  wireDestModalHost(){
-    const host = this.ensureDestModalHost();
-    if(host.dataset.wired === '1') return host;
-    const back = host.querySelector('#dest-detail-back');
-    const dialog = host.querySelector('#dest-detail-dialog');
-    const carousel = host.querySelector('#dest-carousel');
-    const onBackClick = (e)=>{ if(e.target === back) this.closeDestModal(); };
-    const onKey = (e)=>{
-      if(!back || back.getAttribute('data-open') !== 'true') return;
-      if(e.key === 'Escape'){ e.preventDefault(); this.closeDestModal(); return; }
-    };
-    const pause = ()=> this._destModalPauseAuto();
-    const resume = ()=> this._destModalResumeAuto();
-    let touchResumeTimer = null;
-    const onTouchPause = ()=>{
-      if(touchResumeTimer){ clearTimeout(touchResumeTimer); touchResumeTimer = null; }
-      pause();
-    };
-    const onTouchResume = ()=>{
-      if(touchResumeTimer) clearTimeout(touchResumeTimer);
-      touchResumeTimer = setTimeout(()=>{ touchResumeTimer = null; resume(); }, 1400);
-    };
-    back.addEventListener('click', onBackClick);
-    host.querySelector('#dest-detail-close').addEventListener('click', ()=> this.closeDestModal());
-    dialog.addEventListener('click', (e)=> e.stopPropagation());
-    carousel.addEventListener('mouseenter', pause);
-    carousel.addEventListener('mouseleave', resume);
-    carousel.addEventListener('focusin', pause);
-    carousel.addEventListener('focusout', (e)=>{
-      if(e.relatedTarget && carousel.contains(e.relatedTarget)) return;
-      resume();
-    });
-    carousel.addEventListener('pointerdown', (e)=>{
-      if(e.pointerType === 'touch' || e.pointerType === 'pen') onTouchPause();
-    });
-    carousel.addEventListener('pointerup', (e)=>{
-      if(e.pointerType === 'touch' || e.pointerType === 'pen') onTouchResume();
-    });
-    carousel.addEventListener('pointercancel', (e)=>{
-      if(e.pointerType === 'touch' || e.pointerType === 'pen') onTouchResume();
-    });
-    document.addEventListener('keydown', onKey);
-    host.dataset.wired = '1';
-    return host;
-  }
-
-  initDestModal(){
-    const stack = document.getElementById('dest-stack');
-    if(!stack) return;
-    if(this._destModal && this._destModal.el === stack) return;
-    if(this._destModal && this._destModal.teardown){
-      try{ this._destModal.teardown(); }catch(e){}
-      this._destModal = null;
-    }
-    this.wireDestModalHost();
-    const onCardActivate = (card)=>{
-      const slug = card.getAttribute('data-dest');
-      if(slug) this.openDestModal(slug);
-    };
-    const onStackClick = (e)=>{
-      const card = e.target.closest && e.target.closest('.dest-card[data-dest]');
-      if(!card || !stack.contains(card)) return;
-      e.preventDefault();
-      onCardActivate(card);
-    };
-    const onStackKey = (e)=>{
-      if(e.key !== 'Enter' && e.key !== ' ') return;
-      const card = e.target.closest && e.target.closest('.dest-card[data-dest]');
-      if(!card || !stack.contains(card)) return;
-      e.preventDefault();
-      onCardActivate(card);
-    };
-    stack.addEventListener('click', onStackClick);
-    stack.addEventListener('keydown', onStackKey);
-    this._destModal = {
-      el: stack,
-      teardown: ()=>{
-        stack.removeEventListener('click', onStackClick);
-        stack.removeEventListener('keydown', onStackKey);
-        this._destModalStopAuto();
-        try{ this.closeDestModal(); }catch(e){}
-      }
-    };
-  }
-
-  initDestStack(){
-    const stack = document.getElementById('dest-stack');
-    if(!stack) return;
-    // Re-bind when React remounts replace the node
-    if(this._destStack && this._destStack.el === stack) return;
-    if(this._destStack && this._destStack.teardown){
-      try{ this._destStack.teardown(); }catch(e){}
-      this._destStack = null;
-    }
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const short = window.matchMedia('(max-height: 560px)').matches;
-    const cards = Array.prototype.slice.call(stack.querySelectorAll('.dest-card'));
-    if(!cards.length || reduce || short){
-      this._destStack = { el: stack, teardown: null };
-      return;
-    }
-    const clamp = (n,a,b)=> Math.min(b, Math.max(a,n));
-    let visible = false, pin = 84, ticking = false;
-    const measurePin = ()=>{ pin = parseFloat(getComputedStyle(cards[0]).top) || 84; };
-    const update = ()=>{
-      const vh = window.innerHeight;
-      const denom = Math.max(1, vh - pin);
-      const ins = cards.map(c => clamp((vh - c.getBoundingClientRect().top) / denom, 0, 1));
-      cards.forEach((c,i)=>{
-        c.style.setProperty('--in', ins[i].toFixed(3));
-        c.style.setProperty('--cover', (i < cards.length - 1 ? ins[i+1] : 0).toFixed(3));
-      });
-    };
-    const onScroll = ()=>{
-      if(!visible || ticking) return;
-      ticking = true;
-      requestAnimationFrame(()=>{ ticking = false; update(); });
-    };
-    const onResize = ()=>{ measurePin(); update(); };
-    measurePin();
-    window.addEventListener('resize', onResize, {passive:true});
-    window.addEventListener('scroll', onScroll, {passive:true});
-    let io = null;
-    if('IntersectionObserver' in window){
-      io = new IntersectionObserver((en)=>{ visible = !!(en[0] && en[0].isIntersecting); if(visible) update(); }, {rootMargin:'30% 0px'});
-      io.observe(stack);
-    } else {
-      visible = true;
-    }
-    update();
-    this._destStack = {
-      el: stack,
-      teardown: ()=>{
-        window.removeEventListener('resize', onResize);
-        window.removeEventListener('scroll', onScroll);
-        try{ if(io) io.disconnect(); }catch(e){}
-      }
-    };
-  }
-
   componentDidMount(){
     const saved = this.readCookieConsent();
     if(saved && saved !== this.state.cookie) this.setState({cookie:saved});
@@ -2436,8 +1768,6 @@ class Component extends DCLogic {
     this._onResizeNav = ()=>this.syncNarrowNav();
     window.addEventListener('resize', this._onResizeNav);
     window.addEventListener('scroll', this._onResizeNav, {passive:true});
-    this.initDestStack();
-    this.initDestModal();
     // prevent image/media drag + keep Design image-slots from eating mobile scroll
     try{
       document.querySelectorAll('image-slot').forEach(el=>{ try{ el.removeAttribute('data-editable'); el.style.touchAction='pan-x pan-y'; }catch(e){} });
@@ -2515,7 +1845,7 @@ class Component extends DCLogic {
     document.addEventListener('pointerdown', unlock, {once:true});
     document.addEventListener('touchstart', unlock, {once:true, passive:true});
   }
-  componentWillUnmount(){ document.removeEventListener('click', this._outside); document.removeEventListener('keydown', this._esc); if(this._noDrag) document.removeEventListener('dragstart', this._noDrag); if(this._onResizeNav){ window.removeEventListener('resize', this._onResizeNav); window.removeEventListener('scroll', this._onResizeNav); } if(this._destStack && this._destStack.teardown){ try{ this._destStack.teardown(); }catch(e){} this._destStack=null; } if(this._destModal && this._destModal.teardown){ try{ this._destModal.teardown(); }catch(e){} this._destModal=null; } }
+  componentWillUnmount(){ document.removeEventListener('click', this._outside); document.removeEventListener('keydown', this._esc); if(this._noDrag) document.removeEventListener('dragstart', this._noDrag); if(this._onResizeNav){ window.removeEventListener('resize', this._onResizeNav); window.removeEventListener('scroll', this._onResizeNav); } }
 
   codeVanSVG(){
     return `<svg viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg">
@@ -2607,11 +1937,12 @@ class Component extends DCLogic {
     };
   }
 
-  componentDidUpdate(){ this.injectVan(); this.initDestStack(); this.initDestModal(); }
+  componentDidUpdate(){ this.injectVan(); }
 }
 </script>
 <script src="./assets/tarifario.data.js?v=23" defer></script>
-<script src="./karun-wizard.js?v=23" defer></script>
-<script src="./assets/karun-v23.js?v=26" defer></script>
+<script src="./karun-wizard.js?v=25" defer></script>
+<script src="./assets/karun-v23.js?v=27" defer></script>
+<script src="./assets/karun-v25-destinos.js?v=25" defer></script>
 </body>
 </html>

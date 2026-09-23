@@ -765,7 +765,8 @@
     function whenReady(cb) {
       var n = 0;
       (function tick() {
-        if ($("x-dc .lm") || $(".lm #top") || n > 80) return cb();
+        // v25.2: wait for the React-rendered tree (#dc-root), never the raw <x-dc> template
+        if ($("#dc-root .lm #top") || n > 400) return cb();
         n++;
         setTimeout(tick, 50);
       })();

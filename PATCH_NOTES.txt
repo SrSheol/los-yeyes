@@ -1,3 +1,84 @@
+KARÚN v25.2 — Destinos rediseñado por completo: «Postales del Este» — 2026-09-22
+
+Solo la sección #destinations (+ su ficha). Resto de la página sin cambios de diseño.
+
+1) Concepto
+   - Encabezado: "Elige tu postal. El camino es nuestro." / "Pick your postcard. We know the road." con
+     palmera de línea que se mece, líneas de marea y grano de arena en el fondo (tokens teal/arena v23).
+   - ESCENARIO (sustituye al sticky stack): foto a sangre del destino activo con "ola" que la barre al
+     cambiar (máscara de marea), Ken Burns lento, parallax suave y un marco que se abre al entrar en
+     pantalla. Encima: etiqueta de región (Costa del Coco / Sur caribeño / Rumbo a la capital), acento
+     caligráfico Yellowtail, título Gloock gigante que sube palabra a palabra, texto breve y 3 datos en
+     cápsulas de vidrio: tiempo aprox. desde el aeropuerto, hoteles de esa zona en el tarifario y
+     "desde US$" — calculados en vivo de window.KRN_TARIFARIO (nada inventado).
+   - MINI MAPA de la costa (SVG propio proyectado de lon/lat): puntos de los 10 destinos, aeropuertos
+     PUJ/SDQ, ruta coral animada del aeropuerto al destino; Saona dibuja tierra hasta Bayahibe + tramo
+     en lancha punteado.
+   - Recorrido automático (7 s) solo mientras el escenario está visible, con barra de progreso y botón
+     Pausar/Reanudar (WCAG 2.2.2); se pausa con hover/foco, al abrir la ficha y al navegar a mano.
+     Flechas, teclado (← →) y swipe en móvil.
+   - RIEL DE POSTALES: 10 postales con marco de papel, ligera rotación, sello "Nº 0X" tipo matasellos,
+     color por región; chips de región que saltan al primer destino de cada zona; flechas del riel en
+     desktop, scroll-snap en móvil. Tocar una postal abre su ficha directamente.
+
+2) Destinos (10) — los 5 originales + 5 del tarifario oficial
+   Punta Cana (PUJ) · Bávaro · Cap Cana · Playa Macao · Uvero Alto · La Romana (Casa de Campo / Altos de
+   Chavón) · Bayahibe · Isla Saona · Boca Chica · Santo Domingo. Cada uno ligado a sus zonas reales del
+   tarifario (PUJ o SDQ). Juan Dolio/Samaná descartados (1 hotel / fuera del tarifario, sin fotos dignas).
+
+3) Ficha (detalle) — isla centrada en todos los tamaños (sin hoja a pantalla completa)
+   - Galería con autoplay 4,6 s + barra, miniaturas, flechas, swipe, ← → del teclado, Ken Burns; crédito
+     de autor y licencia en cada foto con enlace a la fuente.
+   - Región, número, título, acento, entrada; "Qué te espera" (4 puntos con iconos) en ES/EN.
+   - Tarjeta "Tu traslado con Karún": ruta aeropuerto → destino con van animada, 3 datos del tarifario,
+     por qué con Karún, 3 hoteles reales del tarifario + "+N más", nota de tarifa oficial.
+   - CTAs: "Reservar este traslado" (cierra y baja a #reservar) y "Tarifas de la zona" (cambia el
+     aeropuerto y filtra el tarifario por la zona, reutilizando los controles existentes).
+   - Anterior/Siguiente destino dentro de la ficha. Esc, clic fuera y ✕ cierran; foco atrapado y devuelto.
+   - Bloqueo de scroll PC + móvil: overflow en <html>/<body> + compensación de scrollbar + guardas de
+     wheel/touchmove/teclas fuera del cuerpo de la ficha (sin saltos de posición al cerrar).
+
+4) Idiomas
+   - ES (por defecto) y EN completos. FR/DE/PT/IT/RU/ZH/NL/PL: interfaz, regiones, nombres, lemas y
+     textos de ficha (los 5 originales conservan las traducciones v22; los 5 nuevos, texto propio).
+   - i18n d_kicker/d_title/d_sub actualizados en los 10 idiomas.
+
+5) Seguridad de remount (Design/React)
+   - Todo lo dinámico vive en el host VACÍO <div class="k25-dest-app" data-k25-dest></div> y en
+     #k25-dd-root (hijo de <body>). Nada de <button> dentro de <p>. Re-montaje detectado por intervalo
+     ligero + MutationObserver solo de data-lang.
+   - Eliminado del script DC: destModalMeta/destModalCopy/initDestStack/initDestModal y su CSS (head y
+     helmet); entradas lm-dest-* borradas de .image-slots.state.json (-590 KB). karun-v23.js intacto
+     (sus ganchos de Destinos quedan inertes sin .dest-card / #dest-detail-root).
+
+6) Fotos
+   - 38 fotos reales de RD (Flickr / Wikimedia Commons; CC BY, CC BY-SA, CC0, PDM) en
+     assets/destinations/<slug>/k25-*.jpg + k25-card.jpg; detalle y enlaces en assets/CREDITS.md.
+   - Retiradas imágenes de stock/IA con geografía incorrecta (montañas/karst) de bavaro, cap-cana, saona.
+
+7) Blank-page fix (preexistente, reproducible en 390 px / CPU lenta / sin consentimiento de cookies)
+   - Causa: karun-wizard.js (y el primer refresh de karun-v23.js) pintaban dentro de la plantilla cruda
+     <x-dc> ANTES de que support.js la leyera como innerHTML → esos nodos pasaban a ser de React y el
+     siguiente render (p. ej. el banner de cookies) fallaba con removeChild → página en blanco.
+   - karun-wizard.js: mountWizardUi solo actúa si el formulario está dentro de #dc-root; observa <body>.
+   - karun-v23.js: whenReady espera a "#dc-root .lm #top". Mismo criterio en karun-v25-destinos.js.
+   - Verificado: 0 fallos en 16 cargas aleatorias (390–1440 px, CPU ×1/×3/×4/×6, con/sin cookies);
+     la versión anterior fallaba 2/6 en la misma matriz. Cache: karun-wizard.js?v=25, karun-v23.js?v=27.
+
+8) prefers-reduced-motion: sin autoplay (botón oculto), sin ola/Ken Burns/parallax/escala, sin palmera,
+   pings ni van animada; cambios instantáneos. 0 animaciones infinitas activas.
+
+Archivos: index.html (sección + limpieza), assets/karun-v25-destinos.css?v=25,
+assets/karun-v25-destinos.js?v=25, karun-wizard.js?v=25, assets/karun-v23.js?v=27 (solo guardas de montaje), assets/destinations/*, assets/CREDITS.md, .image-slots.state.json.
+
+Pruebas (Chromium headless 1440×900, 1024×768, 390×844): carga sin errores de consola ni removeChild;
+escenario ← → y autoplay; ola de cambio; riel + flechas + chips; ficha desde postal y desde botón;
+galería ← →; anterior/siguiente; Esc devuelve foco; scroll bloqueado con rueda y con arrastre táctil
+(CDP) y la ficha sí desplaza; "Tarifas de la zona" → SDQ + zona santo-domingo filtrada; "Reservar" →
+#reservar; cambios rápidos ES→EN→DE→ES sin errores; FR/ZH/EN renderizados; sin scroll horizontal a
+390 px; reduced-motion con 0 animaciones infinitas.
+
+---
 v25.1 — Fix blank page / removeChild on load (2026-09-21)
 
 - Root cause: fleet chooser filled a <p data-k23-rec> with <button>/<span>; browsers hoist
