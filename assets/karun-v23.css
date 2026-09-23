@@ -258,10 +258,10 @@ html .lm .k23-traveler-halo{fill:#fffcf7;stroke:rgba(14,143,160,.25);stroke-widt
 html .lm .k23-tv{fill:var(--k-deep);stroke:none;transition:opacity .35s ease,transform .45s var(--k-ease);opacity:0;transform:scale(.6)}
 html .lm .k23-tv .k23-wheel{fill:var(--k-ink)}
 html .lm .k23-tv .k23-glass{fill:#bfeaf0}
-html .lm .k23-tv-bell{fill:none;stroke:var(--k-coral);stroke-width:2.6;stroke-linecap:round}
+html .lm .k23-tv-hotel{fill:none;stroke:var(--k-coral);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
 html .lm .k23-traveler[data-mode="plane"] .k23-tv-plane,
 html .lm .k23-traveler[data-mode="van"] .k23-tv-van,
-html .lm .k23-traveler[data-mode="bell"] .k23-tv-bell,
+html .lm .k23-traveler[data-mode="hotel"] .k23-tv-hotel,
 html .lm .k23-traveler:not([data-mode]) .k23-tv-plane{opacity:1;transform:none}
 html .lm .k23-stops{list-style:none;padding:0;margin:clamp(10px,2vw,24px) 0 0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(10px,1.6vw,22px)}
 html .lm .k23-stop{position:relative;padding:20px 18px 18px;border-radius:22px;background:var(--k-card);box-shadow:var(--k-raise);opacity:.45;transform:translateY(12px);
@@ -323,10 +323,17 @@ html .lm .k23-ch-night::before{content:"";position:absolute;inset:0;pointer-even
   radial-gradient(1.4px 1.4px at 86% 40%,#fff,transparent),radial-gradient(1px 1px at 12% 52%,#fff,transparent),radial-gradient(1.3px 1.3px at 60% 26%,#fff,transparent);
   animation:k23-twinkle 4s ease-in-out infinite alternate}
 @keyframes k23-twinkle{from{opacity:.4}to{opacity:.95}}
-html .lm .k23-ch-radar{position:relative;width:110px;height:110px;margin:auto 0 4px;box-shadow:inset 0 0 0 1px rgba(122,212,224,.25);border-radius:50%;background:radial-gradient(circle,rgba(122,212,224,.14),transparent 70%)}
+html .lm .k23-ch-radar{position:relative;width:110px;height:110px;margin:auto 0 4px;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(122,212,224,.25);border-radius:50%;background:radial-gradient(circle,rgba(122,212,224,.14),transparent 70%)}
 html .lm .k23-ch-radar span{position:absolute;inset:0;border-radius:50%;border:1.5px solid rgba(122,212,224,.35);animation:k23-radar 3s ease-out infinite}
 html .lm .k23-ch-radar span:nth-child(2){animation-delay:1s}html .lm .k23-ch-radar span:nth-child(3){animation-delay:2s}
 html .lm .k23-ch-radar i{position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 0deg,transparent 0 70%,rgba(122,212,224,.55));animation:k23-spin 3.4s linear infinite}
+html .lm .k23-radar-blip{position:absolute;left:50%;top:50%;width:15px;height:15px;margin:-7.5px 0 0 -7.5px;display:grid;place-items:center;opacity:0;pointer-events:none;
+  transform:rotate(var(--a,0deg)) translateY(calc(-1 * var(--r, 34px))) rotate(calc(var(--h,0deg) - var(--a,0deg)));
+  animation:k23-radar-blip 3.4s ease-in-out infinite;animation-delay:var(--d,0s);z-index:2}
+html .lm .k23-radar-blip svg{width:100%;height:100%;display:block;fill:rgba(122,212,224,.95);filter:drop-shadow(0 0 5px rgba(122,212,224,.85))}
+@keyframes k23-radar-blip{0%,8%{opacity:0;transform:rotate(var(--a,0deg)) translateY(calc(-1 * var(--r, 34px))) rotate(calc(var(--h,0deg) - var(--a,0deg))) scale(.7)}
+  14%,26%{opacity:1;transform:rotate(var(--a,0deg)) translateY(calc(-1 * var(--r, 34px))) rotate(calc(var(--h,0deg) - var(--a,0deg))) scale(1)}
+  38%,100%{opacity:0;transform:rotate(var(--a,0deg)) translateY(calc(-1 * var(--r, 34px))) rotate(calc(var(--h,0deg) - var(--a,0deg))) scale(.85)}}
 @keyframes k23-radar{from{transform:scale(.2);opacity:1}to{transform:scale(1);opacity:0}}
 @keyframes k23-spin{to{transform:rotate(360deg)}}
 html .lm .k23-ch-langs{display:flex;flex-wrap:wrap;gap:8px;margin:auto 0 0}
@@ -373,7 +380,6 @@ html .lm .k23-unit-photo{position:relative;overflow:hidden;background:#0a3340}
 html .lm .k23-unit-photo img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.06) translate(calc(var(--px,0) * -10px),calc(var(--py,0) * -8px));transition:transform .4s var(--k-ease);animation:k23-kb 9s ease-out both}
 @keyframes k23-kb{from{scale:1.08}to{scale:1}}
 html .lm .k23-unit-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 60%,rgba(255,252,247,.35)),linear-gradient(0deg,rgba(10,51,64,.55),transparent 45%)}
-html .lm .k23-unit-year{position:absolute;z-index:2;left:22px;top:14px;font-family:var(--f-disp);font-size:clamp(60px,7vw,110px);line-height:1;color:rgba(255,255,255,.88);text-shadow:0 10px 30px rgba(0,0,0,.35);letter-spacing:-.03em}
 html .lm .k23-unit-photo .krn-fleet-badge{left:16px;bottom:16px;z-index:2}
 html .lm .k23-unit-info{padding:clamp(22px,3vw,38px);display:flex;flex-direction:column;gap:14px}
 html .lm .k23-unit-top{display:flex;flex-wrap:wrap;gap:8px}
@@ -1135,11 +1141,13 @@ html body .lm .k24-doc[data-doc="cancel"] .k24-docnav [data-doc="cancel"],html b
   html .lm .k23-h1 .w,html .lm .k23-rise{animation:none!important;opacity:1!important;transform:none!important;filter:none!important}
   html .lm .k23-h1 .w.k23-script{transform:rotate(-4deg)!important}
   html .lm .k23-caustics,html .lm .k23-sway,html .lm .k23-dot,html .lm .k23-pass-live i,html .lm .k23-pass-sign,html .lm .k23-pass-plane,html .lm .k23-scrollcue i::after,
-  html .lm .k23-sep svg,html .lm .k23-sep path.foam,html .lm .k23-ch-radar span,html .lm .k23-ch-radar i,html .lm .k23-ch-night::before,
+  html .lm .k23-sep svg,html .lm .k23-sep path.foam,html .lm .k23-ch-radar span,html .lm .k23-ch-radar i,html .lm .k23-radar-blip,html .lm .k23-ch-night::before,
   html .lm .k23-shoreline,html .lm .k23-journey-sea,html .lm .k23-map-ripples path,html .lm .k23-route,html .lm .k23-zn-pulse,html .lm .k23-end-sea,
   html .lm .k23-unit-photo img,html .lm .k23-seats-row i.on,html .lm .k23-glance-row i::after,html .lm .k23-unit,html .lm .k23-panel,
   html body .lm .nav-drawer[data-open="true"],
   html .lm .k24-lang-orb svg,html .lm .k24-sea-waves path,html .lm .k24-shoreline,html .lm .k24-van-halo,html .lm .k24-zcard-dot,html body .lm .k24-langmenu{animation:none!important}
+  html .lm .k23-radar-blip{opacity:0!important}
+  html .lm .k23-radar-blip:first-of-type{opacity:.9!important;transform:rotate(40deg) translateY(-34px) rotate(90deg)!important}
   html .lm .k24-van{display:none}
   html .lm .k23-pass-sign-n,html .lm .k24-sign-name{transition:none!important;transform:none!important;filter:none!important}
   html .lm .k23-foam{display:none}

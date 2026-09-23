@@ -124,7 +124,7 @@
   }
 
   /* ------------------------------------------------------------------
-     3. ARRIVAL JOURNEY — plane → van → lobby along a scrubbed path
+     3. ARRIVAL JOURNEY — plane → van → hotel along a scrubbed path
      ------------------------------------------------------------------ */
   var jLen = 0, jPathRef = null;
   function journeyUpdate() {
@@ -142,7 +142,7 @@
         var pt = base.getPointAtLength(jLen * pe);
         var pt2 = base.getPointAtLength(Math.min(jLen, jLen * pe + 2));
         var ang = Math.atan2(pt2.y - pt.y, pt2.x - pt.x) * 180 / Math.PI;
-        var mode = pe < .36 ? "plane" : (pe < .9 ? "van" : "bell");
+        var mode = pe < .36 ? "plane" : (pe < .9 ? "van" : "hotel");
         trav.setAttribute("transform", "translate(" + pt.x.toFixed(1) + " " + (pt.y - (mode === "plane" ? 6 : 0)).toFixed(1) + ")");
         trav.setAttribute("data-mode", mode);
         var inner = $(".k23-tv-plane", trav);

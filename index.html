@@ -64,7 +64,7 @@ image-slot::part(image){touch-action:pan-x pan-y!important;-webkit-user-drag:non
 <link rel="preload" as="font" type="font/woff2" href="assets/fonts/figtree-latin-wght-normal.woff2" crossorigin>
 <link rel="stylesheet" href="assets/fonts/karun-fonts.css?v=23">
 <link rel="stylesheet" href="assets/karun-beach.css?v=23">
-<link rel="stylesheet" href="assets/karun-v23.css?v=26">
+<link rel="stylesheet" href="assets/karun-v23.css?v=27">
 <link rel="stylesheet" href="assets/karun-v25-destinos.css?v=25">
 <script src="./support.js"></script>
 </head>
@@ -480,7 +480,7 @@ image-slot::part(image){touch-action:pan-x pan-y!important;-webkit-user-drag:non
               <circle r="24" class="k23-traveler-halo"/>
               <g class="k23-tv k23-tv-plane"><path d="M-14 -2 L10 -2 L16 0 L10 2 L-14 2 Z M6 -2 L0 -12 L-4 -12 L-1 -2 Z M6 2 L0 12 L-4 12 L-1 2 Z M-14 -2 L-18 -7 L-15 -7 L-11 -2 Z M-14 2 L-18 7 L-15 7 L-11 2Z"/></g>
               <g class="k23-tv k23-tv-van"><path d="M-17 -8 H6 L14 -1 V7 H-17 Z"/><circle cx="-9" cy="8" r="3.4" class="k23-wheel"/><circle cx="7" cy="8" r="3.4" class="k23-wheel"/><path d="M-13 -5 H-5 V-1 H-13Z M-3 -5 H4 L8 -1 H-3Z" class="k23-glass"/></g>
-              <g class="k23-tv k23-tv-bell"><path d="M-12 6 H12 M-9 4 A9 9 0 0 1 9 4 Z M0 -7 V-5"/></g>
+              <g class="k23-tv k23-tv-hotel"><path d="M-11 10 H11 M-10 10 V-7 H10 V10 M-3 10 V2 H3 V10 M-7 -4 H-3 V0 H-7 Z M3 -4 H7 V0 H3 Z M-7 2 H-3 V6 H-7 Z M3 2 H7 V6 H3 Z M0 -7 V-12 M-3.5 -12 H3.5"/></g>
             </g>
           </svg>
           <ol class="k23-stops">
@@ -539,7 +539,7 @@ image-slot::part(image){touch-action:pan-x pan-y!important;-webkit-user-drag:non
               <svg class="k23-ch-ic" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="24" cy="24" r="17"/><circle cx="24" cy="24" r="10" stroke-dasharray="3 4"/><path d="M24 24 36 12"/><path d="M33 9l6 0 0 6"/></svg>
               <h3 class="disp"><span class="l-en">Live flight tracking</span><span class="l-es">Seguimiento de vuelo</span></h3>
               <p><span class="l-en">Give us your flight number and we time the pickup to your real landing — early or late, we adjust.</span><span class="l-es">Danos tu número de vuelo y ajustamos la recogida a tu aterrizaje real — si llegas antes o después, nos adaptamos.</span></p>
-              <div class="k23-ch-radar" aria-hidden="true"><span></span><span></span><span></span><i></i></div>
+              <div class="k23-ch-radar" aria-hidden="true"><span></span><span></span><span></span><i></i><b class="k23-radar-blip" style="--a:40deg;--r:34px;--h:130deg;--d:0s"><svg viewBox="-20 -14 40 28" aria-hidden="true"><path d="M-14 -2 L10 -2 L16 0 L10 2 L-14 2 Z M6 -2 L0 -12 L-4 -12 L-1 -2 Z M6 2 L0 12 L-4 12 L-1 2 Z M-14 -2 L-18 -7 L-15 -7 L-11 -2 Z M-14 2 L-18 7 L-15 7 L-11 2Z"/></svg></b><b class="k23-radar-blip" style="--a:130deg;--r:38px;--h:220deg;--d:0.85s"><svg viewBox="-20 -14 40 28" aria-hidden="true"><path d="M-14 -2 L10 -2 L16 0 L10 2 L-14 2 Z M6 -2 L0 -12 L-4 -12 L-1 -2 Z M6 2 L0 12 L-4 12 L-1 2 Z M-14 -2 L-18 -7 L-15 -7 L-11 -2 Z M-14 2 L-18 7 L-15 7 L-11 2Z"/></svg></b><b class="k23-radar-blip" style="--a:220deg;--r:30px;--h:310deg;--d:1.7s"><svg viewBox="-20 -14 40 28" aria-hidden="true"><path d="M-14 -2 L10 -2 L16 0 L10 2 L-14 2 Z M6 -2 L0 -12 L-4 -12 L-1 -2 Z M6 2 L0 12 L-4 12 L-1 2 Z M-14 -2 L-18 -7 L-15 -7 L-11 -2 Z M-14 2 L-18 7 L-15 7 L-11 2Z"/></svg></b><b class="k23-radar-blip" style="--a:310deg;--r:36px;--h:40deg;--d:2.55s"><svg viewBox="-20 -14 40 28" aria-hidden="true"><path d="M-14 -2 L10 -2 L16 0 L10 2 L-14 2 Z M6 -2 L0 -12 L-4 -12 L-1 -2 Z M6 2 L0 12 L-4 12 L-1 2 Z M-14 -2 L-18 -7 L-15 -7 L-11 -2 Z M-14 2 L-18 7 L-15 7 L-11 2Z"/></svg></b></div>
               <ul class="k23-ch-tags"><li><span class="l-en">Pickup follows your flight</span><span class="l-es">Recogida según tu vuelo</span></li><li><span class="l-en">Any airline</span><span class="l-es">Cualquier aerolínea</span></li></ul>
             </div>
           </article>
@@ -639,13 +639,12 @@ image-slot::part(image){touch-action:pan-x pan-y!important;-webkit-user-drag:non
 
       <div class="k23-showroom" data-sel="starex">
         <div class="k23-unit-tabs" role="tablist" aria-label="Vehículos">
-          <button type="button" class="k23-tab" role="tab" data-k23-unit="starex" aria-controls="k23-unit-starex"><span class="k23-tab-img"><img src="assets/fleet/starex.jpg" alt="" loading="lazy" decoding="async"></span><span class="k23-tab-tx"><b>Grand Starex</b><small>1–6 pax · 2021</small></span><span class="k23-tab-cls" data-cls="starex">Starex</span></button><button type="button" class="k23-tab" role="tab" data-k23-unit="hiace" aria-controls="k23-unit-hiace"><span class="k23-tab-img"><img src="assets/fleet/hiace-2019.jpg" alt="" loading="lazy" decoding="async"></span><span class="k23-tab-tx"><b>Toyota Hiace</b><small>7–10 pax · 2019</small></span><span class="k23-tab-cls" data-cls="hiace">Hiace</span></button><button type="button" class="k23-tab" role="tab" data-k23-unit="solati" aria-controls="k23-unit-solati"><span class="k23-tab-img"><img src="assets/fleet/solati-2014.jpg" alt="" loading="lazy" decoding="async"></span><span class="k23-tab-tx"><b>Hyundai Solati</b><small>7–10 pax · 2014</small></span><span class="k23-tab-cls" data-cls="hiace">Hiace</span></button><button type="button" class="k23-tab" role="tab" data-k23-unit="suburban" aria-controls="k23-unit-suburban"><span class="k23-tab-img"><img src="assets/fleet/suburban-lwb-2020.jpg" alt="" loading="lazy" decoding="async"></span><span class="k23-tab-tx"><b>Suburban LWB</b><small>1–4 pax · 2020</small></span><span class="k23-tab-cls" data-cls="suburban">Suburban</span></button><button type="button" class="k23-tab" role="tab" data-k23-unit="cadillac" aria-controls="k23-unit-cadillac"><span class="k23-tab-img"><img src="assets/fleet/escalade-2020.jpg" alt="" loading="lazy" decoding="async"></span><span class="k23-tab-tx"><b>Escalade</b><small>1–4 pax · 2020</small></span><span class="k23-tab-cls" data-cls="cadillac">Cadillac</span></button>
+          <button type="button" class="k23-tab" role="tab" data-k23-unit="starex" aria-controls="k23-unit-starex"><span class="k23-tab-img"><img src="assets/fleet/starex.jpg" alt="" loading="lazy" decoding="async"></span><span class="k23-tab-tx"><b>Grand Starex</b><small>1–6 pax</small></span><span class="k23-tab-cls" data-cls="starex">Starex</span></button><button type="button" class="k23-tab" role="tab" data-k23-unit="hiace" aria-controls="k23-unit-hiace"><span class="k23-tab-img"><img src="assets/fleet/hiace-2019.jpg" alt="" loading="lazy" decoding="async"></span><span class="k23-tab-tx"><b>Toyota Hiace</b><small>7–10 pax</small></span><span class="k23-tab-cls" data-cls="hiace">Hiace</span></button><button type="button" class="k23-tab" role="tab" data-k23-unit="solati" aria-controls="k23-unit-solati"><span class="k23-tab-img"><img src="assets/fleet/solati-2014.jpg" alt="" loading="lazy" decoding="async"></span><span class="k23-tab-tx"><b>Hyundai Solati</b><small>7–10 pax</small></span><span class="k23-tab-cls" data-cls="hiace">Hiace</span></button><button type="button" class="k23-tab" role="tab" data-k23-unit="suburban" aria-controls="k23-unit-suburban"><span class="k23-tab-img"><img src="assets/fleet/suburban-lwb-2020.jpg" alt="" loading="lazy" decoding="async"></span><span class="k23-tab-tx"><b>Suburban LWB</b><small>1–4 pax</small></span><span class="k23-tab-cls" data-cls="suburban">Suburban</span></button><button type="button" class="k23-tab" role="tab" data-k23-unit="cadillac" aria-controls="k23-unit-cadillac"><span class="k23-tab-img"><img src="assets/fleet/escalade-2020.jpg" alt="" loading="lazy" decoding="async"></span><span class="k23-tab-tx"><b>Escalade</b><small>1–4 pax</small></span><span class="k23-tab-cls" data-cls="cadillac">Cadillac</span></button>
         </div>
         <div class="k23-stage">
           <article class="k23-unit" data-unit="starex" id="k23-unit-starex" role="tabpanel" data-vehicle="Hyundai Grand Starex">
             <div class="k23-unit-photo">
               <img src="assets/fleet/starex.jpg" alt="Hyundai Grand Starex — foto referencial" width="1280" height="828" loading="lazy" decoding="async">
-              <span class="k23-unit-year">2021</span>
               <span class="krn-fleet-badge"><span class="l-en">Referential photo · client photo pending</span><span class="l-es">Foto referencial · foto del cliente pendiente</span></span>
             </div>
             <div class="k23-unit-info">
@@ -666,7 +665,6 @@ image-slot::part(image){touch-action:pan-x pan-y!important;-webkit-user-drag:non
           <article class="k23-unit" data-unit="hiace" id="k23-unit-hiace" role="tabpanel" data-vehicle="Toyota Hiace">
             <div class="k23-unit-photo">
               <img src="assets/fleet/hiace-2019.jpg" alt="Toyota Hiace — foto referencial" width="1280" height="960" loading="lazy" decoding="async">
-              <span class="k23-unit-year">2019</span>
               <span class="krn-fleet-badge"><span class="l-en">Referential photo · client photo pending</span><span class="l-es">Foto referencial · foto del cliente pendiente</span></span>
             </div>
             <div class="k23-unit-info">
@@ -680,14 +678,13 @@ image-slot::part(image){touch-action:pan-x pan-y!important;-webkit-user-drag:non
               </div>
               <div class="k23-unit-foot">
                 <div class="krn-from" data-krn-from="hiace"></div>
-                <button class="btn" data-krn-quote="Toyota Hiace 2019" data-magnetic="1"><span class="l-en">Quote this vehicle</span><span class="l-es">Cotizar esta unidad</span> →</button>
+                <button class="btn" data-krn-quote="Toyota Hiace" data-magnetic="1"><span class="l-en">Quote this vehicle</span><span class="l-es">Cotizar esta unidad</span> →</button>
               </div>
             </div>
           </article>
           <article class="k23-unit" data-unit="solati" id="k23-unit-solati" role="tabpanel" data-vehicle="Hyundai Solati">
             <div class="k23-unit-photo">
               <img src="assets/fleet/solati-2014.jpg" alt="Hyundai Solati — foto referencial" width="1280" height="853" loading="lazy" decoding="async">
-              <span class="k23-unit-year">2014</span>
               <span class="krn-fleet-badge"><span class="l-en">Referential photo · client photo pending</span><span class="l-es">Foto referencial · foto del cliente pendiente</span></span>
             </div>
             <div class="k23-unit-info">
@@ -701,14 +698,13 @@ image-slot::part(image){touch-action:pan-x pan-y!important;-webkit-user-drag:non
               </div>
               <div class="k23-unit-foot">
                 <div class="krn-from" data-krn-from="hiace"></div>
-                <button class="btn" data-krn-quote="Hyundai Solati 2014" data-magnetic="1"><span class="l-en">Quote this vehicle</span><span class="l-es">Cotizar esta unidad</span> →</button>
+                <button class="btn" data-krn-quote="Hyundai Solati" data-magnetic="1"><span class="l-en">Quote this vehicle</span><span class="l-es">Cotizar esta unidad</span> →</button>
               </div>
             </div>
           </article>
           <article class="k23-unit" data-unit="suburban" id="k23-unit-suburban" role="tabpanel" data-vehicle="Chevrolet Suburban LWB">
             <div class="k23-unit-photo">
               <img src="assets/fleet/suburban-lwb-2020.jpg" alt="Chevrolet Suburban LWB — foto referencial" width="1280" height="960" loading="lazy" decoding="async">
-              <span class="k23-unit-year">2020</span>
               <span class="krn-fleet-badge"><span class="l-en">Referential photo · client photo pending</span><span class="l-es">Foto referencial · foto del cliente pendiente</span></span>
             </div>
             <div class="k23-unit-info">
@@ -722,14 +718,13 @@ image-slot::part(image){touch-action:pan-x pan-y!important;-webkit-user-drag:non
               </div>
               <div class="k23-unit-foot">
                 <div class="krn-from" data-krn-from="suburban"></div>
-                <button class="btn" data-krn-quote="Chevrolet Suburban LWB 2020" data-magnetic="1"><span class="l-en">Quote this vehicle</span><span class="l-es">Cotizar esta unidad</span> →</button>
+                <button class="btn" data-krn-quote="Chevrolet Suburban LWB" data-magnetic="1"><span class="l-en">Quote this vehicle</span><span class="l-es">Cotizar esta unidad</span> →</button>
               </div>
             </div>
           </article>
-          <article class="k23-unit" data-unit="cadillac" id="k23-unit-cadillac" role="tabpanel" data-vehicle="Cadillac Escalade 2020">
+          <article class="k23-unit" data-unit="cadillac" id="k23-unit-cadillac" role="tabpanel" data-vehicle="Cadillac Escalade">
             <div class="k23-unit-photo">
               <img src="assets/fleet/escalade-2020.jpg" alt="Cadillac Escalade — foto referencial" width="1600" height="1069" loading="lazy" decoding="async">
-              <span class="k23-unit-year">2020</span>
               <span class="krn-fleet-badge"><span class="l-en">Referential photo · client photo pending</span><span class="l-es">Foto referencial · foto del cliente pendiente</span></span>
             </div>
             <div class="k23-unit-info">
@@ -743,7 +738,7 @@ image-slot::part(image){touch-action:pan-x pan-y!important;-webkit-user-drag:non
               </div>
               <div class="k23-unit-foot">
                 <div class="krn-from" data-krn-from="cadillac"></div>
-                <button class="btn" data-krn-quote="Cadillac Escalade 2020" data-magnetic="1"><span class="l-en">Quote this vehicle</span><span class="l-es">Cotizar esta unidad</span> →</button>
+                <button class="btn" data-krn-quote="Cadillac Escalade" data-magnetic="1"><span class="l-en">Quote this vehicle</span><span class="l-es">Cotizar esta unidad</span> →</button>
               </div>
             </div>
           </article>
@@ -1942,7 +1937,7 @@ class Component extends DCLogic {
 </script>
 <script src="./assets/tarifario.data.js?v=23" defer></script>
 <script src="./karun-wizard.js?v=25" defer></script>
-<script src="./assets/karun-v23.js?v=28" defer></script>
+<script src="./assets/karun-v23.js?v=29" defer></script>
 <script src="./assets/karun-v25-destinos.js?v=25" defer></script>
 </body>
 </html>
